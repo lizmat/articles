@@ -47,7 +47,8 @@ reference counting can provide that.
 
 However, reference counting has several drawbacks.  It has taken Perl 5
 core developers *many* years to get all of the reference counting working
-correctly.  And if you're working in `XS`, the reference counting is
+correctly.  And if you're working in
+[XS](https://en.wikipedia.org/wiki/XS_(Perl)), the reference counting is
 something you always need to be aware of to prevent memory leakage, or to
 prevent premature destruction.
 
@@ -135,4 +136,11 @@ If you would like to have an external resource cleanup whenever a specific
     }
 
 Whenever the scope of the `if` is left, any `LEAVE` phaser will get executed.
-And thus the database resource will be freed.
+And thus the database resource will be freed whenever the code has run in
+that scope.
+
+Conclusion
+----------
+Even though Perl 6 does not have the timely destruction of objects that
+users of Perl 5 are used to, it *does* have an easy to use alternative
+ways to ensure management of external resources, similar to those of Perl 5.
