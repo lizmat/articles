@@ -76,16 +76,38 @@ In Perl 6 you *can* create a `DESTROY` method, just as you can in Perl 5.
 But you *cannot* be sure when it will be called, if ever!
 
 Without getting into too much detail, objects in Perl 6 are destroyed only
-when a certain memory limit has been reached and a garbage collection run
-is initiated.  Only then, if an object has a `DESTROY` method, will it be
+when a garbage collection run is initiated, e.g. when a certain memory limit
+has been reached.  Only then, if an object has a `DESTROY` method, will it be
 called just prior to the object actually getting removed.
 
 No garbage collection is done by Perl 6 when a program exits.  Applicable
-phasers (such as `LEAVE` and `END`) *will* get called, but no garbage
-collection will be done, other then (indirectly) initiated by the code
-run in the phasers.
+[phasers](https://docs.perl6.org/language/phasers) (such as `LEAVE` and `END`)
+*will* get called, but no garbage collection will be done, other then
+(indirectly) initiated by the code run in the phasers.
 
 If you always need orderly shutdown of external resources used by your
-program (such as database handles), then you can use
-[phasers](https://docs.perl6.org/language/phasers) to make sure the external
-resources is freed up in a proper and timely manner.
+program (such as database handles), then you can use a phaser to make sure
+the external resource is freed up in a proper and timely manner.
+
+For example, you can use the `END` phaser (known as an `END` block in Perl 5)
+to disconnect properly from a database:
+
+    my $dbh = DBIish.connect( ... ) or die "Couldn't connect";
+    END $dbh.disconnect;
+
+Note that the `END` phaser does not need to have a block (aka `{ ... }`)
+in Perl 6.  If it doesn't, the code in the phaser shares the lexical pad
+with the surrounding code.
+
+There is only one flaw in the code above: if the program exits *before* the
+database connection was made, or if the database connection failed for
+whatever reason, it will *still* attempt to call the `.disconnect` method
+on whatever is in `$dbh`.  There is however a simple idiom to circumvent
+this situation in Perl 6:
+[with](https://docs.perl6.org/syntax/with%20orwith%20without).
+
+    END .disconnect with $dbh;
+
+The postfix `with` matches only if the given value is defined (generally,
+an instantiated object) and then topicalizes it to `$_`.  The `.disconnect`
+is short for `$_.disconnect`.
