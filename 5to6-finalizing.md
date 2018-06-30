@@ -35,7 +35,7 @@ In Perl 5, if the value is an object (aka `bless`ed), it will then get the
     {
         my $a = Foo->new;
     }
-    # $a.DESTROY called
+    # $a->DESTROY called
 
 If no external resources are involved, timely destruction is just another
 way of managing memory used by a program.  And you, as a programmer, shouldn't
