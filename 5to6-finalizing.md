@@ -144,5 +144,5 @@ that scope.
 Conclusion
 ----------
 Even though Perl 6 does not have the timely destruction of objects that
-users of Perl 5 are used to, it *does* have an easy to use alternative
-ways to ensure management of external resources, similar to those of Perl 5.
+users of Perl 5 are used to, it *does* have easy to use alternative ways to
+ensure management of external resources, similar to those of Perl 5.
