@@ -59,9 +59,9 @@ resources not being released).  To circumvent that, some kind of locking or
 atomic updates would be needed, neither of which are cheap.
 
 > Please note that Perl 5 ithreads are more like an in-memory fork
-> with unshared memory between interpreters, than threads such as
-> available in programming languages such as C.  So it still doesn't
-> need to have any locking for its reference counting.
+> with unshared memory between interpreters, than threads as available in
+> programming languages such as C.  So it still doesn't need to have any
+> locking for its reference counting.
 
 Reference counting also has the basic drawback that if two objects contain
 references to each other, they will never be destroyed as they keep each
@@ -72,7 +72,9 @@ all keeping each other alive.
 To circumvent these situations in Perl 5, the concept of *weak reference*
 was developed.  Although this can fix the circular reference issue, it
 has its performance implications, and doesn't fix the problem of having
-(and finding) circular references in the first place.
+(and finding) circular references in the first place.  You need to be able
+to find out *where* a weak reference can be used in the best way, otherwise
+one might get unwanted premature object destruction.
 
 Reachability Analysis
 ---------------------
