@@ -29,7 +29,7 @@ which keeps it alive.  In its simplest case it looks like this:
     }
     # lexical pad is gone, reference count to 0
 
-In Perl 5, if the value is an object (aka `bless`ed), it will then get the
+In Perl 5, if the value is an object (aka blessed), it will then get the
 `DESTROY` method called on it.
 
     {
@@ -142,8 +142,8 @@ Whenever the scope of the `if` is left, any `LEAVE` phaser will get executed.
 And thus the database resource will be freed whenever the code has run in
 that scope.
 
-Conclusion
-----------
+Summary
+-------
 Even though Perl 6 does not have the timely destruction of objects that
 users of Perl 5 are used to, it *does* have easy to use alternative ways to
 ensure management of external resources, similar to those of Perl 5.
