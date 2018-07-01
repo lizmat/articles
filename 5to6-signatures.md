@@ -4,7 +4,16 @@ Migrating Perl 5 code to Perl 6
 In this post I will be focussing more on (subroutine) signatures in Perl 6
 and how they differ from the situation in Perl 5.
 
-Part 2 - Signatures
+If you're migrating Perl 5 code to Perl 6, then most likely you are not
+using any of the experimental signature features that have become available
+in Perl 5 since 5.20.  Also, in my experience,
+[prototypes](https://metacpan.org/pod/perlsub#Prototypes) generally have had
+little usage in most Perl programs out in the world (aka
+[DarkPan](http://modernperlbooks.com/mt/2009/02/the-darkpan-dependency-management-and-support-problem.html).
+I will therefore only compare the Perl 6 functionality with the most common
+usage of Perl 5 argument passing and prototypes.
+
+Part 3 - Signatures
 ===================
 
 Conclusion
