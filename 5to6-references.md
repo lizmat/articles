@@ -6,7 +6,7 @@ in Perl 6.
 
 Part 2 - Containers
 ===================
-There are *no* references in Perl 6.  This revelation usually comes as quite
+There are **no** references in Perl 6.  This revelation usually comes as quite
 a shock to many people used to the semantics of references in Perl 5.  But
 worry not: because there are no references, you do not have to worry anymore
 whether something should be de-referenced or not!
@@ -28,9 +28,10 @@ and you bind a value to it, e.g.:
     my $foo := 42;
 
 Simply put, this creates a key with the name "`$foo`" in the lexpad (which
-you could consider a compile-time hash) and makes `42` its *literal* value.
+you could consider a compile-time hash that contains information about things
+that are visible in that lexical scope) and makes `42` its *literal* value.
 Because this is a literal constant, you cannot change it.  Trying to do so
-will cause an exception.
+will cause an exception.  So don't do that!
 
 Assignment
 ----------
@@ -44,6 +45,28 @@ with `56` as the value to be stored for the key "`$bar`".  In code, you can
 think of this as:
 
     my $bar := Scalar.new(56);
+
+Notice that the `Scalar` object is bound, not assigned.  The closest thing
+to this concept in Perl 5 is a [tied scalar](https://metacpan.org/pod/distribution/perl/pod/perltie.pod#Tying-Scalars).
+Conceptually, the `Scalar` object in Perl 6 has a `FETCH` (for producing the
+value in the object) and a `STORE` method (for changing the value in the
+object).  Suppose you later assign the value `768` to the `$bar` variable:
+
+    $bar = 768;
+
+What then happens is the equivalent of:
+
+    $bar.STORE(768);
+
+Suppose you want to add `20` to the value in `$bar`:
+
+    $bar = $bar + 20;
+
+What then happens is:
+
+    $bar.STORE( $bar.FETCH + 20 );
+
+
 
 Summary
 -------
