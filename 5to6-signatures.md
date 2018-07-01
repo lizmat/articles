@@ -16,8 +16,8 @@ usage of Perl 5 argument passing and prototypes.
 Part 3 - Signatures
 ===================
 
-Conclusion
-----------
+Summary
+-------
 Older versions of Perl 5 only have a so-called `prototype` to a subroutine.
 These could be seen as a sort of coercer in the Perl 6 context.  Perl 6 has
 a way of describing how parameters to *any* block should be taken and/or
