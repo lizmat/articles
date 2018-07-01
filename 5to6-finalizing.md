@@ -87,11 +87,12 @@ memory is needed *and* the object can be safely removed.
 In Perl 6 you *can* create a `DESTROY` method, just as you can in Perl 5.
 But you *cannot* be sure when it will be called, if ever!
 
-Without getting into too much detail, objects in Perl 6 are destroyed only
-when a garbage collection run is initiated, e.g. when a certain memory limit
-has been reached.  Only then, if an object cannot be reached anymore by other
-objects in memory *and* it has a `DESTROY` method, will that be called just
-prior to the object actually getting removed.
+Without getting into [too much detail](https://github.com/MoarVM/MoarVM/blob/master/docs/gc.markdown),
+objects in Perl 6 are destroyed only when a garbage collection run is
+initiated, e.g. when a certain memory limit has been reached.  Only then, if
+an object cannot be reached anymore by other objects in memory *and* it has
+a `DESTROY` method, will that be called just prior to the object actually
+getting removed.
 
 No garbage collection is done by Perl 6 when a program exits.  Applicable
 [phasers](https://docs.perl6.org/language/phasers) (such as `LEAVE` and `END`)
