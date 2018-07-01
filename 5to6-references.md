@@ -44,9 +44,9 @@ But insteading of binding the value, a `Scalar` object is created internally
 with `56` as the value to be stored for the key "`$bar`".  In code, you can
 think of this as:
 
-    my $bar := Scalar.new(56);
+    my $bar := Scalar.new( value => 56 );
 
-Notice that the `Scalar` object is bound, not assigned.  The closest thing
+Notice that the `Scalar` object is **bound**, not assigned.  The closest thing
 to this concept in Perl 5 is a [tied scalar](https://metacpan.org/pod/distribution/perl/pod/perltie.pod#Tying-Scalars).
 Conceptually, the `Scalar` object in Perl 6 has a `FETCH` (for producing the
 value in the object) and a `STORE` method (for changing the value in the
@@ -66,7 +66,8 @@ What then happens is:
 
     $bar.STORE( $bar.FETCH + 20 );
 
-
+Apart from the value, a [Scalar](https://docs.perl6.org/type/Scalar) also
+contains information such as the type constraint and default value.
 
 Summary
 -------
