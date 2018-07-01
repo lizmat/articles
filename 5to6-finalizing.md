@@ -10,7 +10,7 @@ in-depth about specific issues.
 
 Part 1 - Garbage Collection
 ===========================
-There is *no* timely destruction of objects in Perl 6.  This revelation
+There is **no** timely destruction of objects in Perl 6.  This revelation
 usually comes as quite a shock to many people used to the semantics of
 object destruction in Perl 5.  But worry not, there are other ways in Perl 6
 to get the same behaviour, albeit requiring a little more thought by the
