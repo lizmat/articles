@@ -39,7 +39,7 @@ introduction to Perl 6 in their native language.
 Using Perl 5 features in Perl 6
 -------------------------------
 Perl 5 code can be seamlessly integrated with Perl 6 using the
-[Inline::Perl5](http://modules.perl6.org/dist/Inline::Perl5:cpan:NINE) module.
+[`Inline::Perl5`](http://modules.perl6.org/dist/Inline::Perl5:cpan:NINE) module.
 One could consider this cheating, as it will embed a Perl 5 interpreter, and
 therefore continues to have a dependency on the `perl` (5) runtime.  But it
 *does* make it as easy as adding "`:from<Perl5>`" to your `use` statement,
@@ -56,10 +56,10 @@ Perl 6 the parameter is obligatory.
 
 More than 50 Perl 5 CPAN distributions have also been ported to Perl 6 while
 adhering to the original Perl 5 API.  These include core modules such as
-`[Scalar::Util](https://modules.perl6.org/dist/Scalar::Util)` and
-`[List::Util](https://modules.perl6.org/dist/List::Util)`, but also non-core
-modules such as `[Text::CSV](https://modules.perl6.org/dist/Text::CSV)` and
-`[Memoize](https://modules.perl6.org/dist/Memoize)`.
+[`Scalar::Util`](https://modules.perl6.org/dist/Scalar::Util) and
+[`List::Util`](https://modules.perl6.org/dist/List::Util), but also non-core
+modules such as [`Text::CSV`](https://modules.perl6.org/dist/Text::CSV) and
+[`Memoize`](https://modules.perl6.org/dist/Memoize).
 
 Summary
 -------
