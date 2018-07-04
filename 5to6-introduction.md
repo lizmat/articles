@@ -23,8 +23,8 @@ an order of magnitude speed improvement, and quite a few bug fixes (more
 than 14000 commits in total).  Eight books about Perl 6 have been published
 since then so far, with the "[Learning Perl 6](https://www.learningperl6.com)"
 by brian d foy to be published shortly by O'Reilly, re-worked from the seminal
-"[Learning Perl](https://www.amazon.com/Learning-Perl-Making-Things-Possible/dp/1491954329)"
-(aka the "Llama Book") which so many people have come to know and love.
+"[Learning Perl](http://shop.oreilly.com/product/0636920049517.do)" (aka the
+"Llama Book") which so many people have come to know and love.
 
 The user distribution "[Rakudo Star](https://rakudo.org/files)" is on a
 three-monthly release cycle, and more than 1100 modules are now available in
@@ -40,8 +40,8 @@ therefore continues to have a dependency on the `perl` (5) runtime.
 In January 2018, I proposed a
 [CPAN Butterfly Plan](https://www.perl.com/article/an-open-letter-to-the-perl-community/)
 to convert modules from Perl 5 to Perl 6 as closely as possible to the original
-API.  Since then, over 100 Perl 5 built-in functions are now supported on
-Perl 6.
+API.  Since then over 100 Perl 5 built-in functions are now supported on
+Perl 6, as well more than 50 modules have been ported using the same API.
 
 Summary
 -------
