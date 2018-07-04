@@ -53,11 +53,17 @@ access to modules that have not yet been ported.
 In January 2018, I proposed a
 [CPAN Butterfly Plan](https://www.perl.com/article/an-open-letter-to-the-perl-community/)
 to convert Perl 5 functionality to Perl 6 as closely as possible to the
-original API.  Since then over 100 Perl 5 built-in functions are now supported
-on Perl 6 with the same API.  Many functions already exist in Perl 6, but have
-slightly different semantics, e.g. `shift` in Perl 5 magically shifts from
-`@_` (or `@ARGV`) if no parameter is specified: in Perl 6 the parameter is
-obligatory.
+original API.  I stated this as a goal, because Perl 5 as a programming
+language, is so much more than syntax alone.  To be able to run Perl 5 code
+natively, one needs a lot of Perl 5 semantics as well.  And having (optional)
+support for Perl 5 semantics available in Perl 6, lowers the conceptual
+threshold that Perl 5 programmers perceive when trying to program in Perl 6.
+
+Since the publication of the CPAN Butterfly Plan, over 100 Perl 5 built-in
+functions are now supported in Perl 6 with the same API.  Many functions
+already exist in Perl 6, but have slightly different semantics, e.g. `shift`
+in Perl 5 magically shifts from `@_` (or `@ARGV`) if no parameter is specified:
+in Perl 6 the parameter is obligatory.
 
 More than 50 Perl 5 CPAN distributions have also been ported to Perl 6 while
 adhering to the original Perl 5 API.  These include core modules such as
