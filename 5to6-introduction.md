@@ -62,7 +62,9 @@ adhering to the original Perl 5 API.  These include core modules such as
 [`Scalar::Util`](https://modules.perl6.org/dist/Scalar::Util) and
 [`List::Util`](https://modules.perl6.org/dist/List::Util), but also non-core
 modules such as [`Text::CSV`](https://modules.perl6.org/dist/Text::CSV) and
-[`Memoize`](https://modules.perl6.org/dist/Memoize).
+[`Memoize`](https://modules.perl6.org/dist/Memoize).  Distributions that are
+upstream on the [River of CPAN](http://neilb.org/2015/04/20/river-of-cpan.html)
+are targeted as much as possible to have as much effect as possible.
 
 Summary
 -------
