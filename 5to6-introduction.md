@@ -78,4 +78,5 @@ are targeted as much as possible to have as much effect as possible.
 
 Summary
 -------
-Rakudo Perl 6 
+Rakudo Perl 6 has matured in such a way that using Perl 6 is now a viable
+approach to creating new interactive projects.
