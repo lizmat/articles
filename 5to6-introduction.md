@@ -56,8 +56,10 @@ Perl 6 the parameter is obligatory.
 
 More than 50 Perl 5 CPAN distributions have also been ported to Perl 6 while
 adhering to the original Perl 5 API.  These include core modules such as
-`Scalar::Util` and `List::Util`, but also non-core modules such as `Text::CSV`
-and `Memoize`.
+`[Scalar::Util](https://modules.perl6.org/dist/Scalar::Util)` and
+`[List::Util](https://modules.perl6.org/dist/List::Util)`, but also non-core
+modules such as `[Text::CSV](https://modules.perl6.org/dist/Text::CSV)` and
+`[Memoize](https://modules.perl6.org/dist/Memoize)`.
 
 Summary
 -------
