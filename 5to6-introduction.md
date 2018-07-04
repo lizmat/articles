@@ -21,9 +21,10 @@ How is Perl 6 anyway?
 Since its first official release in December 2015, Rakudo Perl 6 has seen
 an order of magnitude speed improvement, and quite a few bug fixes (more
 than 14000 commits in total).  Eight books about Perl 6 have been published
-since then so far, with the "Learning Perl 6" by brian d foy to be published
-shortly by O'Reilly (re-worked from the seminal "Learning Perl" which so many
-people have come to know and love).
+since then so far, with the "[Learning Perl 6](https://www.learningperl6.com)"
+by brian d foy to be published shortly by O'Reilly, re-worked from the seminal
+"[Learning Perl](https://www.amazon.com/Learning-Perl-Making-Things-Possible/dp/1491954329)"
+(aka the "Llama Book") which so many people have come to know and love.
 
 The user distribution "[Rakudo Star](https://rakudo.org/files)" is on a
 three-monthly release cycle, and more than 1100 modules are now available in
