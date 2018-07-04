@@ -20,7 +20,7 @@ How is Perl 6 anyway?
 ---------------------
 Since its first official release in December 2015, Rakudo Perl 6 has seen
 an order of magnitude speed improvement, and quite a few bug fixes (more
-than 14000 commits in total).  Eight books about Perl 6 have been published
+than 14000 commits in total).  Seven books about Perl 6 have been published
 since then so far.  "[Learning Perl 6](https://www.learningperl6.com)" by
 brian d foy is to be published shortly by O'Reilly, re-worked from the seminal
 "[Learning Perl](http://shop.oreilly.com/product/0636920049517.do)" (aka the
@@ -28,9 +28,11 @@ brian d foy is to be published shortly by O'Reilly, re-worked from the seminal
 
 The user distribution "[Rakudo Star](https://rakudo.org/files)" is on a
 three-monthly release cycle, and more than 1100 modules are now available in
-the [Perl 6 ecosystem](https://modules.perl6.org).  Perl 6 modules are now
-uploaded to [PAUSE](https://pause.perl.org/pause/query?ACTION=pause_04about)
-and distributed all over the world using the [CPAN](https://www.cpan.org).
+the [Perl 6 ecosystem](https://modules.perl6.org).  The Rakudo Compiler
+Release is on a monthly release cycle and typically contains contributions
+by more than 30 people.  Perl 6 modules are now uploaded to
+[PAUSE](https://pause.perl.org/pause/query?ACTION=pause_04about) and
+distributed all over the world using the [CPAN](https://www.cpan.org).
 
 The online [Introduction to Perl 6](https://perl6intro.com) has been
 translated to 12 languages, allowing over 3 billion people to get an
