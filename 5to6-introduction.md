@@ -38,7 +38,9 @@ The online [Introduction to Perl 6](https://perl6intro.com) has been
 translated to 12 languages, allowing over 3 billion people to get an
 introduction to Perl 6 in their native language.  The
 [Perl 6 Weekly](https://p6weekly.wordpress.com) reports on all things Perl 6
-every week, and has been doing so in this form for the past 4.5 years.
+every week, and has been doing so in this form for the past 4.5 years.  And
+a [Perl 6 IDE](https://commaide.com) is now in (paid) BETA, with a (free)
+Community Release planned for 2019.
 
 Using Perl 5 features in Perl 6
 -------------------------------
@@ -76,4 +78,4 @@ are targeted as much as possible to have as much effect as possible.
 
 Summary
 -------
-Rakudo Perl 6
+Rakudo Perl 6 
