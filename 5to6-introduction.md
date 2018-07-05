@@ -62,7 +62,7 @@ CPAN.  Therefore I think it's time to move from this view of the Perl universe:
 
 ![Dromecentric View](Dromecentric.png)
 
-to this view:
+to a more modern view:
 
 ![Cpannican View](Cpannican.png)
 
@@ -71,10 +71,11 @@ center.
 
 Converting Semantics
 --------------------
-Furthermore, to be able to run Perl 5 code natively, one needs a lot of 
-Perl 5 semantics as well.  And having (optional) support for Perl 5 semantics
-available in Perl 6, lowers the conceptual threshold that Perl 5 programmers
-perceive when trying to program in Perl 6.
+Furthermore, to be able to run Perl 5 code natively in Perl 6, one needs a
+lot of Perl 5 semantics as well.  And having (optional) support for Perl 5
+semantics available in Perl 6, lowers the conceptual threshold that Perl 5
+programmers perceive when trying to program in Perl 6.  It's easier to feel
+at home!
 
 Since the publication of the CPAN Butterfly Plan, over 100 Perl 5 built-in
 functions are now supported in Perl 6 with the same API.  Many functions
@@ -89,7 +90,7 @@ adhering to the original Perl 5 API.  These include core modules such as
 modules such as [`Text::CSV`](https://modules.perl6.org/dist/Text::CSV) and
 [`Memoize`](https://modules.perl6.org/dist/Memoize).  Distributions that are
 upstream on the [River of CPAN](http://neilb.org/2015/04/20/river-of-cpan.html)
-are targeted as much as possible to have as much effect as possible.
+are targeted to have as much effect on the ecosystem as possible.
 
 Summary
 -------
