@@ -56,14 +56,20 @@ In January 2018, I proposed a
 [CPAN Butterfly Plan](https://www.perl.com/article/an-open-letter-to-the-perl-community/)
 to convert Perl 5 functionality to Perl 6 as closely as possible to the
 original API.  I stated this as a goal, because Perl 5 as a programming
-language, is so much more than syntax alone.  To be able to run Perl 5 code
-natively, one needs a lot of Perl 5 semantics as well.  And having (optional)
-support for Perl 5 semantics available in Perl 6, lowers the conceptual
-threshold that Perl 5 programmers perceive when trying to program in Perl 6.
+language, is so much more than syntax alone.  Ask anyone what the unique
+selling point of Perl is, and they will most likely tell you that that is
+CPAN.  Therefore I think it's time to move from this view of the Perl universe:
 
 ![Dromecentric View](Dromecentric.png)
 
+to this view:
+
 ![Cpannican View](Cpannican.png)
+
+Furthermore, to be able to run Perl 5 code natively, one needs a lot of 
+Perl 5 semantics as well.  And having (optional) support for Perl 5 semantics
+available in Perl 6, lowers the conceptual threshold that Perl 5 programmers
+perceive when trying to program in Perl 6.
 
 Since the publication of the CPAN Butterfly Plan, over 100 Perl 5 built-in
 functions are now supported in Perl 6 with the same API.  Many functions
