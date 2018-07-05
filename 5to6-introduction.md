@@ -66,6 +66,11 @@ to this view:
 
 ![Cpannican View](Cpannican.png)
 
+In other words: put CPAN, as the most important element of Perl, in the
+center.
+
+Converting Semantics
+--------------------
 Furthermore, to be able to run Perl 5 code natively, one needs a lot of 
 Perl 5 semantics as well.  And having (optional) support for Perl 5 semantics
 available in Perl 6, lowers the conceptual threshold that Perl 5 programmers
