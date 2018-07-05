@@ -61,7 +61,7 @@ natively, one needs a lot of Perl 5 semantics as well.  And having (optional)
 support for Perl 5 semantics available in Perl 6, lowers the conceptual
 threshold that Perl 5 programmers perceive when trying to program in Perl 6.
 
-![Dromecentric View](Dromcentric.png)
+![Dromecentric View](Dromecentric.png)
 
 ![Cpannican View](Cpannican.png)
 
