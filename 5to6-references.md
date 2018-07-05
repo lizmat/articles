@@ -1,8 +1,8 @@
-Migrating Perl 5 code to Perl 6
+Migrating Perl 5 code to Perl 6
 ===============================
 
-In this post I will be focusing on how Perl 5 references are being handled
-in Perl 6.
+In this post I will be focusing on how Perl 5 references are being handled
+in Perl 6.
 
 Part 2 - Containers
 ===================
@@ -11,17 +11,17 @@ a shock to many people used to the semantics of references in Perl 5.  But
 worry not: because there are no references, you do not have to worry anymore
 whether something should be de-referenced or not!
 
-One could argue that *everything* in Perl 6 is a reference.  Coming from
-Perl 5 (where an object is a blessed reference) looking at Perl 6 where
+One could argue that *everything* in Perl 6 is a reference.  Coming from
+Perl 5 (where an object is a blessed reference) looking at Perl 6 where
 *everything* is an object (or can be considered as one), this would be a
 logical conclusion.  But that would not do justice to the actual situation
-in Perl 6, and would hinder you in understanding how things work in Perl 6.
+in Perl 6, and would hinder you in understanding how things work in Perl 6.
 Beware of [false friends](https://en.wikipedia.org/wiki/False_friend)!
 
 Binding
 -------
 Before we get to assignment, it is important to understand the concept of
-binding in Perl 6.  You can bind something explicitely to something else
+binding in Perl 6.  You can bind something explicitely to something else
 using the `:=` operator.  So what happens if you define a lexical variable
 and you bind a value to it, e.g.:
 
@@ -47,8 +47,8 @@ think of this as:
     my $bar := Scalar.new( value => 56 );
 
 Notice that the `Scalar` object is **bound**, not assigned.  The closest thing
-to this concept in Perl 5 is a [tied scalar](https://metacpan.org/pod/distribution/perl/pod/perltie.pod#Tying-Scalars).
-Conceptually, the `Scalar` object in Perl 6 has a `FETCH` (for producing the
+to this concept in Perl 5 is a [tied scalar](https://metacpan.org/pod/distribution/perl/pod/perltie.pod#Tying-Scalars).
+Conceptually, the `Scalar` object in Perl 6 has a `FETCH` (for producing the
 value in the object) and a `STORE` method (for changing the value in the
 object).  Suppose you later assign the value `768` to the `$bar` variable:
 
@@ -71,10 +71,10 @@ contains information such as the type constraint and default value.
 
 Summary
 -------
-Perl 6 differentiates between values and containers.  There are 2 types of
+Perl 6 differentiates between values and containers.  There are 2 types of
 container: [Scalar](https://docs.perl6.org/type/Scalar) and
 [Proxy](https://docs.perl6.org/type/Proxy) (which is much like a tied scalar
-in Perl 5).  Simply stated, a variable, as well as an element of a
+in Perl 5).  Simply stated, a variable, as well as an element of a
 [List](https://docs.perl6.org/type/List), 
 [Array](https://docs.perl6.org/type/Array) or
 [Hash](https://docs.perl6.org/type/Hash), is either a value (if it is
