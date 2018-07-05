@@ -79,4 +79,7 @@ are targeted as much as possible to have as much effect as possible.
 Summary
 -------
 Rakudo Perl 6 has matured in such a way that using Perl 6 is now a viable
-approach to creating new interactive projects.
+approach to creating new interactive projects.  Being able to use reliable
+and proven Perl 5 language components aids in lowering the threshold for
+developers to use Perl 6.  And it builds towards a situation where the sum
+of Perl 5 and Perl 6 becomes greater than its parts.
