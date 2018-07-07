@@ -1,28 +1,30 @@
 Migrating Perl 5 code to Perl 6
 ===============================
 
-In the coming weeks I will be writing a number of articles about issues you
-may encounter if you are a programmer who is programming / has programmed
-in Perl 5, and are taking your first steps in converting Perl 5 code to Perl 6.
-Or if you are simply interested in knowing about what you might encounter
-when trying to port Perl 5 programs to Perl 6.
+If you are a programmer who is programming / has programmed in Perl 5,
+and you are taking your first steps in converting Perl 5 code to Perl 6,
+you may encounter some issues.  Or if you are simply interested in knowing
+about what one might encounter when trying to port Perl 5 programs to Perl 6.
+In eiher case, this article is for you!
 
 The [Perl 6 documentation](https://docs.perl6.org/) already contains most, if
 not all
 [documentation that you need](https://docs.perl6.org/language/5to6-overview)
-to deal with all of the issues you will be confronted with in this quest.
-But as documentation goes, the focus is only on the factual differences.  In
-these articles I will try to go a little more in-depth about specific issues,
-give a little bit more of a hands-on experience.  Experience that I've gained
-while doing quite a bit of porting Perl 5 code to Perl 6 code myself.
+to deal with all of the issues you will be confronted with in the quest of
+migrating Perl 5 code to Perl 6.  But as documentation goes, the focus is
+only on the factual differences.  I will try to go a little more in-depth
+about specific issues, give a little bit more of a hands-on experience.
+Experience that I've gained while doing quite a bit of porting Perl 5 code
+to Perl 6 code myself.
 
 How is Perl 6 anyway?
 ---------------------
-Since its first official release in December 2015, Rakudo Perl 6 has seen
-an order of magnitude speed improvement, and quite a few bug fixes (more
-than 14000 commits in total).  Seven books about Perl 6 have been published
-since then so far.  "[Learning Perl 6](https://www.learningperl6.com)" by
-brian d foy is to be published shortly by O'Reilly, re-worked from the seminal
+Very well, thank you!  Since its first official release in December 2015,
+Rakudo Perl 6 has seen an order of magnitude speed improvement, and quite
+a few bug fixes (more than 14000 commits in total).  Seven books about
+Perl 6 have been published since then so far.
+"[Learning Perl 6](https://www.learningperl6.com)" by brian d foy is about
+to be published by O'Reilly, re-worked from the seminal
 "[Learning Perl](http://shop.oreilly.com/product/0636920049517.do)" (aka the
 "Llama Book") which so many people have come to know and love.
 
@@ -30,7 +32,7 @@ The user distribution "[Rakudo Star](https://rakudo.org/files)" is on a
 three-monthly release cycle, and more than 1100 modules are now available in
 the [Perl 6 ecosystem](https://modules.perl6.org).  The Rakudo Compiler
 Release is on a monthly release cycle and typically contains contributions
-by more than 30 people.  Perl 6 modules are now uploaded to
+by more than 30 people.  Perl 6 modules are now uploaded to the
 [PAUSE](https://pause.perl.org/pause/query?ACTION=pause_04about) and
 distributed all over the world using the [CPAN](https://www.cpan.org).
 
