@@ -5,7 +5,7 @@ If you are a programmer who is programming / has programmed in Perl 5,
 and you are taking your first steps in converting Perl 5 code to Perl 6,
 you may encounter some issues.  Or if you are simply interested in knowing
 about what one might encounter when trying to port Perl 5 programs to Perl 6.
-In eiher case, this article is for you!
+In either case, this article is for you!
 
 The [Perl 6 documentation](https://docs.perl6.org/) already contains most, if
 not all
