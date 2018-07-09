@@ -1,6 +1,6 @@
 Migrating Perl 5 code to Perl 6
 ===============================
-The first installment of the [series](5to6-introduction).
+The first installment of the [series](5to6-introduction.md).
 
 Part 1 - Garbage Collection
 ===========================
