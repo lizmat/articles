@@ -1,9 +1,8 @@
-Migrating Perl 5 code to Perl 6
-===============================
-The first installment of the [series](5to6-introduction.md).
+Garbage Collection in Perl 6
+============================
+The first installment of the
+[Migrating Perl 5 code to Perl 6 series](5to6-introduction.md).
 
-Part 1 - Garbage Collection
-===========================
 There is **no** timely destruction of objects in Perl 6.  This revelation
 usually comes as quite a shock to many people used to the semantics of
 object destruction in Perl 5.  But worry not, there are other ways in Perl 6
