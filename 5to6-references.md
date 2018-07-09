@@ -1,11 +1,9 @@
-Migrating Perl 5 code to Perl 6
-===============================
+Containers in Perl 6
+====================
+The second installment of the
+[Migrating Perl 5 code to Perl 6 series](5to6-introduction.md).  The first
+installment was about [garbage collection](5to6-finalizing.md).
 
-In this post I will be focusing on how Perl 5 references are being handled
-in Perl 6.
-
-Part 2 - Containers
-===================
 There are **no** references in Perl 6.  This revelation usually comes as quite
 a shock to many people used to the semantics of references in Perl 5.  But
 worry not: because there are no references, you do not have to worry anymore
