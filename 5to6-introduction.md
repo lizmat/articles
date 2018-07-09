@@ -53,12 +53,12 @@ Using Perl 5 features in Perl 6
 -------------------------------
 Perl 5 code can be seamlessly integrated with Perl 6 using the
 [`Inline::Perl5`](http://modules.perl6.org/dist/Inline::Perl5:cpan:NINE)
-module, making *all of CPAN* available to any Perl 6 program.  One could
-consider this cheating, as it will embed a Perl 5 interpreter, and therefore
-continues to have a dependency on the `perl` (5) runtime.  But it *does*
-make it as easy as adding "`:from<Perl5>`" to your `use` statement,
-like "`use DBI:from<Perl5>;`" to get your Perl 6 code running if you need
-access to modules that have not yet been ported.
+module, making *all of [CPAN](https://metacpan.org)* available to any Perl 6
+program.  One could consider this cheating, as it will embed a Perl 5
+interpreter, and therefore continues to have a dependency on the `perl` (5)
+runtime.  But it *does* make it as easy as adding "`:from<Perl5>`" to your
+`use` statement, like "`use DBI:from<Perl5>;`" to get your Perl 6 code running
+if you need access to modules that have not yet been ported.
 
 In January 2018, I proposed a
 [CPAN Butterfly Plan](https://www.perl.com/article/an-open-letter-to-the-perl-community/)
