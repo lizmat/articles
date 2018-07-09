@@ -42,7 +42,7 @@ introduction to Perl 6 in their native language.  The
 [Perl 6 Weekly](https://p6weekly.wordpress.com) reports on all things Perl 6
 every week, and has been doing so in this form for the past 4.5 years.
 
-[Cro, a micro-services framework](https://cro.services) uses all of the
+[Cro](https://cro.services), a micro-services framework uses all of the
 features of Perl 6 from the ground up, providing HTTP 1.1 persistent
 connections, HTTP 2.0 with request multiplexing and HTTPS with optional
 certificate authority out of the box.  And a [Perl 6 IDE](https://commaide.com)
@@ -52,10 +52,11 @@ deliverables).
 Using Perl 5 features in Perl 6
 -------------------------------
 Perl 5 code can be seamlessly integrated with Perl 6 using the
-[`Inline::Perl5`](http://modules.perl6.org/dist/Inline::Perl5:cpan:NINE) module.
-One could consider this cheating, as it will embed a Perl 5 interpreter, and
-therefore continues to have a dependency on the `perl` (5) runtime.  But it
-*does* make it as easy as adding "`:from<Perl5>`" to your `use` statement,
+[`Inline::Perl5`](http://modules.perl6.org/dist/Inline::Perl5:cpan:NINE)
+module, making *all of CPAN* available to any Perl 6 program.  One could
+consider this cheating, as it will embed a Perl 5 interpreter, and therefore
+continues to have a dependency on the `perl` (5) runtime.  But it *does*
+make it as easy as adding "`:from<Perl5>`" to your `use` statement,
 like "`use DBI:from<Perl5>;`" to get your Perl 6 code running if you need
 access to modules that have not yet been ported.
 
