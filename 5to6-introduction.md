@@ -40,9 +40,15 @@ The online [Introduction to Perl 6](https://perl6intro.com) has been
 translated to 12 languages, allowing over 3 billion people to get an
 introduction to Perl 6 in their native language.  The
 [Perl 6 Weekly](https://p6weekly.wordpress.com) reports on all things Perl 6
-every week, and has been doing so in this form for the past 4.5 years.  And
-a [Perl 6 IDE](https://commaide.com) is now in (paid) BETA, with a (free)
-Community Release planned for 2019.
+every week, and has been doing so in this form for the past 4.5 years.
+
+[Cro, a micro-services framework](https://cro.services) uses all of the
+features of Perl 6 from the ground up, providing HTTP 1.1 persistent
+connections, HTTP 2.0 with request multiplexing and HTTPS with optional
+certificate authority, out of the box.  A [Perl 6 IDE](https://commaide.com)
+is now in (paid) BETA, with a (free) Community Release planned for 2019.
+And an interactive debugger capable of monitoring multiple threads, is
+also available.
 
 Using Perl 5 features in Perl 6
 -------------------------------
