@@ -1,7 +1,7 @@
 Containers in Perl 6
 ====================
 The second installment of the
-[Migrating Perl 5 code to Perl 6 series](5to6-introduction.md).  The first
+[Migrating Perl 5 code to Perl 6](5to6-introduction.md) series.  The first
 installment was about [garbage collection and how timely destruction works in Perl 6](5to6-finalizing.md).
 
 There are **no** references in Perl 6.  This revelation usually comes as quite
