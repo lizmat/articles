@@ -90,9 +90,9 @@ Containers
 The `Scalar` container object is invisible for most operations in Perl 6.
 So most of the time you don't have to think about it.
 
-Whenever you call a subroutine with a variable as a parameter, it will bind
-to the value *in* the container.  And because you cannot assign to a value,
-you get:
+Whenever you call a subroutine (or a method) with a variable as an argument,
+it will bind to the value *in* the container.  And because you cannot assign
+to a value, you get:
 
     sub frobnicate($this) {
         $this = 42;
