@@ -15,13 +15,13 @@ worry not: because there are no references, you do not have to worry anymore
 whether something should be de-referenced or not!
 
     # Perl 5
-    my $foo = \@bar;   # $foo is a reference to @bar
+    my $foo = \@bar;   # $foo is a reference to @bar, must add reference \
     say @bar[1];       # no dereference needed
-    say $foo->[1];     # *must* dereference
+    say $foo->[1];     # must add dereference ->
 
     # Perl 6
     my $foo = @bar;    # $foo now contains @bar
-    say @bar[1];       # no dereference needed, note sigil does *not* change
+    say @bar[1];       # no dereference needed, note sigil does not change
     say $foo[1];       # no dereference needed either
 
 One could argue that *everything* in Perl 6 is a reference.  Coming from
