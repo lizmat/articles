@@ -63,7 +63,7 @@ often goes much deeper, more like `A -> B -> C -> A`, where A, B and C are
 all keeping each other alive.
 
 To circumvent these situations in Perl 5, the concept of *weak reference*
-was developed.  Although this can fix the circular reference issue, it
+was developed.  Although this *can* fix the circular reference issue, it
 has its performance implications, and doesn't fix the problem of having
 (and finding) circular references in the first place.  You need to be able
 to find out *where* a weak reference can be used in the best way, otherwise
