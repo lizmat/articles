@@ -1,7 +1,7 @@
 Garbage Collection in Perl 6
 ============================
 The first installment of the
-[Migrating Perl 5 code to Perl 6 series](5to6-introduction.md).
+[Migrating Perl 5 code to Perl 6](5to6-introduction.md) series.
 
 There is **no** timely destruction of objects in Perl 6.  This revelation
 usually comes as quite a shock to many people used to the semantics of
@@ -62,7 +62,7 @@ other's reference count above 0 (a circular reference).  In practice, this
 often goes much deeper, more like `A -> B -> C -> A`, where A, B and C are
 all keeping each other alive.
 
-To circumvent these situations in Perl 5, the concept of *weak reference*
+To circumvent these situations in Perl 5, the concept of a *weak reference*
 was developed.  Although this *can* fix the circular reference issue, it
 has its performance implications, and doesn't fix the problem of having
 (and finding) circular references in the first place.  You need to be able
