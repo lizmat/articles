@@ -160,16 +160,16 @@ example:
     my Int $baz is default(42) = 666;
 
 creates a Scalar bound with the name "`$baz`" to the lexpad, constrains the
-values in that container to values that smartmatch with `Int`, sets the
-default value of the container to `42` and puts the value `666` in the
-container.  Assigning `Nil` to that variable will reset it to the default
+values in that container to types that successfully smartmatch with `Int`,
+sets the default value of the container to `42` and puts the value `666` in
+the container.  Assigning `Nil` to that variable will reset it to the default
 value:
 
     say $baz;   # 666
     $baz = Nil;
     say $baz;   # 42
 
-Assigning a string to that variable will fail:
+Assigning a string to that variable will fail because of the type constraint:
 
     $baz = "foo";
     # Type check failed in assignment to $baz; expected Int but got Str ("foo")
