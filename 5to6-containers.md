@@ -4,8 +4,8 @@ The second installment of the
 [Migrating Perl 5 code to Perl 6](5to6-introduction.md) series.  The first
 installment was about [garbage collection and how timely destruction works in Perl 6](5to6-finalizing.md).
 
-No references
--------------
+References
+----------
 There are **no** references in Perl 6.  This revelation usually comes as quite
 a shock to many people used to the semantics of references in Perl 5.  But
 worry not: because there are no references, you do not have to worry anymore
