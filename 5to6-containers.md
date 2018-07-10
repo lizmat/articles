@@ -4,6 +4,9 @@ The second installment of the
 [Migrating Perl 5 code to Perl 6](5to6-introduction.md) series.  The first
 installment was about [garbage collection and how timely destruction works in Perl 6](5to6-finalizing.md).
 
+In this installment I'm going to focus on references in Perl 5, and how they
+are handled in Perl 6, introducing the concepts of binding and containers.
+
 References
 ----------
 There are **no** references in Perl 6.  This revelation usually comes as quite
