@@ -15,7 +15,7 @@ worry not: because there are no references, you do not have to worry anymore
 whether something should be de-referenced or not!
 
     # Perl 5
-    my $foo = \@bar;   # $foo is a reference to @bar, must add reference \
+    my $foo = \@bar;   # must add reference \ to make $foo a reference to @bar
     say @bar[1];       # no dereference needed
     say $foo->[1];     # must add dereference ->
 
@@ -46,6 +46,18 @@ that are visible in that lexical scope) and makes `42` its *literal* value.
 Because this is a literal constant, you cannot change it.  Trying to do so
 will cause an exception.  So don't do that!
 
+This binding operation is used under the hood when iterating:
+
+    my @a = 0..9;    # can also be written as ^10
+    say @a;          # [0 1 2 3 4 5 6 7 8 9]
+    for @a { $_++ }  # $_ is bound to each array element and incremented
+    say @a;          # [1 2 3 4 5 6 7 8 9 10]
+
+If you try to iterate over a constant list, then `$_` is bound to the values
+in turn, which you can **not** increment:
+
+    for 0..9 { $_++ }  # requires mutable arguments
+
 Assignment
 ----------
 Compare this to creating a lexical variable and *assigning* to it in Perl 6:
@@ -53,8 +65,8 @@ Compare this to creating a lexical variable and *assigning* to it in Perl 6:
     my $bar = 56;
 
 This *also* creates a key, this time with the name "`$bar`" in the lexpad.
-But insteading of directly binding the value to that lexpad entry, a
-container (a `Scalar` object) is created internally and *that* is bound to
+But instead of directly binding the value to that lexpad entry, a
+container (a `Scalar` object) is created for you and *that* is bound to
 the lexpad entry of "`$bar`".  And then `56` is stored as the value in that
 container.  In code, you can *think* of this as:
 
@@ -64,6 +76,9 @@ Notice that the `Scalar` object is **bound**, not assigned.  The closest
 thing to this in Perl 5 is a
 [tied scalar](https://metacpan.org/pod/distribution/perl/pod/perltie.pod#Tying-Scalars).
 But of course just "`= 56`" is much less to type!
+
+The `Scalar` container object is invisible for most operations in Perl 6.
+So most of the time you don't have to think about it.
 
 Conceptually, the `Scalar` object in Perl 6 has a `FETCH` (for producing the
 value in the object) and a `STORE` method (for changing the value in the
@@ -102,19 +117,21 @@ to it:
 Note that you will need an extra variable to actually keep the value stored
 in such a container.
 
+Constraints and Default
+-----------------------
 Apart from the value, a [Scalar](https://docs.perl6.org/type/Scalar) also
 contains information such as the type constraint and default value.  For
 example:
 
     my Int $baz is default(42) = 666;
-    say $baz;   # 666
 
-creates a Scalar bound with the name "`$baz`" in the lexpad, constraints the
+creates a Scalar bound with the name "`$baz`" to the lexpad, constrains the
 values in that container to values that smartmatch with `Int`, sets the
 default value of the container to `42` and puts the value `666` in the
 container.  Assigning `Nil` to that variable will reset it to the default
 value:
 
+    say $baz;   # 666
     $baz = Nil;
     say $baz;   # 42
 
