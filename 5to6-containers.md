@@ -21,7 +21,7 @@ whether something should be de-referenced or not!
 
     # Perl 6
     my $foo = @bar;    # $foo now contains @bar
-    say @bar[1];       # no dereference needed, note sigil does not change
+    say @bar[1];       # no dereference needed, note: sigil does not change
     say $foo[1];       # no dereference needed either
 
 One could argue that *everything* in Perl 6 is a reference.  Coming from
@@ -46,7 +46,8 @@ that are visible in that lexical scope) and makes `42` its *literal* value.
 Because this is a literal constant, you cannot change it.  Trying to do so
 will cause an exception.  So don't do that!
 
-This binding operation is used under the hood when iterating:
+This binding operation is used under the hood in many situations, for
+instance when iterating:
 
     my @a = 0..9;    # can also be written as ^10
     say @a;          # [0 1 2 3 4 5 6 7 8 9]
@@ -56,19 +57,20 @@ This binding operation is used under the hood when iterating:
 If you try to iterate over a constant list, then `$_` is bound to the values
 in turn, which you can **not** increment:
 
-    for 0..9 { $_++ }  # requires mutable arguments
+    for 0..9 { $_++ }  # error: requires mutable arguments
 
 Assignment
 ----------
-Compare this to creating a lexical variable and *assigning* to it in Perl 6:
+If you compare creating a lexical variable and *assigning* to it between
+Perl 5 and Perl 6, then it looks the same on the outside:
 
-    my $bar = 56;
+    my $bar = 56;  # both Perl 5 and Perl 6
 
-This *also* creates a key, this time with the name "`$bar`" in the lexpad.
-But instead of directly binding the value to that lexpad entry, a
-container (a `Scalar` object) is created for you and *that* is bound to
-the lexpad entry of "`$bar`".  And then `56` is stored as the value in that
-container.  In code, you can *think* of this as:
+In Perl 6 this *also* creates a key with the name "`$bar`" in the lexpad.
+But instead of directly binding the value to that lexpad entry, a *container*
+(a `Scalar` object) is created for you and *that* is bound to the lexpad
+entry of "`$bar`".  And then `56` is stored as the value in that container.
+In pseudo-code, you can *think* of this as:
 
     my $bar := Scalar.new( value => 56 );
 
@@ -77,9 +79,41 @@ thing to this in Perl 5 is a
 [tied scalar](https://metacpan.org/pod/distribution/perl/pod/perltie.pod#Tying-Scalars).
 But of course just "`= 56`" is much less to type!
 
+Data structures such as `Array` and `Hash` also automatically put values in
+containers bound to the structure.
+
+    my @a;       # empty Array
+    @a[5] = 42;  # bind a Scalar container to 6th element and put 42 in it
+
+Containers
+----------
 The `Scalar` container object is invisible for most operations in Perl 6.
 So most of the time you don't have to think about it.
 
+Whenever you call a subroutine with a variable as a parameter, it will bind
+to the value *in* the container.  And because you cannot assign to a value,
+you get:
+
+    sub frobnicate($this) {
+        $this = 42;
+    }
+    my $foo = 666;
+    frobnicate($foo); # Cannot assign to a readonly variable or a value
+
+If you want to allow assigning to the outer value, you can add the `is rw`
+trait to the variable in the signature.  This will bind the variable in the
+signature to the *container* of the variable specified, thus allowing
+assignment:
+
+    sub oknicate($this is rw) {
+        $this = 42;
+    }
+    my $foo = 666;
+    oknicate($foo); # no problem
+    say $foo;       # 42
+
+Proxy
+-----
 Conceptually, the `Scalar` object in Perl 6 has a `FETCH` (for producing the
 value in the object) and a `STORE` method (for changing the value in the
 object), just like a tied scalar in Perl 5.
