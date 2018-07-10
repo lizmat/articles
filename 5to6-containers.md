@@ -43,9 +43,10 @@ Now compare this when we create a lexical variable and *assign* to it:
     my $bar = 56;
 
 This *also* creates a key, this time with the name "`$bar`" in the lexpad.
-But insteading of binding the value, a `Scalar` object is created internally
-with `56` as the value to be stored for the key "`$bar`".  In code, you can
-think of this as:
+But insteading of directly binding the value to that lexpad entry, a
+container (a `Scalar` object) is created internally and *that* is bound to
+the lexpad entry of "`$bar`".  And then `56` is stored as the value in that
+container.  In code, you can think of this as:
 
     my $bar := Scalar.new( value => 56 );
 
