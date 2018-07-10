@@ -4,8 +4,8 @@ The second installment of the
 [Migrating Perl 5 code to Perl 6](5to6-introduction.md) series.  The first
 installment was about [garbage collection and how timely destruction works in Perl 6](5to6-finalizing.md).
 
-In this installment I'm going to focus on references in Perl 5, and how they
-are handled in Perl 6, introducing the concepts of binding and containers.
+In this installment I'm going to focus on the references of Perl 5, how they
+are handled in Perl 6, and introduce the concepts of binding and containers.
 
 References
 ----------
@@ -13,6 +13,16 @@ There are **no** references in Perl 6.  This revelation usually comes as quite
 a shock to many people used to the semantics of references in Perl 5.  But
 worry not: because there are no references, you do not have to worry anymore
 whether something should be de-referenced or not!
+
+    # Perl 5
+    my $foo = \@bar;   # $foo is a reference to @bar
+    say @bar[1];       # no dereference needed
+    say $foo->[1];     # *must* dereference
+
+    # Perl 6
+    my $foo = @bar;    # $foo now contains @bar
+    say @bar[1];       # no dereference needed, note sigil does *not* change
+    say $foo[1];       # no dereference needed either
 
 One could argue that *everything* in Perl 6 is a reference.  Coming from
 Perl 5 (where an object is a blessed reference) looking at Perl 6 where
