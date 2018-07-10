@@ -42,7 +42,7 @@ introduction to Perl 6 in their native language.  The
 [Perl 6 Weekly](https://p6weekly.wordpress.com) reports on all things Perl 6
 every week, and has been doing so in this form for the past 4.5 years.
 
-[Cro](https://cro.services), a micro-services framework uses all of the
+[Cro](https://cro.services), a micro-services framework, uses all of the
 features of Perl 6 from the ground up, providing HTTP 1.1 persistent
 connections, HTTP 2.0 with request multiplexing and HTTPS with optional
 certificate authority out of the box.  And a [Perl 6 IDE](https://commaide.com)
@@ -64,7 +64,7 @@ In January 2018, I proposed a
 [CPAN Butterfly Plan](https://www.perl.com/article/an-open-letter-to-the-perl-community/)
 to convert Perl 5 functionality to Perl 6 as closely as possible to the
 original API.  I stated this as a goal, because Perl 5 as a programming
-language, is so much more than syntax alone.  Ask anyone what the unique
+language is so much more than syntax alone.  Ask anyone what the unique
 selling point of Perl is, and they will most likely tell you that that is
 CPAN.  Therefore I think it's time to move from this view of the Perl universe:
 
