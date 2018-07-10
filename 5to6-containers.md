@@ -46,19 +46,22 @@ This *also* creates a key, this time with the name "`$bar`" in the lexpad.
 But insteading of directly binding the value to that lexpad entry, a
 container (a `Scalar` object) is created internally and *that* is bound to
 the lexpad entry of "`$bar`".  And then `56` is stored as the value in that
-container.  In code, you can think of this as:
+container.  In code, you can *think* of this as:
 
     my $bar := Scalar.new( value => 56 );
 
-Notice that the `Scalar` object is **bound**, not assigned.  The closest thing
-to this in Perl 5 is a [tied scalar](https://metacpan.org/pod/distribution/perl/pod/perltie.pod#Tying-Scalars).
+But of course just `= 56` is much to type.  Notice that the `Scalar` object
+is **bound**, not assigned.  The closest thing to this in Perl 5 is a
+[tied scalar](https://metacpan.org/pod/distribution/perl/pod/perltie.pod#Tying-Scalars).
 Conceptually, the `Scalar` object in Perl 6 has a `FETCH` (for producing the
 value in the object) and a `STORE` method (for changing the value in the
-object).  Suppose you later assign the value `768` to the `$bar` variable:
+object), just like a tied scalar in Perl 5.
+
+Suppose you later assign the value `768` to the `$bar` variable:
 
     $bar = 768;
 
-What then happens is the equivalent of:
+What then happens conceptually is the equivalent of:
 
     $bar.STORE(768);
 
@@ -66,9 +69,26 @@ Suppose you want to add `20` to the value in `$bar`:
 
     $bar = $bar + 20;
 
-What then happens is:
+What then happens conceptually is:
 
     $bar.STORE( $bar.FETCH + 20 );
+
+If you like to specify your own `FETCH` and `STORE` methods on a container,
+you can do that by *binding* to a
+[Proxy](https://docs.perl6.org/type/Proxy) object.  For example, to create
+a variable that will always report twice the value that was actually assigned
+to it:
+
+    my $double := do {
+        my $value;
+        Proxy.new(
+          FETCH => method ()     { $value + $value },
+          STORE => method ($new) { $value = $new }
+        )
+    }
+
+Note that you will need an extra variable to actually keep the value stored
+in such a container.
 
 Apart from the value, a [Scalar](https://docs.perl6.org/type/Scalar) also
 contains information such as the type constraint and default value.  For
@@ -93,8 +113,9 @@ Assigning a string to that variable will fail:
 
 Summary
 -------
-Perl 6 differentiates between values and containers.  There are 2 types of
-container: [Scalar](https://docs.perl6.org/type/Scalar) and
+Perl 5 has values and references to values.  Perl 6 has no references, but
+it has values and containers.  There are 2 types of container in Perl 6:
+[Scalar](https://docs.perl6.org/type/Scalar) and
 [Proxy](https://docs.perl6.org/type/Proxy) (which is much like a tied scalar
 in Perl 5).  Simply stated, a variable, as well as an element of a
 [List](https://docs.perl6.org/type/List), 
