@@ -38,7 +38,7 @@ will cause an exception.  So don't do that!
 
 Assignment
 ----------
-Now compare this when we create a lexical variable and *assign* to it:
+Compare this to creating a lexical variable and *assigning* to it in Perl 6:
 
     my $bar = 56;
 
@@ -51,7 +51,7 @@ container.  In code, you can think of this as:
     my $bar := Scalar.new( value => 56 );
 
 Notice that the `Scalar` object is **bound**, not assigned.  The closest thing
-to this concept in Perl 5 is a [tied scalar](https://metacpan.org/pod/distribution/perl/pod/perltie.pod#Tying-Scalars).
+to this in Perl 5 is a [tied scalar](https://metacpan.org/pod/distribution/perl/pod/perltie.pod#Tying-Scalars).
 Conceptually, the `Scalar` object in Perl 6 has a `FETCH` (for producing the
 value in the object) and a `STORE` method (for changing the value in the
 object).  Suppose you later assign the value `768` to the `$bar` variable:
