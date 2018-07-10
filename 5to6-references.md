@@ -2,7 +2,7 @@ Containers in Perl 6
 ====================
 The second installment of the
 [Migrating Perl 5 code to Perl 6 series](5to6-introduction.md).  The first
-installment was about [garbage collection](5to6-finalizing.md).
+installment was about [garbage collection and how timely destruction works in Perl 6](5to6-finalizing.md).
 
 There are **no** references in Perl 6.  This revelation usually comes as quite
 a shock to many people used to the semantics of references in Perl 5.  But
@@ -65,7 +65,25 @@ What then happens is:
     $bar.STORE( $bar.FETCH + 20 );
 
 Apart from the value, a [Scalar](https://docs.perl6.org/type/Scalar) also
-contains information such as the type constraint and default value.
+contains information such as the type constraint and default value.  For
+example:
+
+    my Int $baz is default(42) = 666;
+    say $baz;   # 666
+
+creates a Scalar bound with the name "`$baz`" in the lexpad, constraints the
+values in that container to values that smartmatch with `Int`, sets the
+default value of the container to `42` and puts the value `666` in the
+container.  Assigning `Nil` to that variable will reset it to the default
+value:
+
+    $baz = Nil;
+    say $baz;   # 42
+
+Assigning a string to that variable will fail:
+
+    $baz = "foo";
+    # Type check failed in assignment to $baz; expected Int but got Str ("foo")
 
 Summary
 -------
@@ -79,3 +97,4 @@ in Perl 5).  Simply stated, a variable, as well as an element of a
 *bound*), or a container (if they are *assigned*).  Whenever a subroutine
 (or method) is called, the given arguments are de-containerized and then
 *bound* to the parameters of the subroutine (unless told to do otherwise).
+The containers also keep information such as constraints and default value.
