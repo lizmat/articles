@@ -183,9 +183,9 @@ Summary
 -------
 Perl 5 has values and references to values.  Perl 6 has no references, but
 it has values and containers.  There are 2 types of container in Perl 6:
-[Scalar](https://docs.perl6.org/type/Scalar) and
 [Proxy](https://docs.perl6.org/type/Proxy) (which is much like a tied scalar
-in Perl 5).  Simply stated, a variable, as well as an element of a
+in Perl 5) and [Scalar](https://docs.perl6.org/type/Scalar).  Simply stated,
+a variable, as well as an element of a
 [List](https://docs.perl6.org/type/List), 
 [Array](https://docs.perl6.org/type/Array) or
 [Hash](https://docs.perl6.org/type/Hash), is either a value (if it is
