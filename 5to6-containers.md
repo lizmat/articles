@@ -189,7 +189,7 @@ a variable, as well as an element of a
 [List](https://docs.perl6.org/type/List), 
 [Array](https://docs.perl6.org/type/Array) or
 [Hash](https://docs.perl6.org/type/Hash), is either a value (if it is
-*bound*), or a container (if they are *assigned*).  Whenever a subroutine
+*bound*), or a container (if it is *assigned*).  Whenever a subroutine
 (or method) is called, the given arguments are de-containerized and then
 *bound* to the parameters of the subroutine (unless told to do otherwise).
 A container also keeps information such as a type constraints and a default
