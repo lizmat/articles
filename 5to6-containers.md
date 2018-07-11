@@ -35,10 +35,10 @@ Binding
 -------
 Before we get to assignment, it is important to understand the concept of
 binding in Perl 6.  You can bind something explicitely to something else
-using the `:=` operator.  So what happens if you define a lexical variable
-and you bind a value to it, e.g.:
+using the `:=` operator.  When you define a lexical variable you can bind
+a value to it:
 
-    my $foo := 42;
+    my $foo := 42;  # note: := instead of =
 
 Simply put, this creates a key with the name "`$foo`" in the lexpad (which
 you could consider a compile-time hash that contains information about things
@@ -54,14 +54,14 @@ instance when iterating:
     for @a { $_++ }  # $_ is bound to each array element and incremented
     say @a;          # [1 2 3 4 5 6 7 8 9 10]
 
-If you try to iterate over a constant list, then `$_` is bound to the values
-in turn, which you can **not** increment:
+If you try to iterate over a constant list, then `$_` is bound to the literal
+*values* in turn, which you can **not** increment:
 
     for 0..9 { $_++ }  # error: requires mutable arguments
 
 Assignment
 ----------
-If you compare creating a lexical variable and *assigning* to it between
+If you compare "create a lexical variable and *assign* to it" between
 Perl 5 and Perl 6, then it looks the same on the outside:
 
     my $bar = 56;  # both Perl 5 and Perl 6
@@ -88,9 +88,8 @@ containers bound to the structure.
 Containers
 ----------
 The `Scalar` container object is invisible for most operations in Perl 6.
-So most of the time you don't have to think about it.
-
-Whenever you call a subroutine (or a method) with a variable as an argument,
+So most of the time you don't have to think about it.  For instance,
+whenever you call a subroutine (or a method) with a variable as an argument,
 it will bind to the value *in* the container.  And because you cannot assign
 to a value, you get:
 
@@ -122,7 +121,7 @@ Suppose you later assign the value `768` to the `$bar` variable:
 
     $bar = 768;
 
-What then happens conceptually is the equivalent of:
+What then happens is conceptually the equivalent of:
 
     $bar.STORE(768);
 
@@ -140,7 +139,7 @@ you can do that by *binding* to a
 a variable that will always report twice the value that was actually assigned
 to it:
 
-    my $double := do {
+    my $double := do {  # $double now a Proxy, rather than a Scalar container
         my $value;
         Proxy.new(
           FETCH => method ()     { $value + $value },
@@ -154,25 +153,31 @@ in such a container.
 Constraints and Default
 -----------------------
 Apart from the value, a [Scalar](https://docs.perl6.org/type/Scalar) also
-contains information such as the type constraint and default value.  For
-example:
+contains extra information such as the type constraint and default value.
+Take this definition:
 
     my Int $baz is default(42) = 666;
 
-creates a Scalar bound with the name "`$baz`" to the lexpad, constrains the
+It creates a Scalar bound with the name "`$baz`" to the lexpad, constrains the
 values in that container to types that successfully smartmatch with `Int`,
 sets the default value of the container to `42` and puts the value `666` in
-the container.  Assigning `Nil` to that variable will reset it to the default
-value:
-
-    say $baz;   # 666
-    $baz = Nil;
-    say $baz;   # 42
+the container.
 
 Assigning a string to that variable will fail because of the type constraint:
 
     $baz = "foo";
     # Type check failed in assignment to $baz; expected Int but got Str ("foo")
+
+If you do not give a type constraint when you define a variable, then the `Any`
+type will be assumed.  If you do not specify a default value, then the type
+constraint will be assumed.
+
+Assigning `Nil` (the Perl 6 equivalent of Perl 5's `undef`) to that variable,
+will reset it to the default value:
+
+    say $baz;   # 666
+    $baz = Nil;
+    say $baz;   # 42
 
 Summary
 -------
@@ -187,4 +192,6 @@ in Perl 5).  Simply stated, a variable, as well as an element of a
 *bound*), or a container (if they are *assigned*).  Whenever a subroutine
 (or method) is called, the given arguments are de-containerized and then
 *bound* to the parameters of the subroutine (unless told to do otherwise).
-The containers also keep information such as constraints and default value.
+A container also keeps information such as a type constraints and a default
+value.  Assigning `Nil` to a variable will return it to its default value,
+which is `Any` if you do not specify a type constraint.
