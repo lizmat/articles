@@ -25,14 +25,12 @@ Also, in my experience,
 little usage in most Perl programs out in the world (aka
 [DarkPan](http://modernperlbooks.com/mt/2009/02/the-darkpan-dependency-management-and-support-problem.html).
 I will therefore only compare the Perl 6 functionality with the most common
-usage of Perl 5 argument passing and prototypes.
+usage of Perl 5 argument passing.
 
 Summary
 -------
-Older versions of Perl 5 only have a so-called `prototype` to a subroutine.
-These could be seen as a sort of coercer in the Perl 6 context.  Perl 6 has
-a way of describing how parameters should be taken and/or coerced, and allows
-for subroutines (and methods) to have the same name but a different set of
-acceptable parameters (signature).  The value of the arguments is used by
-the Perl 6 runtime to select the correct subroutine (method) to actually call
-(multi-method dispatch).
+Perl 6 has a way of describing how parameters should be taken and/or coerced,
+and allows for subroutines (and methods) to have the same name but a different
+set of acceptable parameters (Signature).  The value of the arguments is used
+by the Perl 6 runtime to select the subroutine (method) to actually call
+([multiple dispatch](https://en.wikipedia.org/wiki/Multiple_dispatch)).
