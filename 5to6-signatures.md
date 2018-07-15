@@ -4,8 +4,9 @@ Signatures in Perl 6
 The third installment of the
 [Migrating Perl 5 code to Perl 6](5to6-introduction.md) series.  The first
 installment was about
-[garbage collection and how timely destruction works in Perl 6](5to6-finalizing.md),
-the second was about [how references were replaced by the use of containers in Perl 6](5to6-containers.md).
+[garbage collection and how timely destruction works](5to6-finalizing.md),
+the second was about
+[how references were replaced by the use of containers](5to6-containers.md).
 
 In this post I will be focussing on (subroutine) signatures in Perl 6
 and how they differ from the situation in Perl 5.
