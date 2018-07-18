@@ -32,12 +32,15 @@ usage of "classic" Perl 5 argument passing.
 Argument passing in Perl 5
 --------------------------
 All arguments that you pass to a Perl 5 subroutine are flattened and put into
-the `@_` array inside.  That is basically all that Perl 5 does with passing
-arguments to subroutines.  Nothing more, nothing less.  There are however
-several idioms in Perl 5 that take it from there.  The most common, I would
-say "standard" idiom, in my experience is:
+the automatically defined `@_` array variable inside.  That is basically all
+that Perl 5 does with passing arguments to subroutines.  Nothing more, nothing
+less.  There are however several idioms in Perl 5 that take it from there.
+The most common, I would say "standard" idiom, in my experience is:
 
-    my ($foo, $bar) = @_;
+    sub dosomething {
+        my ($foo, $bar) = @_;
+        # actually do something with $foo and $bar
+    }
 
 It basically performs a list assignment (copy) to two (new) lexical variables.
 This way of accessing the arguments to a subroutine, is also supported in
@@ -126,7 +129,39 @@ or, alternately:
 
 Signatures in Perl 6
 --------------------
-Subroutines signatures in Perl 6 in their simplest form
+Subroutines signatures in Perl 6 in their simplest form, are very much like
+the "standard" idiom of Perl 5.  But instead of being part of the code,
+they are part of the definition of the subroutine, and you don't need to
+do the assignment:
+
+    sub do-something($foo, $bar) {
+        # actually do something with $foo and $bar
+    }
+
+In Perl 6, the `($foo, $bar)` part is called the signature of the subroutine.
+Note that `-` can be part of an identifier in Perl 6, as long as it is not
+the first of the last character of the identifier.
+
+Since Perl 6 has an actual `method` keyword, it is not necessary to
+take the invocant into account, as that is automatically available with the
+`self` term:
+
+    class Foo {
+        method do-something-else($foo, $bar) {
+            # do something else with self, $foo and $bar
+        }
+    }
+
+When you pass an array as an argument to a subroutine, it does **not** get
+flattened in Perl 6.  The only thing you need to do, is to accept an array
+as an array in the signature:
+
+    sub handle-array(@a) {
+        # do something with @a
+    }
+
+If you want to know more about signatures, you can check out the
+[documentation of the Signature object](https://docs.perl6.org/type/Signature).
 
 Summary
 -------
