@@ -27,26 +27,29 @@ Also, in my experience,
 little usage in most Perl programs out in the world (aka
 [DarkPan](http://modernperlbooks.com/mt/2009/02/the-darkpan-dependency-management-and-support-problem.html).
 I will therefore only compare the Perl 6 functionality with the most common
-usage of Perl 5 argument passing.
+usage of "classic" Perl 5 argument passing.
 
 Argument passing in Perl 5
 --------------------------
 All arguments that you pass to a Perl 5 subroutine are flattened and put into
-the `@_` array inside.  There are several idioms in Perl 5 to take it from
-there.  The most common in my experience is:
+the `@_` array inside.  That is basically all that Perl 5 does with passing
+arguments to subroutines.  Nothing more, nothing less.
 
-    my ($foo,$bar) = @_;
+There are however several idioms in Perl 5 that take it from there.  The most
+common, I would say "standard" idiom, in my experience is:
+
+    my ($foo, $bar) = @_;
 
 It basically performs a list assignment (copy) to two (new) lexical variables.
 This way of accessing the arguments to a subroutine, is also supported in
-Perl 6.
+Perl 6, but is only intended as a means to make migrations easier.
 
 If you are expecting a fixed number of arguments, followed by a variable
 number of arguments, then the following idiom is usually used:
 
     my $foo = shift;
     my $bar = shift;
-    for @_ {
+    for (@_) {
         # do something
     }
 
@@ -60,19 +63,58 @@ as the first argument passed is the invocant in Perl 5.
 
 By the way, this idiom can actually also be written in the first idiom:
 
-    my ($foo,$bar,@rest) = @_;
-    for @rest {
+    my ($foo, $bar, @rest) = @_;
+    for (@rest) {
         # do something
     }
 
 But that would be less efficient, as it would involve copying of a potentially
 long list of values.
 
-The third idiom revolves about directly accessing the `@_`.
+The third idiom revolves about directly accessing the `@_` array.
 
     return $_[0] + $_[1];  # return the sum of the two parameters
 
 This idiom is usually used for small, usually one-liner subroutines.
+
+Named arguments in Perl 5
+-------------------------
+Named arguments as such do not exist in Perl 5.  There is however an often
+used idiom that effectively mimicks named arguments:
+
+    my %named = @_;
+    if (exists %named{foo}) {   # named variable 
+        # do stuff if
+    }
+
+This basically initializes the hash `%named` by alternately taking a key
+and a value from the `@_` array.  If you call a subroutine with arguments
+using the fat-comma syntax:
+
+    frobnicate( foo => 42 );
+
+it will in fact pass 2 values, `"foo"` and `42`, which will then be placed
+into the `%named` hash as the value `42` associated with key `"foo"`.  But
+the same would have happened if you had specified:
+
+    frobnicate( "foo", 42 );
+
+The `=>` is syntactic sugar for automatically quoting the left hand side.
+Otherwise, it functions just like a comma (hence the name "fat comma").
+
+If a subroutine is called as a method with named arguments, this idiom gets
+combined with the standard idiom:
+
+    my ($self, %named) = @_;
+
+or, alternately:
+
+    my $self = shift;
+    my %named = @_;
+
+Signatures in Perl 6
+--------------------
+Subroutines signatures in Perl 6 in their simplest form
 
 Summary
 -------
