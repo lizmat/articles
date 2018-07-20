@@ -98,21 +98,21 @@ Named arguments as such do not exist in Perl 5.  There is however an often
 used idiom that effectively mimicks named arguments:
 
     my %named = @_;
-    if (exists %named{foo}) {   # named variable 
-        # do stuff if named variable "foo" exists
+    if (exists %named{bar}) {   # named variable 
+        # do stuff if named variable "bar" exists
     }
 
 This basically initializes the hash `%named` by alternately taking a key
 and a value from the `@_` array.  If you call a subroutine with arguments
 using the fat-comma syntax:
 
-    frobnicate( foo => 42 );
+    frobnicate( bar => 42 );
 
 it will in fact pass 2 values, `"foo"` and `42`, which will then be placed
 into the `%named` hash as the value `42` associated with key `"foo"`.  But
 the same would have happened if you had specified:
 
-    frobnicate( "foo", 42 );
+    frobnicate( "bar", 42 );
 
 The `=>` is syntactic sugar for automatically quoting the left hand side.
 Otherwise, it functions just like a comma (hence the name "fat comma").
@@ -127,8 +127,8 @@ or, alternately:
     my $self = shift;
     my %named = @_;
 
-Signatures in Perl 6
---------------------
+Argument Passing in Perl 6
+--------------------------
 In their simplest form, subroutine signatures in Perl 6 are very much like
 the "standard" idiom of Perl 5.  But instead of being part of the code,
 they are part of the definition of the subroutine, and you don't need to
@@ -181,6 +181,38 @@ prefixing the array with an asterisk in the signature:
 
 Please see [Slurpy (variadic) Parameters](https://docs.perl6.org/type/Signature#Slurpy_(A.K.A._Variadic)_Parameters) if you want to know more about slurpy
 Parameters.
+
+Named arguments in Perl 6
+-------------------------
+On the calling side, named arguments in Perl 6 can be expressed in a way that
+is very similar to the way they are expressed in Perl 5:
+
+    frobnicate( bar => 42 );
+
+However, on the side of the definition of the subroutine, things are very
+different:
+
+    sub frobnicate(:$bar) {
+        # do something with $bar
+    }
+
+The difference between an ordinary (positional) Parameter and a named
+Parameter, is the colon, which precedes the sigil and the variable name in
+the definition:
+
+    $foo      # positional parameter, receives in $foo
+    :$bar     # named parameter "bar", receives in $bar
+
+If want to catch *any* (other) named parameters, you can catch them with a
+so-called "slurpy hash".  Just like the "slurpy array", this is indicated
+by an asterisk prefixing a hash:
+
+    sub slurp-nameds(*%nameds) {
+        say "Received : " ~ join ", ", sort keys %nameds;
+    }
+
+Which shows an alphabetically sorted list of the names of all named
+arguments.
 
 If you want to know more about signatures, you can check out the
 [documentation of the Signature object](https://docs.perl6.org/type/Signature).
