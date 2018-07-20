@@ -208,12 +208,27 @@ so-called "slurpy hash".  Just like the "slurpy array", this is indicated
 by an asterisk prefixing a hash:
 
     sub slurp-nameds(*%nameds) {
-        say "Received : " ~ join ", ", sort keys %nameds;
+        say "Received: " ~ join ", ", sort keys %nameds;
+    }
+    slurp-nameds(foo => 42, bar => 666); # Received: bar, foo
+
+Default values in Perl 6
+------------------------
+Perl 5 has the following idiom for making parameters optional with a default
+value:
+
+    sub dosomething_with_defaults {
+        my $foo = @_ ? shift : 42;
+        my $bar = @_ ? shift : 666;
+        # actually do something with $foo and $bar
     }
 
-Which shows an alphabetically sorted list of the names of all named
-arguments.
+In Perl 6, you can specify default values as part of the signature:
 
+    sub dosomething-with-defaults($foo = 42, $bar = 666) {
+        # actually do something with $foo and $bar
+    }
+    
 If you want to know more about signatures, you can check out the
 [documentation of the Signature object](https://docs.perl6.org/type/Signature).
 
