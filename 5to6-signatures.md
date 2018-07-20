@@ -129,7 +129,7 @@ or, alternately:
 
 Signatures in Perl 6
 --------------------
-Subroutines signatures in Perl 6 in their simplest form, are very much like
+In their simplest form, subroutine signatures in Perl 6 are very much like
 the "standard" idiom of Perl 5.  But instead of being part of the code,
 they are part of the definition of the subroutine, and you don't need to
 do the assignment:
@@ -159,6 +159,28 @@ as an array in the signature:
     sub handle-array(@a) {
         # do something with @a
     }
+    my @foo = "a" .. "z";
+    handle-array(@foo);
+
+You can have pass any number of arrays:
+
+    sub handle-two-arrays(@a, @b) {
+        # do something with @a and @b
+    }
+    my @bar = 1..26;
+    handle-two-arrays(@foo, @bar);
+
+If you **do** want the (variadic) flattening semantics of Perl 5, then you
+can indicate this with a so-called "slurpy" array.  This indicated by
+prefixing the array with an asterisk in the signature:
+
+    sub slurp-an-array(*@a) {
+        # do something with @a
+    }
+    slurp-an-array("foo", 42, "baz");
+
+Please see [Slurpy (variadic) Parameters](https://docs.perl6.org/type/Signature#Slurpy_(A.K.A._Variadic)_Parameters) if you want to know more about slurpy
+Parameters.
 
 If you want to know more about signatures, you can check out the
 [documentation of the Signature object](https://docs.perl6.org/type/Signature).
