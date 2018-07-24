@@ -195,7 +195,7 @@ A slurpy array can only occur as the last positional parameter in a signature.
 If you prefer to use the Perl 5 way of specifying parameters in Perl 6, you
 can do this by specifying a slurpy array `*@_` in the signature:
 
-    sub do-like-5(*@_) {        # explicit signature
+    sub do-like-5(*@_) {
         my ($foo, $bar) = @_;
     }
 
