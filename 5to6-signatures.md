@@ -98,7 +98,7 @@ Named arguments as such do not exist in Perl 5.  There is however an often
 used idiom that effectively mimicks named arguments:
 
     my %named = @_;
-    if (exists %named{bar}) {   # named variable 
+    if (exists %named{bar}) {   # named variable
         # do stuff if named variable "bar" exists
     }
 
@@ -193,9 +193,6 @@ prefixing the array with an asterisk in the signature:
 
 A slurpy array can only occur as the last positional parameter in a signature.
 
-Please see [Slurpy (variadic) Parameters](https://docs.perl6.org/type/Signature#Slurpy_(A.K.A._Variadic)_Parameters) if you want to know more about slurpy
-Parameters.
-
 Named arguments in Perl 6
 -------------------------
 On the calling side, named arguments in Perl 6 can be expressed in a way that
@@ -217,7 +214,9 @@ the definition:
     $foo      # positional parameter, receives in $foo
     :$bar     # named parameter "bar", receives in $bar
 
-Unless otherwise specified, named parameters are *optional*.
+Unless otherwise specified, named parameters are *optional*.  If a named
+argument is not specified, then the associated variable will contain the
+default value, which usually is the type object `Any`.
 
 If want to catch *any* (other) named parameters, you can use a so-called
 "slurpy hash".  Just like the "slurpy array", this is indicated by an
@@ -231,11 +230,12 @@ asterisk prefixing a hash:
 As with the slurpy array, there can only be one slurpy hash in a signature,
 and it needs to be specified after any other named parameters.
 
-> An often occurring situation, is when you want to pass a named argument to
-> a subroutine from a variable with the same name.  In Perl 5 this looks like:
+> Oftentimes when you want to pass a named argument to a subroutine from a
+> variable with the same name.  In Perl 5 this looks like:
 > `do_something(bar => $bar)`.  In Perl 6, you can specify this in the same
-> way: `do-something(bar => $bar).  But you can also use a shortcut:
-> `do-something(:$bar)`.  This is less typing, and less chance of making typos.
+> way: `do-something(bar => $bar)`.  But you can also use a shortcut:
+> `do-something(:$bar)`.  This means less typing, and less chance of making
+> typos.
 
 Default values in Perl 6
 ------------------------
@@ -248,15 +248,21 @@ value:
         # actually do something with $foo and $bar
     }
 
-In Perl 6, you can specify default values as part of the signature:
+In Perl 6, you can specify default values as part of the signature by
+specifying an equal sign and an expression:
 
-    sub dosomething-with-defaults($foo = 42, $bar = 666) {
+    sub dosomething-with-defaults($foo = 42, :$bar = 666) {
         # actually do something with $foo and $bar
     }
 
-    
-If you want to know more about signatures, you can check out the
-[documentation of the Signature object](https://docs.perl6.org/type/Signature).
+Positional parameters become optional if they have a default value specified
+for them.  Named parameters stay optional regardless of any default value.
+
+> This has touched on the Perl 6 features that you would like to be familiar
+> with when coming from Perl 5.  Signatures in Perl 6 have many more
+> interesting features.  If you want to know more about these features, you
+> can check out the
+> [documentation of the Signature object](https://docs.perl6.org/type/Signature).
 
 Summary
 -------
@@ -270,6 +276,5 @@ by an asterisk (e.g. `*@values`).  Unexpected named arguments can be
 collected using a slurpy hash, which is also prefixed with an asterisk
 (e.g. `*%nameds`).
 
-Default values can be specified inside the signature by adding an
-expression after an equal sign (e.g. `$foo = 42`), which also makes that
-parameter optional.
+Default values can be specified inside the signature by adding an expression
+after an equal sign (e.g. `$foo = 42`), which makes that parameter optional.
