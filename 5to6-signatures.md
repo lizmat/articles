@@ -138,9 +138,17 @@ do the assignment:
         # actually do something with $foo and $bar
     }
 
-> In Perl 6, the `($foo, $bar)` part is called the signature of the subroutine.
+versus:
+
+    sub do_something {
+        my ($foo, $bar) = @_;
+        # actually do something with $foo and $bar
+    }
+
+In Perl 6, the `($foo, $bar)` part is called the signature of the subroutine.
+
 > Note that the dash (`-`) can be part of an identifier in Perl 6, as long as
-> it is not the first of the last character of the identifier.
+> it is not the first *or* the last character of the identifier.
 
 Since Perl 6 has an actual `method` keyword, it is not necessary to
 take the invocant into account, as that is automatically available with the
@@ -151,6 +159,10 @@ take the invocant into account, as that is automatically available with the
             # do something else with self, $foo and $bar
         }
     }
+
+This type of parameters are referred to in Perl 6 as *positional parameters*.
+Unless indicated otherwise, positional parameters **must** be specified when
+calling the subroutine.
 
 When you pass an array as an argument to a subroutine, it does **not** get
 flattened in Perl 6.  The only thing you need to do, is to accept an array
@@ -179,6 +191,8 @@ prefixing the array with an asterisk in the signature:
     }
     slurp-an-array("foo", 42, "baz");
 
+A slurpy array can only occur as the last positional parameter in a signature.
+
 Please see [Slurpy (variadic) Parameters](https://docs.perl6.org/type/Signature#Slurpy_(A.K.A._Variadic)_Parameters) if you want to know more about slurpy
 Parameters.
 
@@ -203,6 +217,8 @@ the definition:
     $foo      # positional parameter, receives in $foo
     :$bar     # named parameter "bar", receives in $bar
 
+Unless otherwise specified, named parameters are *optional*.
+
 If want to catch *any* (other) named parameters, you can use a so-called
 "slurpy hash".  Just like the "slurpy array", this is indicated by an
 asterisk prefixing a hash:
@@ -211,6 +227,15 @@ asterisk prefixing a hash:
         say "Received: " ~ join ", ", sort keys %nameds;
     }
     slurp-nameds(foo => 42, bar => 666); # Received: bar, foo
+
+As with the slurpy array, there can only be one slurpy hash in a signature,
+and it needs to be specified after any other named parameters.
+
+> An often occurring situation, is when you want to pass a named argument to
+> a subroutine from a variable with the same name.  In Perl 5 this looks like:
+> `do_something(bar => $bar)`.  In Perl 6, you can specify this in the same
+> way: `do-something(bar => $bar).  But you can also use a shortcut:
+> `do-something(:$bar)`.  This is less typing, and less chance of making typos.
 
 Default values in Perl 6
 ------------------------
@@ -228,6 +253,7 @@ In Perl 6, you can specify default values as part of the signature:
     sub dosomething-with-defaults($foo = 42, $bar = 666) {
         # actually do something with $foo and $bar
     }
+
     
 If you want to know more about signatures, you can check out the
 [documentation of the Signature object](https://docs.perl6.org/type/Signature).
