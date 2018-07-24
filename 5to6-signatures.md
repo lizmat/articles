@@ -203,9 +203,9 @@ the definition:
     $foo      # positional parameter, receives in $foo
     :$bar     # named parameter "bar", receives in $bar
 
-If want to catch *any* (other) named parameters, you can catch them with a
-so-called "slurpy hash".  Just like the "slurpy array", this is indicated
-by an asterisk prefixing a hash:
+If want to catch *any* (other) named parameters, you can use a so-called
+"slurpy hash".  Just like the "slurpy array", this is indicated by an
+asterisk prefixing a hash:
 
     sub slurp-nameds(*%nameds) {
         say "Received: " ~ join ", ", sort keys %nameds;
@@ -234,8 +234,16 @@ If you want to know more about signatures, you can check out the
 
 Summary
 -------
-Perl 6 has a way of describing how parameters should be taken and/or coerced,
-and allows for subroutines (and methods) to have the same name but a different
-set of acceptable parameters (Signature).  The value of the arguments is used
-by the Perl 6 runtime to select the subroutine (method) to actually call
-([multiple dispatch](https://en.wikipedia.org/wiki/Multiple_dispatch)).
+Perl 6 has a way of describing how arguments to a subroutine should be
+captured into parameters of that subroutine.  Positional parameters are
+indicated by their name and the appropriate sigil (e.g. *$foo*).  Named
+parameters are prefixed with a colon (e.g. *:$bar*).
+
+Positional arguments can be flattened in a slurpy array, which is prefixed
+by an asterisk (e.g. *\*@rest*).  Unexpected named arguments can be
+collected using a slurpy hash, which is also prefixed with an asterisk
+(e.g. *\*%nameds*).
+
+Default values can be specified inside the signature by adding an
+expression after an equal sign (e.g. *$foo = 42*), which also makes that
+parameter optional.
