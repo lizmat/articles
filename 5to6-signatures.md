@@ -138,9 +138,9 @@ do the assignment:
         # actually do something with $foo and $bar
     }
 
-In Perl 6, the `($foo, $bar)` part is called the signature of the subroutine.
-Note that `-` can be part of an identifier in Perl 6, as long as it is not
-the first of the last character of the identifier.
+> In Perl 6, the `($foo, $bar)` part is called the signature of the subroutine.
+> Note that the dash (`-`) can be part of an identifier in Perl 6, as long as
+> it is not the first of the last character of the identifier.
 
 Since Perl 6 has an actual `method` keyword, it is not necessary to
 take the invocant into account, as that is automatically available with the
@@ -162,7 +162,7 @@ as an array in the signature:
     my @foo = "a" .. "z";
     handle-array(@foo);
 
-You can have pass any number of arrays:
+You can pass any number of arrays:
 
     sub handle-two-arrays(@a, @b) {
         # do something with @a and @b
@@ -174,8 +174,8 @@ If you **do** want the (variadic) flattening semantics of Perl 5, then you
 can indicate this with a so-called "slurpy" array.  This indicated by
 prefixing the array with an asterisk in the signature:
 
-    sub slurp-an-array(*@a) {
-        # do something with @a
+    sub slurp-an-array(*@values) {
+        # do something with @values
     }
     slurp-an-array("foo", 42, "baz");
 
@@ -236,14 +236,14 @@ Summary
 -------
 Perl 6 has a way of describing how arguments to a subroutine should be
 captured into parameters of that subroutine.  Positional parameters are
-indicated by their name and the appropriate sigil (e.g. *$foo*).  Named
-parameters are prefixed with a colon (e.g. *:$bar*).
+indicated by their name and the appropriate sigil (e.g. `$foo`).  Named
+parameters are prefixed with a colon (e.g. `:$bar`).
 
 Positional arguments can be flattened in a slurpy array, which is prefixed
-by an asterisk (e.g. *\*@rest*).  Unexpected named arguments can be
+by an asterisk (e.g. `*@values`).  Unexpected named arguments can be
 collected using a slurpy hash, which is also prefixed with an asterisk
-(e.g. *\*%nameds*).
+(e.g. `*%nameds`).
 
 Default values can be specified inside the signature by adding an
-expression after an equal sign (e.g. *$foo = 42*), which also makes that
+expression after an equal sign (e.g. `$foo = 42`), which also makes that
 parameter optional.
