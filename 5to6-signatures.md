@@ -192,6 +192,12 @@ prefixing the array with an asterisk in the signature:
     slurp-an-array("foo", 42, "baz");
 
 A slurpy array can only occur as the last positional parameter in a signature.
+If you prefer to use the Perl 5 way of specifying parameters in Perl 6, you
+can do this by specifying a slurpy array `*@_` in the signature:
+
+    sub do-like-5(*@_) {        # explicit signature
+        my ($foo, $bar) = @_;
+    }
 
 Named arguments in Perl 6
 -------------------------
@@ -263,24 +269,6 @@ for them.  Named parameters stay optional regardless of any default value.
 > interesting features.  If you want to know more about these features, you
 > can check out the
 > [documentation of the Signature object](https://docs.perl6.org/type/Signature).
-
-Automatic signature creation
-----------------------------
-If you would like to prefer to use the Perl 5 way of specifying parameters
-in Perl 6, you can specify a slurpy array `*@_` in the signature.
-
-    sub do-like-5(*@_) {        # explicit signature
-        my ($foo,$bar) = @_;
-    }
-
-Perl 6 actually supports some types of automatic signature generation.
-If you specify the `@_` array somewhere inside your subroutine without
-defining it, it will create a signature with a slurpy `*@_` in it.  So
-this will work just as well:
-
-    sub do-like-5 {             # implicit signature
-        my ($foo,$bar) = @_;    # caused by mentioning @_ in code
-    }
 
 Summary
 -------
