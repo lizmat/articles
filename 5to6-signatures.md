@@ -29,12 +29,12 @@ little usage in most Perl programs out in the world (aka
 I will therefore only compare the Perl 6 functionality with the most common
 usage of "classic" Perl 5 argument passing.
 
-Argument passing in Perl 5
+Argument passing in Perl 5
 --------------------------
-All arguments that you pass to a Perl 5 subroutine are flattened and put into
+All arguments that you pass to a Perl 5 subroutine are flattened and put into
 the automatically defined `@_` array variable inside.  That is basically all
-that Perl 5 does with passing arguments to subroutines.  Nothing more, nothing
-less.  There are however several idioms in Perl 5 that take it from there.
+that Perl 5 does with passing arguments to subroutines.  Nothing more, nothing
+less.  There are however several idioms in Perl 5 that take it from there.
 The most common, I would say "standard" idiom, in my experience is:
 
     sub dosomething {
@@ -44,7 +44,7 @@ The most common, I would say "standard" idiom, in my experience is:
 
 It basically performs a list assignment (copy) to two (new) lexical variables.
 This way of accessing the arguments to a subroutine, is also supported in
-Perl 6, but is only intended as a means to make migrations easier.
+Perl 6, but is only intended as a means to make migrations easier.
 
 If you are expecting a fixed number of arguments, followed by a variable
 number of arguments, then the following idiom is usually used:
@@ -62,7 +62,7 @@ one often sees something like:
 
     my $self = shift;
 
-as the first argument passed is the invocant in Perl 5.
+as the first argument passed is the invocant in Perl 5.
 
 By the way, this idiom can actually also be written in the first idiom:
 
@@ -84,7 +84,7 @@ copying whatsoever is taking place.
 
 This idiom is also used if one wants to change any variable that is passed
 as a parameter.  Since the elements in `@_` are aliases to any variables
-specified (in Perl 6 one would say: "are bound to the any variables"), it
+specified (in Perl 6 one would say: "are bound to the any variables"), it
 is possible to change the contents:
 
     sub make42 { $_[0] = 42 }
@@ -92,9 +92,9 @@ is possible to change the contents:
     make42($a);
     say $a;      # 42
 
-Named arguments in Perl 5
+Named arguments in Perl 5
 -------------------------
-Named arguments as such do not exist in Perl 5.  There is however an often
+Named arguments as such do not exist in Perl 5.  There is however an often
 used idiom that effectively mimicks named arguments:
 
     my %named = @_;
@@ -127,10 +127,10 @@ or, alternately:
     my $self = shift;
     my %named = @_;
 
-Argument Passing in Perl 6
+Argument Passing in Perl 6
 --------------------------
-In their simplest form, subroutine signatures in Perl 6 are very much like
-the "standard" idiom of Perl 5.  But instead of being part of the code,
+In their simplest form, subroutine signatures in Perl 6 are very much like
+the "standard" idiom of Perl 5.  But instead of being part of the code,
 they are part of the definition of the subroutine, and you don't need to
 do the assignment:
 
@@ -145,12 +145,12 @@ versus:
         # actually do something with $foo and $bar
     }
 
-In Perl 6, the `($foo, $bar)` part is called the signature of the subroutine.
+In Perl 6, the `($foo, $bar)` part is called the signature of the subroutine.
 
-> Note that the dash (`-`) can be part of an identifier in Perl 6, as long as
+> Note that the dash (`-`) can be part of an identifier in Perl 6, as long as
 > it is not the first *or* the last character of the identifier.
 
-Since Perl 6 has an actual `method` keyword, it is not necessary to
+Since Perl 6 has an actual `method` keyword, it is not necessary to
 take the invocant into account, as that is automatically available with the
 `self` term:
 
@@ -160,12 +160,12 @@ take the invocant into account, as that is automatically available with the
         }
     }
 
-This type of parameters are referred to in Perl 6 as *positional parameters*.
+This type of parameters are referred to in Perl 6 as *positional parameters*.
 Unless indicated otherwise, positional parameters **must** be specified when
 calling the subroutine.
 
 When you pass an array as an argument to a subroutine, it does **not** get
-flattened in Perl 6.  The only thing you need to do, is to accept an array
+flattened in Perl 6.  The only thing you need to do, is to accept an array
 as an array in the signature:
 
     sub handle-array(@a) {
@@ -182,7 +182,7 @@ You can pass any number of arrays:
     my @bar = 1..26;
     handle-two-arrays(@foo, @bar);
 
-If you **do** want the (variadic) flattening semantics of Perl 5, then you
+If you **do** want the (variadic) flattening semantics of Perl 5, then you
 can indicate this with a so-called "slurpy" array.  This indicated by
 prefixing the array with an asterisk in the signature:
 
@@ -193,10 +193,10 @@ prefixing the array with an asterisk in the signature:
 
 A slurpy array can only occur as the last positional parameter in a signature.
 
-Named arguments in Perl 6
+Named arguments in Perl 6
 -------------------------
-On the calling side, named arguments in Perl 6 can be expressed in a way that
-is very similar to the way they are expressed in Perl 5:
+On the calling side, named arguments in Perl 6 can be expressed in a way that
+is very similar to the way they are expressed in Perl 5:
 
     frobnicate( bar => 42 );
 
@@ -231,15 +231,15 @@ As with the slurpy array, there can only be one slurpy hash in a signature,
 and it needs to be specified after any other named parameters.
 
 > Oftentimes when you want to pass a named argument to a subroutine from a
-> variable with the same name.  In Perl 5 this looks like:
-> `do_something(bar => $bar)`.  In Perl 6, you can specify this in the same
+> variable with the same name.  In Perl 5 this looks like:
+> `do_something(bar => $bar)`.  In Perl 6, you can specify this in the same
 > way: `do-something(bar => $bar)`.  But you can also use a shortcut:
 > `do-something(:$bar)`.  This means less typing, and less chance of making
 > typos.
 
-Default values in Perl 6
+Default values in Perl 6
 ------------------------
-Perl 5 has the following idiom for making parameters optional with a default
+Perl 5 has the following idiom for making parameters optional with a default
 value:
 
     sub dosomething_with_defaults {
@@ -248,7 +248,7 @@ value:
         # actually do something with $foo and $bar
     }
 
-In Perl 6, you can specify default values as part of the signature by
+In Perl 6, you can specify default values as part of the signature by
 specifying an equal sign and an expression:
 
     sub dosomething-with-defaults($foo = 42, :$bar = 666) {
@@ -258,8 +258,8 @@ specifying an equal sign and an expression:
 Positional parameters become optional if they have a default value specified
 for them.  Named parameters stay optional regardless of any default value.
 
-> This has touched on the Perl 6 features that you would like to be familiar
-> with when coming from Perl 5.  Signatures in Perl 6 have many more
+> This has touched on the Perl 6 features that you would like to be familiar
+> with when coming from Perl 5.  Signatures in Perl 6 have many more
 > interesting features.  If you want to know more about these features, you
 > can check out the
 > [documentation of the Signature object](https://docs.perl6.org/type/Signature).
