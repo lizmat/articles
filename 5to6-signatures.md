@@ -37,7 +37,7 @@ that Perl 5 does with passing arguments to subroutines.  Nothing more, nothing
 less.  There are however several idioms in Perl 5 that take it from there.
 The most common, I would say "standard" idiom, in my experience is:
 
-    sub dosomething {
+    sub do_something {
         my ($foo, $bar) = @_;
         # actually do something with $foo and $bar
     }
@@ -263,6 +263,24 @@ for them.  Named parameters stay optional regardless of any default value.
 > interesting features.  If you want to know more about these features, you
 > can check out the
 > [documentation of the Signature object](https://docs.perl6.org/type/Signature).
+
+Automatic signature creation
+----------------------------
+If you would like to prefer to use the Perl 5 way of specifying parameters
+in Perl 6, you can specify a slurpy array `*@_` in the signature.
+
+    sub do-like-5(*@_) {        # explicit signature
+        my ($foo,$bar) = @_;
+    }
+
+Perl 6 actually supports some types of automatic signature generation.
+If you specify the `@_` array somewhere inside your subroutine without
+defining it, it will create a signature with a slurpy `*@_` in it.  So
+this will work just as well:
+
+    sub do-like-5 {             # implicit signature
+        my ($foo,$bar) = @_;    # caused by mentioning @_ in code
+    }
 
 Summary
 -------
