@@ -57,6 +57,7 @@ number of arguments, then the following idiom is usually used:
         for (@_) {
             # do something for each element in @_
         }
+    }
 
 This idiom depends on the magic behaviour of
 [`shift`](https://perldoc.perl.org/functions/shift.html), which shifts from
