@@ -51,11 +51,12 @@ If you are expecting a fixed number of arguments, followed by a variable
 number of arguments, then the following idiom is usually used:
 
     # Perl 5
-    my $foo = shift;
-    my $bar = shift;
-    for (@_) {
-        # do something for each element in @_
-    }
+    sub do_something {
+        my $foo = shift;
+        my $bar = shift;
+        for (@_) {
+            # do something for each element in @_
+        }
 
 This idiom depends on the magic behaviour of
 [`shift`](https://perldoc.perl.org/functions/shift.html), which shifts from
@@ -63,16 +64,21 @@ This idiom depends on the magic behaviour of
 one often sees something like:
 
     # Perl 5
-    my $self = shift;
+    sub do_something {
+        my $self = shift;
+        # do something with $self
+    }
 
 as the first argument passed is the invocant in Perl 5.
 
 By the way, this idiom can actually also be written in the first idiom:
 
     # Perl 5
-    my ($foo, $bar, @rest) = @_;
-    for (@rest) {
-        # do something for each element in @rest
+    sub do_something {
+        my ($foo, $bar, @rest) = @_;
+        for (@rest) {
+            # do something for each element in @rest
+        }
     }
 
 But that would be less efficient, as it would involve copying of a potentially
@@ -81,7 +87,9 @@ long list of values.
 The third idiom revolves about directly accessing the `@_` array.
 
     # Perl 5
-    return $_[0] + $_[1];  # return the sum of the two parameters
+    sub sum_two {
+        return $_[0] + $_[1];  # return the sum of the two parameters
+    }
 
 This idiom is usually only used for small, usually one-liner subroutines,
 as this is one of the most efficient ways of handling arguments, as no
@@ -93,7 +101,9 @@ specified (in Perl 6 one would say: "are bound to the variables"), it is
 possible to change the contents:
 
     # Perl 5
-    sub make42 { $_[0] = 42 }
+    sub make42 {
+        $_[0] = 42;
+    }
     my $a = 666;
     make42($a);
     say $a;      # 42
@@ -104,9 +114,11 @@ Named arguments as such **do not exist** in Perl 5.  There is however an often
 used idiom that effectively mimicks named arguments:
 
     # Perl 5
-    my %named = @_;
-    if (exists %named{bar}) {   # named variable
-        # do stuff if named variable "bar" exists
+    sub do_something {
+        my %named = @_;
+        if (exists %named{bar}) {
+            # do stuff if named variable "bar" exists
+        }
     }
 
 This basically initializes the hash `%named` by alternately taking a key
@@ -130,13 +142,19 @@ If a subroutine is called as a method with named arguments, this idiom gets
 combined with the standard idiom:
 
     # Perl 5
-    my ($self, %named) = @_;
+    sub do_something {
+        my ($self, %named) = @_;
+        # do something with $self and %named
+    }
 
 or, alternately:
 
     # Perl 5
-    my $self = shift;
-    my %named = @_;
+    sub do_something {
+        my $self  = shift;
+        my %named = @_;
+        # do something with $self and %named
+    }
 
 Argument Passing in Perl 6
 --------------------------
@@ -179,7 +197,9 @@ If you need the aliasing behaviour of using `$_[0]` directly in Perl 5, you
 can mark the parameter as writable by specifying the `is rw` trait:
 
     # Perl 6
-    sub make42($foo is rw) { $foo = 42 }
+    sub make42($foo is rw) {
+        $foo = 42;
+    }
     my $a = 666;
     make42($a);
     say $a;      # 42
