@@ -84,8 +84,8 @@ copying whatsoever is taking place.
 
 This idiom is also used if one wants to change any variable that is passed
 as a parameter.  Since the elements in `@_` are aliases to any variables
-specified (in Perl 6 one would say: "are bound to the any variables"), it
-is possible to change the contents:
+specified (in Perl 6 one would say: "are bound to the variables"), it is
+possible to change the contents:
 
     sub make42 { $_[0] = 42 }
     my $a = 666;
@@ -163,6 +163,14 @@ take the invocant into account, as that is automatically available with the
 This type of parameters are referred to in Perl 6 as *positional parameters*.
 Unless indicated otherwise, positional parameters **must** be specified when
 calling the subroutine.
+
+If you need the aliasing behaviour of using `$_[0]` directly in Perl 5, you
+can mark the parameter as writable by specifying the `is rw` trait:
+
+    sub make42($foo is rw) { $foo = 42 }
+    my $a = 666;
+    make42($a);
+    say $a;      # 42
 
 When you pass an array as an argument to a subroutine, it does **not** get
 flattened in Perl 6.  The only thing you need to do, is to accept an array
@@ -275,7 +283,8 @@ Summary
 Perl 6 has a way of describing how arguments to a subroutine should be
 captured into parameters of that subroutine.  Positional parameters are
 indicated by their name and the appropriate sigil (e.g. `$foo`).  Named
-parameters are prefixed with a colon (e.g. `:$bar`).
+parameters are prefixed with a colon (e.g. `:$bar`).  Positional parameters
+can be marked as `is rw` to allow changing variables in the callers scope.
 
 Positional arguments can be flattened in a slurpy array, which is prefixed
 by an asterisk (e.g. `*@values`).  Unexpected named arguments can be
