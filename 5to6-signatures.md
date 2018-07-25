@@ -190,7 +190,7 @@ take the invocant into account, as that is automatically available with the
         }
     }
 
-This type of parameters are *positional parameters* in Perl 6.  Unless
+Such parameters are called *positional parameters* in Perl 6.  Unless
 indicated otherwise, positional parameters **must** be specified when
 calling the subroutine.
 
