@@ -18,11 +18,35 @@ Let's start with an overview of what sigils are associated with:
 
 | Sigil  | Perl 5     | Perl 6      |
 |:------:|:----------:|:-----------:|
-| **$**  | Scala      | Item        |
+| **$**  | Scalar     | Item        |
 | **@**  | Array      | Positional  |
 | **%**  | Hash       | Associative |
 | **&**  | Subroutine | Callable    |
-| **\*** | Glob       | n/a         |
+|   *    | Typeglob   | n/a         |
+
+Typeglobs
+=========
+As you may have noticed, Perl 6 does not have a ** * ** sigil.  Perl 6 does
+**not** have the concept of "typeglobs".  If you don't know what typeglobs
+are, then you don't have to worry about this at all: you can get by in Perl 5
+very well without having to know the intricacies of the implementation of
+symbol tables in Perl 5 (and you can skip the next paragraph).
+
+If you *do* know about typeglobs, one should realize that in Perl 6 the sigil
+is part of the name that is stored in a
+[symbol table](https://en.wikipedia.org/wiki/Symbol_table). Whereas in Perl 5
+the name is stored *without* sigil, referencing an array in which the sigil
+serves as an index to the information needed.  For example, in Perl 5, if youi
+reference **$foo** in your program, the compiler will look up **"foo"**
+(without sigil), and then fetch the associated information (which is an array),
+and look up what it needs at the index for the **$** sigil.  In Perl 6, if you
+reference **$foo**, the compiler will look up **"$foo"** and directly use the
+information associated with that key.
+
+Please do not confuse the ** * ** used in Perl 6 to indicate slurpiness of
+parameters, with the typeglob sigil.  If anything, you could consider the
+** * ** in that context in Perl 6 as a sort of "pregil", something that
+prefixes the sigil.
 
 Summary
 -------
