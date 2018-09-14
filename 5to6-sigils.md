@@ -24,6 +24,18 @@ Let's start with an overview of what sigils are associated with:
 | **&**  | Subroutine | Callable    |
 |   *    | Typeglob   | n/a         |
 
+**$** - Scalar vs Item
+======================
+
+**@** - Array vs Positional
+===========================
+
+**%** - Hash vs Associative
+===========================
+
+**%** - Subroutine vs Callable
+==============================
+
 Typeglobs
 =========
 As you may have noticed, Perl 6 does not have a * sigil.  Perl 6 does
@@ -34,9 +46,8 @@ symbol tables in Perl 5 (and you can skip the next paragraph).
 
 > If you *do* know about typeglobs, one should realize that in Perl 6 the sigil
 > is part of the name that is stored in a
-> [symbol table](https://en.wikipedia.org/wiki/Symbol_table). Whereas in Perl 5
-> the name is stored *without* sigil, referencing an array in which the sigil
-> serves as an index to the information needed.  For example, in Perl 5, if you
+> [symbol table](https://en.wikipedia.org/wiki/Symbol_table), whereas in Perl 5
+> the name is stored *without* sigil.  For example, in Perl 5, if you
 > reference **$foo** in your program, the compiler will look up **"foo"**
 > (without sigil), and then fetch the associated information (which is an
 > array), and look up what it needs at the index for the **$** sigil.  In
@@ -45,8 +56,7 @@ symbol tables in Perl 5 (and you can skip the next paragraph).
 
 Please do not confuse the * used in Perl 6 to indicate slurpiness of
 parameters, with the typeglob sigil.  If anything, you could consider the
-* in that context in Perl 6 as a sort of "pregil", something that
-prefixes the sigil.
+* in that context as a sort of "pregil", something that *prefixes* a sigil.
 
 Summary
 -------
