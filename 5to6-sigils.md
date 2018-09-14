@@ -18,26 +18,28 @@ Let's start with an overview of what sigils are associated with:
 
 | Sigil  | Perl 5     | Perl 6      |
 |:------:|:----------:|:-----------:|
-| **$**  | Scalar     | Item        |
 | **@**  | Array      | Positional  |
 | **%**  | Hash       | Associative |
 | **&**  | Subroutine | Callable    |
+| **$**  | Scalar     | Item        |
 |   *    | Typeglob   | n/a         |
 
-**$** - Scalar vs Item
-======================
+@ - Array vs Positional
+=======================
 
-**@** - Array vs Positional
-===========================
+% - Hash vs Associative
+=======================
 
-**%** - Hash vs Associative
-===========================
+% - Subroutine vs Callable
+==========================
 
-**%** - Subroutine vs Callable
-==============================
+$ - Scalar vs Item
+==================
 
-Typeglobs
-=========
+
+
+\* Typeglobs
+===========
 As you may have noticed, Perl 6 does not have a * sigil.  Perl 6 does
 **not** have the concept of "typeglobs".  If you don't know what typeglobs
 are, then you don't have to worry about this at all: you can get by in Perl 5
