@@ -26,6 +26,44 @@ Let's start with an overview of what sigils are associated with:
 
 @ - Array vs Positional
 =======================
+When you define an array in Perl 5, you basically create an expandable list of
+scalar values and give it a name with the sigil **@**:
+
+    # Perl 5
+    my @foo = (1,2,3);
+    push @foo, 42;
+    say for @foo;  # 1␤2␤3␤42␤
+
+When you define an array like that in Perl 6, you basically create a new
+[Array](https://docs.perl6.org/type/Array) object and **bind** that to the
+entry by that name in the lexical pad.  So:
+
+    # Perl 6
+    my @foo = 1,2,3;
+
+is in fact syntactic sugar for something like:
+
+    # Perl 6
+    my @foo := Array.new.STORE( 1,2,3 );
+
+The **@** sigil in Perl 6 indicates a type constraint: if you want to bind
+something into a lexpad entry with that sigil, it must perform the
+[Positional](https://docs.perl6.org/type/Positional.html) role.  Fortunately,
+the *Array* class performs that role:
+
+    # Perl 6
+    say Array.^roles;  # (Positional) (Iterable)
+
+Fortunately, the *Array* class is not the only class performing the
+*Positional*.  The [Range](https://docs.perl6.org/type/Range) class also
+does the *Positional* role.  So we can write:
+
+    # Perl 6
+    my @all = 1 .. Inf;  # all natural numbers, lazily
+    say @all[1234];  # 1235
+
+You can also implement your own classes that perform the *Positional* role.
+You will need to implement [these methods](https://docs.perl6.org/language/subscripts#Methods_to_implement_for_positional_subscripting).
 
 % - Hash vs Associative
 =======================
@@ -38,8 +76,8 @@ $ - Scalar vs Item
 
 
 
-\* Typeglobs
-===========
+\* - Typeglobs
+==============
 As you may have noticed, Perl 6 does not have a * sigil.  Perl 6 does
 **not** have the concept of "typeglobs".  If you don't know what typeglobs
 are, then you don't have to worry about this at all: you can get by in Perl 5
