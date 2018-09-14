@@ -16,6 +16,7 @@ An overview
 ===========
 Let's start with an overview of what sigils are associated with:
 
+|:------:|-----------:|-------------|
 | Sigil  |     Perl 5 | Perl 6      |
 |:------:|-----------:|-------------|
 | **$**  |     Scalar | Item        |
