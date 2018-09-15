@@ -126,8 +126,8 @@ symbol tables in Perl 5 (and you can skip the next paragraph).
 > and directly use the information associated with that key.
 
 Please do not confuse the * used in Perl 6 to indicate slurpiness of
-parameters, with the typeglob sigil.  If anything, you could consider the
-* in that context as a sort of "pregil", something that *prefixes* a sigil.
+parameters, with the typeglob sigil.  If anything, you could consider the *
+in that context as a sort of "pregil", something that *prefixes* a sigil.
 
 Summary
 -------
