@@ -104,7 +104,7 @@ consider them a *tied* hash, using Perl 5 terminology.  Instead of the
 to implement hashes.
 
 Again, a simple example might elucidate.  One of the key methods that a class
-implementing the *Associative* role should implement, is the `AT-KEY` method.i
+implementing the *Associative* role should implement, is the `AT-KEY` method.
 This method gets called whenever the value of a specific key needs to be
 accessed.  So, when you write:
 
