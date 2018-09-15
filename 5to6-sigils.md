@@ -41,7 +41,7 @@ entry by that name in the lexical pad.  So:
     # Perl 6
     my @foo = 1,2,3;
 
-is in fact syntactic sugar for something like:
+is in fact syntactic sugar:
 
     # Perl 6
     my @foo := Array.new( 1,2,3 );
@@ -61,7 +61,7 @@ create a class to *tie* with that is a subclass from a class providing basic
 functionality in Perl 5, in Perl 6 you use
 [role composition](https://docs.perl6.org/language/objects#Roles) with a
 role that provides basic functionality, so that you only need to implement
-some [specific functionality](https://docs.perAl6.org/language/subscripts#Methods_to_implement_for_positional_subscripting) appropriate to your use case.
+some specific functionality appropriate to your use case.
 
 Without going too deep into the specifics, a simple example might elucidate.
 One of the key methods that a class implementing the *Positional* role should
@@ -73,6 +73,9 @@ single element needs to be accessed.  So, when you write:
 you are in fact executing:
 
     say @a.AT-POS(42);
+
+Of course, this is not the only method that you could implement, there
+are [many more](https://docs.perAl6.org/language/subscripts#Methods_to_implement_for_positional_subscripting).
 
 Rather than having to *bind* your class performing the *Positional* role,
 there's a special syntax using the *is* trait.  So instead of having to
@@ -97,7 +100,22 @@ better).
 Hashes in Perl 6 are implemented in a similar way to arrays: you could also
 consider them a *tied* hash, using Perl 5 terminology.  Instead of the
 *Positional* role that is used to implement arrays, the
-[Associative](https://docs.perl6.org/type/Associative) role should be used.
+[Associative](https://docs.perl6.org/type/Associative) role should be used
+to implement hashes.
+
+Again, a simple example might elucidate.  One of the key methods that a class
+implementing the *Associative* role should implement, is the `AT-KEY` method.i
+This method gets called whenever the value of a specific key needs to be
+accessed.  So, when you write:
+
+    say %h<foo>;
+
+you are in fact executing:
+
+    say %h.AT-KEY("foo");
+
+Of course there are
+[many more](https://docs.perAl6.org/language/subscripts#Methods_to_implement_for_associative_subscripting) methods that you could implement.
 
 % - Subroutine vs Callable
 ==========================
