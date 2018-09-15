@@ -44,26 +44,34 @@ entry by that name in the lexical pad.  So:
 is in fact syntactic sugar for something like:
 
     # Perl 6
-    my @foo := Array.new.STORE( 1,2,3 );
+    my @foo := Array.new( 1,2,3 );
 
 The **@** sigil in Perl 6 indicates a type constraint: if you want to bind
 something into a lexpad entry with that sigil, it must perform the
-[Positional](https://docs.perl6.org/type/Positional.html) role.  Fortunately,
-the *Array* class performs that role:
+[Positional](https://docs.perl6.org/type/Positional.html) role.  One can
+easily introspect whether a class performs a certain role using smartmatch:
 
     # Perl 6
-    say Array.^roles;  # (Positional) (Iterable)
+    say Array ~~ Positional;   # True
 
-Fortunately, the *Array* class is not the only class performing the
-*Positional*.  The [Range](https://docs.perl6.org/type/Range) class also
-does the *Positional* role.  So we can write:
+So one could argue that all arrays in Perl 6 are implemented in the
+equivalent of a [tied array](https://perldoc.perl.org/functions/tie.html)
+in Perl 5.  And that would not be far from the truth.  Just like you can
+create a class to *tie* with that is a subclass from a class providing basic
+functionality in Perl 5, in Perl 6 you use
+[role composition](https://docs.perl6.org/language/objects#Roles) with a
+role that provides basic functionality, so that you only need to implement
+some [specific functionality](https://docs.perAl6.org/language/subscripts#Methods_to_implement_for_positional_subscripting) appropriate to your use case.
 
-    # Perl 6
-    my @all = 1 .. Inf;  # all natural numbers, lazily
-    say @all[1234];  # 1235
+Rather than having to *bind* your class performing the *Positional* role,
+there's a special syntax using the *is* trait.  So instead of having to
+write:
 
-You can also implement your own classes that perform the *Positional* role.
-You will need to implement [these methods](https://docs.perl6.org/language/subscripts#Methods_to_implement_for_positional_subscripting).
+    my @a := YourClass.new( 1,2,3 );
+
+one can write:
+
+    my @a is YourClass = 1,2,3;
 
 % - Hash vs Associative
 =======================
