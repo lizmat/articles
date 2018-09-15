@@ -63,18 +63,41 @@ functionality in Perl 5, in Perl 6 you use
 role that provides basic functionality, so that you only need to implement
 some [specific functionality](https://docs.perAl6.org/language/subscripts#Methods_to_implement_for_positional_subscripting) appropriate to your use case.
 
+Without going too deep into the specifics, a simple example might elucidate.
+One of the key methods that a class implementing the *Positional* role should
+implement, is the `AT-POS` method.  This method gets called whenever a
+single element needs to be accessed.  So, when you write:
+
+    say @a[42];
+
+you are in fact executing:
+
+    say @a.AT-POS(42);
+
 Rather than having to *bind* your class performing the *Positional* role,
 there's a special syntax using the *is* trait.  So instead of having to
 write:
 
+    # Perl 6
     my @a := YourClass.new( 1,2,3 );
 
 one can write:
 
+    # Perl 6
     my @a is YourClass = 1,2,3;
+
+In Perl 5, *tied* arrays are notoriously slow.  In Perl 6, arrays are
+similarly slow at startup.  Fortunately, Rakudo Perl 6 optimizes hot code
+paths by inlining and JITting opcodes to machine code where possible (and
+with recent advancements in the optimizer, this happens more, sooner and
+better).
 
 % - Hash vs Associative
 =======================
+Hashes in Perl 6 are implemented in a similar way to arrays: you could also
+consider them a *tied* hash, using Perl 5 terminology.  Instead of the
+*Positional* role that is used to implement arrays, the
+[Associative](https://docs.perl6.org/type/Associative) role should be used.
 
 % - Subroutine vs Callable
 ==========================
