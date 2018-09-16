@@ -89,11 +89,11 @@ one can write:
     # Perl 6
     my @a is YourClass = 1,2,3;
 
-In Perl 5, *tied* arrays are notoriously slow.  In Perl 6, arrays are
-similarly slow at startup.  Fortunately, Rakudo Perl 6 optimizes hot code
-paths by inlining and JITting opcodes to machine code where possible (and
-with recent advancements in the optimizer, this happens more, sooner and
-better).
+In Perl 5, *tied* arrays are notoriously slow compared to "normal" arrays.
+In Perl 6, arrays are similarly slow at startup.  Fortunately, Rakudo Perl 6
+optimizes hot code paths by inlining and JITting opcodes to machine code
+where possible (and with recent advancements in the optimizer, this happens
+more, sooner and better).
 
 % - Hash vs Associative
 =======================
