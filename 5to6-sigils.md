@@ -290,9 +290,9 @@ something else.  Something like a container!  This allows for the following
 syntactic trick to get sigilless variables:
 
     # Perl 6
-    my \foo = my $ = 41;                # a sigilless scalar variable
-    my \bar = my @ = 1,2,3,4,5;         # a sigilless array
-    my \baz = my % = a => 42, b => 666; # a sigilless hash
+    my \foo = $ = 41;                # a sigilless scalar variable
+    my \bar = @ = 1,2,3,4,5;         # a sigilless array
+    my \baz = % = a => 42, b => 666; # a sigilless hash
 
 This basically creates nameless entities (a scalar, an array and a hash),
 initializes them using the normal semantics, and then **binds** the resulting
