@@ -148,9 +148,37 @@ code.  What they have in common, is that they consume the
 
 The `&` sigil forces binding to an object performing the `Callable` role,
 just like the `%` sigil does with the `Associative` role, and the `@` sigil
-does with the `Positional` role.
+does with the `Positional` role.  An example very close to Perl 5:
 
+    # Perl 6
+    my &foo = sub ($a,$b) { $a + $b }
+    say foo(42,666);  # 708
 
+Note that even though the variable has the `&` sigil, you do **not** need
+to use that when you want to execute the code in that variable.  In fact,
+if you would run the code in a `BEGIN` block, there would be no difference
+at all with an ordinary `sub` declaration:
+
+    # Perl 6
+    BEGIN my &foo = sub ($a,$b) { $a + $b }
+
+Note that, contrary to Perl 5, `BEGIN` blocks in Perl 6 can be a single
+statement **without** a block, so that it shares its lexical scope with
+the outside.
+
+The main advantage to using a `&` sigilled variable, is that it is known
+at compile time that it is going to be something executable in there, even
+it is not known yet what.
+
+There are other ways to set up a piece of code for execution:
+
+    # Perl 6
+    my &goo = -> $a, $b { $a + $b }  # same, using a Block with a signature
+    my &hoo = { $^a + $^b }          # same, using [auto-generated signature](https://docs.perl6.org/language/variables#index-entry-%24%5E)
+    my &ioo = * + *;                 # same, using [Whatever currying](https://docs.perl6.org/type/Whatever)
+
+Which one you may or can use, really depends on the situation, and your
+personal preferences.
 
 $ - Scalar vs Item
 ==================
