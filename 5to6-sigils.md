@@ -127,6 +127,30 @@ Of course there are
 
 & - Subroutine vs Callable
 ==========================
+In Perl 5 there is only type of callable executable code, the subroutine:
+
+    # Perl 5
+    sub frobnicate { say shift ** 2 }
+
+And if you want to pass on a subroutine as a parameter, you need to get a
+reference to it:
+
+    # Perl 5
+    sub do_stuff_with {
+        my $lambda = shift;
+        &$lambda(shift);
+    }
+    do_stuff_with( \&frobnicate, 42 );  # 1764
+
+In Perl 6 there are multiple types of objects that can contain executable
+code.  What they have in common, is that they consume the
+[Callable role](https://docs.perl6.org/type/Callable).
+
+The `&` sigil forces binding to an object performing the `Callable` role,
+just like the `%` sigil does with the `Associative` role, and the `@` sigil
+does with the `Positional` role.
+
+
 
 $ - Scalar vs Item
 ==================
@@ -190,7 +214,7 @@ syntactic trick to get sigilless variables:
 
 This basically creates nameless entities (a scalar, an array and a hash),
 initializes them using the normal semantics, and then **binds** the resulting
-objects (a `Scalar` container, an `Array` object and a `Hash` object) to thei
+objects (a `Scalar` container, an `Array` object and a `Hash` object) to the
 sigilless name.  Which you can then use as any other ordinary variable in
 Perl 6.
 
@@ -206,7 +230,12 @@ specifically with regards to interpolation.  You will then basically always
 need to use **{ }** in interpolation.
 
     # Perl 6
-    say "The answer is {foo}";
+    say "The answer is {the-answer}.";  # The answer is 42.
+
+Which would be rather more cumbersome in most versions of Perl 5:
+
+    # Perl 5
+    say "The answer is @{[the_answer]}.";  # The answer is 42.
 
 Summary
 -------
