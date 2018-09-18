@@ -130,7 +130,7 @@ Of course there are
 In Perl 5 there is only type of callable executable code, the subroutine:
 
     # Perl 5
-    sub frobnicate { say shift ** 2 }
+    sub frobnicate { shift ** 2 }
 
 And if you want to pass on a subroutine as a parameter, you need to get a
 reference to it:
@@ -140,7 +140,7 @@ reference to it:
         my $lambda = shift;
         &$lambda(shift);
     }
-    do_stuff_with( \&frobnicate, 42 );  # 1764
+    say do_stuff_with( \&frobnicate, 42 );  # 1764
 
 In Perl 6 there are multiple types of objects that can contain executable
 code.  What they have in common, is that they consume the
@@ -185,6 +185,15 @@ If you'd like to know more:
 
 Which one you may or can use, really depends on the situation, and your
 personal preferences.
+
+Finally, you can also use the `&` sigil inside a signature to indicate that
+the callee wants something executable there.  Which brings us back to the
+first two code examples in this section:
+
+    # Perl 6
+    sub frobnicate { $^a ** 2 }
+    sub do-stuff-with(&lambda, $param) { lambda($param) }
+    say do-stuff-with( &frobnicate, 42 );  # 1764
 
 $ - Scalar vs Item
 ==================
