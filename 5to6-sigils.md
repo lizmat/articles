@@ -1,5 +1,5 @@
-Sigils in Perl 6
-================
+Sigils in Perl 5 and Perl 6
+===========================
 
 In the [first article](5to6-introduction.md) in this series comparing Perl 5
 to Perl 6, we looked into some of the issues you might encounter when migrating
