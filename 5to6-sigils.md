@@ -210,9 +210,34 @@ Well, functionally something like this happens:
     my $answer := Scalar.new(42);
 
 except that this happens at a very low level, so the above code will actually
-**not** work, in case you wondered.  And that's all there is to it, really.
+**not** work, in case you wondered.  And that's all there is to it when your
+doing declarations of scalar variables.
 
+In Perl 6 the `$` also indicates that whatever is in there, should be
+considered a single **item**.  So, even if a Scalar container has an
+`Array` object, it will be considered as a single item in situations
+where iteration is required:
 
+    # Perl 6
+    my @foo = 1,2,3;
+    my $bar = Array.new(1,2,3);  # alternately: [1,2,3]
+    .say for @foo;  # 1␤2␤3␤
+    .say for $bar;  # [1 2 3]
+
+Note that in the latter case, only **one** iteration is done.  And in the
+former case **three**.  Whether you want something to iterate or not, can
+be used by prefixing the appropriate sigil:
+
+    # Perl 6
+    .say for $@foo;  # [1 2 3] , consider the array as an item
+    .say for @$bar;  # 1␤2␤3␤  , consider the scalar as a list
+
+Although maybe that brings us too much into line-noise land.  Fortunately,
+there are more verbose equivalents:
+
+    # Perl 6
+    .say for @foo.item;  # [1 2 3] , consider the array as an item
+    .say for $bar.list;  # 1␤2␤3␤  , consider the scalar as a list
 
 \* - Typeglobs
 ==============
@@ -232,8 +257,9 @@ symbol tables in Perl 5 (and you can skip the next paragraph).
 > Perl 6, if you reference **$foo**, the compiler will look up **"$foo"**
 > and directly use the information associated with that key.
 
-Please do not confuse the * used in Perl 6 to indicate slurpiness of
-parameters, with the typeglob sigil.
+Please do **not** confuse the * used to indicate slurpiness of parameters in
+Perl 6 with the typeglob sigil of Perl 5: they have nothing to do with each
+other.
 
 Sigilless variables
 ===================
