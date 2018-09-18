@@ -197,9 +197,9 @@ first two code examples in this section:
 
 $ - Scalar vs Item
 ==================
-Now that we've seen the `@`, `%` and `&` sigils, the `$` is a bit bland.
-It does **not** enforce any type checks, so you can bind it to any type
-of object.  So what *does* happen when you write:
+Now that we've seen the `@`, `%` and `&` sigils, the `$` sigil is a bit
+bland.  It does **not** enforce any type checks, so you can bind it to any
+type of object.  So what *does* happen when you write:
 
     # Perl 6
     my $answer = 42;
@@ -322,9 +322,9 @@ Which would be rather more cumbersome in most versions of Perl 5:
 Summary
 -------
 All variables in Perl 6 could be considered **tied** variables when thinking
-about them in Perl 5 concepts.  This makes them slowish initially.  But
+about them using Perl 5 concepts.  This makes them slowish initially.  But
 runtime optimization and JITting of hot code paths (at one point to machine
-code), already can make them faster than Perl 5 variables in some benchmarks.
+code), already makes them faster than Perl 5 variables in some benchmarks.
 
 The `@`, `%` and `&` in Perl 6 do not create any specific objects, but rather
 indicate a type constraint that will be applied to the object a name will be
