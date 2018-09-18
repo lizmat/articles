@@ -49,17 +49,18 @@ syntactic sugar for:
     # Perl 6
     my @foo := Array.new( 1,2,3 );
 
-This binds a new `Array` object to the lexically defined name `@foo`.  The
-**@** sigil in Perl 6 indicates a type constraint: if you want to bind
-something into a lexpad entry with that sigil, it must perform the
-[Positional](https://docs.perl6.org/type/Positional.html) role.  One can
-easily introspect whether a class performs a certain role using smartmatch:
+This **binds** (rather than assigns) a new `Array` object to the lexically
+defined name `@foo`.  The **@** sigil in Perl 6 indicates a type constraint:
+if you want to bind something into a lexpad entry with that sigil, it **must**
+perform the [Positional](https://docs.perl6.org/type/Positional.html) role.
+One can easily introspect whether a class performs a certain role using
+smartmatch:
 
     # Perl 6
     say Array ~~ Positional;   # True
 
 One could argue that all arrays in Perl 6 are implemented in the equivalent
-of a [tied array](https://perldoc.perl.org/functions/tie.html) in Perl 5.
+of a [tied array in Perl 5](https://perldoc.perl.org/functions/tie.html).
 And that would not be far from the truth.  Just like you can create a class
 to *tie* with that is a subclass from a class providing basic functionality
 in Perl 5, in Perl 6 you use
@@ -124,7 +125,7 @@ you are in fact executing:
 Of course there are
 [many more](https://docs.perAl6.org/language/subscripts#Methods_to_implement_for_associative_subscripting) methods that you could implement.
 
-% - Subroutine vs Callable
+& - Subroutine vs Callable
 ==========================
 
 $ - Scalar vs Item
@@ -153,6 +154,59 @@ symbol tables in Perl 5 (and you can skip the next paragraph).
 Please do not confuse the * used in Perl 6 to indicate slurpiness of
 parameters, with the typeglob sigil.  If anything, you could consider the *
 in that context as a sort of "pregil", something that *prefixes* a sigil.
+
+Sigilless variables
+===================
+Perl 5 does not support sigilless variables out of the box (apart from maybe
+using left-value subroutines, but that would be very clunky indeed).
+
+Perl 6 does not directly support sigilless **variables** either, but it does
+support **binding** to sigilless names by prefixing a backslash ("\") to the
+name in a definition:
+
+    # Perl 6
+    my \the-answer = 42;
+    say the-answer;  # 42
+
+Since the right-hand side of the assignment is a constant, this is basically
+the same as defining a constant:
+
+    # Perl 5
+    use constant the_answer => 42;
+    say the_answer;  # 42
+
+    # Perl 6
+    my constant the-answer = 42;
+    say the-answer;  # 42
+
+It becomes more interesting if the right hand side of a definition is
+something else.  Something like a container!  This allows for the following
+syntactic trick to get sigilless variables:
+
+    # Perl 6
+    my \foo = my $ = 41;                # a sigilless scalar variable
+    my \bar = my @ = 1,2,3,4,5;         # a sigilless array
+    my \baz = my % = a => 42, b => 666; # a sigilless hash
+
+This basically creates nameless entities (a scalar, an array and a hash),
+initializes them using the normal semantics, and then **binds** the resulting
+objects (a `Scalar` container, an `Array` object and a `Hash` object) to thei
+sigilless name.  Which you can then use as any other ordinary variable in
+Perl 6.
+
+    # Perl 6
+    say ++foo;     # 42
+    say bar[2];    # 3
+    bar[2] = 42;
+    say bar[2];    # 42
+    say baz<a b>;  # (42 666)
+
+Of course, if you do this, you will lose all of the advantages of sigils,
+specifically with regards to interpolation.  You will then basically always
+need to use **{ }** in interpolation.
+
+    # Perl 6
+    say "The answer is {foo}";
 
 Summary
 -------
