@@ -40,13 +40,17 @@ entry by that name in the lexical pad.  So:
 
     # Perl 6
     my @foo = 1,2,3;
+    push @foo, 42;
+    .say for @foo;  # 1␤2␤3␤42␤
 
-is in fact syntactic sugar:
+is functionally the same as in Perl 5.  However, the first line is in fact
+syntactic sugar for:
 
     # Perl 6
     my @foo := Array.new( 1,2,3 );
 
-The **@** sigil in Perl 6 indicates a type constraint: if you want to bind
+This binds a new `Array` object to the lexically defined name `@foo`.  The
+**@** sigil in Perl 6 indicates a type constraint: if you want to bind
 something into a lexpad entry with that sigil, it must perform the
 [Positional](https://docs.perl6.org/type/Positional.html) role.  One can
 easily introspect whether a class performs a certain role using smartmatch:
@@ -54,14 +58,17 @@ easily introspect whether a class performs a certain role using smartmatch:
     # Perl 6
     say Array ~~ Positional;   # True
 
-So one could argue that all arrays in Perl 6 are implemented in the
-equivalent of a [tied array](https://perldoc.perl.org/functions/tie.html)
-in Perl 5.  And that would not be far from the truth.  Just like you can
-create a class to *tie* with that is a subclass from a class providing basic
-functionality in Perl 5, in Perl 6 you use
+One could argue that all arrays in Perl 6 are implemented in the equivalent
+of a [tied array](https://perldoc.perl.org/functions/tie.html) in Perl 5.
+And that would not be far from the truth.  Just like you can create a class
+to *tie* with that is a subclass from a class providing basic functionality
+in Perl 5, in Perl 6 you use
 [role composition](https://docs.perl6.org/language/objects#Roles) with a
 role that provides basic functionality, so that you only need to implement
-some specific functionality appropriate to your use case.
+some specific functionality appropriate to your use case.  There's even a
+a Perl 6 equivalent for Perl 5's
+[Tie::Array](https://metacpan.org/pod/Tie::Array) called
+[Array::Agnostic](https://modules.perl6.org/dist/Array::Agnostic).
 
 Without going too deep into the specifics, a simple example might elucidate.
 One of the key methods that a class implementing the *Positional* role should
