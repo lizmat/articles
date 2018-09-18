@@ -267,7 +267,7 @@ Perl 5 does not support sigilless variables out of the box (apart from maybe
 using left-value subroutines, but that would be very clunky indeed).
 
 Perl 6 does not directly support sigilless **variables** either, but it does
-support **binding** to sigilless names by prefixing a backslash ("\") to the
+support **binding** to sigilless names by prefixing a backslash ("\\") to the
 name in a definition:
 
     # Perl 6
