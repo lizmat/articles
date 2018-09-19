@@ -123,7 +123,10 @@ you are in fact executing:
     say %h.AT-KEY("foo");
 
 Of course there are
-[many more](https://docs.perAl6.org/language/subscripts#Methods_to_implement_for_associative_subscripting) methods that you could implement.
+[many more](https://docs.perAl6.org/language/subscripts#Methods_to_implement_for_associative_subscripting) methods that you could implement.  And there's
+also a Perl 6 equivalent for Perl 5's
+[Tie::Hash](https://metacpan.org/pod/Tie::Hash) called
+[Hash::Agnostic](https://modules.perl6.org/dist/Hash::Agnostic).
 
 & - Subroutine vs Callable
 ==========================
