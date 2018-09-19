@@ -163,11 +163,11 @@ if you would run the code in a `BEGIN` block, there would be no difference
 at all with an ordinary `sub` declaration:
 
     # Perl 6
-    BEGIN my &foo = sub ($a,$b) { $a + $b }
+    BEGIN my &foo = sub ($a,$b) { $a + $b } # same as sub foo()
 
 Note that, contrary to Perl 5, `BEGIN` blocks in Perl 6 can be a single
 statement **without** a block, so that it shares its lexical scope with
-the outside.
+the outside.  But more about that in a future article.
 
 The main advantage to using a `&` sigilled variable, is that it is known
 at compile time that there is going to be something executable in there,
@@ -176,9 +176,9 @@ even it is not known yet what at that time.
 There are other ways to set up a piece of code for execution:
 
     # Perl 6
-    my &goo = -> $a, $b { $a + $b }  # same, using a Block with a signature
-    my &hoo = { $^a + $^b }          # same, using auto-generated signature
-    my &ioo = * + *;                 # same, using Whatever currying
+    my &boo = -> $a, $b { $a + $b }  # same, using a Block with a signature
+    my &goo = { $^a + $^b }          # same, using auto-generated signature
+    my &woo = * + *;                 # same, using Whatever currying
 
 If you'd like to know more:
 
@@ -193,10 +193,21 @@ Finally, you can also use the `&` sigil inside a signature to indicate that
 the callee wants something executable there.  Which brings us back to the
 first two code examples in this section:
 
+    # Perl 5
+    sub frobnicate { shift ** 2 }
+    sub do_stuff_with {
+        my $lambda = shift;
+        &$lambda(shift);
+    }
+    say do_stuff_with( \&frobnicate, 42 );  # 1764
+
     # Perl 6
     sub frobnicate { $^a ** 2 }
     sub do-stuff-with(&lambda, $param) { lambda($param) }
     say do-stuff-with( &frobnicate, 42 );  # 1764
+
+Note that in Perl 6 you don't need to take a reference: you simply pass the
+code object (as indicated by the `&` sigil) as a parameter.
 
 $ - Scalar vs Item
 ==================
@@ -217,8 +228,8 @@ except that this happens at a very low level, so the above code will actually
 doing declarations of scalar variables.
 
 In Perl 6 the `$` also indicates that whatever is in there, should be
-considered a single **item**.  So, even if a Scalar container has an
-`Array` object, it will be considered as a single item in situations
+considered a single **item**.  So, even if a Scalar container is filled with
+an `Array` object, it will be considered as a single item in situations
 where iteration is required:
 
     # Perl 6
@@ -235,8 +246,8 @@ be used by prefixing the appropriate sigil:
     .say for $@foo;  # [1 2 3] , consider the array as an item
     .say for @$bar;  # 1␤2␤3␤  , consider the scalar as a list
 
-Although maybe that brings us too much into line-noise land.  Fortunately,
-there are more verbose equivalents:
+But maybe that brings us too much into line-noise land.  Fortunately,
+there are also more verbose equivalents:
 
     # Perl 6
     .say for @foo.item;  # [1 2 3] , consider the array as an item
@@ -297,11 +308,11 @@ syntactic trick to get sigilless variables:
     my \bar = @ = 1,2,3,4,5;         # a sigilless array
     my \baz = % = a => 42, b => 666; # a sigilless hash
 
-This basically creates nameless entities (a scalar, an array and a hash),
-initializes them using the normal semantics, and then **binds** the resulting
-objects (a `Scalar` container, an `Array` object and a `Hash` object) to the
-sigilless name.  Which you can then use as any other ordinary variable in
-Perl 6.
+This basically creates nameless lexical entities (a scalar, an array and a
+hash), initializes them using the normal semantics, and then **binds** the
+resulting objects (a `Scalar` container, an `Array` object and a `Hash`
+object) to the sigilless name.  Which you can then use as any other ordinary
+variable in Perl 6.
 
     # Perl 6
     say ++foo;     # 42
@@ -317,7 +328,7 @@ need to use **{ }** in interpolation.
     # Perl 6
     say "The answer is {the-answer}.";  # The answer is 42.
 
-Which would be rather more cumbersome in most versions of Perl 5:
+The equivalent of that is rather more cumbersome in most versions of Perl 5:
 
     # Perl 5
     say "The answer is @{[the_answer]}.";  # The answer is 42.
@@ -326,8 +337,8 @@ Summary
 -------
 All variables in Perl 6 could be considered **tied** variables when thinking
 about them using Perl 5 concepts.  This makes them slowish initially.  But
-runtime optimization and JITting of hot code paths (at one point to machine
-code), already makes them faster than Perl 5 variables in some benchmarks.
+runtime optimizations and JITting of hot code paths (at one point to machine
+code), already makes faster than Perl 5 variables in some benchmarks.
 
 The `@`, `%` and `&` in Perl 6 do not create any specific objects, but rather
 indicate a type constraint that will be applied to the object a name will be
