@@ -22,7 +22,7 @@ counterparts, in the order they get executed in Perl 5:
 | END        | END         | |
 
 These phasers in Perl 6 are usually referred to as
-[Program Execution Phasers]()https://docs.perl6.org/language/phasers#Program_execution_phasers).  This is because they are related to the execution of a
+[Program Execution Phasers](https://docs.perl6.org/language/phasers#Program_execution_phasers).  This is because they are related to the execution of a
 complete program, regardless of where they are located in a program.
 
 BEGIN
@@ -102,4 +102,4 @@ Asynchronous phasers
 | CLOSE     | run  |
 
 Summary
--------
+=======
