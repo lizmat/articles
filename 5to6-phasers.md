@@ -237,7 +237,7 @@ behaviour, *must* always be specified using curly braces.
 | CONTROL | run for any (other) control exception |
 
 CATCH
-______
+-----
 The use of `$SIG{__DIE__}` in Perl 5 is not recommended anymore.  Several
 competing CPAN modules provide some kind of `try / catch` mechanism (such
 as: [Try::Tiny](https://metacpan.org/pod/Try::Tiny) and
@@ -260,9 +260,9 @@ surrounding lexical scope.
     }
     # aw, died␤alive again
 
-Please note that you do **not** need a `try` to be able to catch exceptions.
-A `try` block is just a convenient way to disregard any exceptions without
-having to worry about anything.
+Please note that you do **not** need a `try` statement to be able to catch
+exceptions.  A `try` block is just a convenient way to disregard any
+exceptions without having to worry about anything.
 
 Also note that `$_` will be set to the `Exception` object inside the `CATCH`
 block.  In this example, the `Exception` is simply resumed by calling the
@@ -281,19 +281,23 @@ Checking for specific exception is made easy with the
                 say "aw, too early in history";
                 .resume;
             }
+            default {
+                say "WAT?";
+                .rethrow;       # throw the exception again
+            }
         }
-        X::NYI.new(feature => "Frobnicator").throw;  # caught
-        now / 0;                                     # NOT caught
+        X::NYI.new(feature => "Frobnicator").throw;  # caught, resumed
+        now / 0;                                     # caught, rethrown
         say "back to the future";
     }
-    # aw, too early in history␤Attempt to divide 1234.5678 by zero using /
+    # aw, too early in history␤WAT?␤Attempt to divide 1234.5678 by zero using /
 
 In this example only `X::NYI` exceptions will be resumed, all other ones will
 be thrown to any outer `CATCH` block and as such will probably result in
 program termination.
 
 CONTROL
-______
+-------
 
 Block phasers
 -------------
@@ -307,13 +311,13 @@ Block phasers
 | UNDO  | run everytime a Block is left **un**successfully |
 
 ENTER & LEAVE
-______
+-------------
 
 KEEP & UNDO
-______
+-----------
 
 PRE & POST
-______
+----------
 
 Loop phasers
 ------------
