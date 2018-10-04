@@ -347,18 +347,21 @@ you can catch with the `CONTROL` phaser:
     }
 
 This mechanism is also used for quite a lot of other functionality apart
-from warnings.  The following statements also create control exceptions:
+from warnings.  The following statements also create control exceptions
+(in alphabetical order): 
+[fail](https://docs.perl6.org/language/control#fail),
+[last](https://docs.perl6.org/language/control#last),
+[next](https://docs.perl6.org/language/control#next),
+[proceed](https://docs.perl6.org/language/control#proceed),
+[redo](https://docs.perl6.org/language/control#redo),
+[return](https://docs.perl6.org/language/control#return),
+[return-rw](https://docs.perl6.org/language/control#return-rw),
+[succeed](https://docs.perl6.org/language/control#succeed),
+[take](https://docs.perl6.org/language/control#gather/take).
 
-- [return](https://docs.perl6.org/language/control#return)
-- [return-rw](https://docs.perl6.org/language/control#return-rw)
-- fail
-- redo
-- next
-- last
-- take
-- proceed
-- succeed
-
+So they would also show up in any `CONTROL` phaser.  Luckily, if you do not
+do anything with the control exception, it will be rethrown when the `CONTROL`
+phaser is done.
 
 Block phasers
 -------------
