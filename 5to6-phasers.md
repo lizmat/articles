@@ -298,10 +298,8 @@ program termination.
 
 Catching warnings
 -----------------
-The `CONTROL` phaser is a phaser which you will most likely never need.  If
-used, it is probably used to catch warnings before they are being displayed.
-But there are other ways to do that in Perl 6.  If we do not want any
-warnings to emanate, you can use the `no warnings` pragma in Perl 5:
+If you do not want any warnings to emanate from the execution of a piece of
+code, you can use the `no warnings` pragma in Perl 5:
 
     # Perl 5
     {
@@ -313,7 +311,7 @@ warnings to emanate, you can use the `no warnings` pragma in Perl 5:
     print $bar;
     # Use of uninitialized value $bar in print...
 
-In Perl 6 you can do:
+In Perl 6 you can use a `quietly` block:
 
     # Perl 6
     quietly {
@@ -324,8 +322,8 @@ In Perl 6 you can do:
     print $bar;
     # Use of uninitialized value of type Any in string context...
 
-The `quietly` will catch any warnings that could emanate from that block
-and just disregard them.
+The `quietly` block will catch **any** warnings that emanate from that block
+and just disregards them.
 
 If you want finer control on which warnings you want to be seen, you can
 select which
@@ -335,6 +333,32 @@ In Perl 6 however, you would need a `CONTROL` phaser:
 
 CONTROL
 -------
+The `CONTROL` phaser is very much like the `CATCH` phaser, but it handles
+a special type of exception, the so-called "control exception".  Whenever
+a warning is generated in Perl 6, a control exception is thrown.  Which
+you can catch with the `CONTROL` phaser:
+
+    # Perl 6
+    CONTROL {
+        when CX::Warn {    # control exception associated with warnings
+            note .message
+              unless .message.starts-with('Use of uninitialized value');
+        }
+    }
+
+This mechanism is also used for quite a lot of other functionality apart
+from warnings.  The following statements also create control exceptions:
+
+- [return](https://docs.perl6.org/language/control#return)
+- [return-rw](https://docs.perl6.org/language/control#return-rw)
+- fail
+- redo
+- next
+- last
+- take
+- proceed
+- succeed
+
 
 Block phasers
 -------------
