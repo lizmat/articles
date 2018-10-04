@@ -552,7 +552,7 @@ The names really speak for themselves.  A bit of a contrived example:
 
 Loop constructs include [`loop`](https://docs.perl6.org/language/control#loop),
 [`while`, `until`](https://docs.perl6.org/language/control#while,_until),
-[`repeat/while`, `repeat/until](https://docs.perl6.org/language/control#repeat/while,_repeat/until),
+[`repeat/while`, `repeat/until`](https://docs.perl6.org/language/control#repeat/while,_repeat/until),
 [`for`](https://docs.perl6.org/language/control#for) and
 [`map`,`deepmap`,`flatmap`](https://docs.perl6.org/type/List#routine_map).
 
