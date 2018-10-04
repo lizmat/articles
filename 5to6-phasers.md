@@ -67,7 +67,7 @@ Of course, you can also use this as a feature:
     say "This module was compiled at { BEGIN DateTime.now }";
     # This module was compiled at 2018-10-04T22:18:39.598087+02:00
 
-Some other features of Perl 5 **and** Perl 6 that implicitely use `BEGIN`
+Some other features of Perl 5 **and** Perl 6 that implicitly use `BEGIN`
 functionality, suffer from the same caveat.  Take this example where we want
 to have a constant `foo` to either have the value of the environment variable
 `FOO`, or if that is not available, the value `42`:
