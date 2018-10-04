@@ -13,13 +13,13 @@ An overview
 Let's start with an overview again of Perl 5 special blocks and their Perl 6
 counterparts, in the order they get executed in Perl 5:
 
-| Perl 5     | Perl 6      | Notes      |
-|:----------:|:-----------:|:----------:|
-| BEGIN      | BEGIN       | not run when loading precompiled code |
-| UNITCHECK  | CHECK       | |
-| CHECK      |             | no equivalent in Perl 6 |
-| INIT       | INIT        | |
-| END        | END         | |
+| Perl 5    | Perl 6 | Notes      |
+|:---------:|:-----------:|:----------:|
+| BEGIN     | BEGIN  | not run when loading precompiled code |
+| UNITCHECK | CHECK  | |
+| CHECK     |        | no equivalent in Perl 6 |
+| INIT      | INIT   | |
+| END       | END    | |
 
 These phasers in Perl 6 are usually referred to as
 [Program Execution Phasers](https://docs.perl6.org/language/phasers#Program_execution_phasers).  This is because they are related to the execution of a
@@ -117,7 +117,7 @@ No need for a block
 Most phasers in Perl 6 do not have to be a
 [Block](https://docs.perl6.org/type/Block) (aka, followed by code between
 curly braces).  They can also consist of a single statement *without* any
-curly braces.  This means that if you've written in Perl 5: 
+curly braces.  This means that if you've written in Perl 5:
 
     # Perl 5
     # need to define lexical outside of BEGIN scope
@@ -160,34 +160,97 @@ Perl 6 has generalized some other features of Perl 5 as phasers, that weren't
 covered by special blocks in Perl 5.  And it has added some more phasers that
 are not covered by any (standard) functionality of Perl 5 at all.
 
+> One important feature that one should remember about phasers is that a
+> developer of a program does **not** determine **when** a phaser is run.
+> It is the runtime executor that decides when a phaser is being run.
+> Therefore all phasers in Perl 6 are spelled in uppercase characters,
+> to make them stand out better.
+
 Exception handling phasers
 --------------------------
+In Perl 5 you can use [`eval`](https://perldoc.perl.org/functions/eval.html)
+to catch exceptions in a piece of code.  In Perl 6 you can use
+[try](https://docs.perl6.org/language/exceptions#index-entry-try_blocks):
+
+    # Perl 5
+    eval {
+        die "Goodbye cruel world";
+    };
+    say $@;           # Goodbye cruel world at ...
+    say "Alive again!"
+
+    # Perl 6
+    try {
+        die "Goodbye cruel world";
+    }
+    say $!;           # Goodbye cruel world␤  in block ...
+    say "Alive again!"
+
+In Perl 5 you can use the return value of `try` in an expression:
+
+    # Perl 5
+    my $foo = eval { ... };  # undef if exception was thrown
+
+That works the same way in Perl 6:
+
+    # Perl 6
+    my $foo = try { ... };   # returns Nil if exception was thrown
+
+If you however need finer control over what to do when an exception occurs
+
+, or use special
+[signal handlers](https://perldoc.pl/variables/%25SIG) `$SIG{__DIE__}` and
+`$SIG{__WARN__}` to catch (control) exceptions such as `die` and `warn`.
+
+In Perl 6, these are replaced by two exception handling phasers, which due
+to their scoping behaviour, always *must* be specified using curly braces:
+
 | Name | Description |
 |:----------|:-----------|
-| CATCH     | run when an exception is thrown |
-| CONTROL   | run for any (other) control exception |
+| CATCH   | run when an exception is thrown |
+| CONTROL | run for any (other) control exception |
+
+CATCH
+______
+The code inside a [`CATCH`](https://docs.perl6.org/language/phasers#CATCH)
+phaser will be called whenever an exception is thrown in the immediately
+surrounding lexical scope.  This is similar to the use of `$SIG{__DIE__}`
+in Perl 5:
+
+CONTROL
+______
 
 Block phasers
 -------------
 | Name | Description |
 |:----------|:-----------|
-| ENTER     | run everytime when entering a Block |
-| LEAVE     | run everytime when leaving a Block |
-| KEEP      | run everytime a Block is left successfully |
-| UNDO      | run everytime a Block is left **un**successfully |
-| PRE       | check condition *before* running a Block |
-| POST      | check return value *after* having run a Block |
+| ENTER | run everytime when entering a Block |
+| LEAVE | run everytime when leaving a Block |
+| KEEP  | run everytime a Block is left successfully |
+| UNDO  | run everytime a Block is left **un**successfully |
+| PRE   | check condition *before* running a Block |
+| POST  | check return value *after* having run a Block |
 
-ENTER
-_____
+ENTER & LEAVE
+______
+
+KEEP & UNDO
+______
+
+PRE & POST
+______
 
 Loop phasers
 ------------
+Perl 6 has 3 phasers that are specific for loop constructs:
+
 | Name | Description |
 |:----------|:-----------|
-| FIRST     | run only the first time through a loop |
-| NEXT      | run after each completed iteration, or with next |
-| LAST      | run after the last iteration, or with last |
+| FIRST | run only the first time through a loop |
+| NEXT  | run after each completed iteration, or with next |
+| LAST  | run after the last iteration, or with last |
+
+
 
 Asynchronous phasers
 --------------------
@@ -199,9 +262,9 @@ block when doing event driven programming using
 
 | Name | Description |
 |:----------|:-----------|
-| LAST      | run when a Supply is done |
-| QUIT      | run when a Supply terminates with an error |
-| CLOSE     | run when a Supply is closed |
+| LAST  | run when a Supply is done |
+| QUIT  | run when a Supply terminates with an error |
+| CLOSE | run when a Supply is closed |
 
 A deeper review into event driven programming will be left for a future
 article in this series.
