@@ -93,7 +93,7 @@ The main reason for this is that you probably shouldn't be using the `CHECK`
 special block in Perl 5 anymore, but use `UNITCHECK` instead as the `UNITCHECK`
 semantics are much more sane (available since
 [version 5.10](https://metacpan.org/pod/perl5100delta#UNITCHECK-blocks)).
-Therefore this special block will not further be discussed in this article.
+Therefore this special block will not be further discussed in this article.
 
 INIT
 ====
@@ -119,20 +119,20 @@ Example using all four Program Execution Phasers and their Perl 5 special
 block counterparts
 
     # Perl 5
-    say "running";
+    say "running in Perl 5";
     END       { say "END"   }
     INIT      { say "INIT"  }
     UNITCHECK { say "CHECK" }
     BEGIN     { say "BEGIN" }
-    # BEGIN␤CHECK␤INIT␤running␤END␤
+    # BEGIN␤CHECK␤INIT␤running in Perl 5␤END␤
 
     # Perl 6
-    say "running";
+    say "running in Perl 6";
     END   { say "END"   }
     INIT  { say "INIT"  }
     CHECK { say "CHECK" }
     BEGIN { say "BEGIN" }
-    # BEGIN␤CHECK␤INIT␤running␤END␤
+    # BEGIN␤CHECK␤INIT␤running in Perl 6␤END␤
 
 More than special blocks
 ========================
@@ -295,6 +295,43 @@ Checking for specific exception is made easy with the
 In this example only `X::NYI` exceptions will be resumed, all other ones will
 be thrown to any outer `CATCH` block and as such will probably result in
 program termination.
+
+Catching warnings
+-----------------
+The `CONTROL` phaser is a phaser which you will most likely never need.  If
+used, it is probably used to catch warnings before they are being displayed.
+But there are other ways to do that in Perl 6.  If we do not want any
+warnings to emanate, you can use the `no warnings` pragma in Perl 5:
+
+    # Perl 5
+    {
+        no warnings;
+        my $foo;
+        say $foo;     # no visible warning
+    }
+    my $bar;
+    print $bar;
+    # Use of uninitialized value $bar in print...
+
+In Perl 6 you can do:
+
+    # Perl 6
+    quietly {
+        my $foo;
+        say $foo;     # no visible warning
+    }
+    my $bar;
+    print $bar;
+    # Use of uninitialized value of type Any in string context...
+
+The `quietly` will catch any warnings that could emanate from that block
+and just disregard them.
+
+If you want finer control on which warnings you want to be seen, you can
+select which
+[warning categories](https://perldoc.pl/warnings#Category-Hierarchy) you
+want enabled / disabled with `use warnings` / `no warnings` in Perl 5.
+In Perl 6 however, you would need a `CONTROL` phaser:
 
 CONTROL
 -------
