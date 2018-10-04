@@ -238,12 +238,12 @@ behaviour, *must* always be specified using curly braces.
 
 CATCH
 ______
-The use of `$SIG{__DIE__}` in Perl 5 is not a recommended practice anymore.
-Several competing CPAN modules provide some kind of `try / catch` mechanism
-(such as: [Try::Tiny](https://metacpan.org/pod/Try::Tiny) and
-[Syntax::Keyword::Try](https://metacpan.org/pod/Syntax::Keyword::Try))
-there is no single Perl 5 target to compare against.  So in this case only
-Perl 6 code will be shown.
+The use of `$SIG{__DIE__}` in Perl 5 is not recommended anymore.  Several
+competing CPAN modules provide some kind of `try / catch` mechanism (such
+as: [Try::Tiny](https://metacpan.org/pod/Try::Tiny) and
+[Syntax::Keyword::Try](https://metacpan.org/pod/Syntax::Keyword::Try)).
+However, there isn't really a single Perl 5 target to compare Perl 6 features
+against.  So in this case only Perl 6 code will be shown.
 
 The code inside a [`CATCH`](https://docs.perl6.org/language/phasers#CATCH)
 phaser will be called whenever an exception is thrown in the immediately
@@ -251,12 +251,46 @@ surrounding lexical scope.
 
     # Perl 6
     {
-        CATCH { say "starting another life"; .resume }
+        CATCH {
+            say "aw, died";
+            .resume;
+        }
         die "goodbye cruel world";
         say "alive again";
     }
+    # aw, died␤alive again
 
+Please note that you do **not** need a `try` to be able to catch exceptions.
+A `try` block is just a convenient way to disregard any exceptions without
+having to worry about anything.
 
+Also note that `$_` will be set to the `Exception` object inside the `CATCH`
+block.  In this example, the `Exception` is simply resumed by calling the
+`resume` method on the `Exception` object.  Execution will then continue
+with the statement after the statement that caused the exception.  If the
+exception is not resumed, it will be thrown again, to be possibly caught
+by an outer `CATCH` block (if any).
+
+Checking for specific exception is made easy with the
+[`when`](https://docs.perl6.org/language/control#default_and_when) statement:
+
+    # Perl 6
+    {
+        CATCH {
+            when X::NYI {       # Not Yet Implemented exception thrown
+                say "aw, too early in history";
+                .resume;
+            }
+        }
+        X::NYI.new(feature => "Frobnicator").throw;  # caught
+        now / 0;                                     # NOT caught
+        say "back to the future";
+    }
+    # aw, too early in history␤Attempt to divide 1234.5678 by zero using /
+
+In this example only `X::NYI` exceptions will be resumed, all other ones will
+be thrown to any outer `CATCH` block and as such will probably result in
+program termination.
 
 CONTROL
 ______
@@ -285,10 +319,10 @@ Loop phasers
 ------------
 Perl 6 has 3 phasers that are specific for loop constructs: one that is
 run before the first iteration
-([FIRST](https://docs.perl6.org/language/phasers#FIRST), one that is run
+([FIRST](https://docs.perl6.org/language/phasers#FIRST)), one that is run
 after each iteration
-([NEXT](https://docs.perl6.org/language/phasers#NEXT), and one that is run
-after the last iteration ([LAST](https://docs.perl6.org/language/phasers#LAST):
+([NEXT](https://docs.perl6.org/language/phasers#NEXT)), and one that is run
+after the last iteration ([LAST](https://docs.perl6.org/language/phasers#LAST)):
 
 | Name | Description |
 |:----------|:-----------|
@@ -300,7 +334,7 @@ The names really speak for themselves.  A contrived example:
 
     # Perl 6
     my $total = 0;
-    (1..5).map: {
+    for 1..5 {
         $total += $_;
         LAST  say "------ +\n$total.fmt('%6d')";
         FIRST say "values\n======";
