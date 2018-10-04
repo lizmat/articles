@@ -179,7 +179,7 @@ Block phasers
 | POST      | check return value *after* having run a Block |
 
 ENTER
-*****
+_____
 
 Loop phasers
 ------------
