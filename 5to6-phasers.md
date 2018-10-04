@@ -111,8 +111,8 @@ compilation unit will be executed.
     INIT { say "starting to execute" }
     # starting to execute␤running␤
 
-In pre-compiled modules in Perl 6, it can serve as an alternative to the
-`BEGIN` phaser.
+In pre-compiled modules in Perl 6, the `INIT` phaser can serve as an
+alternative to the `BEGIN` phaser.
 
 END
 ===
@@ -175,7 +175,7 @@ initialization in a module, you would probably be better of using the
     # Perl 6
     my $foo = INIT %*ENV<FOO> // 42;
 
-This will ensue that the value will be determined at the moment the module
+This will ensure that the value will be determined at the moment the module
 is **loaded**, rather then whenever it was pre-compiled (which typically
 only happens once during installation of the module).
 
@@ -189,12 +189,14 @@ are not covered by any (standard) functionality of Perl 5 at all.
 > developer of a program does **not** determine **when** a phaser is run.
 > It is the runtime executor that decides when a phaser is being run.
 > Therefore all phasers in Perl 6 are spelled in uppercase characters,
-> to make them stand out better.
+> to make them stand out better as they are *not* part of the standard
+> flow of execution.
 
 Exception handling phasers
 --------------------------
 In Perl 5 you can use [`eval`](https://perldoc.perl.org/functions/eval.html)
-to catch exceptions in a piece of code.  In Perl 6 you can use
+to catch exceptions in a piece of code.  In Perl 6 this functionality is
+covered by
 [try](https://docs.perl6.org/language/exceptions#index-entry-try_blocks):
 
     # Perl 5
@@ -211,12 +213,12 @@ to catch exceptions in a piece of code.  In Perl 6 you can use
     say $!;           # Goodbye cruel world␤  in block ...
     say "Alive again!"
 
-In Perl 5 you can use the return value of `try` in an expression:
+In Perl 5 you can use the return value of `eval` in an expression:
 
     # Perl 5
     my $foo = eval { ... };  # undef if exception was thrown
 
-That works the same way in Perl 6:
+That works the same way in Perl 6 for `try`:
 
     # Perl 6
     my $foo = try { ... };   # returns Nil if exception was thrown
@@ -248,10 +250,10 @@ Block phasers
 |:----------|:-----------|
 | ENTER | run everytime when entering a Block |
 | LEAVE | run everytime when leaving a Block |
-| KEEP  | run everytime a Block is left successfully |
-| UNDO  | run everytime a Block is left **un**successfully |
 | PRE   | check condition *before* running a Block |
 | POST  | check return value *after* having run a Block |
+| KEEP  | run everytime a Block is left successfully |
+| UNDO  | run everytime a Block is left **un**successfully |
 
 ENTER & LEAVE
 ______
@@ -264,7 +266,12 @@ ______
 
 Loop phasers
 ------------
-Perl 6 has 3 phasers that are specific for loop constructs:
+Perl 6 has 3 phasers that are specific for loop constructs: one that is
+run before the first iteration
+([FIRST](https://docs.perl6.org/language/phasers#FIRST), one that is run
+after each iteration
+([NEXT](https://docs.perl6.org/language/phasers#NEXT), and one that is run
+after the last iteration ([LAST](https://docs.perl6.org/language/phasers#LAST):
 
 | Name | Description |
 |:----------|:-----------|
@@ -272,7 +279,25 @@ Perl 6 has 3 phasers that are specific for loop constructs:
 | NEXT  | run after each completed iteration, or with next |
 | LAST  | run after the last iteration, or with last |
 
+The names really speak for themselves.  A contrived example:
 
+    # Perl 6
+    my $total = 0;
+    (1..5).map: {
+        $total += $_;
+        LAST  say "------ +\n$total.fmt('%6d')";
+        FIRST say "values\n======";
+        NEXT  say .fmt('%6d');
+    }
+    # values
+    # ======
+    #      1
+    #      2
+    #      3
+    #      4
+    #      5
+    # ------ +
+    #     15
 
 Asynchronous phasers
 --------------------
