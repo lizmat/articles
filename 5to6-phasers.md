@@ -27,11 +27,20 @@ complete program, regardless of where they are located in a program.
 
 BEGIN
 =====
+The semantics of the `BEGIN` special block in Perl 5 are exactly the same as
+the `BEGIN` phaser in Perl 6: it specifies a piece of code to be executed
+**immediately** as soon as it has been parsed (so *before* the program as a
+whole has been parsed).
 
-
+Caveats when using BEGIN in modules in Perl 6
+---------------------------------------------
 
 UNITCHECK
 =========
+The functionality of the `UNITCHECK` block in Perl 5 is performed by the
+`CHECK` phaser in Perl 6.  Otherwise, it is exactly the same: it specifies
+a piece of code to be executed when *compilation* of the current compilation
+unit is done.
 
 CHECK
 =====
@@ -53,23 +62,47 @@ much more than just special blocks.
 
 No need for a block
 -------------------
-Most phasers in Perl 6 do not have to be a Block, but they can also consist
-of a single statement *without* any curly braces.  This means that if you've
-written in Perl 5: 
+Most phasers in Perl 6 do not have to be a Block (aka, followed by code
+between curly braces), but they can also consist of a single statement
+*without* any curly braces.  This means that if you've written in Perl 5: 
 
     # Perl 5
-    my $foo;             # need to define lexical outside of BEGIN scope,
-    BEGIN { $foo = 42 }  # otherwise it won't be known in the rest of the code
+    # need to define lexical outside of BEGIN scope,
+    my $foo;
+    # otherwise it won't be known in the rest of the code
+    BEGIN { $foo = %*ENV<FOO> // 42 }
 
 you can write this in Perl 6 as:
 
     # Perl 6
-    BEGIN my $foo = 42;  # share scope with surrounding code
+    # share scope with surrounding code
+    BEGIN my $foo = %*ENV<FOO> // 42;
 
+May return a value
+------------------
+All program execution phasers actually *return* the last value of their
+code / expression.  So you can actually use them in an expression.  So the
+above example using `BEGIN` can also be written as:
+
+    # Perl 6
+    my $foo = BEGIN %*ENV<FOO> // 42;
+
+When used like that with a `BEGIN` phaser, you are in fact creating a
+nameless constant and assigning that at runtime.
+
+Additional phasers in Perl 6
+============================
+
+Exception handling phasers
+--------------------------
+| Name | Description |
+|:----------|:-----------|
+| CATCH     | run when an exception is thrown |
+| CONTROL   | run for any (other) control exception |
 
 Block phasers
-=============
-| Name | Description      |
+-------------
+| Name | Description |
 |:----------|:-----------|
 | ENTER     | run everytime when entering a Block |
 | LEAVE     | run everytime when leaving a Block |
@@ -79,27 +112,29 @@ Block phasers
 | POST      | check return value *after* having run a Block |
 
 Loop phasers
-============
-| Name | Description      |
+------------
+| Name | Description |
 |:----------|:-----------|
 | FIRST     | run only the first time through a loop |
 | NEXT      | run after each completed iteration, or with next |
 | LAST      | run after the last iteration, or with last |
 
-Exception handling phasers
-==========================
-| Name | Description      |
-|:----------|:-----------|
-| CATCH     | run when an exception is thrown |
-| CONTROL   | run for any (other) control exception |
-
 Asynchronous phasers
-====================
-| Name | Description      |
+--------------------
+These phasers are applicable only inside a
+[supply](https://docs.perl6.org/language/concurrency#index-entry-supply_%28on-demand%29)
+or [react / whenever](https://docs.perl6.org/language/concurrency#react_and_whenever)
+block when doing event driven programming using
+[Supplies](https://docs.perl6.org/language/concurrency#Supplies).
+
+| Name | Description |
 |:----------|:-----------|
-| LAST      | run  |
-| QUIT      | run  |
-| CLOSE     | run  |
+| LAST      | run when a Supply is done |
+| QUIT      | run when a Supply terminates with an error |
+| CLOSE     | run when a Supply is closed |
+
+A deeper review into event driven programming will be left for a future
+article in this series.
 
 Summary
 =======
