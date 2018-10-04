@@ -28,32 +28,80 @@ complete program, regardless of where they are located in a program.
 BEGIN
 =====
 The semantics of the `BEGIN` special block in Perl 5 are exactly the same as
-the `BEGIN` phaser in Perl 6: it specifies a piece of code to be executed
-**immediately** as soon as it has been parsed (so *before* the program as a
-whole has been parsed).
+the [`BEGIN`](https://docs.perl6.org/language/phasers#BEGIN) phaser in Perl 6.
+It specifies a piece of code to be executed **immediately** as soon as it has
+been parsed (so *before* the program, aka the compilation unit as a whole has
+been parsed).
 
 Caveats when using BEGIN in modules in Perl 6
 ---------------------------------------------
+Modules in Perl 6 are pre-compiled by default.  This means that the `BEGIN`
+block is only executed whenever the (pre-)compilation occurs, **not** every
+time the module is loaded.  In Perl 5, modules ordinarily only exist as
+source code that is compiled whenever a module is loaded.
+
+This may cause some unpleasant surprises when porting code from Perl 5 to
+Perl 6.  An easy work-around would be to inhibit pre-compilation of a module
+in Perl 6:
+
+    # Perl 6
+    no precompilation;  # this code should not be pre-compiled
+
+However, precompilation has a **very** big advantage: it can load modules
+**much** faster.  The prime example of this is the core setting of Perl 6: the
+part of Perl 6 that is actually written in Perl 6.  This currently exists of
+a 64KLOC / 2MB+ source file (generated from many shorter source files for
+maintainability).  It takes about 1 minute to compile this source file during
+installation of Perl 6.  It takes about 125 msecs to load this pre-compiled
+code at Perl 6 startup.  Which is almost a **500x** speedup!
+
+Some other features of Perl 5 **and** Perl 6 that implicitely use `BEGIN`
+functionality, suffer from the same caveat.  Take this example where we want
+to have a constant `foo` to either have the value of the environment variable
+`FOO`, or if that is not available, the value `42`:
+
+    # Perl 5
+    use constant foo => $ENV{FOO} // 42;
+
+    # Perl 6
+    my constant foo = %*ENV<FOO> // 42;
+
+The best equivalent in Perl 6 is probably using an `INIT` phaser:
+
+    # Perl 6
+    INIT my \foo = %*ENV<FOO> // 42;
+
+But more about this syntax later.
 
 UNITCHECK
 =========
-The functionality of the `UNITCHECK` block in Perl 5 is performed by the
-`CHECK` phaser in Perl 6.  Otherwise, it is exactly the same: it specifies
-a piece of code to be executed when *compilation* of the current compilation
-unit is done.
+The functionality of the `UNITCHECK` special block in Perl 5 is performed by
+the [`CHECK`](https://docs.perl6.org/language/phasers#CHECK) phaser in Perl 6.
+Otherwise, it is exactly the same: it specifies a piece of code to be executed
+when *compilation* of the current compilation unit is done.
 
 CHECK
 =====
 There is **no** equivalent of the `CHECK` special block in Perl 6.  The main
 reason for this is that you probably shouldn't be using the `CHECK` special
-block in Perl 5 anymore, but use `UNITCHECK` instead, as its semantics are
-much more sane.
+block in Perl 5 anymore, but use `UNITCHECK` instead as the `UNITCHECK`
+semantics are much more sane.
 
 INIT
 ====
+The functionality of the [`INIT`](https://docs.perl6.org/language/phasers#INIT)
+phaser in Perl 6 is exactly the same as the `INIT` special block in Perl 5.
+It specifies a piece of code to be executed **just before** the code in the
+compilation unit will be executed.  In pre-compiled modules in Perl 6, it can
+serve as an alternative to the `BEGIN` phaser.
 
 END
 ===
+The functionality of the [`END`](https://docs.perl6.org/language/phasers#END)
+phaser in Perl 6 is exactly the same as the `END` special block in Perl 5.
+It specifies a piece of code to be executed **after** all the code in the
+compilation unit has been executed, or the code decides to exit (either
+intended, or unintended because of an exception having been thrown).
 
 More than special blocks
 ========================
@@ -63,11 +111,11 @@ much more than just special blocks.
 No need for a block
 -------------------
 Most phasers in Perl 6 do not have to be a Block (aka, followed by code
-between curly braces), but they can also consist of a single statement
+between curly braces).  They can also consist of a single statement
 *without* any curly braces.  This means that if you've written in Perl 5: 
 
     # Perl 5
-    # need to define lexical outside of BEGIN scope,
+    # need to define lexical outside of BEGIN scope
     my $foo;
     # otherwise it won't be known in the rest of the code
     BEGIN { $foo = %*ENV<FOO> // 42 }
@@ -89,6 +137,12 @@ above example using `BEGIN` can also be written as:
 
 When used like that with a `BEGIN` phaser, you are in fact creating a
 nameless constant and assigning that at runtime.
+
+Because of pre-compilation of modules, if you would like this type of code
+in a module, you would probably be better of using the `INIT` phaser:
+
+    # Perl 6
+    my $foo = INIT %*ENV<FOO> // 42;
 
 Additional phasers in Perl 6
 ============================
