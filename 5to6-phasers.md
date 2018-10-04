@@ -93,6 +93,7 @@ The main reason for this is that you probably shouldn't be using the `CHECK`
 special block in Perl 5 anymore, but use `UNITCHECK` instead as the `UNITCHECK`
 semantics are much more sane (available since
 [version 5.10](https://metacpan.org/pod/perl5100delta#UNITCHECK-blocks)).
+Therefore this special block will not further be discussed in this article.
 
 INIT
 ====
@@ -100,16 +101,6 @@ The functionality of the [`INIT`](https://docs.perl6.org/language/phasers#INIT)
 phaser in Perl 6 is exactly the same as the `INIT` special block in Perl 5.
 It specifies a piece of code to be executed **just before** the code in the
 compilation unit will be executed.
-
-    # Perl 5
-    say "running";
-    INIT { say "starting to execute" };
-    # starting to execute␤running␤
-
-    # Perl 6
-    say "running";
-    INIT { say "starting to execute" }
-    # starting to execute␤running␤
 
 In pre-compiled modules in Perl 6, the `INIT` phaser can serve as an
 alternative to the `BEGIN` phaser.
@@ -122,15 +113,26 @@ It specifies a piece of code to be executed **after** all the code in the
 compilation unit has been executed, or the code decides to exit (either
 intended, or unintended because of an exception having been thrown).
 
+Example
+=======
+Example using all four Program Execution Phasers and their Perl 5 special
+block counterparts
+
     # Perl 5
-    END { say "thanks for all the fish" };
     say "running";
-    # running␤thanks for all the fish␤
+    END       { say "END"   }
+    INIT      { say "INIT"  }
+    UNITCHECK { say "CHECK" }
+    BEGIN     { say "BEGIN" }
+    # BEGIN␤CHECK␤INIT␤running␤END␤
 
     # Perl 6
-    END { say "thanks for all the fish" }
     say "running";
-    # running␤thanks for all the fish␤
+    END   { say "END"   }
+    INIT  { say "INIT"  }
+    CHECK { say "CHECK" }
+    BEGIN { say "BEGIN" }
+    # BEGIN␤CHECK␤INIT␤running␤END␤
 
 More than special blocks
 ========================
@@ -227,7 +229,7 @@ If you however need finer control over what to do when an exception occurs,
 you can use special [signal handlers](https://perldoc.pl/variables/%25SIG)
 `$SIG{__DIE__}` and `$SIG{__WARN__}` in Perl 5.  In Perl 6, these are
 replaced by two exception handling phasers, which due to their scoping
-behaviour, always *must* be specified using curly braces:
+behaviour, *must* always be specified using curly braces:
 
 | Name | Description |
 |:----------|:-----------|
