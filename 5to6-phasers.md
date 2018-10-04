@@ -433,8 +433,7 @@ used in an expression.  A bit of a contrived example;
 
     # Perl 6
     {
-        my $entered = ENTER now;
-        LEAVE say "stayed {now - $entered} seconds";
+        LEAVE say "stayed " ~ (now - ENTER now) ~ " seconds";
         sleep 2;
     }
     # stayed 2.001867 seconds
@@ -444,11 +443,23 @@ KEEP & UNDO
 The [`KEEP`](https://docs.perl6.org/language/phasers#KEEP) and
 [`UNDO`](https://docs.perl6.org/language/phasers#UNDO) phasers are special
 cases of the `LEAVE` phaser.  They are called depending on the return value
-of the surrounding block: if the result of calling the
+of the surrounding block.  If the result of calling the
 [`defined`](https://docs.perl6.org/type/Mu#index-entry-method_defined) method
-is a true value, then any `KEEP` phasers will be called.  If the result of
-calling `defined` is not true, then any `UNDO` phaser will be called.  The
-actual value of the block will be available in the topic (aka `$_`):
+on the return value is `True`, then any `KEEP` phasers will be called.  If
+the result of calling `defined` is not `True`, then any `UNDO` phaser will be
+called.  The actual value of the block will be available in the topic
+(aka `$_`):
+
+A contrived example may clarify:
+
+    # Perl 6
+    for 42, Nil {
+        KEEP { say "Keeping because of $_" }
+        UNDO { say "Undoing because of $_.perl()" }
+        $_;
+    }
+    # Keeping because of 42
+    # Undoing because of Nil
 
 A bit of a real-life example:
 
@@ -456,8 +467,8 @@ A bit of a real-life example:
     {
         KEEP $dbh.commit;
         UNDO $dbh.rollback;
-        ...   # set up a big transaction in a database
-        True  # indicate success
+        ...    # set up a big transaction in a database
+        True;  # indicate success
     }
 
 So if anything should go wrong with setting up the big transaction in the
@@ -470,6 +481,38 @@ The `KEEP` and `UNDO` phasers give you the building blocks for a poor man's
 
 PRE & POST
 ----------
+The [`PRE`](https://docs.perl6.org/language/phasers#PRE) phaser is a special
+version of the `ENTER` phaser.  The
+[`POST`](https://docs.perl6.org/language/phasers#POST) phaser is a special
+cases of the `LEAVE` phaser.
+
+The `PRE` phaser is expected to return a true value if it is ok to enter
+the block.  If it does not, then an exception will be thrown.  The `POST`
+phaser receives the return value of the block and is expected to return
+a true value if it is ok to leave the block without throwing an exception.
+
+Some examples:
+
+    # Perl 6
+    {
+        PRE { say "called PRE"; False }    # throws exception
+        ...
+    }
+    say "we made it!";                     # never makes it here
+    # called PRE
+    # Precondition '{ say "called PRE"; False }' failed
+
+    # Perl 6
+    {
+        PRE  { say "called PRE"; True   }  # does NOT throw exception
+        POST { say "called POST"; False }  # throws exception
+        say "inside the block";            # also returns True
+    }
+    say "we made it!";                     # never makes it here
+    # called PRE
+    # inside the block
+    # called POST
+    # Postcondition '{ say "called POST"; False }' failed
 
 Loop phasers
 ------------
@@ -506,6 +549,12 @@ The names really speak for themselves.  A bit of a contrived example:
     #      5
     # ------ +
     #     15
+
+Loop constructs include [`loop`](https://docs.perl6.org/language/control#loop),
+[`while`, `until](https://docs.perl6.org/language/control#while,_until),
+[`repeat/while`, `repeat/until](https://docs.perl6.org/language/control#repeat/while,_repeat/until),
+[`for`](https://docs.perl6.org/language/control#for) and
+[`map`,`deepmap`,`flatmap`](https://docs.perl6.org/type/List#routine_map).
 
 You can use Loop phasers together with other Block phasers if you want, but
 generally this appears to unnecessary.
