@@ -484,7 +484,7 @@ PRE & POST
 The [`PRE`](https://docs.perl6.org/language/phasers#PRE) phaser is a special
 version of the `ENTER` phaser.  The
 [`POST`](https://docs.perl6.org/language/phasers#POST) phaser is a special
-cases of the `LEAVE` phaser.
+case of the `LEAVE` phaser.
 
 The `PRE` phaser is expected to return a true value if it is ok to enter
 the block.  If it does not, then an exception will be thrown.  The `POST`
