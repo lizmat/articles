@@ -31,14 +31,16 @@ The semantics of the `BEGIN` special block in Perl 5 are exactly the same as
 the [`BEGIN`](https://docs.perl6.org/language/phasers#BEGIN) phaser in Perl 6.
 It specifies a piece of code to be executed **immediately** as soon as it has
 been parsed (so *before* the program, aka the compilation unit as a whole has
-been parsed).
+been parsed).  There is however a caveat with the use of `BEGIN` in Perl 6!
 
-Caveats when using BEGIN in modules in Perl 6
----------------------------------------------
+Caveat when using BEGIN in modules in Perl 6
+--------------------------------------------
 Modules in Perl 6 are pre-compiled by default.  This means that the `BEGIN`
-block is only executed whenever the (pre-)compilation occurs, **not** every
-time the module is loaded.  In Perl 5, modules ordinarily only exist as
-source code that is compiled whenever a module is loaded.
+block is only executed whenever the (pre)compilation occurs, **not** every
+time the module is loaded.  This is different from Perl 5, where modules
+ordinarily only exist as source code that is compiled whenever a module is
+loaded (even though that module can load already compiled native library
+components).
 
 This may cause some unpleasant surprises when porting code from Perl 5 to
 Perl 6.  An easy work-around would be to inhibit pre-compilation of a module
@@ -48,12 +50,13 @@ in Perl 6:
     no precompilation;  # this code should not be pre-compiled
 
 However, precompilation has a **very** big advantage: it can load modules
-**much** faster.  The prime example of this is the core setting of Perl 6: the
-part of Perl 6 that is actually written in Perl 6.  This currently exists of
-a 64KLOC / 2MB+ source file (generated from many shorter source files for
-maintainability).  It takes about 1 minute to compile this source file during
-installation of Perl 6.  It takes about 125 msecs to load this pre-compiled
-code at Perl 6 startup.  Which is almost a **500x** speedup!
+**much** faster because it doesn't need to parse any source code.  The prime
+example of this is the core setting of Perl 6: the part of Perl 6 that is
+actually written in Perl 6.  This currently exists of a 64KLOC / 2MB+ source
+file (generated from many shorter source files for maintainability).  It
+takes about 1 minute to compile this source file during installation of
+Perl 6.  It takes about 125 msecs to load this pre-compiled code at Perl 6
+startup.  Which is almost a **500x** speedup!
 
 Some other features of Perl 5 **and** Perl 6 that implicitely use `BEGIN`
 functionality, suffer from the same caveat.  Take this example where we want
@@ -69,7 +72,7 @@ to have a constant `foo` to either have the value of the environment variable
 The best equivalent in Perl 6 is probably using an `INIT` phaser:
 
     # Perl 6
-    INIT my \foo = %*ENV<FOO> // 42;
+    INIT my \foo = %*ENV<FOO> // 42;  # sigilless variable bound to value
 
 But more about this syntax later.
 
@@ -82,10 +85,11 @@ when *compilation* of the current compilation unit is done.
 
 CHECK
 =====
-There is **no** equivalent of the `CHECK` special block in Perl 6.  The main
-reason for this is that you probably shouldn't be using the `CHECK` special
-block in Perl 5 anymore, but use `UNITCHECK` instead as the `UNITCHECK`
-semantics are much more sane.
+There is **no** equivalent in Perl 6 of the `CHECK` special block of Perl 5.
+The main reason for this is that you probably shouldn't be using the `CHECK`
+special block in Perl 5 anymore, but use `UNITCHECK` instead as the `UNITCHECK`
+semantics are much more sane (available since
+[version 5.10](https://metacpan.org/pod/perl5100delta#UNITCHECK-blocks)).
 
 INIT
 ====
@@ -110,9 +114,10 @@ much more than just special blocks.
 
 No need for a block
 -------------------
-Most phasers in Perl 6 do not have to be a Block (aka, followed by code
-between curly braces).  They can also consist of a single statement
-*without* any curly braces.  This means that if you've written in Perl 5: 
+Most phasers in Perl 6 do not have to be a
+[Block](https://docs.perl6.org/type/Block) (aka, followed by code between
+curly braces).  They can also consist of a single statement *without* any
+curly braces.  This means that if you've written in Perl 5: 
 
     # Perl 5
     # need to define lexical outside of BEGIN scope
@@ -129,8 +134,8 @@ you can write this in Perl 6 as:
 May return a value
 ------------------
 All program execution phasers actually *return* the last value of their
-code / expression.  So you can actually use them in an expression.  So the
-above example using `BEGIN` can also be written as:
+code.  So you can actually use them in an expression.  The above example
+using `BEGIN` can also be written as:
 
     # Perl 6
     my $foo = BEGIN %*ENV<FOO> // 42;
@@ -138,14 +143,22 @@ above example using `BEGIN` can also be written as:
 When used like that with a `BEGIN` phaser, you are in fact creating a
 nameless constant and assigning that at runtime.
 
-Because of pre-compilation of modules, if you would like this type of code
-in a module, you would probably be better of using the `INIT` phaser:
+Because of pre-compilation of modules, if you would like this type of
+initialization in a module, you would probably be better of using the
+`INIT` phaser:
 
     # Perl 6
     my $foo = INIT %*ENV<FOO> // 42;
 
+This will ensue that the value will be determined at the moment the module
+is **loaded**, rather then whenever it was precompiled (which typically
+only happens once during installation of the module).
+
 Additional phasers in Perl 6
 ============================
+Perl 6 has generalized some other features of Perl 5 as phasers, that weren't
+covered by special blocks in Perl 5.  And it has added some more phasers that
+are not covered by any (standard) functionality of Perl 5 at all.
 
 Exception handling phasers
 --------------------------
@@ -164,6 +177,9 @@ Block phasers
 | UNDO      | run everytime a Block is left **un**successfully |
 | PRE       | check condition *before* running a Block |
 | POST      | check return value *after* having run a Block |
+
+ENTER
+*****
 
 Loop phasers
 ------------
