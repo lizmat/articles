@@ -215,7 +215,7 @@ covered by
     say $!;           # Goodbye cruel world␤  in block ...
     say "Alive again!"
 
-In Perl 5 you can use the return value of `eval` in an expression:
+In Perl 5 you can also use the return value of `eval` in an expression:
 
     # Perl 5
     my $foo = eval { ... };  # undef if exception was thrown
@@ -223,13 +223,13 @@ In Perl 5 you can use the return value of `eval` in an expression:
 That works the same way in Perl 6 for `try`:
 
     # Perl 6
-    my $foo = try { ... };   # returns Nil if exception was thrown
+    my $foo = try { ... };   # Nil if exception was thrown
 
 If you however need finer control over what to do when an exception occurs,
 you can use special [signal handlers](https://perldoc.pl/variables/%25SIG)
 `$SIG{__DIE__}` and `$SIG{__WARN__}` in Perl 5.  In Perl 6, these are
 replaced by two exception handling phasers, which due to their scoping
-behaviour, *must* always be specified using curly braces:
+behaviour, *must* always be specified using curly braces.
 
 | Name | Description |
 |:----------|:-----------|
@@ -238,10 +238,25 @@ behaviour, *must* always be specified using curly braces:
 
 CATCH
 ______
+The use of `$SIG{__DIE__}` in Perl 5 is not a recommended practice anymore.
+Several competing CPAN modules provide some kind of `try / catch` mechanism
+(such as: [Try::Tiny](https://metacpan.org/pod/Try::Tiny) and
+[Syntax::Keyword::Try](https://metacpan.org/pod/Syntax::Keyword::Try))
+there is no single Perl 5 target to compare against.  So in this case only
+Perl 6 code will be shown.
+
 The code inside a [`CATCH`](https://docs.perl6.org/language/phasers#CATCH)
 phaser will be called whenever an exception is thrown in the immediately
-surrounding lexical scope.  This is similar to the use of `$SIG{__DIE__}`
-in Perl 5:
+surrounding lexical scope.
+
+    # Perl 6
+    {
+        CATCH { say "starting another life"; .resume }
+        die "goodbye cruel world";
+        say "alive again";
+    }
+
+
 
 CONTROL
 ______
