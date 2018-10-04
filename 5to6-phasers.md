@@ -561,20 +561,14 @@ generally this appears to unnecessary.
 
 Asynchronous phasers
 --------------------
-These phasers are applicable only inside a
+[Asynchronous phasers](https://docs.perl6.org/language/phasers#Asynchronous_phasers)
+are applicable only inside a
 [supply](https://docs.perl6.org/language/concurrency#index-entry-supply_%28on-demand%29)
 or [react / whenever](https://docs.perl6.org/language/concurrency#react_and_whenever)
 block when doing event driven programming using
-[Supplies](https://docs.perl6.org/language/concurrency#Supplies).
-
-| Name | Description |
-|:----------|:-----------|
-| LAST  | run when a Supply is done |
-| QUIT  | run when a Supply terminates with an error |
-| CLOSE | run when a Supply is closed |
-
-A deeper review into event driven programming will be left for a future
-article in this series.
+[Supplies](https://docs.perl6.org/language/concurrency#Supplies).  A deeper
+review into event driven programming will be left for a future article in
+this series.
 
 Summary
 =======
