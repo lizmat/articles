@@ -45,7 +45,8 @@ been parsed).  There is however a caveat with the use of `BEGIN` in Perl 6!
 
 Caveat when using BEGIN in modules in Perl 6
 --------------------------------------------
-Modules in Perl 6 are pre-compiled by default.
+Modules in Perl 6 are pre-compiled by default, as opposed to Perl 5 which
+does not have any pre-compilation of modules.
 
 > As a user or developer of Perl 6 modules, you do not have to think about
 > whether a module should be pre-compiled (again) or not: this is all done
@@ -63,10 +64,8 @@ load already compiled native library components).
 This may cause some unpleasant surprises when porting code from Perl 5 to
 Perl 6, because pre-compilation may have happened a long time ago, or even
 on a different machine altogether (in case of having installed from an
-OS distributed package).
-
-Consider the case of using the value of an environment variable to enable
-debugging.  In Perl 5 you could write this as:
+OS distributed package).  Consider the case of using the value of an
+environment variable to enable debugging.  In Perl 5 you could write this as:
 
     # Perl 5
     my $DEBUG;
@@ -75,8 +74,12 @@ debugging.  In Perl 5 you could write this as:
 And this would work fine in Perl 5, as the module is compiled every time
 it is loaded.  And thus the `BEGIN` block is run every time the module is
 loaded.  And the value of `$DEBUG` will be correct, depending on the setting
-of environment variable.  But not so in Perl 6.  An easy work-around would
-be to inhibit pre-compilation of a module in Perl 6:
+of environment variable.  But not so in Perl 6.  Because the `BEGIN` phaser
+is executed only once when pre-compiling, the `$DEBUG` variable will have
+the value that was determined at module pre-compilation time, **not** at
+module loading time!
+
+An easy work-around would be to inhibit pre-compilation of a module in Perl 6:
 
     # Perl 6
     no precompilation;  # this code should not be pre-compiled
