@@ -599,17 +599,6 @@ Loop constructs include [`loop`](https://docs.perl6.org/language/control#loop),
 You can use Loop phasers together with other Block phasers if you want, but
 generally this appears to unnecessary.
 
-Asynchronous phasers
---------------------
-[Asynchronous phasers](https://docs.perl6.org/language/phasers#Asynchronous_phasers)
-are applicable only inside a
-[supply](https://docs.perl6.org/language/concurrency#index-entry-supply_%28on-demand%29)
-or [react / whenever](https://docs.perl6.org/language/concurrency#react_and_whenever)
-block when doing event driven programming using
-[Supplies](https://docs.perl6.org/language/concurrency#Supplies).  A deeper
-review into event driven programming will be left for a future article in
-this series.
-
 Summary
 =======
 Perl 5 has a number of special blocks which basically all have an identical
