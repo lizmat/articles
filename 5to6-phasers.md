@@ -45,24 +45,44 @@ been parsed).  There is however a caveat with the use of `BEGIN` in Perl 6!
 
 Caveat when using BEGIN in modules in Perl 6
 --------------------------------------------
-Modules in Perl 6 are pre-compiled by default.  This means that the `BEGIN`
-block is only executed whenever the (pre)compilation occurs, **not** every
-time the module is loaded.  This is different from Perl 5, where modules
-ordinarily only exist as source code that is compiled whenever a module is
-loaded (even though that module can load already compiled native library
-components).
+Modules in Perl 6 are pre-compiled by default.
+
+> As a user or developer of Perl 6 modules, you do not have to think about
+> whether a module should be pre-compiled (again) or not: this is all done
+> automatically under the hood when installing a module.  And it is done
+> automatically on first usage after an update of Rakudo Perl 6.  The only
+> thing you might notice is a small delay when loading a module (again) in
+> such a case.
+
+This means that the `BEGIN` block is only executed whenever the
+pre-compilation occurs, **not** every time the module is loaded.  This is
+different from Perl 5, where modules ordinarily only exist as source code
+that is compiled whenever a module is loaded (even though that module can
+load already compiled native library components).
 
 This may cause some unpleasant surprises when porting code from Perl 5 to
 Perl 6, because pre-compilation may have happened a long time ago, or even
 on a different machine altogether (in case of having installed from an
 OS distributed package).
 
-An easy work-around would be to inhibit pre-compilation of a module in Perl 6:
+Consider the case of using the value of an environment variable to enable
+debugging.  In Perl 5 you could write this as:
+
+    # Perl 5
+    my $DEBUG;
+    BEGIN { $DEBUG = $ENV{DEBUG} // 0 }
+
+And this would work fine in Perl 5, as the module is compiled every time
+it is loaded.  And thus the `BEGIN` block is run every time the module is
+loaded.  And the value of `$DEBUG` will be correct, depending on the setting
+of environment variable.  But not so in Perl 6.  An easy work-around would
+be to inhibit pre-compilation of a module in Perl 6:
 
     # Perl 6
     no precompilation;  # this code should not be pre-compiled
 
-However, pre-compilation has several advantages:
+However, pre-compilation has several advantages that you do not want to
+dismiss that easily:
 
 - Setup of data structures only needs to be done once.  If you have data
 structures that you would need to set up each time a module is loaded, you
@@ -71,7 +91,7 @@ now do that once when a module is pre-compiled.  Which may be a huge time
 
 - It can load modules **much** faster.  Because it doesn't need to parse
 any source code, a pre-compiled module loads much faster than one that needs
-to be compiled over and over agaion.  The prime example of this is the core
+to be compiled over and over again.  The prime example of this is the core
 setting of Perl 6: the part of Perl 6 that is actually written in Perl 6.
 This currently exists of a 64KLOC / 2MB+ source file (generated from many
 separate source files for maintainability).  It takes about 1 minute to
@@ -81,27 +101,28 @@ code at Perl 6 startup.  Which is almost a **500x** speedup!
 
 Some other features of Perl 5 **and** Perl 6 that implicitly use `BEGIN`
 functionality, have the same caveat.  Take this example where we want to
-have a constant `foo` to either have the value of the environment variable
-`FOO`, or if that is not available, the value `42`:
+have a constant `DEBUG` to either have the value of the environment variable
+`DEBUG`, or if that is not available, the value `0`:
 
     # Perl 5
-    use constant foo => $ENV{FOO} // 42;
+    use constant DEBUG => $ENV{DEBUG} // 0;
 
     # Perl 6
-    my constant foo = %*ENV<FOO> // 42; 
+    my constant foo = %*ENV<DEBUG> // 0; 
 
 The best equivalent in Perl 6 is probably using an `INIT` phaser:
 
     # Perl 6
-    INIT my \foo = %*ENV<FOO> // 42;  # sigilless variable bound to value
+    INIT my \DEBUG = %*ENV<DEBUG> // 0;  # sigilless variable bound to value
 
-Or you can use module pre-compilation as a feature:
+Of course, you can use this behaviour of Perl 6 with regards to  module
+pre-compilation as a feature:
 
     # Perl 6
     say "This module was compiled at { BEGIN DateTime.now }";
     # This module was compiled at 2018-10-04T22:18:39.598087+02:00
 
-But more about this syntax later.
+But more about that syntax later.
 
 UNITCHECK
 =========
