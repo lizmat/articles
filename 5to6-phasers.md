@@ -46,14 +46,15 @@ been parsed).  There is however a caveat with the use of `BEGIN` in Perl 6!
 Caveat when using BEGIN in modules in Perl 6
 --------------------------------------------
 Modules in Perl 6 are pre-compiled by default, as opposed to Perl 5 which
-does not have any pre-compilation of modules.
+does not have any pre-compilation of modules or scripts.
 
 > As a user or developer of Perl 6 modules, you do not have to think about
 > whether a module should be pre-compiled (again) or not: this is all done
 > automatically under the hood when installing a module.  And it is done
-> automatically on first usage after an update of Rakudo Perl 6.  The only
-> thing you might notice is a small delay when loading a module (again) in
-> such a case.
+> automatically on first usage after an update of Rakudo Perl 6.  And as
+> a developer, it is done automaticall every time you have made a change
+> to a module you are developing.  The only thing you might notice is a
+> small delay when loading a module (again) in such a case.
 
 This means that the `BEGIN` block is only executed whenever the
 pre-compilation occurs, **not** every time the module is loaded.  This is
@@ -111,14 +112,15 @@ have a constant `DEBUG` to either have the value of the environment variable
     use constant DEBUG => $ENV{DEBUG} // 0;
 
     # Perl 6
-    my constant foo = %*ENV<DEBUG> // 0; 
+    my constant DEBUG = %*ENV<DEBUG> // 0; 
 
 The best equivalent in Perl 6 is probably using an `INIT` phaser:
 
     # Perl 6
     INIT my \DEBUG = %*ENV<DEBUG> // 0;  # sigilless variable bound to value
 
-Of course, you can use this behaviour of Perl 6 with regards to  module
+As in Perl 5, the `INIT` phaser is run just before execution starts.  Of
+course, you can use this behaviour of Perl 6 with regards to  module
 pre-compilation as a feature:
 
     # Perl 6
