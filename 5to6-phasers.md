@@ -539,14 +539,16 @@ you are probably better of specifying a return signature for the Block:
     # Perl 6
     {
         POST { $_ ~~ Int }   # check if the return value is an Int
-        42;
+        ...                  # calculate result
+        $result;
     }
 
 is just a very roundabout way of saying:
 
     # Perl 6
-    --> Int {                # return values should be an Int
-        42;
+    --> Int {                # return value should be an Int
+        ...                  # calculate result
+        $result;
     }
 
 So in general, you would only use a `POST` phaser if the necessary checks
