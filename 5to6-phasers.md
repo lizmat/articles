@@ -8,6 +8,17 @@ code from Perl 5 to Perl 6.  In this article we'll be looking at the
 such as `BEGIN` and `END`, and the possible subtle change in semantics with
 so-called [phasers](https://docs.perl6.org/language/phasers) in Perl 6.
 
+Perl 6 has generalized some other features of Perl 5 as phasers, that weren't
+covered by special blocks in Perl 5.  And it has added some more phasers that
+are not covered by any (standard) functionality of Perl 5 at all.
+
+> One important feature that one should remember about phasers is that a
+> developer of a program does **not** determine **when** a phaser is run.
+> It is the runtime executor that decides when a phaser is being run.
+> Therefore all phasers in Perl 6 are spelled in uppercase characters,
+> to make them stand out better as they are *not* part of the standard
+> flow of execution.
+
 An overview
 ===========
 Let's start with an overview again of Perl 5 special blocks and their Perl 6
@@ -69,15 +80,9 @@ takes about 1 minute to compile this source file during installation of
 Perl 6.  It takes about 125 msecs to load this pre-compiled code at Perl 6
 startup.  Which is almost a **500x** speedup!
 
-Of course, you can also use this as a feature:
-
-    # Perl 6
-    say "This module was compiled at { BEGIN DateTime.now }";
-    # This module was compiled at 2018-10-04T22:18:39.598087+02:00
-
 Some other features of Perl 5 **and** Perl 6 that implicitly use `BEGIN`
-functionality, suffer from the same caveat.  Take this example where we want
-to have a constant `foo` to either have the value of the environment variable
+functionality, have the same caveat.  Take this example where we want to
+have a constant `foo` to either have the value of the environment variable
 `FOO`, or if that is not available, the value `42`:
 
     # Perl 5
@@ -90,6 +95,12 @@ The best equivalent in Perl 6 is probably using an `INIT` phaser:
 
     # Perl 6
     INIT my \foo = %*ENV<FOO> // 42;  # sigilless variable bound to value
+
+Or you can use module pre-compilation as a feature:
+
+    # Perl 6
+    say "This module was compiled at { BEGIN DateTime.now }";
+    # This module was compiled at 2018-10-04T22:18:39.598087+02:00
 
 But more about this syntax later.
 
@@ -202,19 +213,6 @@ initialization in a module, you would probably be better of using the
 This will ensure that the value will be determined at the moment the module
 is **loaded**, rather then whenever it was pre-compiled (which typically
 only happens once during installation of the module).
-
-Additional phasers in Perl 6
-============================
-Perl 6 has generalized some other features of Perl 5 as phasers, that weren't
-covered by special blocks in Perl 5.  And it has added some more phasers that
-are not covered by any (standard) functionality of Perl 5 at all.
-
-> One important feature that one should remember about phasers is that a
-> developer of a program does **not** determine **when** a phaser is run.
-> It is the runtime executor that decides when a phaser is being run.
-> Therefore all phasers in Perl 6 are spelled in uppercase characters,
-> to make them stand out better as they are *not* part of the standard
-> flow of execution.
 
 Exception handling phasers
 --------------------------
@@ -397,6 +395,13 @@ phaser.  Luckily, if you do not do anything with the given control exception,
 it will be rethrown when the `CONTROL` phaser is done.  And that will make
 sure its intended action will be performed.
 
+Additional phasers in Perl 6
+============================
+If you are only interested in finding out how the special blocks of Perl 5
+work in Perl 6, you can skip the rest of the article.  Of course, you will
+be missing out on quite a few nice features that people have found useful
+enough to implement.
+
 Block and Loop phasers
 ----------------------
 Block and Loop phasers are always associated with the surrounding block,
@@ -445,6 +450,9 @@ used in an expression.  A bit of a contrived example;
         sleep 2;
     }
     # stayed 2.001867 seconds
+
+The `LEAVE` phaser corresponds with the `DEFER`functionality in many other
+modern programming languages.
 
 KEEP & UNDO
 -----------
