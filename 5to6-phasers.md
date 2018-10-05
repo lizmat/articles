@@ -65,22 +65,20 @@ An easy work-around would be to inhibit pre-compilation of a module in Perl 6:
 
 However, pre-compilation has several advantages:
 
-- setup of data structures only needs to be done once
+- Setup of data structures only needs to be done once.  If you have data
+structures that you would need to set up each time a module is loaded, you
+now do that once when a module is pre-compiled.  Which may be a huge time
+/ CPU saver if the module is loaded very often.
 
-If you have data structures that you would need to set up each time a module
-is loaded, you now do that once when a module is pre-compiled.  Which may be
-a huge time / CPU saver if the module is loaded very often.
-
-- it can load modules **much** faster
-
-Because it doesn't need to parse any source code, a pre-compiled module loads
-much faster than one that needs to be compiled over and over agaion.  The prime
-example of this is the core setting of Perl 6: the part of Perl 6 that is
-actually written in Perl 6.  This currently exists of a 64KLOC / 2MB+ source
-file (generated from many separate source files for maintainability).  It
-takes about 1 minute to compile this source file during installation of
-Perl 6.  It takes about 125 msecs to load this pre-compiled code at Perl 6
-startup.  Which is almost a **500x** speedup!
+- It can load modules **much** faster.  Because it doesn't need to parse
+any source code, a pre-compiled module loads much faster than one that needs
+to be compiled over and over agaion.  The prime example of this is the core
+setting of Perl 6: the part of Perl 6 that is actually written in Perl 6.
+This currently exists of a 64KLOC / 2MB+ source file (generated from many
+separate source files for maintainability).  It takes about 1 minute to
+compile this source file during installation of Perl 6.  It takes about
+125 msecs (at moment of writing this article) to load this pre-compiled
+code at Perl 6 startup.  Which is almost a **500x** speedup!
 
 Some other features of Perl 5 **and** Perl 6 that implicitly use `BEGIN`
 functionality, have the same caveat.  Take this example where we want to
