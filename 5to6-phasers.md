@@ -380,7 +380,7 @@ If you want finer control on which warnings you want to be seen, you can
 select which
 [warning categories](https://perldoc.pl/warnings#Category-Hierarchy) you
 want enabled / disabled with `use warnings` / `no warnings` in Perl 5.
-In Perl 6 however, you would need a `CONTROL` phaser:
+In Perl 6 however, you need a `CONTROL` phaser:
 
 CONTROL
 -------
@@ -388,19 +388,19 @@ The `CONTROL` phaser is very much like the `CATCH` phaser, but it handles
 a special type of exception, the so-called "control exception".  Whenever
 a warning is generated in Perl 6, a control exception is thrown.  Which
 you can catch with the `CONTROL` phaser.  Here's an example that will not
-show 
+show warnings for using uninitialized values in expressions.
 
     # Perl 6
     CONTROL {
-        when CX::Warn {    # control exception type associated with warnings
+        when CX::Warn {    # Control eXception type associated with Warnings
             note .message
               unless .message.starts-with('Use of uninitialized value');
         }
     }
 
-Sadly, there are currently no warning categories defined in Perl 6.  So you
-will have to check for the actual `message` of the control exception of
-type `CX::Warn`.
+There are currently no warning categories defined in Perl 6.  So you will
+have to check for the actual `message` of the control exception of
+type `CX::Warn`, as shown above.
 
 The controle exception mechanism is also used for quite a lot of other
 functionality apart from warnings.  The following statements also create
