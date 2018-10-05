@@ -533,7 +533,24 @@ Some examples:
     # called POST
     # Postcondition '{ say "called POST"; False }' failed
 
-If you would like to check if a block returns a specific value
+If you would only like to check if a Block returns a specific value or type,
+you are probably better of specifying a return signature for the Block:
+
+    # Perl 6
+    {
+        POST { $_ ~~ Int }   # check if the return value is an Int
+        42;
+    }
+
+is just a very roundabout way of saying:
+
+    # Perl 6
+    --> Int {                # return values should be an Int
+        42;
+    }
+
+So in general, you would only use a `POST` phaser if the necessary checks
+would be very involved and reducible to a simple type check.
 
 Loop phasers
 ------------
