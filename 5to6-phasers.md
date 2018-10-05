@@ -404,11 +404,14 @@ enough to implement.
 
 Block and Loop phasers
 ----------------------
-Block and Loop phasers are always associated with the surrounding block,
+Block and Loop phasers are always associated with the surrounding Block,
 regardless of where they are located in the block, just the way that the
 `CATCH` and `CONTROL` phasers are.  Except you are not limited to only
 having one of each: although you could argue that having more than one
 doesn't improve maintainability.
+
+> Please note that any `sub` or `method` is *also* considered a Block with
+> regards to these phasers.
 
 | Name | Description |
 |:----------|:-----------|
@@ -490,7 +493,7 @@ A bit of a real-life example:
 So if anything should go wrong with setting up the big transaction in the
 database, the `UNDO` phaser will make sure that the transaction is rolled
 back.  Conversely, if the block is successfully left, then the transaction
-will be automatically committed by the `KEEP` phaser
+will be automatically committed by the `KEEP` phaser.
 
 The `KEEP` and `UNDO` phasers give you the building blocks for a poor man's
 [Software Transactional Memory](https://en.wikipedia.org/wiki/Software_transactional_memory).
@@ -529,6 +532,8 @@ Some examples:
     # inside the block
     # called POST
     # Postcondition '{ say "called POST"; False }' failed
+
+If you would like to check if a block returns a specific value
 
 Loop phasers
 ------------
