@@ -591,7 +591,7 @@ after the last iteration ([LAST](https://docs.perl6.org/language/phasers#LAST)):
 
 | Name | Description |
 |:----------|:-----------|
-| FIRST | run only the first time through a loop |
+| FIRST | run before the first iteration |
 | NEXT  | run after each completed iteration, or with next |
 | LAST  | run after the last iteration, or with last |
 
@@ -622,7 +622,7 @@ Loop constructs include [`loop`](https://docs.perl6.org/language/control#loop),
 [`map`,`deepmap`,`flatmap`](https://docs.perl6.org/type/List#routine_map).
 
 You can use Loop phasers together with other Block phasers if you want, but
-generally this appears to unnecessary.
+generally this is usually unnecessary.
 
 Summary
 =======
