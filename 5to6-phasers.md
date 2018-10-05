@@ -66,11 +66,13 @@ An easy work-around would be to inhibit pre-compilation of a module in Perl 6:
 However, pre-compilation has several advantages:
 
 - setup of data structures only needs to be done once
+
 If you have data structures that you would need to set up each time a module
 is loaded, you now do that once when a module is pre-compiled.  Which may be
 a huge time / CPU saver if the module is loaded very often.
 
 - it can load modules **much** faster
+
 Because it doesn't need to parse any source code, a pre-compiled module loads
 much faster than one that needs to be compiled over and over agaion.  The prime
 example of this is the core setting of Perl 6: the part of Perl 6 that is
