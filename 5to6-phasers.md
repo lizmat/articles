@@ -5,19 +5,18 @@ This is the sixth article in
 [a series of articles](https://opensource.com/users/lizmat) about migrating
 code from Perl 5 to Perl 6.  In this article we'll be looking at the
 [special blocks in Perl 5](https://perldoc.pl/perlmod#BEGIN,-UNITCHECK,-CHECK,-INIT-and-END)
-such as `BEGIN` and `END`, and the possible subtle change in semantics with
+such as `BEGIN` and `END`, and the possibly subtle change in semantics with
 so-called [phasers](https://docs.perl6.org/language/phasers) in Perl 6.
 
 Perl 6 has generalized some other features of Perl 5 as phasers, that weren't
 covered by special blocks in Perl 5.  And it has added some more phasers that
 are not covered by any (standard) functionality of Perl 5 at all.
 
-> One important feature that one should remember about phasers is that a
-> developer of a program does **not** determine **when** a phaser is run.
-> It is the runtime executor that decides when a phaser is being run.
-> Therefore all phasers in Perl 6 are spelled in uppercase characters,
-> to make them stand out better as they are *not* part of the standard
-> flow of execution.
+> One important feature that one should remember about phasers is that
+> they are **not** part of the normal flow of execution of a program.
+> The runtime executor decides when a phaser is being run depending on
+> type of phaser and context.  Therefore all phasers in Perl 6 are spelled
+> in uppercase characters to make them stand out better.
 
 An overview
 ===========
