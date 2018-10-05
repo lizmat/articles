@@ -612,3 +612,11 @@ this series.
 
 Summary
 =======
+Perl 5 has a number of special blocks which basically all have an identical
+counterpart in Perl 6.  These special blocks are called "*phasers*" in Perl 6.
+Other functionality of Perl 5, such as catching exceptions and warnings,
+are also handled by phasers in Perl 6.  Additionally, Perl 6 has a number
+of special purpose phasers related to blocks of code and looping constructs,
+which are described in this article.  Perl 6 also has phasers related to
+event driven programming and document (pod) parsing, but these are *not*
+described in this article: these will be described in future articles.
