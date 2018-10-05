@@ -402,7 +402,7 @@ There are currently no warning categories defined in Perl 6.  So you will
 have to check for the actual `message` of the control exception of
 type `CX::Warn`, as shown above.
 
-The controle exception mechanism is also used for quite a lot of other
+The control exception mechanism is also used for quite a lot of other
 functionality apart from warnings.  The following statements also create
 control exceptions (in alphabetical order): 
 [emit](https://docs.perl6.org/language/control#supply/emit),
