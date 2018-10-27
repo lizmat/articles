@@ -204,7 +204,7 @@ In Perl 5, you either need to prepare for a possible exception (by using
 `eval`, or some version of `try` when using a CPAN module).  In Perl 6 you
 can do the same with `try`, as we've seen earlier here.
 
-In Perl 6 there is also another option:
+But Perl 6 also has another option:
 [Failure](https://docs.perl6.org/type/Failure).  The `Failure` class is a
 special class for wrapping an
 [Exception](https://docs.perl6.org/type/Exception).  Whenever a `Failure`
@@ -261,6 +261,84 @@ rephrase the above code to more gently handle not being able to open the file:
     # tried to open the file
     # could not open file
     # but still in business
+
+Throwing exceptions
+-------------------
+As in Perl 5, the simplest way to create an exception and throw it, is to use
+the [die function](https://docs.perl6.org/routine/die).  In Perl 6, this is
+a shortcut to creating an [X::AdHoc](https://docs.perl6.org/type/X::AdHoc)
+exception and throwing it.
+
+    # Perl 5
+    sub alas {
+        die "Goodbye cruel world";
+        say "this will not be shown";
+    }
+    alas;
+    # Goodbye cruel world at ...
+
+    # Perl 6
+    sub alas {
+        die "Goodbye cruel world";
+        say "this will not be shown";
+    }
+    # Goodbye cruel world
+    #   in sub alas at ...
+    #   in ...
+
+There are some subtle differences between `die` between Perl 5 and Perl 6,
+but semantically, they are the same: they immediately stop execution.
+
+Returning with a Failure
+------------------------
+Perl 6 has added the [fail function](https://docs.perl6.org/syntax/%20fail).
+This will immediately return from the surrounding subroutine / method with
+the given `Exception`: if one only supplies a string, then an `X::AdHoc`
+exception will be created for you.
+
+Suppose we have a subroutine taking one parameter: a value that is checked
+for truthiness:
+
+    # Perl 6
+    sub maybe-alas($expected) {
+        fail "Not what was expected" unless $expected;
+        return 42;
+    }
+    my $a = maybe-alas(666);
+    my $b = maybe-alas("");
+    say "values gathered";
+    say $a;                   # ok
+    say $b;                   # will throw, because it has a Failure
+    say "still in business";  # will not be shown
+    # values gathered
+    # 42
+    # Not what was expected
+    #   in sub maybe-alas at ...
+
+Note that you do not have to provide any `try` or `CATCH`: the `Failure` will
+simply be returned from the subroutine / method in question as if all is
+normal.  Only if the `Failure` is used in an unanticipated way, will it
+actually throw the `Exception` that is embedded in it.  An alternative way
+of handling this would have been:
+
+    # Perl 6
+    sub maybe-alas($expected) {
+        fail "Not what was expected" unless $expected;
+        return 42;
+    }
+    my $a = maybe-alas(666);
+    my $b = maybe-alas("");
+    say "values gathered";
+    say $a ?? "got $a for a" !! "no valid value returned for a";
+    say $b ?? "got $b for b" !! "no valid value returned for b";
+    say "still in business";
+    # values gathered
+    # got 42 for a
+    # no valid value returned for b
+    # still in business
+
+Note that the ternary operator `?? !!` calls `.Bool` on the condition, so
+effectively disarms the `Failure` that was returned by `fail`.
 
 Summary
 =======
