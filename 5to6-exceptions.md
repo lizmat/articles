@@ -265,7 +265,7 @@ rephrase the above code to more gently handle not being able to open the file:
 Throwing exceptions
 -------------------
 As in Perl 5, the simplest way to create an exception and throw it, is to use
-the [die function](https://docs.perl6.org/routine/die).  In Perl 6, this is
+the [die](https://docs.perl6.org/routine/die) function.  In Perl 6, this is
 a shortcut to creating an [X::AdHoc](https://docs.perl6.org/type/X::AdHoc)
 exception and throwing it.
 
@@ -289,9 +289,9 @@ exception and throwing it.
 There are some subtle differences between `die` between Perl 5 and Perl 6,
 but semantically, they are the same: they immediately stop execution.
 
-Returning with a Failure
+Returning with a failure
 ------------------------
-Perl 6 has added the [fail function](https://docs.perl6.org/syntax/%20fail).
+Perl 6 has added the [fail](https://docs.perl6.org/syntax/%20fail) function.
 This will immediately return from the surrounding subroutine / method with
 the given `Exception`: if one only supplies a string, then an `X::AdHoc`
 exception will be created for you.
@@ -339,6 +339,15 @@ of handling this would have been:
 
 Note that the ternary operator `?? !!` calls `.Bool` on the condition, so
 effectively disarms the `Failure` that was returned by `fail`.
+
+One can think of `fail` as syntactic sugar for returning a `Failure` object:
+
+    # Perl 6
+    fail "Not what was expected";
+    return Failure.new("Not what was expected");  # semantically the same
+
+Creating your own Exceptions
+----------------------------
 
 Summary
 =======
