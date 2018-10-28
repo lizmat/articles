@@ -15,8 +15,8 @@ which states:
 > Moose is based in large part on the Perl 6 object system, as well as
 > drawing on the best ideas from CLOS, Smalltalk, and many other languages.
 
-`Moose`, in its turn has inspired more modern object systems in Perl 5,
-most notably [Moo](https://metacpan.org/pod/Moo#DESCRIPTION) and
+`Moose`, in its turn has inspired a number of other modern object systems in
+Perl 5, most notably [Moo](https://metacpan.org/pod/Moo#DESCRIPTION) and
 [Mouse](https://metacpan.org/pod/Mouse#DESCRIPTION).  More generally, if
 you're planning on starting a new project in Perl 5, reading
 [Modern Perl](http://onyxneon.com/books/modern_perl/modern_perl_2016_a4.pdf)
@@ -24,7 +24,7 @@ by *chromatic* is recommended: among many other things, it describes how
 to use `Moose` to create classes / objects.
 
 For simplicity, this article will only describe the differences between
-basic Perl 5 and Perl 6 object creation.
+basic Perl 5 and basic Perl 6 object creation.
 
 How to make a Point
 -------------------
@@ -79,12 +79,10 @@ sure that both `x` and `y` are specified, and that they're integer values.
     package Point {
         sub new {
             my ($class,%args) = @_;
-
             die "The attribute 'x' is required" unless exists $args{x};
             die "The attribute 'y' is required" unless exists $args{y};
             die "Type check failed on 'x'" unless $args{x} =~ /^\d+\z/;
             die "Type check failed on 'y'" unless $args{y} =~ /^\d+\z/;
-
             bless \%args, $class
         }
         sub x { shift->{x} }
@@ -95,30 +93,33 @@ That's quite a bit of extra boilerplate.  Of course, you can abstract that
 in a subroutine of your own:
 
     # Perl 5
-    package Point {
-        sub is_valid {
-            my $args = shift;
-            for (@_) {
-                die "The attribute '$_' is required" unless exists $args->{$_};
-                die "Type check failed on '$_'" unless $args{$_} =~ /^\d+\z/;
-            }
-            1
+    sub is_valid {
+        my $args = shift;
+        for (@_) {
+            die "The attribute '$_' is required" unless exists $args->{$_};
+            die "Type check failed on '$_'" unless $args->{$_} =~ /^\d+\z/;
         }
+        1
+    }
+
+Or you can use one of the many parameter validation modules on CPAN, such
+as [Params::Validate](https://metacpan.org/pod/Params::Validate#DESCRIPTION).
+In that case, you're code would look something like:
+
+    # Perl 5
+    package Point {
         sub new {
             my ($class,%args) = @_;
-            bless \%args, $class if is_valid(\%args,'x','y')
+            bless \%args, $class if is_valid(\%args,'x','y');
         }
         sub x { shift->{x} }
         sub y { shift->{y} }
     }
 
-Or you can use one of the many parameter validation modules on CPAN, such
-as [Params::Validate](https://metacpan.org/pod/Params::Validate#DESCRIPTION).
-
 In Perl 6 however, all of that is built-in.  The `is required` attribute trait
-indicates that an attribute must be specified.  And specifying a type (in this
-case `Int`) will automatically throw a type check exception if the provided
-value is not of the right type.
+indicates that an attribute *must* be specified.  And specifying a type (in
+this case `Int`) will automatically throw a type check exception if the
+provided value is not of the right type.
 
     # Perl 6
     class Point {
@@ -126,7 +127,40 @@ value is not of the right type.
         has Int $.y is required;
     }
 
+Providing defaults
+------------------
+Alternately, you might just want to make the attributes optional and have them
+get `0` as a value if they are not specified.  In Perl 5 that could look like
+this:
+
+    # Perl 5
+    package Point {
+        sub new {
+            my ($class,%args) = @_;
+            $args{x} = 0 unless exists $args{x};
+            $args{y} = 0 unless exists $args{y};
+            bless \%args, $class if is_valid(\%args,'x','y');
+        }
+        sub x { shift->{x} }
+        sub y { shift->{y} }
+    }
+
+In Perl 6 one would add an assignment with the default value to each attribute
+declaration:
+
+    # Perl 6
+    class Point {
+        has Int $.x = 0;
+        has Int $.y = 0;
+    }
 
 
 Summary
 =======
+Creating classes in Perl 6 is mostly declarative, whereas object creation in
+standard Perl 5 is mostly procedural.  The way how classes are defined in
+Perl 6 is very similar in semantics to
+[Moose](https://metacpan.org/pod/distribution/Moose/lib/Moose/Manual.pod).
+This is because `Moose` historically was inspired by the design of the Perl 6
+object creation model.  Vice-versa, the Perl 6 object creation logic has
+taken a few lessons learned by `Moose`.
