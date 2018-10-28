@@ -1,7 +1,7 @@
 Failure is an option in Perl 6
 ==============================
 
-This is the seventh article in
+This is the eighth article in
 [a series of articles](https://opensource.com/users/lizmat) about migrating
 code from Perl 5 to Perl 6.  In this article we'll be looking at the
 differences in creating and handling of exceptions between Perl 5 and Perl 6.
@@ -405,5 +405,17 @@ may vary.
 
 Summary
 =======
-Catching exceptions and warnings are also handled by phasers in Perl 6.
-Apart from 
+Catching exceptions and warnings are also handled by phasers in Perl 6,
+rather than by `eval` or signal handlers as in Perl 5.  `Exception`s are
+first class objects in Perl 6.
+
+Perl 6 also introduces the concept of a `Failure` object, which embeds an
+`Exception` object.  If the `Failure` object is used in an unanticipated way,
+then the embedded `Exception` will be thrown.
+
+One can easily check for a `Failure` with `if`, `?? !!` (which
+check for truthiness by calling the `.Bool` method) and `with` (which checks
+for definedness by calling the `.defined` method).
+
+One can very easily create ones own `Exception` classes by inheriting from
+the `Exception` class and providing a `message` method.
