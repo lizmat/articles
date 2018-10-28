@@ -1,5 +1,5 @@
-How to use modules in Perl 6
-============================
+Making Perl more Classy
+=======================
 
 This is the seventh article in
 [a series of articles](https://opensource.com/users/lizmat) about migrating
