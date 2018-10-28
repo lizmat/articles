@@ -15,8 +15,8 @@ which states:
 > Moose is based in large part on the Perl 6 object system, as well as
 > drawing on the best ideas from CLOS, Smalltalk, and many other languages.
 
-`Moose`, in its turn, has inspired more modern object systems in Perl 5,
-most notably [Moo])https://metacpan.org/pod/Moo#DESCRIPTION) and
+`Moose`, in its turn has inspired more modern object systems in Perl 5,
+most notably [Moo](https://metacpan.org/pod/Moo#DESCRIPTION) and
 [Mouse](https://metacpan.org/pod/Mouse#DESCRIPTION).  More generally, if
 you're planning on starting a new project in Perl 5, reading
 [Modern Perl](http://onyxneon.com/books/modern_perl/modern_perl_2016_a4.pdf)
@@ -49,7 +49,7 @@ In Perl 6 this would look like:
         has $.y;
     }
 
-Has you can see, the Perl 6 syntax is much more declarative: there is no need
+As you can see, the Perl 6 syntax is much more declarative: there is no need
 to write code to have a `new` method, nor is there code needed to create the
 accessors for `x` and `y`.  Also note that instead of `package`, one needs to
 specify `class` in Perl 6.
