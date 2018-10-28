@@ -348,7 +348,62 @@ One can think of `fail` as syntactic sugar for returning a `Failure` object:
 
 Creating your own Exceptions
 ----------------------------
+Perl 6 makes it very easy to create your own (typed) `Exception` classes.
+You only need to inherit from the `Exception` class, and provide a `message`
+method.  It is customary to make custom classes in the `X::` namespace.
+For example:
+
+    # Perl 6
+    class X::Frobnication::Failed is Exception {
+        has $.reason;  # public attribute
+        method message() {
+            "Frobnication failed because of $.reason"
+        }
+    }
+
+You can then use that exception in your code in any `die` or `fail` statement:
+
+    # Perl 6
+    die X::Frobnication::Failed.new( reason => "too much interference" );
+
+    # Perl 6
+    fail X::Frobnication::Failed.new( reason => "too much interference" );
+
+Which you can then check for inside a `CATCH` block, and introspect if
+necessary:
+
+    # Perl 6
+    CATCH {
+        when X::Frobnicate::Failed {
+            if .reason eq 'too much interference' {
+                .resume     # too much interference is ok
+            }
+        }
+    }                       # all others will re-throw
+
+You are completely free in how you set up your `Exception` classes: the only
+thing the class needs to provide is a `message` method that should return a
+string.  How that string is created, is entirely up to you.  If you prefer
+working with error codes, you can.  As long as the `method` message returns
+a string.
+
+    # Perl 6
+    my @texts =
+      "unknown error",
+      "too much interference",
+    ;
+    my constant TOO_MUCH_INTERFERENCE = 1;
+    class X::Frobnication::Failed is Exception {
+        has Int $.reason = 0;
+        method message() {
+            "Frobnication failed because of @texts[$.reason]"
+        }
+    }
+
+As you can see, this quickly becomes much more elaborate.  So your mileage
+may vary.
 
 Summary
 =======
 Catching exceptions and warnings are also handled by phasers in Perl 6.
+Apart from 
