@@ -65,16 +65,29 @@ Catching exceptions
 The use of `$SIG{__DIE__}` pseudo-signal handler in Perl 5 is not recommended
 anymore.  Several competing CPAN modules provide some kind of `try / catch`
 mechanism (such as: [Try::Tiny](https://metacpan.org/pod/Try::Tiny) and
-[Syntax::Keyword::Try](https://metacpan.org/pod/Syntax::Keyword::Try)).
-However, there isn't really a single Perl 5 target to compare Perl 6 features
-against.  So in this case only Perl 6 code will be shown.
+[Syntax::Keyword::Try](https://metacpan.org/pod/Syntax::Keyword::Try)).  Even
+though these two modules differ completely in implementation, they do provide
+very similar syntax with only very minor semantic differences.  So these will
+be used to compare Perl 6 features against.
 
-The code inside a [`CATCH`](https://docs.perl6.org/language/phasers#CATCH)
-phaser will be called whenever an exception is thrown in the immediately
-surrounding lexical scope.
+In Perl 5 you can only catch an exception in conjunction with a `try` block:
+
+    # Perl 5
+    use Try::Tiny;               # or Syntax::Keyword::Try
+    try {
+        die "foo";
+    }
+    catch {
+        warn "caught error: $_"; # $@ when using Syntax::Keyword::Try
+    }
+
+In Perl 6 no `try` block is necessary.  The code inside a
+[`CATCH`](https://docs.perl6.org/language/phasers#CATCH) phaser will be called
+whenever an exception is thrown in the **immediately surrounding** lexical
+scope.
 
     # Perl 6
-    {
+    {                        # surrounding scope
         CATCH {
             say "aw, died";
             .resume;         # $_, AKA the topic, contains the exception
@@ -85,18 +98,20 @@ surrounding lexical scope.
     # aw, died
     # alive again
 
-Please note that you do **not** need a `try` statement to be able to catch
-exceptions.  A `try` block is just a convenient way to disregard any
-exceptions without having to worry about anything.
+Again, you do **not** need a `try` statement to be able to catch exceptions
+in Perl 6.  You *can* use a `try` block on its own if you want to, but that
+is just a convenient way to disregard any exceptions thrown inside that block,
+so that you don't have worry about any exceptions being thrown.
 
 Also note that `$_` will be set to the `Exception` object inside the `CATCH`
-block.  In this example, the `Exception` is simply resumed by calling the
-`resume` method on the `Exception` object.  Execution will then continue
-with the statement after the statement that caused the exception.  If the
-exception is not resumed, it will be thrown again, to be possibly caught
-by an outer `CATCH` block (if any).
+block.  In this example, execution will continue with the statement after
+the one that caused the `Exception` to be thrown.  This is achieved by
+calling the `resume` method on the `Exception` object.  If the exception is
+not resumed, it will be thrown again, to be possibly caught by an outer
+`CATCH` block (if any).  And if there are no outer `CATCH` blocks, then the
+exception will result in program termination.
 
-Checking for specific exception is made easy with the
+Checking for a specific exception is made easy with the
 [`when`](https://docs.perl6.org/language/control#default_and_when) statement:
 
     # Perl 6
@@ -157,23 +172,38 @@ and will just disregard them.
 If you want finer control on which warnings you want to be seen, you can
 select which
 [warning categories](https://perldoc.pl/warnings#Category-Hierarchy) you
-want enabled / disabled with `use warnings` / `no warnings` in Perl 5.
-If you want to do that in Perl 6 however, you will need a `CONTROL` phaser.
+want enabled / disabled with `use warnings` / `no warnings` in Perl 5.  For
+example:
+
+    # Perl 5
+    use warnings;
+    {
+        no warnings 'uninitialized';
+        my $bar;
+        print $bar;    # no visible warning
+    }
+
+If you want to have finer control in Perl 6 however, you will need a
+`CONTROL` phaser.
 
 CONTROL
 -------
 The `CONTROL` phaser is very much like the `CATCH` phaser, but it handles
 a special type of exception, the so-called "control exception".  Whenever
-a warning is generated in Perl 6, a control exception is thrown.  Which
-you can catch with the `CONTROL` phaser.  Here's an example that will not
+a warning is generated in Perl 6, such a control exception is thrown.  Which
+you can catch with the `CONTROL` phaser.  Here's an example that will *not*
 show warnings for using uninitialized values in expressions.
 
     # Perl 6
-    CONTROL {
-        when CX::Warn {    # Control eXception type associated with Warnings
-            note .message
-              unless .message.starts-with('Use of uninitialized value');
+    {
+        CONTROL {
+            when CX::Warn {  # Control eXception type for Warnings
+                note .message
+                  unless .message.starts-with('Use of uninitialized value');
+            }
         }
+        my $bar;
+        print $bar;          # no visible warning
     }
 
 There are currently no warning categories defined in Perl 6.  So you will
