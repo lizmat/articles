@@ -87,7 +87,7 @@ whenever an exception is thrown in the **immediately surrounding** lexical
 scope.
 
     # Perl 6
-    {                        # surrounding scope
+    {                        # surrounding scope, added for clarity
         CATCH {
             say "aw, died";
             .resume;         # $_, AKA the topic, contains the exception
