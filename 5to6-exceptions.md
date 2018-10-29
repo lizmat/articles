@@ -4,7 +4,7 @@ Failure is an option in Perl 6
 This is the eighth article in
 [a series of articles](https://opensource.com/users/lizmat) about migrating
 code from Perl 5 to Perl 6.  In this article we'll be looking at the
-differences in creating and handling of exceptions between Perl 5 and Perl 6.
+differences in creating and handling exceptions between Perl 5 and Perl 6.
 
 The first part of this blog post will be about how to work with exceptions
 in Perl 6.  The second part will be about how you can create your own
