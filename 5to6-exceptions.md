@@ -206,9 +206,10 @@ show warnings for using uninitialized values in expressions.
         print $bar;          # no visible warning
     }
 
-There are currently no warning categories defined in Perl 6.  So you will
-have to check for the actual `message` of the control exception of
-type `CX::Warn`, as shown above.
+There are currently no warning categories defined in Perl 6, but they are
+being discussed for future development.  In the mean time you will have to
+check for the actual `message` of the control exception of type `CX::Warn`,
+as shown above.
 
 The control exception mechanism is also used for quite a lot of other
 functionality apart from warnings.  The following statements also create
@@ -230,8 +231,8 @@ sure its intended action will be performed.
 
 Failure is an option
 ====================
-In Perl 5, you either need to prepare for a possible exception (by using
-`eval`, or some version of `try` when using a CPAN module).  In Perl 6 you
+In Perl 5, you either need to prepare for a possible exception by using
+`eval`, or some version of `try` when using a CPAN module.  In Perl 6 you
 can do the same with `try`, as we've seen earlier here.
 
 But Perl 6 also has another option:
@@ -250,12 +251,11 @@ it is wrapping.  A simple example:
     # Failed to open file non-existing file: No such file or directory
 
 The [open](https://docs.perl6.org/routine/open#(IO)_sub_open) function in
-Perl 6 returns a `Failure` if the given file could not be opened.  This in
-itself does **not** throw the exception.  However, if we actually try to
-use the value returned by `open`, *then* the exception will be thrown.
-
-If opening the file was successful, then an
-[IO::Handle](https://docs.perl6.org/type/IO::Handle) will be returned.
+Perl 6 returns an [IO::Handle](https://docs.perl6.org/type/IO::Handle) if
+it was successful in opening the requested file.  If it fails to do so, it
+return a `Failure`.  This in itself does **not** throw the exception.
+However, if we actually try to *use* the `Failure` in an unanticipated way,
+*then* the `Exception` will be thrown.
 
 There are only **two** ways of preventing the `Exception` inside a `Failure`
 to be thrown (AKA anticipating a potential failure):
@@ -266,7 +266,8 @@ to be thrown (AKA anticipating a potential failure):
 In either case, these methods will return `False` (even though technically
 the `Failure` object *is* instantiated).  Apart from that, they will **also**
 mark the `Failure` as "handled", meaning that if the `Failure` is used in an
-unanticipated way afterwards, it will **not** throw the `Exception`.
+unanticipated way afterwards, it will **not** throw the `Exception` but
+simply return `False`.
 
 Calling `.defined` or `.Bool` on most other instantiated objects, will always
 return `True`.  So this gives you an easy way to find out if something that
@@ -297,7 +298,7 @@ Throwing exceptions
 As in Perl 5, the simplest way to create an exception and throw it, is to use
 the [die](https://docs.perl6.org/routine/die) function.  In Perl 6, this is
 a shortcut to creating an [X::AdHoc](https://docs.perl6.org/type/X::AdHoc)
-exception and throwing it.
+`Exception` and throwing it.
 
     # Perl 5
     sub alas {
@@ -374,6 +375,8 @@ One can think of `fail` as syntactic sugar for returning a `Failure` object:
 
     # Perl 6
     fail "Not what was expected";
+
+    # Perl 6
     return Failure.new("Not what was expected");  # semantically the same
 
 Creating your own Exceptions
@@ -435,9 +438,9 @@ may vary.
 
 Summary
 =======
-Catching exceptions and warnings are also handled by phasers in Perl 6,
-rather than by `eval` or signal handlers as in Perl 5.  `Exception`s are
-first class objects in Perl 6.
+Catching exceptions and warnings are handled by phasers in Perl 6, rather
+than by `eval` or signal handlers as in Perl 5.  `Exception`s are first
+class objects in Perl 6.
 
 Perl 6 also introduces the concept of a `Failure` object, which embeds an
 `Exception` object.  If the `Failure` object is used in an unanticipated way,
@@ -447,5 +450,5 @@ One can easily check for a `Failure` with `if`, `?? !!` (which
 check for truthiness by calling the `.Bool` method) and `with` (which checks
 for definedness by calling the `.defined` method).
 
-One can very easily create ones own `Exception` classes by inheriting from
-the `Exception` class and providing a `message` method.
+One can very easily create `Exception` classes by inheriting from the
+`Exception` class and providing a `message` method.
