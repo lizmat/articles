@@ -287,6 +287,9 @@ A method for accessing the private attribute value can be very simple:
         method y() { $!y }
     }
 
+And this is in fact pretty much what happens automatically if you declare
+the attribute with the "`.`" twigil.
+
 The . (period) twigil
 ---------------------
 In a declaration of an attribute like "`$.x`", the `.` means that the
