@@ -15,6 +15,9 @@ which states:
 > Moose is based in large part on the Perl 6 object system, as well as
 > drawing on the best ideas from CLOS, Smalltalk, and many other languages.
 
+Vice-versa, the Perl 6 object creation logic has taken a few lessons
+learned by `Moose`.
+
 `Moose`, in its turn has inspired a number of other modern object systems in
 Perl 5, most notably [Moo](https://metacpan.org/pod/Moo#DESCRIPTION) and
 [Mouse](https://metacpan.org/pod/Mouse#DESCRIPTION).  More generally, if
@@ -23,8 +26,8 @@ you're planning on starting a new project in Perl 5, reading
 by *chromatic* is recommended: among many other things, it describes how
 to use `Moose` to create classes / objects.
 
-For simplicity, this article will only describe the differences between
-basic Perl 5 and basic Perl 6 object creation.
+For simplicity, this article will generally only describe the differences
+between basic Perl 5 and basic Perl 6 object creation.
 
 How to make a Point
 -------------------
@@ -118,6 +121,20 @@ In any case, you're code would look something like:
         sub x { shift->{x} }
         sub y { shift->{y} }
     }
+    Point->new( x => 42, y => 666 );     # ok
+    Point->new( x => 42 );               # 'y' missing
+    Point->new( x => "foo", y => 666 );  # 'x' is not an integer
+
+Or in Perl 5 using
+[Moose](https://metacpan.org/pod/distribution/Moose/lib/Moose/Manual.pod):
+
+    # Perl 5
+    package Point;
+    use Moose;
+    has 'x' => ( is => 'ro', isa => 'Int', required => 1);
+    has 'y' => ( is => 'ro', isa => 'Int', required => 1);
+    no Moose;
+    __PACKAGE__->meta->make_immutable;
     Point->new( x => 42, y => 666 );     # ok
     Point->new( x => 42 );               # 'y' missing
     Point->new( x => "foo", y => 666 );  # 'x' is not an integer
@@ -337,10 +354,10 @@ assigning any default values and any processing of traits such as "`is rw`"
 and "`is required`").  Inside the method, you can do all that you want to
 the attributes in the object.
 
-> Note that the `TWEAK` method is best a so-called `submethod`, which is
-> a special type of method that can only be executed by the class itself,
-> and *not* by any subclass.  In other words, this method has the visibility
-> of a `sub`routine.
+> Note that the `TWEAK` method is best implemented as aa so-called
+> `submethod`.  A `submethod` is a special type of method that can only be
+> executed on the class itself, and *not* on any subclass.  In other words,i
+> this method has the visibility of a `sub`routine.
 
 Summary
 =======
@@ -349,11 +366,9 @@ standard Perl 5 is mostly procedural.  The way how classes are defined in
 Perl 6 is very similar in semantics to
 [Moose](https://metacpan.org/pod/distribution/Moose/lib/Moose/Manual.pod).
 This is because `Moose` historically was inspired by the design of the Perl 6
-object creation model.  Vice-versa, the Perl 6 object creation logic has
-taken a few lessons learned by `Moose`.
+object creation model, and vice-versa.
 
 Performance concerns about object creation have always been a focus for
 attention in both Perl 5 and Perl 6.  Even though Perl 6 provides much more
-functionality in object creation than Perl 5, recent benchmarks have shown
-that Perl 6 has recently become faster at creation and accessing objects
-than Perl 5.
+functionality in object creation than Perl 5, benchmarks show that Perl 6
+has recently become faster than Perl 5 at creation and accessing objects.
