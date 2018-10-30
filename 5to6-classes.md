@@ -281,10 +281,11 @@ create your own mutators by adding a method for them.  For example, the
         method set_y($new) { $!y = $new }
     }
 
-But **wait**: what's the exclamation mark doing there in "`$!x`"?  The "`!`"
-indicates the *real* name of the attribute in the class: it gives direct access
-to the attribute in the object.  So let's take a step back and see what the
-so-called
+But **wait**: what's the exclamation mark doing there in "`$!x`" **???**
+
+The "`!`" indicates the *real* name of the attribute in the class: it gives
+direct access to the attribute in the object.  Let's take a step back and see
+what the so-called
 [twigil](https://docs.perl6.org/language/variables#index-entry-Twigil) (aka
 secondary sigil) of the attribute means.
 
