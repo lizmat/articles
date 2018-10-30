@@ -354,9 +354,9 @@ assigning any default values and any processing of traits such as "`is rw`"
 and "`is required`").  Inside the method, you can do all that you want to
 the attributes in the object.
 
-> Note that the `TWEAK` method is best implemented as aa so-called
+> Note that the `TWEAK` method is best implemented as a so-called
 > `submethod`.  A `submethod` is a special type of method that can only be
-> executed on the class itself, and *not* on any subclass.  In other words,i
+> executed on the class itself, and *not* on any subclass.  In other words,
 > this method has the visibility of a `sub`routine.
 
 Summary
@@ -371,4 +371,4 @@ object creation model, and vice-versa.
 Performance concerns about object creation have always been a focus for
 attention in both Perl 5 and Perl 6.  Even though Perl 6 provides much more
 functionality in object creation than Perl 5, benchmarks show that Perl 6
-has recently become faster than Perl 5 at creation and accessing objects.
+has recently become faster than Perl 5 at creating and accessing objects.
