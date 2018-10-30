@@ -333,8 +333,9 @@ an alternative to `666`:
 
 If a class has a `TWEAK` method, then it will be called after all arguments
 have been processed and assigned to attributes as appropriate (including
-any processing of traits such as "`is rw`" and "`is required`").  Inside
-the method, you can do all that you want to the attributes in the object.
+assigning any default values and any processing of traits such as "`is rw`"
+and "`is required`").  Inside the method, you can do all that you want to
+the attributes in the object.
 
 > Note that the `TWEAK` method is best a so-called `submethod`, which is
 > a special type of method that can only be executed by the class itself,
