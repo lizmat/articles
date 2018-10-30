@@ -65,8 +65,6 @@ Perl 6:
     my $point = Point.new( x => 42, y => 666 );
 
 The only difference being the use of `.` to call a method instead of `->`.
-Perhaps, more importantly, recent benchmarks have shown that Perl 6 is
-actually faster at creation and accessing objects than Perl 5.
 
 Error checking
 --------------
@@ -74,6 +72,7 @@ In an ideal world, all parameters to methods will always be correctly
 specified.  Unfortunately, we don't live in an ideal world, so it is wise
 to add some error checking to your object creation.  Suppose we want to make
 sure that both `x` and `y` are specified, and that they're integer values.
+In Perl 5 one could do it like this:
 
     # Perl 5
     package Point {
@@ -81,13 +80,17 @@ sure that both `x` and `y` are specified, and that they're integer values.
             my ($class,%args) = @_;
             die "The attribute 'x' is required" unless exists $args{x};
             die "The attribute 'y' is required" unless exists $args{y};
-            die "Type check failed on 'x'" unless $args{x} =~ /^\d+\z/;
-            die "Type check failed on 'y'" unless $args{y} =~ /^\d+\z/;
+            die "Type check failed on 'x'" unless $args{x} =~ /^-?\d+\z/;
+            die "Type check failed on 'y'" unless $args{y} =~ /^-?\d+\z/;
             bless \%args, $class
         }
         sub x { shift->{x} }
         sub y { shift->{y} }
     }
+
+> Pardon the `/^-?\d+\z/` line noise.  This is a regular expression checking
+> for an optional (`?`) `-` at the start of a string (`^`) consisting of
+> one or more decimal digits (`\d+`) until the end of the string `(\z)`
 
 That's quite a bit of extra boilerplate.  Of course, you can abstract that
 in a subroutine `is_valid` of your own:
@@ -217,7 +220,9 @@ a hash reference with benefits, one can *use* the object as a hash reference:
     $point->{x} = 314;  # change x to 314, dirty but fast
 
 And then there is an "official" way of creating accessors that can also be
-used as mutators, but which isn't used a lot in Perl 5.  But which *is* very
+used as mutators using
+[lvalue subroutines](https://perldoc.pl/perlsub#Lvalue-subroutines), but
+which isn't used a lot in Perl 5 for various reasons.  But which *is* very
 close to how mutators work in Perl 6:
 
     # Perl 5
@@ -229,8 +234,9 @@ so you could use it as:
     my $point = Point->new( x => 42, y => 666 );
     $point->x = 314;
 
-In Perl 6, allowing an accessor to be used as a mutator also, is also done in
-a declarative way by using the `is rw` trait on the attribute declaration:
+In Perl 6, allowing an accessor to be used as a mutator, is also done in a
+declarative way by using the `is rw` trait on the attribute declaration, just
+like with the `is required` trait:
 
     # Perl 6
     class Point {
@@ -253,3 +259,5 @@ Perl 6 is very similar in semantics to
 This is because `Moose` historically was inspired by the design of the Perl 6
 object creation model.  Vice-versa, the Perl 6 object creation logic has
 taken a few lessons learned by `Moose`.
+Perhaps, more importantly, recent benchmarks have shown that Perl 6 is
+actually faster at creation and accessing objects than Perl 5.
