@@ -90,14 +90,14 @@ sure that both `x` and `y` are specified, and that they're integer values.
     }
 
 That's quite a bit of extra boilerplate.  Of course, you can abstract that
-in a subroutine of your own:
+in a subroutine `is_valid` of your own:
 
     # Perl 5
     sub is_valid {
         my $args = shift;
-        for (@_) {
+        for (@_) {        # loop over all keys specified
             die "The attribute '$_' is required" unless exists $args->{$_};
-            die "Type check failed on '$_'" unless $args->{$_} =~ /^\d+\z/;
+            die "Type check failed on '$_'" unless $args->{$_} =~ /^-?\d+\z/;
         }
         1
     }
@@ -115,6 +115,10 @@ In that case, you're code would look something like:
         sub x { shift->{x} }
         sub y { shift->{y} }
     }
+    Point->new( x => 42, y => 666 );     # ok
+    Point->new( x => 42 );               # 'y' missing
+    Point->new( x => "foo", y => 666 );  # 'x' is not an integer
+
 
 In Perl 6 however, all of that is built-in.  The `is required` attribute trait
 indicates that an attribute *must* be specified.  And specifying a type (in
@@ -126,6 +130,9 @@ provided value is not of the right type.
         has Int $.x is required;
         has Int $.y is required;
     }
+    Point.new( x => 42, y => 666 );     # ok
+    Point.new( x => 42 );               # 'y' missing
+    Point.new( x => "foo", y => 666 );  # 'x' is not an integer
 
 Providing defaults
 ------------------
@@ -154,6 +161,88 @@ declaration:
         has Int $.y = 0;
     }
 
+Providing mutators
+------------------
+In the class / object examples so far, the attributes of an object are
+immutable: they can not be changed by normal means once the object has been
+created.
+
+In Perl 5 there are a number of ways to create a mutator.  The simplest way
+is to create a separate subroutine that will set the value in the object:
+
+    # Perl 5
+    sub set_x {
+        my $object = shift;
+        $object->{x} = shift;
+    }
+
+which can be shortened to:
+
+    # Perl 5
+    sub set_x { $_[0]->{x} = $_[1] }  # access elements in @_ directly
+
+so you could use it as:
+
+    # Perl 5
+    my $point = Point->new( x => 42, y => 666 );
+    $point->set_x(314);
+
+Some people prefer to use the same subroutine for both accessing and
+mutating the attribute.  Specifying a parameter then means the subroutine
+should be used as a mutator:
+
+    # Perl 5
+    sub x {
+        my $object = shift;
+        @_ ? $object->{x} = shift : $object->{x}
+    }
+
+which can be shortened to:
+
+    # Perl 5
+    sub x { @_ > 1 ? $_[0]->{x} = $_[1] : $_[0]->{x} }
+
+so you could use it as:
+
+    # Perl 5
+    my $point = Point->new( x => 42, y => 666 );
+    $point->x(314);
+
+Then there is the way that is used a lot, but which depends on the
+implementation of the object.  Since the object in Perl 5 is usually just a
+a hash reference with benefits, one can *use* the object as a hash reference:
+
+    # Perl 5
+    my $point = Point->new( x => 42, y => 666 );
+    $point->{x} = 314;  # change x to 314, dirty but fast
+
+And then there is an "official" way of creating accessors that can also be
+used as mutators, but which isn't used a lot in Perl 5.  But which *is* very
+close to how mutators work in Perl 6:
+
+    # Perl 5
+    sub x : lvalue { shift->{x} }  # make "x" a lvalue sub
+
+so you could use it as:
+
+    # Perl 5
+    my $point = Point->new( x => 42, y => 666 );
+    $point->x = 314;
+
+In Perl 6, allowing an accessor to be used as a mutator also, is also done in
+a declarative way by using the `is rw` trait on the attribute declaration:
+
+    # Perl 6
+    class Point {
+        has Int $.x is rw = 0;  # allowed to change, default is 0
+        has Int $.y is rw = 0;
+    }
+
+Which allows you to use it like this in Perl 6:
+
+    # Perl 6
+    my $point = Point.new( x => 42, y => 666 );
+    $point.x = 314;
 
 Summary
 =======
