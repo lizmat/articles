@@ -100,8 +100,7 @@ scope.
 
 Again, you do **not** need a `try` statement to be able to catch exceptions
 in Perl 6.  You *can* use a `try` block on its own if you want to, but that
-is just a convenient way to disregard any exceptions thrown inside that block,
-so that you don't have worry about any exceptions being thrown.
+is just a convenient way to disregard any exceptions thrown inside that block.
 
 Also note that `$_` will be set to the `Exception` object inside the `CATCH`
 block.  In this example, execution will continue with the statement after
@@ -253,7 +252,7 @@ it is wrapping.  A simple example:
 The [open](https://docs.perl6.org/routine/open#(IO)_sub_open) function in
 Perl 6 returns an [IO::Handle](https://docs.perl6.org/type/IO::Handle) if
 it was successful in opening the requested file.  If it fails to do so, it
-return a `Failure`.  This in itself does **not** throw the exception.
+returns a `Failure`.  This in itself does **not** throw the exception.
 However, if we actually try to *use* the `Failure` in an unanticipated way,
 *then* the `Exception` will be thrown.
 
