@@ -269,7 +269,7 @@ attribute in the object.  So let's take a step back and see what the so-called
 [twigil](https://docs.perl6.org/language/variables#index-entry-Twigil) (aka
 secondary sigil) of the attribute means.
 
-The ! Twigil (exclamation mark)
+The ! (exclamation mark) twigil
 -------------------------------
 In a declaration of an attribute `$!x`, the `!` means that the attribute is
 *private*.  This means that you cannot access that attribute from the outside,
@@ -286,7 +286,7 @@ A method for accessing the private attribute value can be very simple:
         method y() { $!y }
     }
 
-The . Twigil (period)
+The . (period) twigil
 ---------------------
 In a declaration of an attribute `$.x`, the `.` means that the attribute is
 *public*.  This means that an accessor method is created for it (much like
