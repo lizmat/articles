@@ -289,7 +289,7 @@ secondary sigil) of the attribute means.
 
 The ! (exclamation mark) twigil
 -------------------------------
-In a declaration of an attribute like "`$!x`", the `!` means that the
+In a declaration of an attribute like "`$!x`", the "`!`" means that the
 attribute is *private*.  This means that you cannot access that attribute
 from the outside, unless the developer of the class has provided a means to
 do so.  This *also* means that it can *not* be initialized with a call to
@@ -310,27 +310,28 @@ the attribute with the "`.`" twigil.
 
 The . (period) twigil
 ---------------------
-In a declaration of an attribute like "`$.x`", the `.` means that the
+In a declaration of an attribute like "`$.x`", the "`.`" means that the
 attribute is *public*.  This means that an accessor method is created for
 it (much like the example above with the method for the private attribute).
 This **also** means that the attribute can be initialized with a call to
 `.new`.
 
-If you use the attribute form `$.x` in code, you are not really referring to
+If you use the attribute form "`$.x`" in code, you are not really referring to
 the attribute, but rather to its accessor.  It is in fact syntactic sugar for
-"`self.x`".  But the `$.x` form has the advantage that you can easily
+"`self.x`".  But the "`$.x`" form has the advantage that you can easily
 interpolate inside a string.  Furthermore, the accessor can be overridden by
 a subclass.
 
     # Perl 6
     class Answer {
         has $.x = 42;
+        method message() { "The answer is $.x" }  # use accessor in message
     }
     class Fake is Answer {
-        method x() { 666 }  # override the accessor in Answer
+        method x() { 666 }   # override the accessor in Answer
     }
-    say Answer.new.x;       # 42
-    say Fake.new.x;         # 666, even though $!x has value 42
+    say Answer.new.message;  # The answer is 42
+    say Fake.new.message;    # The answer is 666 (even though $!x is 42)
 
 Tweaking object creation
 ------------------------
@@ -349,7 +350,7 @@ an alternative to `666`:
         }
     }
 
-If a class has a `TWEAK` method, then it will be called after all arguments
+If a class has a `TWEAK` method, then it will be called **after** all arguments
 have been processed and assigned to attributes as appropriate (including
 assigning any default values and any processing of traits such as "`is rw`"
 and "`is required`").  Inside the method, you can do all that you want to
