@@ -213,7 +213,8 @@ so you could use it as:
 
 Then there is the way that is used a lot, but which depends on the
 implementation of the object.  Since the object in Perl 5 is usually just a
-a hash reference with benefits, one can *use* the object as a hash reference:
+a hash reference with benefits, one *can* use the object as a hash reference
+if one wants to break the encapsulation of the object:
 
     # Perl 5
     my $point = Point->new( x => 42, y => 666 );
@@ -226,13 +227,13 @@ which isn't used a lot in Perl 5 for various reasons.  But which *is* very
 close to how mutators work in Perl 6:
 
     # Perl 5
-    sub x : lvalue { shift->{x} }  # make "x" a lvalue sub
+    sub x : lvalue { shift->{x} }  # make "x" an lvalue sub
 
 so you could use it as:
 
     # Perl 5
     my $point = Point->new( x => 42, y => 666 );
-    $point->x = 314;
+    $point->x = 314;  # just as if $point->x is a variable
 
 In Perl 6, allowing an accessor to be used as a mutator, is also done in a
 declarative way by using the `is rw` trait on the attribute declaration, just
@@ -248,7 +249,7 @@ Which allows you to use it like this in Perl 6:
 
     # Perl 6
     my $point = Point.new( x => 42, y => 666 );
-    $point.x = 314;
+    $point.x = 314;  # just as if $point.x is a variable
 
 Summary
 =======
