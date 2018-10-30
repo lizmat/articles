@@ -300,7 +300,7 @@ This **also** means that the attribute can be initialized with a call to
 
 If you use the attribute form `$.x` in code, you are not really referring to
 the attribute, but rather to its accessor.  It is in fact syntactic sugar for
-"`self.x`".  But the `$.x` form has the advantage that you can easilyi
+"`self.x`".  But the `$.x` form has the advantage that you can easily
 interpolate inside a string.  Furthermore, the accessor can be overridden by
 a subclass.
 
