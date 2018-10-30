@@ -67,7 +67,8 @@ Perl 6:
     # Perl 6
     my $point = Point.new( x => 42, y => 666 );
 
-The only difference being the use of `.` to call a method instead of `->`.
+The only difference being the use of "`.`" (period) to call a method instead
+of "`->`" (hyphen greater-than).
 
 Error checking
 --------------
