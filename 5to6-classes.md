@@ -271,10 +271,11 @@ secondary sigil) of the attribute means.
 
 The ! (exclamation mark) twigil
 -------------------------------
-In a declaration of an attribute `$!x`, the `!` means that the attribute is
-*private*.  This means that you cannot access that attribute from the outside,
-unless the developer of the class has provided a means to do so.  This *also*
-means that it can *not* be initialized with a call to `.new`.
+In a declaration of an attribute like "`$!x`", the `!` means that the
+attribute is *private*.  This means that you cannot access that attribute
+from the outside, unless the developer of the class has provided a means to
+do so.  This *also* means that it can *not* be initialized with a call to
+`.new`.
 
 A method for accessing the private attribute value can be very simple:
 
@@ -288,25 +289,54 @@ A method for accessing the private attribute value can be very simple:
 
 The . (period) twigil
 ---------------------
-In a declaration of an attribute `$.x`, the `.` means that the attribute is
-*public*.  This means that an accessor method is created for it (much like
-the example above with the method for the private attribute).  This **also**
-means that the attribute can be initialized with a call to `.new`.
+In a declaration of an attribute like "`$.x`", the `.` means that the
+attribute is *public*.  This means that an accessor method is created for
+it (much like the example above with the method for the private attribute).
+This **also** means that the attribute can be initialized with a call to
+`.new`.
 
 If you use the attribute form `$.x` in code, you are not really referring to
-the attribute, but rather to the accessor.  It is in fact syntactic sugar for
-`self.x`, but it has the advantage that you can easily interpolate in a string.
-Furthermore, the accessor can be overridden by a subclass.
+the attribute, but rather to its accessor.  It is in fact syntactic sugar for
+"`self.x`".  But the `$.x` form has the advantage that you can easilyi
+interpolate inside a string.  Furthermore, the accessor can be overridden by
+a subclass.
 
     # Perl 6
-    class Axe {
-        has $.x = 666;
+    class Answer {
+        has $.x = 42;
     }
-    class Dot is Axe {
-        method x() { 42 }
+    class Fake is Answer {
+        method x() { 666 }  # override the accessor in Answer
     }
-    say Axe.new.x;  # 666
-    say Dot.new.x;  # 42, even though $!x has value 666
+    say Answer.new.x;       # 42
+    say Fake.new.x;         # 666, even though $!x has value 42
+
+Tweaking object creation
+------------------------
+Sometimes you need to perform extra checks / tweaks to an object before it is
+really ready for consumption.  Without getting into the
+[nitty gritty of creating objects in Perl 6](https://docs.perl6.org/language/classtut),
+usually you can do all the tweaking that you need by supplying a `TWEAK`
+method.  Suppose you also want to allow the value `314` to be considered as
+an alternative to `666`:
+
+    # Perl 6
+    class Answer {
+        has Int $.x = 42;
+        submethod TWEAK() {
+            $!x = 666 if $!x == 314;  # 100 x pi is also bad
+        }
+    }
+
+If a class has a `TWEAK` method, then it will be called after all arguments
+have been processed and assigned to attributes as appropriate (including
+any processing of traits such as "`is rw`" and "`is required`").  Inside
+the method, you can do all that you want to the attributes in the object.
+
+> Note that the `TWEAK` method is best a so-called `submethod`, which is
+> a special type of method that can only be executed by the class itself,
+> and *not* by any subclass.  In other words, this method has the visibility
+> of a `sub`routine.
 
 Summary
 =======
@@ -317,5 +347,9 @@ Perl 6 is very similar in semantics to
 This is because `Moose` historically was inspired by the design of the Perl 6
 object creation model.  Vice-versa, the Perl 6 object creation logic has
 taken a few lessons learned by `Moose`.
-Perhaps, more importantly, recent benchmarks have shown that Perl 6 is
-actually faster at creation and accessing objects than Perl 5.
+
+Performance concerns about object creation have always been a focus for
+attention in both Perl 5 and Perl 6.  Even though Perl 6 provides much more
+functionality in object creation than Perl 5, recent benchmarks have shown
+that Perl 6 has recently become faster at creation and accessing objects
+than Perl 5.
