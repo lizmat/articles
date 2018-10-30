@@ -89,8 +89,8 @@ In Perl 5 one could do it like this:
     }
 
 > Pardon the `/^-?\d+\z/` line noise.  This is a regular expression checking
-> for an optional (`?`) `-` at the start of a string (`^`) consisting of
-> one or more decimal digits (`\d+`) until the end of the string `(\z)`
+> for an optional (`?`) hyphen (`-`) at the start of a string (`^`) consisting
+> of one or more decimal digits (`\d+`) until the end of the string `(\z)`
 
 That's quite a bit of extra boilerplate.  Of course, you can abstract that
 in a subroutine `is_valid` of your own:
@@ -107,7 +107,7 @@ in a subroutine `is_valid` of your own:
 
 Or you can use one of the many parameter validation modules on CPAN, such
 as [Params::Validate](https://metacpan.org/pod/Params::Validate#DESCRIPTION).
-In that case, you're code would look something like:
+In any case, you're code would look something like:
 
     # Perl 5
     package Point {
@@ -121,7 +121,6 @@ In that case, you're code would look something like:
     Point->new( x => 42, y => 666 );     # ok
     Point->new( x => 42 );               # 'y' missing
     Point->new( x => "foo", y => 666 );  # 'x' is not an integer
-
 
 In Perl 6 however, all of that is built-in.  The `is required` attribute trait
 indicates that an attribute *must* be specified.  And specifying a type (in
@@ -160,18 +159,19 @@ declaration:
 
     # Perl 6
     class Point {
-        has Int $.x = 0;
+        has Int $.x = 0;  # an integer with a default of 0
         has Int $.y = 0;
     }
 
 Providing mutators
 ------------------
-In the class / object examples so far, the attributes of an object are
+In the class / object examples so far, the attributes of an object have been
 immutable: they can not be changed by normal means once the object has been
 created.
 
-In Perl 5 there are a number of ways to create a mutator.  The simplest way
-is to create a separate subroutine that will set the value in the object:
+In Perl 5 there are a number of ways to create a mutator (a method on the
+object to change the value of an attribute).  The simplest way is to create
+a separate subroutine that will set the value in the object:
 
     # Perl 5
     sub set_x {
@@ -190,7 +190,7 @@ so you could use it as:
     my $point = Point->new( x => 42, y => 666 );
     $point->set_x(314);
 
-Some people prefer to use the same subroutine for both accessing and
+Some people prefer to use the same subroutine name for both accessing and
 mutating the attribute.  Specifying a parameter then means the subroutine
 should be used as a mutator:
 
