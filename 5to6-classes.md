@@ -251,6 +251,63 @@ Which allows you to use it like this in Perl 6:
     my $point = Point.new( x => 42, y => 666 );
     $point.x = 314;  # just as if $point.x is a variable
 
+If you don't like the way mutators work in Perl 6, you're completely free to
+create your own mutators by adding a method for them.  For example, the
+`set_x` case from Perl 5 could look like this in Perl 6:
+
+    # Perl 6
+    class Point {
+        has $.x;
+        has $.y;
+        method set_x($new) { $!x = $new }
+        method set_y($new) { $!y = $new }
+    }
+
+But wait: what's the exclamation mark doing there in `$!x`?  The `!` indicates
+the *real* name of the attribute in the class: it gives direct access to the
+attribute in the object.  So let's take a step back and see what the so-called
+[twigil](https://docs.perl6.org/language/variables#index-entry-Twigil) (aka
+secondary sigil) of the attribute means.
+
+Twigil ! (exclamation mark)
+--------
+In a declaration of an attribute `$!x`, the `!` means that the attribute is
+*private*.  This means that you cannot access that attribute from the outside,
+unless the developer of the class has provided a means to do so.  This *also*
+means that it can *not* be initialized with a call to `.new`.
+
+A method for accessing the private attribute value can be very simple:
+
+    # Perl 6
+    class Point {
+        has $!x;            # ! indicates a private attribute
+        has $!y;
+        method x() { $!x }  # return private attribute value
+        method y() { $!y }
+    }
+
+Twigil . (period)
+-----------------
+In a declaration of an attribute `$.x`, the `.` means that the attribute is
+*public*.  This means that an accessor method is created for it (much like
+the example above with the method for the private attribute).  This **also**
+means that the attribute can be initialized with a call to `.new`.
+
+If you use the attribute form `$.x` in code, you are not really referring to
+the attribute, but rather to the accessor.  It is in fact syntactic sugar for
+`self.x`, but it has the advantage that you can easily interpolate in a string.
+Furthermore, the accessor can be overridden by a subclass.
+
+    # Perl 6
+    class Axe {
+        has $.x = 666;
+    }
+    class Dot is Axe {
+        method x() { 42 }
+    }
+    say Axe.new.x;  # 666
+    say Dot.new.x;  # 42, even though $!x has value 666
+
 Summary
 =======
 Creating classes in Perl 6 is mostly declarative, whereas object creation in
