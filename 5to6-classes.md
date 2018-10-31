@@ -429,10 +429,10 @@ After this, creating a `Point` object is again remarkably similar between
 Perl 5 and Perl 6:
 
     # Perl 5
-    my $point = Point->new(42, 666);
+    my $point = Point->new( 42, 666 );
 
     # Perl 6
-    my $point = Point.new(42, 666);
+    my $point = Point.new( 42, 666 );
 
 Summary
 =======
