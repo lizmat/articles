@@ -18,7 +18,7 @@ which states:
 Vice-versa, the Perl 6 object creation logic has taken a few lessons
 learned by `Moose`.
 
-`Moose`, in its turn has inspired a number of other modern object systems in
+`Moose` in its turn has inspired a number of other modern object systems in
 Perl 5, most notably [Moo](https://metacpan.org/pod/Moo#DESCRIPTION) and
 [Mouse](https://metacpan.org/pod/Mouse#DESCRIPTION).  More generally, if
 you're planning on starting a new project in Perl 5, reading
@@ -26,7 +26,7 @@ you're planning on starting a new project in Perl 5, reading
 by *chromatic* is recommended: among many other things, it describes how
 to use `Moose` to create classes / objects.
 
-For simplicity, this article will generally only describe the differences
+For simplicity, this article generally will only describe the differences
 between basic Perl 5 and basic Perl 6 object creation.
 
 How to make a Point
@@ -38,7 +38,8 @@ that takes named parameters:
     # Perl 5
     package Point {
         sub new {
-            my ($class,%args) = @_;
+            my $class = shift;
+            my %args  = @_;  # maps remaining args as key / value into hash
             bless \%args, $class
         }
         sub x { shift->{x} }
@@ -81,7 +82,7 @@ In Perl 5 one could do it like this:
     # Perl 5
     package Point {
         sub new {
-            my ($class,%args) = @_;
+            my ( $class, %args ) = @_;
             die "The attribute 'x' is required" unless exists $args{x};
             die "The attribute 'y' is required" unless exists $args{y};
             die "Type check failed on 'x'" unless $args{x} =~ /^-?\d+\z/;
@@ -94,10 +95,10 @@ In Perl 5 one could do it like this:
 
 > Pardon the `/^-?\d+\z/` line noise.  This is a regular expression checking
 > for an optional (`?`) hyphen (`-`) at the start of a string (`^`) consisting
-> of one or more decimal digits (`\d+`) until the end of the string `(\z)`
+> of one or more decimal digits (`\d+`) until the end of the string `(\z)`.
 
 That's quite a bit of extra boilerplate.  Of course, you can abstract that
-in a subroutine `is_valid` of your own:
+into a subroutine "`is_valid`" of your own:
 
     # Perl 5
     sub is_valid {
@@ -111,12 +112,12 @@ in a subroutine `is_valid` of your own:
 
 Or you can use one of the many parameter validation modules on CPAN, such
 as [Params::Validate](https://metacpan.org/pod/Params::Validate#DESCRIPTION).
-In any case, you're code would look something like:
+In any case, your code would look something like:
 
     # Perl 5
     package Point {
         sub new {
-            my ($class,%args) = @_;
+            my ( $class, %args ) = @_;
             bless \%args, $class if is_valid(\%args,'x','y');
         }
         sub x { shift->{x} }
@@ -127,7 +128,9 @@ In any case, you're code would look something like:
     Point->new( x => "foo", y => 666 );  # 'x' is not an integer
 
 Or in Perl 5 using
-[Moose](https://metacpan.org/pod/distribution/Moose/lib/Moose/Manual.pod):
+[Moose](https://metacpan.org/pod/distribution/Moose/lib/Moose/Manual.pod).
+Note that with an object system like `Moose`, one does not need to create a
+`new` subroutine, just as in Perl 6:
 
     # Perl 5
     package Point;
@@ -140,10 +143,10 @@ Or in Perl 5 using
     Point->new( x => 42 );               # 'y' missing
     Point->new( x => "foo", y => 666 );  # 'x' is not an integer
 
-In Perl 6 however, all of that is built-in.  The `is required` attribute trait
-indicates that an attribute *must* be specified.  And specifying a type (in
-this case `Int`) will automatically throw a type check exception if the
-provided value is not of the right type.
+In Perl 6 however, all of that is built-in.  The "`is required`" attribute
+trait indicates that an attribute *must* be specified.  And specifying a
+type (in this case "`Int`") will automatically throw a type check exception
+if the provided value is not of an acceptable type.
 
     # Perl 6
     class Point {
@@ -157,16 +160,16 @@ provided value is not of the right type.
 Providing defaults
 ------------------
 Alternately, you might just want to make the attributes optional and have them
-get `0` as a value if they are not specified.  In Perl 5 that could look like
-this:
+be initialized to `0` if they are not specified.  In Perl 5 that could look
+like this:
 
     # Perl 5
     package Point {
         sub new {
-            my ($class,%args) = @_;
+            my ( $class, %args ) = @_;
             $args{x} = 0 unless exists $args{x};
             $args{y} = 0 unless exists $args{y};
-            bless \%args, $class if is_valid(\%args,'x','y');
+            bless \%args, $class if is_valid( \%args, 'x', 'y' );
         }
         sub x { shift->{x} }
         sub y { shift->{y} }
@@ -177,7 +180,7 @@ declaration:
 
     # Perl 6
     class Point {
-        has Int $.x = 0;  # an integer with a default of 0
+        has Int $.x = 0;  # initialize to 0 if not specified
         has Int $.y = 0;
     }
 
@@ -192,6 +195,7 @@ object to change the value of an attribute).  The simplest way is to create
 a separate subroutine that will set the value in the object:
 
     # Perl 5
+    ...
     sub set_x {
         my $object = shift;
         $object->{x} = shift;
@@ -200,6 +204,7 @@ a separate subroutine that will set the value in the object:
 which can be shortened to:
 
     # Perl 5
+    ...
     sub set_x { $_[0]->{x} = $_[1] }  # access elements in @_ directly
 
 so you could use it as:
@@ -213,6 +218,7 @@ mutating the attribute.  Specifying a parameter then means the subroutine
 should be used as a mutator:
 
     # Perl 5
+    ...
     sub x {
         my $object = shift;
         @_ ? $object->{x} = shift : $object->{x}
@@ -221,6 +227,7 @@ should be used as a mutator:
 which can be shortened to:
 
     # Perl 5
+    ...
     sub x { @_ > 1 ? $_[0]->{x} = $_[1] : $_[0]->{x} }
 
 so you could use it as:
@@ -230,13 +237,15 @@ so you could use it as:
     $point->x(314);
 
 Then there is the way that is used a lot, but which depends on the
-implementation of the object.  Since the object in Perl 5 is usually just a
-a hash reference with benefits, one *can* use the object as a hash reference
-if one wants to break the encapsulation of the object:
+implementation detail of how objects are implemented in Perl 5.  Since an
+object in Perl 5 is usually just a hash reference with benefits, one *can*
+use the object as a hash reference and directly access keys in the underlying
+hash.  But this breaks the encapsulation of the object, and bypasses any
+additional checks that a mutator may do:
 
     # Perl 5
     my $point = Point->new( x => 42, y => 666 );
-    $point->{x} = 314;  # change x to 314, dirty but fast
+    $point->{x} = 314;  # change x to 314 unconditionally: dirty but fast
 
 And then there is an "official" way of creating accessors that can also be
 used as mutators using
@@ -245,6 +254,7 @@ which isn't used a lot in Perl 5 for various reasons.  But which *is* very
 close to how mutators work in Perl 6:
 
     # Perl 5
+    ...
     sub x : lvalue { shift->{x} }  # make "x" an lvalue sub
 
 so you could use it as:
@@ -294,7 +304,7 @@ The ! (exclamation mark) twigil
 In a declaration of an attribute like "`$!x`", the "`!`" means that the
 attribute is *private*.  This means that you cannot access that attribute
 from the outside, unless the developer of the class has provided a means to
-do so.  This *also* means that it can *not* be initialized with a call to
+do so.  This *also* means that it can **not** be initialized with a call to
 `.new`.
 
 A method for accessing the private attribute value can be very simple:
@@ -315,21 +325,21 @@ The . (period) twigil
 In a declaration of an attribute like "`$.x`", the "`.`" means that the
 attribute is *public*.  This means that an accessor method is created for
 it (much like the example above with the method for the private attribute).
-This **also** means that the attribute can be initialized with a call to
+This **also** means that the attribute **can** be initialized with a call to
 `.new`.
 
-If you use the attribute form "`$.x`" in code, you are not really referring to
-the attribute, but rather to its accessor.  It is in fact syntactic sugar for
-"`self.x`".  But the "`$.x`" form has the advantage that you can easily
-interpolate inside a string.  Furthermore, the accessor can be overridden by
-a subclass.
+If you otherwise using the attribute form "`$.x`", you are not really
+referring to the attribute, but rather to its *accessor*.  It is in fact
+syntactic sugar for "`self.x`".  But the "`$.x`" form has the advantage that
+you can easily interpolate inside a string.  Furthermore, the accessor can be
+overridden by a subclass.
 
     # Perl 6
     class Answer {
         has $.x = 42;
         method message() { "The answer is $.x" }  # use accessor in message
     }
-    class Fake is Answer {
+    class Fake is Answer {   # subclassing is done with "is" trait
         method x() { 666 }   # override the accessor in Answer
     }
     say Answer.new.message;  # The answer is 42
@@ -362,6 +372,67 @@ the attributes in the object.
 > `submethod`.  A `submethod` is a special type of method that can only be
 > executed on the class itself, and *not* on any subclass.  In other words,
 > this method has the visibility of a `sub`routine.
+
+Positional Parameters
+---------------------
+Finally, sometimes an interface to an object is so clear, that you do not
+need named parameters at all,  Instead you want to use positional parameters.
+In Perl 5, that would look something like this:
+
+    # Perl 5
+    package Point {
+        sub new {
+            my ( $class, $x, $y ) = @_;
+            bless { x => $x, y => $y }, $class
+        }
+        sub x { shift->{x} }
+        sub y { shift->{y} }
+    }
+
+And even though object creation in Perl 6 is really optimized for using
+named parameters, you **can** use positional parameters if you want to.
+But you will have to create your own "`new`" method then:
+
+    # Perl 6
+    class Point {
+        has $.x;
+        has $.y;
+        method new( $x, $y ) {
+            self.bless( x => $x, y => $y )
+        }
+    }
+
+Note that this looks very similar to the Perl 5 case.  But there are subtle
+differences here.  In Perl 6, positional arguments are obligatory (unless
+declared to be optional).  Making them optional with a default value, works
+pretty much the same as with attribute declaration.  As well as indicating
+a type: you specify those in the signature of the "`new`" method:
+
+    # Perl 6
+    ...
+    method new( Int $x = 0, Int $y = 0 ) {
+        self.bless( x => $x, y => $y )
+    }
+
+[DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) (Don't Repeat
+Yourself) is a principle that you should always apply.  An example of making
+it easier to DRY in Perl 6, is the syntactic sugar that exists for "`x => $x`"
+(a [Pair](https://docs.perl6.org/type/Pair) in which the key has the same name
+as the variable for the value).  In Perl 6 this can be expressed as "`:$x`".
+So that would make the above "`new`" method look like:
+
+    $ Perl 6
+    ...
+    method new( Int $x = 0, Int $y = 0 ) { self.bless( :$x, :$y ) }
+
+After this, creating a `Point` object is again remarkably similar between
+Perl 5 and Perl 6:
+
+    # Perl 5
+    my $point = Point->new(42, 666);
+
+    # Perl 6
+    my $point = Point.new(42, 666);
 
 Summary
 =======
