@@ -393,6 +393,10 @@ And even though object creation in Perl 6 is really optimized for using
 named parameters, you **can** use positional parameters if you want to.
 But you will have to create your own "`new`" method then:
 
+> There is nothing special about the "`new`" method in Perl 6.  You can
+> create your own, or you can create a method with another name to act
+> as an object constructor.
+
     # Perl 6
     class Point {
         has $.x;
