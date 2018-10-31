@@ -414,6 +414,11 @@ a type: you specify those in the signature of the "`new`" method:
         self.bless( x => $x, y => $y )
     }
 
+The ["`bless`"](https://docs.perl6.org/routine/bless) method provides the
+logic of object creation with given named parameters in Perl 6: its interface
+is the same as the default implementation of the "`new`" method.  You can
+call it anytime you want to create an instantiated object of a class.
+
 [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) (Don't Repeat
 Yourself) is a principle that you should always apply.  An example of making
 it easier to DRY in Perl 6, is the syntactic sugar that exists for "`x => $x`"
