@@ -169,7 +169,7 @@ like this:
     package Point {
         sub new {
             my ( $class, %args ) = @_;
-            $args{x} = 0 unless exists $args{x};
+            $args{x} = 0 unless exists $args{x};  # initialize to 0 is not given
             $args{y} = 0 unless exists $args{y};
             bless \%args, $class if is_valid( \%args, 'x', 'y' );
         }
@@ -182,7 +182,7 @@ declaration:
 
     # Perl 6
     class Point {
-        has Int $.x = 0;  # initialize to 0 if not specified
+        has Int $.x = 0;  # initialize to 0 if not given
         has Int $.y = 0;
     }
 
