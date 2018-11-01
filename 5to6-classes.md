@@ -236,21 +236,20 @@ so you could use it as:
     my $point = Point->new( x => 42, y => 666 );
     $point->x(314);
 
-Then there is the way that is used a lot, but which depends on the
-implementation detail of how objects are implemented in Perl 5.  Since an
-object in Perl 5 is usually just a hash reference with benefits, one *can*
-use the object as a hash reference and directly access keys in the underlying
-hash.  But this breaks the encapsulation of the object, and bypasses any
-additional checks that a mutator may do:
+Here is a way that is used a lot, but which depends on the implementation
+detail of how objects are implemented in Perl 5.  Since an object in Perl 5
+is usually just a hash reference with benefits, one *can* use the object as
+a hash reference and directly access keys in the underlying hash.  But this
+breaks the encapsulation of the object, and bypasses any additional checks
+that a mutator may do:
 
     # Perl 5
     my $point = Point->new( x => 42, y => 666 );
     $point->{x} = 314;  # change x to 314 unconditionally: dirty but fast
 
-And then there is an "official" way of creating accessors that can also be
-used as mutators using
+An "official" way of creating accessors that can also be used as mutators uses
 [lvalue subroutines](https://perldoc.pl/perlsub#Lvalue-subroutines), but
-which isn't used a lot in Perl 5 for various reasons.  But which *is* very
+which isn't used a lot in Perl 5 for various reasons.  It *is* however very
 close to how mutators work in Perl 6:
 
     # Perl 5
@@ -328,11 +327,11 @@ it (much like the example above with the method for the private attribute).
 This **also** means that the attribute **can** be initialized with a call to
 `.new`.
 
-If you otherwise using the attribute form "`$.x`", you are not really
-referring to the attribute, but rather to its *accessor*.  It is in fact
-syntactic sugar for "`self.x`".  But the "`$.x`" form has the advantage that
-you can easily interpolate inside a string.  Furthermore, the accessor can be
-overridden by a subclass.
+If you otherwise use the attribute form "`$.x`", you are not really referring
+to the attribute, but rather to its *accessor*.  It is in fact syntactic sugar
+for "`self.x`".  But the "`$.x`" form has the advantage that you can easily
+interpolate inside a string.  Furthermore, the accessor can be overridden by
+a subclass.
 
     # Perl 6
     class Answer {
@@ -391,7 +390,7 @@ In Perl 5, that would look something like this:
 
 And even though object creation in Perl 6 is really optimized for using
 named parameters, you **can** use positional parameters if you want to.
-But you will have to create your own "`new`" method then:
+In this case you will have to create your own "`new`" method then:
 
 > There is nothing special about the "`new`" method in Perl 6.  You can
 > create your own, or you can create a method with another name to act
@@ -408,7 +407,7 @@ But you will have to create your own "`new`" method then:
 
 Note that this looks very similar to the Perl 5 case.  But there are subtle
 differences here.  In Perl 6, positional arguments are obligatory (unless
-declared to be optional).  Making them optional with a default value, works
+declared to be optional).  Making them optional with a default value works
 pretty much the same as with attribute declaration.  As well as indicating
 a type: you specify those in the signature of the "`new`" method:
 
