@@ -127,10 +127,9 @@ In any case, your code would look something like:
     Point->new( x => 42 );               # 'y' missing
     Point->new( x => "foo", y => 666 );  # 'x' is not an integer
 
-Or in Perl 5 using
-[Moose](https://metacpan.org/pod/distribution/Moose/lib/Moose/Manual.pod).
-Note that with an object system like `Moose`, one does not need to create a
-`new` subroutine, just as in Perl 6:
+If you would use
+[Moose](https://metacpan.org/pod/distribution/Moose/lib/Moose/Manual.pod)
+your code would look something like this:
 
     # Perl 5
     package Point;
@@ -142,6 +141,9 @@ Note that with an object system like `Moose`, one does not need to create a
     Point->new( x => 42, y => 666 );     # ok
     Point->new( x => 42 );               # 'y' missing
     Point->new( x => "foo", y => 666 );  # 'x' is not an integer
+
+Note that with an object system like `Moose`, one does not need to create a
+`new` subroutine, just as in Perl 6:
 
 In Perl 6 however, all of that is built-in.  The "`is required`" attribute
 trait indicates that an attribute *must* be specified.  And specifying a
