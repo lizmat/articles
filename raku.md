@@ -124,6 +124,10 @@ What do you think would have happened if he had changed his name to:
 `Bob "Dylan" Zimmerman`?  Would he have been as successful?  Probably not,
 as the negative connotation of "Zimmerman" would still have applied.
 
+Or for the younger ones among us: would `Farrokh Bulsara` have been successful
+as `Farrokh "Mercury" Bulsara` instead of
+[`Freddie Mercury`](https://en.wikipedia.org/wiki/Freddie_Mercury)?
+
 Things wrong with the use of "raku"
 -----------------------------------
 Ever since Larry Wall mentioned that "raku" would have his blessing as a
