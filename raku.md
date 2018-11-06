@@ -198,18 +198,16 @@ how a simple line in IRC can wreak so much havoc.  I have felt betrayed (by
 Larry Wall) for caving in on the continuous badgering.  I have been mad at
 Larry Wall for not being clearer on how such a "stage name" should be used.
 I have been mad at Zoffix Znet, for being offered a finger and taking the
-whole hand.
+whole hand.  And I have been mad at a p5p member for comparing Perl 6 members
+to slave masters.
 
 For me, writing this blog post has been therapeutic.  I feel that I can go
 on with making Perl 6 better in every way (too bad that 1.5x faster
 improvement on hyper operators didn't make it to the core yet because of
 this).
 
-I hope that it can be therapeutic to other people as well.  One can hope.
+I hope that it can be therapeutic for other people as well.  One can hope.
 
 
 
 Elizabeth Mattijsen
-
-
-
