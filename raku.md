@@ -28,10 +28,17 @@ dot-com boom, was not written by the best of programmers: having been
 responsible for clearing out the final bits of original code written by the
 founder of a startup that is now a multi-billion dollar company providing jobs
 for 20K+ people, I think I know what that was like.  So I think I can say
-the the demise of Perl 5, was not caused by Perl 6.
+the demise of Perl 5, was **not** caused by Perl 6.
 
-Some people will actually argue that Perl 6 was an attempt to *stop* the
-already started demise of Perl 5.
+Some people
+[actually argue](https://www.facebook.com/groups/perl6/permalink/2219121021687578/)
+that Perl 6 was the result of an attempt to *stop* the already started demise
+of Perl 5:
+
+> As I said ... (at) the meeting years ago where P6 was born, which was
+> initially a meeting to discuss how to unify the community which was
+> fragmenting, nothing good will come of this unless the underlying
+> dysfunction of the community is addressed...
 
 Regardless of other reasons for the demise of Perl 5 in the world, Perl 6 has
 become the scapegoat as the sole reason for the problems of Perl 5 by many
@@ -84,8 +91,12 @@ was started to give Perl 6 an "extra name".  It stated:
 > claims.
 
 Larry Wall
-[had some ideas about that](https://colabti.org/irclogger/irclogger_log/perl6?date=2018-10-25#l468) as a stage name: "It's the stage name (but Perl 6
-still cashes the checks)".  And very recently Larry Wall finally,
+[had some ideas about that](https://colabti.org/irclogger/irclogger_log/perl6?date=2018-10-25#l468)
+as a stage name:
+
+> It's the stage name (but Perl 6 still cashes the checks)".
+
+And very recently Larry Wall finally,
 [very casually without much formality](https://colabti.org/irclogger/irclogger_log/perl6-dev?date=2018-11-03#l276)
 said that if people wanted to have an "extra name", it should be "raku".
 
@@ -120,11 +131,85 @@ Ever since Larry Wall mentioned that "raku" would have his blessing as a
 `"Raku" Perl 6`.  So, `Bob "Dylan" Zimmerman`.
 
 This is **not** the use of "Raku" as a stage name.  It is even in direct
-conflict with what was proposed in the last campaign.  In my opinion, it is
-effectively a
-[thinly veiled attempt](https://www.reddit.com/r/perl6/comments/9tws89/its_raku/e90y64u/)
+conflict with what was proposed in the last campaign.
+
+In my opinion, it is effectively an
+[attempt](https://www.reddit.com/r/perl6/comments/9tws89/its_raku/e90y64u/)
 at [rebranding](https://en.wikipedia.org/wiki/Rebranding) "Perl 6" to the
-name "Raku", thereby being completely passing by the "Perl community"
+name "Raku".  Thereby being completely passing by the "Perl community"
 component that Larry Wall mentioned at the Perl Conference in Amsterdam.
+There has been close to **no** communication as to **how** the use of the
+alias "Raku" would be implemented within the Perl 6 core development team.
+
+Instead, the originator of the final campaign to get a marketing alias,
+took it upon himself to **inject** the word "Raku" in all publications about
+Perl 6.  Without consultation with anybody in the Perl 6 core team.  This
+has, for all practical purposes, all the qualities of a `coup d'etat` with
+regards to the marketing of Perl 6.
+
+If "Raku" is a better name for Perl 6, then it should be able to stand on its
+own.  Therefore, any mention of "Raku" in conjunction with "Perl 6" is the
+worst of both worlds:
+
+- it spoils the value of "Raku", as it is **still** directly associated with
+  Perl.
+
+- it leads users of Perl 5 into thinking that the problems with Perl 5 are over
+
+To repeat: "Raku Perl 6" is the worst possible combination.  It is **not**
+a stage name in any shape or form.  It is an attempt at rebranding with the
+ultimate goal of eradicating Perl 6 as a name.  And thereby explicitely
+dividing the Perl community.  Which doesn't need a lot more dividing anymore
+before it completely disappears into oblivion.
+
+Where do we go from here
+------------------------
+In order for "Raku" (on its own) to get a fair chance at gaining mindshare in
+the world, it needs to be separated **as much as possible** from Perl 6,
+**specifically** in marketing, and probably in documentation.
+
+I therefore propose to remove all mention of "Raku" from **all** materials
+in the [Perl 6 Marketing Repository](https://marketing.perl6.org).  Any
+promotional materials for "Raku" should be in a separate repository / site.
+
+All mention of "Raku" in the documentation should also be removed.  Instead,
+an automatic translator should be made that will convert all Perl 6
+documentation to mention "raku" instead of "Perl 6".  Since Perl is good at
+mangling texts, this should not have to be a big effort.
+
+A separate **distribution** should be made from the Rakudo Compiler and
+Rakudo Star distributions, where all mention of "perl" is replaced by "raku".
+Anything less than that would harm the chances of "Raku" becoming a success.
+
+Several sites on the internet, most notably StackOverflow, allow users of
+languages to ask questions about problems they have with a language.  People
+asking questions about "raku" should get an answer in "raku", not in Perl 6.
+Perhaps a similar question previously answered for Perl 6, might be referenced,
+but ideally a new answer should be written.
+
+That is how **I** think "Raku" should be used as a stage name.  People willing
+to market Perl 6 as "Raku" would not have to be involved in the development
+of Perl 6 at all.  It is, after all, just a marketing name, a stage name.
+
+Winding down
+------------
+This week I have not written a Perl 6 Weekly because I was too upset about
+how a simple line in IRC can wreak so much havoc.  I have felt betrayed (by
+Larry Wall) for caving in on the continuous badgering.  I have been mad at
+Larry Wall for not being clearer on how such a "stage name" should be used.
+I have been mad at Zoffix Znet, for being offered a finger and taking the
+whole hand.
+
+For me, writing this blog post has been therapeutic.  I feel that I can go
+on with making Perl 6 better in every way (too bad that 1.5x faster
+improvement on hyper operators didn't make it to the core yet because of
+this).
+
+I hope that it can be therapeutic to other people as well.  One can hope.
+
+
+
+Elizabeth Mattijsen
+
 
 
