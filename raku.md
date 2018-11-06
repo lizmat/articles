@@ -27,10 +27,15 @@ What also can not be denied, that a lot of Perl 5 code written during the
 dot-com boom, was not written by the best of programmers: having been
 responsible for clearing out the final bits of original code written by the
 founder of a startup that is now a multi-billion dollar company providing jobs
-for 20K+ people, I think I know what that was like.
+for 20K+ people, I think I know what that was like.  So I think I can say
+the the demise of Perl 5, was not caused by Perl 6.
+
+Some people will actually argue that Perl 6 was an attempt to *stop* the
+already started demise of Perl 5.
 
 Regardless of other reasons for the demise of Perl 5 in the world, Perl 6 has
-become the scapegoat as the sole reason for the problems of Perl 5.
+become the scapegoat as the sole reason for the problems of Perl 5 by many
+members of the Perl community.
 
 Renaming requests from Perl 5 users
 -----------------------------------
@@ -42,7 +47,7 @@ release in December 2015, that ship has sailed for good.  There are now many
 Perl 6 books out in the world, 2 published by O'Reilly.  Renaming the current
 Perl 6 to something else, and then claiming version numbers with **6** in them
 for the current Perl 5 code base, is just going to add to the massive
-confusion that already exists.
+confusion that already exists.  So that will never happen.
 
 Renaming requests from Perl 6 users
 -----------------------------------
@@ -51,6 +56,8 @@ with Perl / Perl 5 is very strong.  And currently has a very negative
 connotation.  This association could have been prevented had Perl 6 been given
 another name in the past.  But again, that ship has sailed when the first
 official release of Perl 6 was presented to the world in December 2015.
+From my point of view, the strong association can be made into a positive
+asset given anough time and effort.  And I still believe in that.
 
 Badgering
 ---------
@@ -63,11 +70,21 @@ very public at the
 > They don't have to be marketed necessarily as Perl, especially in markets
 > where that's a swear word... But my interest and feeling is that Perl is
 > my thing and whether Perl 5 or Perl 6 that's really the name of the whole
-> culture.  And that's why we're all here together.  Why waste a perfectly
-> good four letter word.
+> culture.  And that's why we're all here together.
 
-Recently another campaign was started to give Perl 6 an "extra name".  Larry
-Wall [had some ideas about that](https://colabti.org/irclogger/irclogger_log/perl6?date=2018-10-25#l468) as a stage name: "It's the stage name (but Perl 6
+Recently
+[another campaign](https://perl6.party/post/A-Request-to-Larry-Wall-to-Create-a-Language-Name-Alias-for-Perl-6)
+was started to give Perl 6 an "extra name".  It stated:
+
+> As such, we are creating an alias only. One that does not have any reference
+> to Perl in it (i.e. no "Perl++"). If another name is truly as superior as
+> the full-rename proponents claim it would be, I believe the alias can become
+> a defacto name through its sheer amount of use. Thus, the creation of the
+> alias can be seen as a means for the full-rename proponents to prove their
+> claims.
+
+Larry Wall
+[had some ideas about that](https://colabti.org/irclogger/irclogger_log/perl6?date=2018-10-25#l468) as a stage name: "It's the stage name (but Perl 6
 still cashes the checks)".  And very recently Larry Wall finally,
 [very casually without much formality](https://colabti.org/irclogger/irclogger_log/perl6-dev?date=2018-11-03#l276)
 said that if people wanted to have an "extra name", it should be "raku".
@@ -102,7 +119,12 @@ Ever since Larry Wall mentioned that "raku" would have his blessing as a
 **stage name**, the name "raku" has been used **in conjunction** with Perl 6.
 `"Raku" Perl 6`.  So, `Bob "Dylan" Zimmerman`.
 
-This is **not** the use of "Raku" as a stage name.  This is a
+This is **not** the use of "Raku" as a stage name.  It is even in direct
+conflict with what was proposed in the last campaign.  In my opinion, it is
+effectively a
 [thinly veiled attempt](https://www.reddit.com/r/perl6/comments/9tws89/its_raku/e90y64u/)
 at [rebranding](https://en.wikipedia.org/wiki/Rebranding) "Perl 6" to the
-name "Raku", thereby being completely 
+name "Raku", thereby being completely passing by the "Perl community"
+component that Larry Wall mentioned at the Perl Conference in Amsterdam.
+
+
