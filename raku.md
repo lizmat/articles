@@ -126,7 +126,9 @@ as the negative connotation of "Zimmerman" would still have applied.
 
 Or for the younger ones among us: would `Farrokh Bulsara` have been successful
 as `Farrokh "Mercury" Bulsara` instead of
-[`Freddie Mercury`](https://en.wikipedia.org/wiki/Freddie_Mercury)?
+[`Freddie Mercury`](https://en.wikipedia.org/wiki/Freddie_Mercury)?  Or
+`Stefani Germanotta` have been successful as `Stefani "Gaga" Germanotta`
+instead of [Lady Gaga](https://en.wikipedia.org/wiki/Lady_Gaga)?
 
 Things wrong with the use of "raku"
 -----------------------------------
