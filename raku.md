@@ -117,8 +117,9 @@ Allen Zimmerman decides to
 > You call yourself what you want to call yourself. This is the land of the
 > free.
 
-So he called himself "Bob Dylan" and became a world famous artist performing
-to crowds of many thousands to this day.
+So he called himself [`Bob Dylan`](https://en.wikipedia.org/wiki/Bob_Dylan)
+and became a world famous artist performing to crowds of many thousands to
+this very day.
 
 What do you think would have happened if he had changed his name to:
 `Bob "Dylan" Zimmerman`?  Would he have been as successful?  Probably not,
