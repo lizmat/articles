@@ -144,9 +144,9 @@ In my opinion, it is effectively an
 at [rebranding](https://en.wikipedia.org/wiki/Rebranding) "Perl 6" to the
 name "Raku".  Thereby being completely passing by the "Perl community"
 component that Larry Wall mentioned at the Perl Conference in Amsterdam.
+
 There has been close to **no** communication as to **how** the use of the
 alias "Raku" would be implemented within the Perl 6 core development team.
-
 Instead, the originator of the final campaign to get a marketing alias,
 took it upon himself to **inject** the word "Raku" in all publications about
 Perl 6.  Without consultation with anybody in the Perl 6 core team.  This
@@ -200,8 +200,8 @@ of Perl 6 at all.  It is, after all, just a marketing name, a stage name.
 Winding down
 ------------
 This week I have not written a Perl 6 Weekly because I was too upset about
-how a simple line in IRC can wreak so much havoc.  I have felt betrayed (by
-Larry Wall) for caving in on the continuous badgering.  I have been mad at
+how a simple line in IRC can wreak so much havoc.  I have felt betrayed by
+Larry Wall for caving in to the continuous badgering.  I have been mad at
 Larry Wall for not being clearer on how such a "stage name" should be used.
 I have been mad at Zoffix Znet, for being offered a finger and taking the
 whole hand.  And I have been mad at a p5p member for comparing Perl 6 members
