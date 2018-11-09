@@ -36,11 +36,11 @@ by going to Perl Monger Meetings, and then organizing them.  From there on
 to organizing Perl one-day workshops and multi-day Perl conferences with more
 than 300 people attending.  Followed by talking to strangers at general open
 source events such as T-Dose, FOSDEM, OSCON.  From strangers that just drop
-by to scream "Perl should die" into your face (just a single, but repeat
-offender, fortunately).  To strangers that tell you they're happy to see
-Perl still alive, that they miss Perl having to program in another language
-for a living, and that they're looking forward to once be able to pick up
-Perl where they left off.
+by to scream "Perl should die" into your face (just a single one, but repeat
+offender).  To strangers that tell you they're happy to see Perl still alive,
+that they miss Perl having to program in another language for a living, and
+that they're looking forward to once be able to pick up Perl where they left
+off.
 
 These people are not typically very verbal in online forums.  But like
 everybody else nowadays, follow blogs and online news sources.  And its
@@ -48,6 +48,16 @@ from them that I know that the "sister language" narrative is something
 that only has meaning inside the Perl echo chamber.  Outside of it, people
 are generally interested in new and fun things to do.  And Perl 6 is for
 increasingly more people, one of those.
+
+That is my world view.  Which does not include any managers discarding
+Perl on the grounds of the name or perceived status.  Simply because **I**
+have never had to deal with that.  And you could argue that I have been
+extremely lucky in my life.  Perhaps.  But I also think you need to force
+your luck in life by being diligent, by being able to explain why things
+didn't work out the way they were planned.  And make clear to people that
+programming is in fact a creative profession, that requires practice,
+practice, practice, practice and a little inspiration.  And a certain
+stubborness.
 
 Standing my ground
 ------------------
