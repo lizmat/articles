@@ -36,14 +36,14 @@ by going to Perl Monger Meetings, and then organizing them.  From there on
 to organizing Perl one-day workshops and multi-day Perl conferences with more
 than 300 people attending.  Followed by talking to strangers at general open
 source events such as T-Dose, FOSDEM, OSCON.  From strangers that just drop
-by to scream "Perl should die" into your face (just a single one, but repeat
+by to scream "Perl should die" to your face (just a single one, but repeat
 offender).  To strangers that tell you they're happy to see Perl still alive,
-that they miss Perl having to program in another language for a living, and
+that they miss Perl, having to program in another language for a living, and
 that they're looking forward to once be able to pick up Perl where they left
 off.
 
 These people are not typically very verbal in online forums.  But like
-everybody else nowadays, follow blogs and online news sources.  And its
+everybody else nowadays, follow blogs and online news sources.  And it's
 from them that I know that the "sister language" narrative is something
 that only has meaning inside the Perl echo chamber.  Outside of it, people
 are generally interested in new and fun things to do.  And Perl 6 is for
@@ -57,15 +57,35 @@ your luck in life by being diligent, by being able to explain why things
 didn't work out the way they were planned.  And make clear to people that
 programming is in fact a creative profession, that requires practice,
 practice, practice, practice and a little inspiration.  And a certain
-stubborness.
+stubborness, specifically when explaining things to people that do not
+understand.
 
 Standing my ground
 ------------------
+It is for these reasons that I have decided to stand by my proposal from my
+[previous blog post](https://liztormato.wordpress.com/2018/11/06/on-raku/)
+which I will reiterate here:
 
+- any mention of "Raku" should be removed from all Perl 6 marketing materials
+- any mention of "Raku" should be removed from all Perl 6 documentation
+- a separate "Raku" distribution (a la Rakudo Star) should be made
+  - in which all mentions to Perl 6 are automatically changed to "Raku"
+- people marketing "Raku" need only concern themselves with "Raku"
+
+This is the basic idea.  People with a Perl 5 background will have a
+**genuine** *chance* that Perl 6 will disappear from their life should
+"Raku" become the success *outside* of the current Perl community that
+everybody wants for the programming language that Perl 6 is.
+
+I hope that either Larry Wall (as BDFL), or Jonathan Worthington (the
+current Perl 6 pumpkin) will want to express their opinion about this idea.
+Until I hear otherwise from them, **I** will continue as if my proposal has
+been accepted.  And if I **do** hear otherwise from either of them, then I
+will need to take that fact of life under advisement.
 
 Winding down
 ------------
-I intend to publish a Perl 6 Weekly again next Monday.
+Until then, I intend to publish a Perl 6 Weekly again next Monday.
 
 I intend to write up an impartial as possible review of the discussions about
 "raku" of the past 10 days or so.
