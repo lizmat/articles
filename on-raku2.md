@@ -24,7 +24,33 @@ that share your interests in Perl.  Those gatherings are fun to do, and a good
 break away from life behind the keyboard.  But such a habit can also be broken.
 One will just have to arrange to meet people you like outside of a Perl event.
 
+And here I am seriously considering just to do that: leave Perl (in all its
+forms) and focus on something else that will have some amount of fun.
 
+World View
+----------
+My view of the Perl world has been formed by many different experiences.
+First by Perl 4 when trying to start up a web development company in 1994.
+Secondly by a pretty buggy and slow Perl 5 from 1995 and onwards.  Thirdly
+by going to Perl Monger Meetings, and then organizing them.  From there on
+to organizing Perl one-day workshops and multi-day Perl conferences with more
+than 300 people attending.  Followed by talking to strangers at general open
+source events such as T-Dose, FOSDEM, OSCON.  From strangers that just drop
+by to scream "Perl should die" into your face (just a single, but repeat
+offender, fortunately).  To strangers that tell you they're happy to see
+Perl still alive, that they miss Perl having to program in another language
+for a living, and that they're looking forward to once be able to pick up
+Perl where they left off.
+
+These people are not typically very verbal in online forums.  But like
+everybody else nowadays, follow blogs and online news sources.  And its
+from them that I know that the "sister language" narrative is something
+that only has meaning inside the Perl echo chamber.  Outside of it, people
+are generally interested in new and fun things to do.  And Perl 6 is for
+increasingly more people, one of those.
+
+Standing my ground
+------------------
 
 
 Winding down
