@@ -103,7 +103,7 @@ Until then, I intend to publish a Perl 6 Weekly again next Monday, and
 continue on a weekly schedule afterwards.
 
 I intend to write up an impartial as possible review of the discussions about
-"raku" of the past 10 days or so.
+"Raku" of the past 10 days or so.
 
 Because it is the **Perl 6** Weekly, that will most likely be the last time
 I mention "Raku" in the Perl 6 Weekly.
