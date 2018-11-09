@@ -47,7 +47,7 @@ than 300 people attending. Followed by an 8 year hiatus while being busy
 helping to grow a company from 35 people to 5000 using Perl 5, instead of Java
 that was recommended by the new owners.  And succeeding because Perl 5 is the
 right tool to use in a very dynamic environment.  Then, gradually easing into
-talking to strangers at generic open source events such as T-Dose, FOSDEM,
+talking to strangers at generic open source events such as T-DOSE, FOSDEM,
 OSCON.  From strangers that just drop by to scream "Perl should die" (just a
 single one, but a repeat offender).  To strangers that tell you they're
 happy to see Perl still alive, that they miss Perl, having to program in
