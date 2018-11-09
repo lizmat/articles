@@ -58,8 +58,8 @@ These people are not typically very verbal in online forums.  But like
 everybody else nowadays, follow blogs and online news sources.   It's from
 them that I know that the "sister language" narrative is something that
 really only has meaning inside the Perl echo chamber.  Outside of it, people
-are generally interested in new and fun things to do.  And Perl 6 is for
-increasingly more people, one of those.
+are generally interested in new and fun things to do.  And Perl 6 is just that
+for an increasing number of people.
 
 That is **my** world view.  Which does not include any managers discarding
 Perl on the grounds of the name or perceived status.  Simply because **I**
