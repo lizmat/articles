@@ -95,6 +95,8 @@ Until I hear otherwise from them, **I** will continue as if my proposal has
 been accepted.  And if I **do** hear otherwise from either of them, then I
 will need to take that fact of life under advisement.
 
+(and yes, that 1.5x improvement for hyper operators is now in core).
+
 Winding down
 ------------
 Until then, I intend to publish a Perl 6 Weekly again next Monday, and
