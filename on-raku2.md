@@ -1,9 +1,9 @@
 On Raku (Again)
 ===============
-But before going on that, I would like to thank Zoffix Znet for all of the
+But before going on that, I would like to thank **Zoffix Znet** for all of the
 work he's done for Perl, Perl 6 in particular and lately to get the 6.d
-language release of Perl 6 out of the door.  Something he worked on for
-almost 1.5 years, ever since he posted a blog about the
+language release of Perl 6 out of the door.  Something he has worked on for
+almost 1.5 year, ever since he posted a blog about the
 [Hot New Language Named Rakudo](https://perl6.party/post/The-Hot-New-Language-Named-Rakudo)
 ([Reddit](https://www.reddit.com/r/perl6/comments/6lstq3/the_hot_new_language_named_rakudo/) comments).
 
