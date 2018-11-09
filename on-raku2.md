@@ -66,11 +66,11 @@ Perl on the grounds of the name or perceived status.  Simply because **I**
 have never had to deal with that.  You could argue that I have been extremely
 lucky in my life.  Perhaps.  But I also think you need to force your luck in
 life by being diligent, by being assertive and by being able to explain why
-things didn't work out the way they were planned.  And make clear to people
-that programming is in fact a creative profession, that requires practice,
-practice, practice, practice and a little inspiration.  And a certain
-stubborness, specifically when explaining things to people that do not
-understand.
+things didn't work out the way they were planned.  Even to managers.  And
+make clear to people that programming is in fact a *creative* profession,
+which requires practice, practice, practice, practice and a little inspiration.
+And a certain stubborness, specifically when explaining things to people that
+do not understand.
 
 Back to Raku
 ------------
