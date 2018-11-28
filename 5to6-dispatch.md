@@ -25,9 +25,9 @@ in this series of articles.
 
 Visibility of subroutines
 -------------------------
-In Perl 5, a named subroutine will always be visible within the scope of
-the package in which it is defined, regardless of whether the scope in which
-the definition takes place:
+In Perl 5, a named subroutine will by default be visible within the scope of
+the **package** in which it is defined, regardless of whether the scope in
+which the definition takes place:
 
     # Perl 5
     {
@@ -68,6 +68,14 @@ Perl 5.26.
 > subroutine `foo` can not be found at **compile** time.  This is a
 > terribly useful feature that helps against typos in subroutine names
 > when writing invocations of the subroutine.
+
+It is possible in both Perl 5 and Perl 6 to prefix the subroutine definition
+with an `our` scope indicator, but the result is subtly different: in Perl 5
+this makes the subroutine visible outside of the scope, but not in Perl 6.
+In Perl 6 the use of `our` on subroutine declarations (regardless of scope)
+is used to indicate that the subroutine in question will be exported if it
+is part of a module.  But more on that in a future article about the creation
+of modules and module loading.
 
 Normal Dispatch
 ---------------
