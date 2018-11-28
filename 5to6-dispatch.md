@@ -39,8 +39,8 @@ which the definition takes place:
     say foo();
     # bar
 
-In Perl 6, by default a named subroutine is only visible within the lexical
-scope in which it is defined:
+In Perl 6, a named subroutine is only visible within the lexical scope in
+which it is defined:
 
     # Perl 6
     {
@@ -51,9 +51,9 @@ scope in which it is defined:
     # Undeclared routine:
     #     foo used at line ...
 
-This is because when you define a subroutine without a scope indicator, it
-acts like it has a `my` in front, just like you do when defining lexical
-variables.  Perl 5 also has a (previously experimental)
+You could consider subroutine definitions in Perl 6 to always have a `my`
+in front, similar to defining lexical variables.  Perl 5 also has a
+(previously experimental)
 [lexical subroutine](https://perldoc.pl/perlsub#Lexical-Subroutines)
 feature, which needs to be specifically activated in versions lower than
 Perl 5.26.
@@ -74,7 +74,7 @@ Perl 5.26.
 
 It is possible in both Perl 5 and Perl 6 to prefix the subroutine definition
 with an `our` scope indicator, but the result is subtly different: in Perl 5
-this makes the subroutine visible outside of the scope, but not in Perl 6.
+this makes the subroutine visible outside of the scope, but not so in Perl 6.
 In Perl 6 lookups of subroutines are **always** lexical: the use of `our` on
 subroutine declarations (regardless of scope) allows that subroutine to be
 called from outside of the namespace in which it is defined:
@@ -87,9 +87,18 @@ called from outside of the namespace in which it is defined:
     # baz
 
 Which would fail without the `our`.  In Perl 5, **any** subroutine can be
-called from outside of the namespace it is defined in: subroutines that are
-intended to be "private" usually have a name that starts with an underscore.
-But that doesn't inhibit them from being called.
+called from outside of the namespace it is defined in:
+
+    # Perl 5
+    package Foo {
+        sub bar { "baz" }     # always visible from the outside
+    }
+    say Foo::bar();
+    # baz
+
+Subroutines that are intended to be "private" in Perl 5 usually have a name
+that starts with an underscore.  But that doesn't stop them from being called
+from the outside.
 
 The `our` on a subroutine definition in Perl 6 also indicates that the
 subroutine in question will be exported if it is part of a module being
@@ -98,7 +107,70 @@ and module loading.
 
 Normal Dispatch
 ---------------
+When you call a subroutine in a Perl 5 without subroutine signatures enabled,
+it will call the subroutine if it exists (determined at runtime) and pass the
+parameters into `@_` inside the subroutine.  Whatever happens to the parameters
+inside the subroutine, is entirely up to the subroutine (as
+[discussed in a previous article](https://opensource.com/article/18/9/signatures-perl-6)).
 
+Calling a subroutine in Perl 6 performs additional checks to see whether the
+arguments passed to the subroutine match the parameters the subroutine expects
+before it actually calls the code of the subroutine.  And it actually tries to
+do this as early as possible.  If Perl 6 can determine at compile time whether
+a call to a subroutine will never succeed, it will tell you at compile time:
+
+    # Perl 6
+    sub foo() { "bar" }    # subroutine not taking any parameters
+    say foo(42);           # try calling it with one argument
+    # ===SORRY!=== Error while compiling ...
+    # Calling foo(Int) will never work with declared signature ()
+
+Note that the error message mentions the type of value (`Int`) that is being
+passed as an argument.  And in this case calling the subroutine will fail
+because the subroutine doesn't accept any argument being passed to it
+("declared signature ()").
+
+Additional Signature Features
+-----------------------------
+Apart from specifying positional and named parameters in a signature, you can
+**also** specify what type these parameters should be.  And if the type of
+the parameter does not smartmatch with the type of the argument, it will be
+rejected.  In this example, the subroutine expects a single `Str` argument:
+
+    # Perl 6
+    sub foo(Str $who) { "Hello $who" }  # subroutine taking a Str parameter
+    say foo(42);                        # try calling it with an integer
+    # ===SORRY!=== Error while compiling ...
+    # Calling foo(Int) will never work with declared signature (Str $who)
+
+So not only does it check the number of required parameters, it also checks
+the type.  Unfortunately, it is not always possible to reliably see this at
+compilation time.  But there's always the check done at runtime when binding
+the argument to the parameter:
+
+    # Perl 6
+    sub foo(Str $who) { "Hello $who" }  # subroutine taking a Str parameter
+    my $answer = 42;
+    say foo($answer);                   # try calling it with a variable
+    # Type check failed in binding to parameter '$who'; expected Str but got Int (42)
+    #   in sub foo at ...
+
+However, if Perl 6 knows the type of variable that is being passed to the
+subroutine, it **can** already determine at compile time that the call will
+never work:
+
+    # Perl 6
+    sub foo(Str $who) { "Hello $who" }  # subroutine taking a Str parameter
+    my Int $answer = 42;
+    say foo($answer);                   # try calling it with an Int variable
+    # ===SORRY!=== Error while compiling ...
+    # Calling foo(Int) will never work with declared signature (Str $who)
+
+It should therefore be clear that it helps you to use typing in your
+variables and parameters so that Perl 6 can help you find problems quicker!
+
+Multiple Dispatch
+-----------------
 
 
 Summary
