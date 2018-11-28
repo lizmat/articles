@@ -23,6 +23,9 @@ This article assumes you're familiar with
 [previously discussed](https://opensource.com/article/18/9/signatures-perl-6)
 in this series of articles.
 
+Before going on, a little note about the subtle difference of subroutine
+visibility between Perl 5 and Perl 6.
+
 Visibility of subroutines
 -------------------------
 In Perl 5, a named subroutine will by default be visible within the scope of
@@ -72,10 +75,10 @@ Perl 5.26.
 It is possible in both Perl 5 and Perl 6 to prefix the subroutine definition
 with an `our` scope indicator, but the result is subtly different: in Perl 5
 this makes the subroutine visible outside of the scope, but not in Perl 6.
-In Perl 6 the use of `our` on subroutine declarations (regardless of scope)
-is used to indicate that the subroutine in question will be exported if it
-is part of a module.  But more on that in a future article about the creation
-of modules and module loading.
+In Perl 6 lookups of subroutines are **always** lexical: the use of `our` on
+subroutine declarations (regardless of scope) is used to indicate that the
+subroutine in question will be exported if it is part of a module.  But more
+on that in a future article about the creation of modules and module loading.
 
 Normal Dispatch
 ---------------
