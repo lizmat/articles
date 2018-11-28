@@ -15,8 +15,13 @@ Conway (from 2000, which clearly provided inspiration for the multi-dispatch
 feature of Perl 6), and
 [MooseX::MultiMethods](https://metacpan.org/pod/MooseX::MultiMethods) by
 Florian Ragwitz (from 2009, which clearly has been inspired by multi-dispatch
-of Perl 6.  The cross-pollination between Perl 5 and Perl 6 is very clear for
+of Perl 6).  The cross-pollination between Perl 5 and Perl 6 is very clear for
 these features.
+
+This article assumes you're familiar with
+[signatures](https://docs.perl6.org/type/Signature) which were
+[previously discussed](https://opensource.com/article/18/9/signatures-perl-6)
+in this series of articles.
 
 Visibility of subroutines
 -------------------------
@@ -26,9 +31,9 @@ the definition takes place:
 
     # Perl 5
     {
-        sub foo { "bar" }
+        sub foo { "bar" }       # visible outside of this scope
     }
-    say foo;
+    say foo();
     # bar
 
 In Perl 6, by default a named subroutine is only visible within the lexical
@@ -36,23 +41,33 @@ scope in which it is defined:
 
     # Perl 6
     {
-        sub foo() { "bar" }     # implicit "my"
+        sub foo() { "bar" }     # only visible in this scope
     }
-    say foo;
+    say foo();
     # ===SORRY!=== Error while compiling ...
     # Undeclared routine:
     #     foo used at line ...
 
-Note that Perl 6 sees that the subroutine "foo" can not be found at **compile**
-time.  This is because when you define a subroutine without a scope indicator,
-it defaults to `my` in Perl 6.
+This is because when you define a subroutine without a scope indicator, it
+acts like it has a `my` in front, just like you do when defining lexical
+variables.  Perl 5 also has a (previously experimental)
+[lexical subroutine](https://perldoc.pl/perlsub#Lexical-Subroutines)
+feature, which needs to be specifically activated in versions lower than
+Perl 5.26.
 
-    # Perl 6
+    # Perl 5.18 or higher
+    no warnings 'experimental::lexical_subs';
+    use feature 'lexical_subs';
     {
-        our sub foo() { "bar" }
+        my sub foo { "bar" }   # limit visibility to this scope
     }
-    say foo;
-    # bar
+    say foo();
+    # Undefined subroutine &main::foo called at ...
+
+> Note that the `SORRY!` in the Perl 6 error message  means that the
+> subroutine `foo` can not be found at **compile** time.  This is a
+> terribly useful feature that helps against typos in subroutine names
+> when writing invocations of the subroutine.
 
 Normal Dispatch
 ---------------
