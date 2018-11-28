@@ -76,9 +76,25 @@ It is possible in both Perl 5 and Perl 6 to prefix the subroutine definition
 with an `our` scope indicator, but the result is subtly different: in Perl 5
 this makes the subroutine visible outside of the scope, but not in Perl 6.
 In Perl 6 lookups of subroutines are **always** lexical: the use of `our` on
-subroutine declarations (regardless of scope) is used to indicate that the
-subroutine in question will be exported if it is part of a module.  But more
-on that in a future article about the creation of modules and module loading.
+subroutine declarations (regardless of scope) allows that subroutine to be
+called from outside of the namespace in which it is defined:
+
+    # Perl 6
+    module Foo {
+        our sub bar() { "baz" }  # make sub visible from the outside
+    }
+    say Foo::bar();
+    # baz
+
+Which would fail without the `our`.  In Perl 5, **any** subroutine can be
+called from outside of the namespace it is defined in: subroutines that are
+intended to be "private" usually have a name that starts with an underscore.
+But that doesn't inhibit them from being called.
+
+The `our` on a subroutine definition in Perl 6 also indicates that the
+subroutine in question will be exported if it is part of a module being
+loaded.  But more on that in a future article about the creation of modules
+and module loading.
 
 Normal Dispatch
 ---------------
