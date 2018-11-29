@@ -200,6 +200,40 @@ what it can optimize, and how to best optimize it.
 
 Defined or not
 --------------
+If you specify a variable in Perl 5 and then not assign it, it contains the
+undefined value:
+
+    # Perl 5
+    my $foo;
+    say defined($foo) ? "defined" : "NOT defined";
+    # NOT defined
+
+This is not much different in Perl 6:
+
+    # Perl 6
+    my $foo;
+    say defined($foo) ?? "defined" !! "NOT defined";
+    # NOT defined
+
+So you can specify which types of values are acceptable in a variable and as
+a parameter.  But what happens if you don't assign such a variable?
+
+    # Perl 6
+    my Int $foo;
+    say defined($foo) ?? "defined" !! "NOT defined";
+    # NOT defined
+
+The value inside such a variable is not defined, just as in Perl 5.  However,
+if you just want to show the contents of such a variable, it's **not** `undef`
+like it would be in Perl 5:
+
+    # Perl 6
+    my Int $foo;
+    say $foo;
+    # (Int)
+
+Unlike Perl 5, Perl 6 has `type objects`.
+
 
 Summary
 =======
