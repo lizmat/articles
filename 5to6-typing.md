@@ -1,4 +1,4 @@
-On Subs and Typing in Perl 6
+On Calling Subs and Typing in Perl 6
 ============================
 
 This is the ninth article in
@@ -160,7 +160,46 @@ variables and parameters so that Perl 6 can help you find problems quicker!
 
 Gradual Typing
 --------------
+What you just witnessed is usually described as
+[gradual typing](https://en.wikipedia.org/wiki/Gradual_typing).  Perl 6 always
+performs type checks at runtime (`dynamic typing`).  But as shown, if it can
+determine at compile time that something will not work, it will tell you so.
+Which is usually described as `static typing`.
 
+If you're coming from Perl 5 and have experience with using
+[Moose](https://metacpan.org/pod/Moose) and specifically
+[MooseX::Types](https://metacpan.org/pod/MooseX::Types), you may worry about
+performance implications of adding type information to your code.  This worry
+is unwarranted for in Perl 6, as type checks **always** occur in Perl 6 with
+every assignment to a variable or binding of a parameter.  That is because
+if you do not specify a type in Perl 6, it will implicitely assume the `Any`
+type, that smartmatches with (almost) everything in Perl 6.  So if you're
+writing:
+
+    # Perl 6
+    my $foo = 42
+
+You have in fact written:
+
+    # Perl 6
+    my Any $foo = 42;
+
+And the same goes for parameters to a subroutine:
+
+    # Perl 6
+    sub foo($bar) { ... }
+
+Is in fact:
+
+    # Perl 6
+    sub foo(Any $bar) { ... }
+
+In fact, adding type information not only helps with finding errors in your
+program, it also allows the optimizer to make better informed decisions on
+what it can optimize, and how to best optimize it.
+
+Defined or not
+--------------
 
 Summary
 =======
