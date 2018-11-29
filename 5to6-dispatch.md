@@ -9,11 +9,11 @@ multi-dispatch core feature of Perl 6.
 Perl 5 doesn't have multi-dispatch as a core feature, but it does have two
 modules on CPAN that provide a subset of the functionality of Perl 6
 multi-dispatch:
-[Class::Multimethods](https://metacpan.org/pod/Class::Multimethods) by Damian
-Conway (from 2000, which clearly provided inspiration for the multi-dispatch
+[Class::Multimethods](https://metacpan.org/pod/Class::Multimethods) by *Damian
+Conway* (from 2000, which clearly provided inspiration for the multi-dispatch
 feature of Perl 6), and
 [MooseX::MultiMethods](https://metacpan.org/pod/MooseX::MultiMethods) by
-Florian Ragwitz (from 2009, which clearly has been inspired by multi-dispatch
+*Florian Ragwitz* (from 2009, which clearly has been inspired by multi-dispatch
 of Perl 6).  The cross-pollination between Perl 5 and Perl 6 is very clear for
 these features.
 
