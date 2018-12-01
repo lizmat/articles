@@ -4,7 +4,8 @@ On Multi-dispatch in Perl 6
 This is the tenth article in
 [a series of articles](https://opensource.com/users/lizmat) about migrating
 code from Perl 5 to Perl 6.  In this article we'll be looking at the
-multi-dispatch core feature of Perl 6.
+[multi-dispatch](https://en.wikipedia.org/wiki/Multiple_dispatch) core featurei
+of Perl 6.
 
 Perl 5 doesn't have multi-dispatch as a core feature, but it does have two
 modules on CPAN that provide a subset of the functionality of Perl 6
