@@ -259,7 +259,7 @@ indicate whether you want a defined value of that type or not:
 
 The `:D` combined with the `Int` indicates that you want a `D`efined value
 of the `Int` type.  Because of emoji's often using `:D` for big smiles, this
-decoration on the type is calledd a "type smiley".  So what happens if you
+decoration on the type is called a "type smiley".  So what happens if you
 pass an undefined value to such a subroutine?
 
     # Perl 6
