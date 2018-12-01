@@ -201,7 +201,7 @@ what it can optimize, and how to best optimize it.
 Defined or not
 --------------
 If you specify a variable in Perl 5 and then not assign it, it contains the
-undefined value:
+undefined value (aka `undef`):
 
     # Perl 5
     my $foo;
@@ -223,17 +223,75 @@ a parameter.  But what happens if you don't assign such a variable?
     say defined($foo) ?? "defined" !! "NOT defined";
     # NOT defined
 
-The value inside such a variable is not defined, just as in Perl 5.  However,
-if you just want to show the contents of such a variable, it's **not** `undef`
-like it would be in Perl 5:
+The value inside such a variable is still not defined, just as in Perl 5.
+However, if you just want to show the contents of such a variable, it is
+**not** `undef` like it would be in Perl 5:
 
     # Perl 6
     my Int $foo;
     say $foo;
     # (Int)
 
-Unlike Perl 5, Perl 6 has `type objects`.
+What you see there is the representation of a `type object` in Perl 6.  Unlike
+Perl 5, Perl 6 has a multitude of typed `undef`s.  Each class that is defined,
+or which you define yourself, **is** a type object.
 
+    # Perl 6
+    class Foo { }
+    say defined(Foo) ?? "defined" !! "NOT defined";
+    # NOT defined
+
+If you however instantiate a type object, usually with `.new`, it becomes
+a defined object as to be expected:
+
+    # Perl 6
+    class Foo { }
+    say defined(Foo.new) ?? "defined" !! "NOT defined";
+    # defined
+
+Type Smileys
+------------
+If you specify a constraint on a parameter in a subroutine, you can also
+indicate whether you want a defined value of that type or not:
+
+    # Perl 6
+    sub foo(Int:D $bar) { ... }
+
+The `:D` combined with the `Int` indicates that you want a `D`efined value
+of the `Int` type.  Because of emoji's often using `:D` for big smiles, this
+decoration on the type is calledd a "type smiley".  So what happens if you
+pass an undefined value to such a subroutine?
+
+    # Perl 6
+    sub foo(Int:D $bar) { ... }   # only accept instances of Int
+    foo(Int);                     # call with a type object
+    # Parameter '$bar' of routine 'foo' must be an object instance of
+    # type 'Int', not a type object of type 'Int'.  Did you forget a '.new'?
+
+Careful readers may have realized that this should have been a compile time
+error.  But alas, it isn't (yet).  Although error messages are known to be
+pretty awesome in Perl 6, there is still a lot of work to be done to make
+them even better (and more timely in this case).
+
+You can also use the `:D` type smiley on variable definitions.  This will
+ensure that you provide an initialization for that variable:
+
+    # Perl 6
+    my Int:D $foo;                # missing initialization
+    # ===SORRY!=== Error while compiling ...
+    # Variable definition of type Int:D requires an initializer
+
+Other type smileys are `:U` (for **un**defined) and `:_` (for don't care,
+which is the default).  So:
+
+    # Perl 6
+    sub foo(Int:U $bar) { ... }   # only accept Int type object
+    foo(42);                      # call with an instance of Int
+    # Parameter '$bar' of routine 'foo' must be a type object of type 'Int',
+    # not an object instance of type 'Int'.  Did you forget a 'multi'?
+
+Hmmm... what's this **multi** that may seem to be forgotten?  Well, that's
+for the next article in this series!
 
 Summary
 =======
