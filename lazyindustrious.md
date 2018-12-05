@@ -11,7 +11,6 @@ names are `slack` and `catchup`!
 
 Lazy slack
 ----------
-
 The `slack` elf is very lazy indeed.  It won't do anything until you actually
 want to use whatever it was that you asked the `slack` elf to do.  Although
 one could consider this a very bad character trait in an elf, it's also a
@@ -66,10 +65,52 @@ you leave the block in which `LEAVE` elf is called.  In this case the
 `.disconnect` method is called on `$_` if the `$dbh` is defined: the `with`
 elf not only tests if the given value is defined, bit **also** sets `$_`.
 
-But, but, but, won't checking whether `$dbh` make the connection to the
-database?  No, the `slack` elf is smart enough that if you're asking if
-something is `.defined`, or `True` or `False`, it will **not** actually
-start doing the work for you.  Which is **sooo** different from the `catchup`
-elf!
+But, but, but, won't checking whether `$dbh` is defined actually **make**
+the connection to the database?  No, the `slack` elf is smart enough that if
+you're asking if something is `.defined`, or `True` or `False`, it will
+**not** actually start doing the work for you.  Which is **sooo** different
+from the `catchup` elf!
 
+Industrious catchup
+-------------------
+If the `slack` elf is the greenest elf in Santa's employ, the `catchup`
+certainly appears to be the reddest elf.  Because you always are trying to
+catch up with the `catchup` elf.  But the `catchup` elf only **appears** to be
+very industrious.
 
+When you tell the `catchup` elf to do something, the `catchup` elf will
+immediately find another elf to do the actual work and tell you that it is
+done.  Which it most likely isn't.  By the time you actually want to use the
+result of what you asked the `catchup` elf to do, there are two possibilities:
+If the other elf is done and  the result is available, you will get it
+immediately from the `catchup` elf.  If the other elf is not done yet, it will
+let you wait until the other elf is done: it will force you to catch up!  So
+how does that look?
+
+    use Object::Delayed;
+    my $foo = catchup { sleep 5; "Merry" }      # sleep is just
+    my $bar = catchup { sleep 9; "Christmas" }  # another word
+    my $baz = catchup { sleep 8; "everyone" }   # for baking
+    say “$foo $bar, $baz!”;
+    say “Took { now - INIT now } seconds”;
+    # Merry Christmas, everybody!
+    # Took 9.008 seconds
+
+Here, the `catchup` elf had **3** other elves work on producing those nicely
+baked lettering with that sweet crusty glaze, where each letter takes about
+a second to make.  If it had been only one elf doing that, it would have
+taken at least 5 + 9 + 8 = **22** seconds.  Thanks to the `catchup` elf, it
+only took slightly more than **5** seconds.
+
+Of course, if all other elves were already busy doing other things, it might
+actually take a little longer than just over 5 seconds.  Or even longer than
+22 seconds, if the other elves are working on more important things than
+baking letters with the right glazing.  So your elf mileage may vary.  You
+don't want to overwork your elves, well for too long then  :-).
+
+Use the right elf
+-----------------
+If you want to be as green as possible, use the `slack` elf.  If you want it,
+and you want it **now** (well, as soon as possible), then using the ` catchup`
+elf is an option if you can be reasonably sure that there will be enough other
+elves to do the actual job!
