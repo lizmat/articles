@@ -103,7 +103,7 @@ taken at least 5 + 9 + 8 = **22** seconds.  Thanks to the `catchup` elf, it
 only took slightly more than **9** seconds!  More than twice as fast!
 
 Of course, if all other elves were already busy doing other things, it might
-actually take a little longer than just over 5 seconds.  Or even longer than
+actually take a little longer than just over 9 seconds.  Or even longer than
 22 seconds, if the other elves are working on more important things than
 baking letters with the right glazing.  So your elf mileage may vary.  You
 don't want to overwork your elves, well not for too long.  A few seconds
