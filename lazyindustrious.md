@@ -68,7 +68,7 @@ elf not only tests if the given value is defined, bit **also** sets `$_`.
 
 But, but, but, won't checking whether `$dbh` make the connection to the
 database?  No, the `slack` elf is smart enough that if you're asking if
-something if `.defined`, or `True` or `False`, it will **not** actually
+something is `.defined`, or `True` or `False`, it will **not** actually
 start doing the work for you.  Which is **sooo** different from the `catchup`
 elf!
 
