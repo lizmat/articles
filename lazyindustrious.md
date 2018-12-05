@@ -117,4 +117,4 @@ elf is an option if you can be reasonably sure that there will be enough other
 elves to do the actual job!
 
 And a happy advent from all of the elves involved in this blog post!  Yours
-truly is pretty sure no elves were harmed in any way.
+truly is pretty sure no fast, slow or any other elf was harmed in any way.
