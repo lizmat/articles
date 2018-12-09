@@ -295,3 +295,14 @@ for the next article in this series!
 
 Summary
 =======
+Subroutines in Perl 6 are by default only visible in the lexical scope where
+they are defined.  Even prefixing `our` will not make them visible outside of
+that lexical scope, but it **does** allow a subroutine to be called from
+outside the scope with its full package name (`Foo::bar()` for a subroutine
+`bar` in a package `bar`).
+
+Perl 6 allows you to use gradual typing to ensure the validity of arguments
+to subroutines, or assignments to variables.  This does **not** incur any
+extra runtime costs.  Adding typing to your code even allows the compiler
+to catch errors at compile time, and it allows the optimizer to make better
+decisions about optimizing during runtime.
