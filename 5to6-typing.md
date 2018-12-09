@@ -12,7 +12,7 @@ This article assumes you're familiar with
 [previously discussed](https://opensource.com/article/18/9/signatures-perl-6)
 in this series of articles.
 
-So what are the (subtle) differences of subroutine visibility between Perl 5
+So what are the (subtle) differences in subroutine visibility between Perl 5
 and Perl 6?
 
 Visibility of subroutines
