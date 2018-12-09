@@ -88,7 +88,7 @@ called from outside the namespace it is defined in:
 In Perl 5, subroutines that are intended to be "private" (as in: only to be
 called from within that scope and not from outside), usually have a name that
 starts with an underscore.  But that doesn't stop them from being called
-from the outside.  In Perl 6 subroutines that are not intended to be called
+from the outside.  In Perl 6, subroutines that are not intended to be called
 from the outside are simply invisible.
 
 The `our` on a subroutine definition in Perl 6 not only indicates that the
