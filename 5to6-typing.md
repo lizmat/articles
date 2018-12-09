@@ -4,7 +4,7 @@ On Calling Subs and Typing in Perl 6
 This is the ninth article in
 [a series of articles](https://opensource.com/users/lizmat) about migrating
 code from Perl 5 to Perl 6.  In this article we'll be looking at the subtle
-differences of visibility of subroutines between Perl 5 and Perl 6 and the
+differences in visibility of subroutines between Perl 5 and Perl 6 and the
 (gradual) typing core feature of Perl 6.
 
 This article assumes you're familiar with
@@ -66,7 +66,7 @@ with an `our` scope indicator, but the result is subtly different: in Perl 5
 this makes the subroutine visible outside of the scope, but not so in Perl 6.
 In Perl 6 lookups of subroutines are **always** lexical: the use of `our` on
 subroutine declarations (regardless of scope) allows that subroutine to be
-called from outside of the namespace in which it is defined:
+called from outside the namespace in which it is defined:
 
     # Perl 6
     module Foo {
@@ -76,7 +76,7 @@ called from outside of the namespace in which it is defined:
     # baz
 
 Which would fail without the `our`.  In Perl 5, **any** subroutine can be
-called from outside of the namespace it is defined in:
+called from outside the namespace it is defined in:
 
     # Perl 5
     package Foo {
@@ -85,14 +85,17 @@ called from outside of the namespace it is defined in:
     say Foo::bar();
     # baz
 
-Subroutines that are intended to be "private" in Perl 5 usually have a name
-that starts with an underscore.  But that doesn't stop them from being called
-from the outside.
+In Perl 5, subroutines that are intended to be "private" (as in: only to be
+called from within that scope and not from outside), usually have a name that
+starts with an underscore.  But that doesn't stop them from being called
+from the outside.  In Perl 6 subroutines that are not intended to be called
+from the outside simply cannot be called by normal means.
 
-The `our` on a subroutine definition in Perl 6 also indicates that the
-subroutine in question will be exported if it is part of a module being
-loaded.  But more on that in a future article about the creation of modules
-and module loading.
+The `our` on a subroutine definition in Perl 6 not only indicates that the
+subroutine in question can be called from the outside, it also indicates that
+it will be exported if it is part of a module being loaded.  More on exporting
+of subroutines in a future article about the creation of modules and module
+loading.
 
 Calling a subroutine
 --------------------
