@@ -136,14 +136,14 @@ Sets up an array `@failed` for keeping the names of test-files that failed someh
     for "t".IO.dir(:test(*.ends-with: '.t' | '.rakutest')).map(*.Str).sort {
 ```
 
-This may be the hardest to grok if you're new to Raku.  What it does, is that it basically look into the "t" directory `"t".IO` then starts looking for files `.dir(` that either have the ".t" or ".rakutest" extension `:test(*.ends-with: '.t' | '.rakutest'))`, change the resulting `IO::Path` objects to strings `.map(*.Str)`, then `.sort` these and loop over them `for ... {`.
+This may be the hardest to grok if you're new to Raku.  What it does, is that it basically looks into the "t" directory `"t".IO` then starts looking for files `.dir(` that either have the ".t" or ".rakutest" extension `:test(*.ends-with: '.t' | '.rakutest'))`, change the resulting `IO::Path` objects to strings `.map(*.Str)`, then `.sort` these and loop over them `for ... {`.
 
 ```raku
         say "=== $_";
         my $proc = run "raku", "--ll-exception", "-Ilib", $_, :out, :merge;
 ```
 
-Show which test-file is being tested `say "=== $_";` and run the actual actual test file `run "raku", "--ll-exception","-Ilib", $_,` and make sure that it's STDOUT and STDERR output become available as a single stream `:out, :merge;` and put the resulting `Proc` object into `my $proc`.
+Show which test-file is being tested `say "=== $_";` and run the actual actual test file `run "raku", "--ll-exception","-Ilib", $_,` and make sure that its STDOUT and STDERR output become available as a single stream `:out, :merge;` and put the resulting `Proc` object into `my $proc`.
 
 ```raku
         if $proc {
@@ -194,3 +194,17 @@ Conclusion
 ----------
 
 With a little bit of work, you can make it easier for yourself *and* the Github Action elves.  And be more considerate of the environment as well, as too many elves working too hard is not good for the environment!
+
+Further reading suggestions
+---------------------------
+
+- [.IO](https://docs.raku.org/routine/IO#(Cool)_method_IO)
+- [.dir](https://docs.raku.org/type/IO::Path#routine_dir)
+- [.map](https://docs.raku.org/type/Any#routine_map)
+- [*.Str](https://docs.raku.org/type/Whatever)
+- [.sort](https://docs.raku.org/type/Any#method_sort)
+- [run](https://docs.raku.org/language/independent-routines#sub_run)
+- --ll-exception
+- -Ilib
+- [Proc](https://docs.raku.org/type/Proc)
+- [exit](https://docs.raku.org/language/independent-routines#sub_exit)
