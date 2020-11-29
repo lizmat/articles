@@ -51,7 +51,14 @@ It's always great to see green, like in the test results of [Hash::LRU](https://
 Now, when yours truly is testing out modules locally, this usually happens with:
 
 ```raku
-    $ raku -Ilib t/01-basic.t
+    raku -Ilib t/01-basic.t  # or whatever test-file that shows a problem
 ```
 
+And if there's an execution error, `--ll-exception` usually gets added, like so:
 
+
+```raku
+    raku -Ilib --ll-exception t/01-basic.t  # make sure we get a *full* backtrace
+```
+
+If Continuous Integration testing comes up with an execution error, then you don't get a full backtrace usually, which often does not help tracing the issue.  Especially if you cannot reproduce the problem locally.
