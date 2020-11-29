@@ -42,7 +42,7 @@ So what did this file consist of?
 
 Quite a lot of YAML in there!  But the gist is basically clear: run the tests of this module on the latest Ubuntu / MacOS / Windows operating systems, and use the latest Raku version for that.  It was really great to see how easy it was to automatically get Continuous Integration support for your module.
 
-And of course, as a module developer, you will get a notice (an email in this case) if testing of a module would fail.  That's how yours truly found out that many modules that rely `NativeCall` calls to C-library functions that depend on POSIX semantics, will simply fail on Windows.
+And of course, as a module developer, you will get a notice (an email in this case) if testing of a module would fail.  That's how yours truly found out that many modules that rely on `NativeCall`-calls to C-library functions that depend on POSIX semantics, will simply fail on Windows.
 
 Loving the green lights
 -----------------------
@@ -65,7 +65,7 @@ However, if Continuous Integration testing comes up with an execution error, the
 
 Making things faster, better and more economic
 ----------------------------------------------
-So, why not embed this manual workflow in a nice script, and add that to the module.  And make sure that only that script get run?  That seems like an easy idea to implement.  And it was!  The script (called `run-tests`) basically became (slightly shortened for this blog post):
+So, why not embed this manual workflow in a nice script, and add that to the module.  And make sure that only that script get run?  That seems like an easy idea to implement.  And it was!  The script (called [`run-tests`](https://github.com/lizmat/Hash-LRU/blob/master/run-tests)) basically became (slightly shortened for this blog post):
 
 ```raku
     my @failed;
@@ -104,4 +104,15 @@ And the final 6 lines of the YAML file were changed to
         run: raku run-tests
 ```
 
-Total timing of testing the [Hash::LRU](https://github.com/lizmat/Hash-LRU) module typically dropped to [below one minute](https://github.com/lizmat/Hash-LRU/actions/runs/375191322).  That's a lot of time and CPU cycles saved!  Of course, this will be less if there are dependencies that need to be installed.  But the shorter turn-around time, as well as seeing complete backtraces if something goes wrong, have definitely helped yours truly!
+Total timing of testing the [Hash::LRU](https://github.com/lizmat/Hash-LRU) module typically dropped to [below one minute](https://github.com/lizmat/Hash-LRU/actions/runs/375191322).  That's a lot of time and CPU cycles saved!  Of course, this will be less if there are dependencies that need to be installed.  But the shorter turn-around time, as well as seeing complete backtraces if something goes wrong, have definitely helped yours truly!  And as a bonus, testing locally has now also become easier and cleaner, especially if all goes well:
+
+```text
+    Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2020.10.
+    Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
+    Built on MoarVM version 2020.10.
+
+    Testing Hash-LRU
+    === t/01-basic.t
+
+    ALL OK
+```
