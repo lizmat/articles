@@ -182,7 +182,7 @@ Remember that we've done a test-file, regardless of whether successful or not `$
     }
 ```
 
-If there was any test-file that failed `if @failed`, tell the world how many failed `say "FAILED: {+@failed} of $done` and show the names of the test-files that failed `say "  $_" for @failed`, and then exit the script indicating an error state `exit +@failed` in concordance with the TAP-protocol.
+If there was any test-file that failed `if @failed`, tell the world how many failed `say "FAILED: {+@failed} of $done` and show the names of the test-files that failed `say "  $_" for @failed`, and then exit the script indicating an error state `exit +@failed` in concordance with the [TAP-protocol](https://en.wikipedia.org/wiki/Test_Anything_Protocol).
 
 ```raku
     say "\nALL {"$done " if $done > 1}OK";
