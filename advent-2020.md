@@ -65,7 +65,7 @@ However, if Continuous Integration testing comes up with an execution error, the
 
 Making things faster, better and more economic
 ----------------------------------------------
-So, why not embed this manual workflow in a nice script, and add that to the distribution?  And make sure that only that script get run?  That seems like an easy idea to implement.  And it was!  The script (called [`run-tests`](https://github.com/lizmat/Hash-LRU/blob/master/run-tests)) basically became (slightly shortened for this blog post):
+So, why not embed this manual workflow in a nice script, and add that to the distribution?  And make sure that only that script gets run?  That seems like an easy idea to implement.  And it was!  The script (called [`run-tests`](https://github.com/lizmat/Hash-LRU/blob/master/run-tests)) basically became (slightly shortened for this blog post):
 
 ```raku
     my @failed;
