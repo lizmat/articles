@@ -40,6 +40,18 @@ So what did this file consist of?
             run: prove6 -l t
 ```
 
-Quite a lot of YAML in there.  But the gist is basically clear: run the tests of this module on the latest Ubuntu / MacOS / Windows operating systems, and use the latest Raku version for that.  It was really great to see how easy it was to automatically get Continuous Integration support for your module.
+Quite a lot of YAML in there!  But the gist is basically clear: run the tests of this module on the latest Ubuntu / MacOS / Windows operating systems, and use the latest Raku version for that.  It was really great to see how easy it was to automatically get Continuous Integration support for your module.
 
-And of cours, as a module developer, you will get a notice (an email in this case) if testing of a module would fail.  That's how yours truly found out that many modules that rely `NativeCall` calls to C-library functions that depend on POSIX semantics, will simply fail on Windows.
+And of course, as a module developer, you will get a notice (an email in this case) if testing of a module would fail.  That's how yours truly found out that many modules that rely `NativeCall` calls to C-library functions that depend on POSIX semantics, will simply fail on Windows.
+
+Loving the green lights
+-----------------------
+It's always great to see green, like in the test results of [Hash::LRU](https://github.com/lizmat/Hash-LRU/actions/runs/337667222).  But something struck yours truly in seeing the [timing of each step](https://github.com/lizmat/Hash-LRU/runs/1331938416?check_suite_focus=true) of running the tests: the `Install App::Prove6` step took **over 3 minutes**!  While the actual tests of the module only ran for **two seconds**.  It looked like there was a lot of overhead involved, especially if a module did not have any external dependencies.
+
+Now, when yours truly is testing out modules locally, this usually happens with:
+
+```raku
+    $ raku -Ilib t/01-basic.t
+```
+
+
