@@ -190,16 +190,7 @@ If there was any test-file that failed `if @failed`, tell the world how many fai
 
 If we made it here, it's been all ok, so show that with the number of files, but *only* if it is more than one `"$done " if $done > 1`.
 
-Some more information on the Raku features used in this program:
-
-- [`.IO`](https://docs.raku.org/routine/IO#(Cool)_method_IO)
-- [`.dir`](https://docs.raku.org/type/IO::Path#routine_dir)
-- [`.map`](https://docs.raku.org/type/Any#routine_map)
-- [`*.Str`](https://docs.raku.org/type/Whatever)
-- [`.sort`](https://docs.raku.org/type/Any#method_sort)
-- [`run`](https://docs.raku.org/language/independent-routines#sub_run)
-- [`Proc`](https://docs.raku.org/type/Proc)
-- [`exit`](https://docs.raku.org/language/independent-routines#sub_exit)
+Some more information on the Raku features used in this program: [`.IO`](https://docs.raku.org/routine/IO#(Cool)_method_IO), [`.dir`](https://docs.raku.org/type/IO::Path#routine_dir), [`.map`](https://docs.raku.org/type/Any#routine_map), [`*.Str`](https://docs.raku.org/type/Whatever), [`.sort`](https://docs.raku.org/type/Any#method_sort), [`run`](https://docs.raku.org/language/independent-routines#sub_run), [`Proc`](https://docs.raku.org/type/Proc), [`exit`](https://docs.raku.org/language/independent-routines#sub_exit).
 
 Conclusion
 ----------
