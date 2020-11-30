@@ -46,7 +46,7 @@ And of course, as a module developer, you will get a notice (an email in this ca
 
 Loving the green lights
 -----------------------
-It's always great to see green, like in the test results of [Hash::LRU](https://github.com/lizmat/Hash-LRU/actions/runs/337667222).  But something struck yours truly: more than **5 minutes** for testing?  Looking at the [timing of each step](https://github.com/lizmat/Hash-LRU/runs/1331938416?check_suite_focus=true) shows that the `Install [App::Prove6](https://modules.raku.org/dist/App::Prove6)` step took **over 3 minutes**!  While the actual tests of the module only ran for **two seconds**.  It looked like there was a lot of overhead involved, especially if a module did not have any external dependencies.
+It's always great to see green, like in the test results of [Hash::LRU](https://github.com/lizmat/Hash-LRU/actions/runs/337667222).  But something struck yours truly: more than **5 minutes** for testing?  Looking at the [timing of each step](https://github.com/lizmat/Hash-LRU/runs/1331938416?check_suite_focus=true) shows that the "Install [`App::Prove6`](https://modules.raku.org/dist/App::Prove6)" step took **over 3 minutes**!  While the actual tests of the module only ran for **two seconds**.  It looked like there was a lot of overhead involved, especially if a module did not have any external dependencies.
 
 Now, when I am testing out modules locally, I usually do it like this:
 
