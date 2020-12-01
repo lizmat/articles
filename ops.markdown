@@ -11,298 +11,6 @@ For Raku opcodes added by the rakudo compiler see
 [docs/ops.markdown](https://github.com/rakudo/rakudo/blob/master/docs/ops.markdown) in the Rakudo
 repository. They are of the form `nqp::p6*` (following the historical naming of Perl 6).
 
-- [NQP Opcodes](#nqp-opcodes)
-- [Arithmetic Opcodes](#-arithmetic-opcodes)
-- [Numeric Opcodes](#-numeric-opcodes)
-- [Trigonometric Opcodes](#-trigonometric-opcodes)
-- [Relational / Logic Opcodes](#-relational--logic-opcodes)
-- [Array Opcodes](#-array-opcodes)
-- [Hash Opcodes](#-hash-opcodes)
-- [Coercion Opcodes](#-coercion-opcodes)
-- [String Opcodes](#-string-opcodes)
-- [Unicode Property Opcodes](#-unicode-property-opcodes)
-  * [getuniname](#getuniname)
-  * [getuniprop_int](#getuniprop_int-moar)
-  * [getuniprop_str](#getuniprop_str)
-  * [getuniprop_bool](#getuniprop_bool-moar)
-  * [matchuniprop](#matchuniprop-moar)
-  * [unipropcode](#unipropcode)
-  * [unipvalcode](#unipvalcode-moar)
-  * [hasuniprop](#hasuniprop-moar)
-- [VM-Provided Streaming Decoder Opcodes](#-vm-provided-streaming-decoder-opcodes)
-  * [decoderconfigure](#decoderconfigure)
-  * [decodersetlineseps](#decodersetlineseps)
-  * [decoderaddbytes](#decoderaddbytes)
-  * [decodertakechars](#decodertakechars)
-  * [decodertakeallchars](#decodertakeallchars)
-  * [decodertakeavailablechars](#decodertakeavailablechars)
-  * [decodertakeline](#decodertakeline)
-  * [decoderbytesavailable](#decoderbytesavailable)
-  * [decodertakebytes](#decodertakebytes)
-  * [decoderempty](#decoderempty)
-- [Conditional Opcodes](#-conditional-opcodes)
-  * [if](#if)
-  * [unless](#unless)
-  * [with](#with)
-  * [without](#without)
-- [Loop/Control Opcodes](#-loopcontrol-opcodes)
-  * [control](#control)
-  * [defor](#defor)
-  * [for](#for)
-  * [ifnull](#ifnull)
-  * [repeat_until](#repeat_until)
-  * [repeat_while](#repeat_while)
-  * [stmts](#stmts)
-  * [until](#until)
-  * [while](#while)
-- [Exceptional Opcodes](#-exceptional-opcodes)
-  * [backtrace](#backtrace)
-  * [backtracestrings](#backtracestrings)
-  * [die](#die)
-  * [exception](#exception)
-  * [getextype](#getextype)
-  * [getmessage](#getmessage)
-  * [getpayload](#getpayload)
-  * [newexception](#newexception)
-  * [resume](#resume)
-  * [rethrow](#rethrow)
-  * [setextype](#setextype)
-  * [setmessage](#setmessage)
-  * [setpayload](#setpayload)
-  * [throw](#throw)
-- [Input/Output Opcodes](#-inputoutput-opcodes)
-  * [closefh](#closefh)
-  * [eoffh](#eoffh)
-  * [filenofh](#filenofh)
-  * [flushfh](#flushfh)
-  * [getstderr](#getstderr)
-  * [getstdin](#getstdin)
-  * [getstdout](#getstdout)
-  * [open](#open)
-  * [print](#print)
-  * [readfh](#readfh)
-  * [say](#say)
-  * [seekfh](#seekfh)
-  * [tellfh](#tellfh)
-  * [writefh](#writefh)
-- [External command Opcodes](#extern)
-  * [execname](#execname-moar-js)
-- [File / Directory / Network Opcodes](#-file--directory--network-opcodes)
-  * [chdir](#chdir)
-  * [chmod](#chmod)
-  * [closedir](#closedir)
-  * [copy](#copy)
-  * [cwd](#cwd)
-  * [fileexecutable](#fileexecutable)
-  * [fileislink](#fileislink)
-  * [filereadable](#filereadable)
-  * [filewritable](#filewritable)
-  * [gethostname](#gethostname)
-  * [getport](#getport-moar-jvm)
-  * [link](#link)
-  * [mkdir](#mkdir)
-  * [nextfiledir](#nextfiledir)
-  * [opendir](#opendir)
-  * [readlink](#readlink)
-  * [rename](#rename)
-  * [rmdir](#rmdir)
-  * [stat](#stat)
-  * [stat_time](#stat_time)
-  * [lstat](#lstat)
-  * [lstat_time](#lstat_time)
-  * [symlink](#symlink)
-  * [unlink](#unlink)
-- [Type/Conversion Opcodes](#-typeconversion-opcodes)
-  * [bool](#bool)
-  * [bootarray](#bootarray-moar-jvm)
-  * [boothash](#boothash-moar-jvm)
-  * [bootint](#bootint-moar-jvm)
-  * [bootintarray](#bootintarray-moar-jvm)
-  * [bootnum](#bootnum-moar-jvm)
-  * [bootnumarray](#bootnumarray-moar-jvm)
-  * [bootstr](#bootstr-moar-jvm)
-  * [bootstrarray](#bootstrarray-moar-jvm)
-  * [box](#box)
-  * [decont](#decont)
-  * [defined](#defined)
-  * [fromnum](#fromnum)
-  * [fromstr](#fromstr)
-  * [fromI_I](#fromI_I)
-  * [isbig](#isbig)
-  * [iscoderef](#iscoderef-moar)
-  * [isconcrete](#isconcrete)
-  * [iscont](#iscont)
-  * [isfalse](#isfalse)
-  * [ishash](#ishash)
-  * [isint](#isint)
-  * [isinvokable](#isinvokable)
-  * [islist](#islist)
-  * [isnanorinf](#isnanorinf)
-  * [isnull](#isnull)
-  * [isnum](#isnum)
-  * [isprime](#isprime)
-  * [isrwcont](#isrwcont)
-  * [isstr](#isstr)
-  * [istrue](#istrue)
-  * [istype](#istype)
-  * [isttyfh](#isttyfh)
-  * [null](#null)
-  * [tostr](#tostr)
-  * [tonum](#tonum)
-  * [unbox](#unbox)
-- [Binary Data Opcodes](#-binary-data-opcodes)
-  * [writeint](#writeint-moar-js)
-  * [writeuint](#writeuint-moar-js)
-  * [writenum](#writenum-moar-js)
-  * [readint](#readint-moar-js)
-  * [readuint](#readuint-moar-js)
-  * [readnum](#readnum-moar-js)
-- [OO/SixModel Opcodes](#-oosixmodel-opcodes)
-  * [attrinited](#attrinited)
-  * [bindattr](#bindattr)
-  * [bindcomp](#bindcomp)
-  * [call](#call)
-  * [callmethod](#callmethod)
-  * [can](#can)
-  * [clone](#clone)
-  * [create](#create)
-  * [eqaddr](#eqaddr)
-  * [findmethod](#findmethod)
-  * [tryfindmethod](#tryfindmethod)
-  * [getattr](#getattr)
-  * [getcomp](#getcomp)
-  * [how](#how)
-  * [rebless](#rebless)
-  * [reprname](#reprname)
-  * [setwho](#setwho)
-  * [who](#who)
-  * [what](#what)
-  * [where](#where)
-- [SixModel Parametric Extensions Opcodes](#-sixmodel-extension-opcodes)
-  * [setparameterizer](#setparameterizer)
-  * [setparameterizetype](#setparameterizetype)
-  * [typeparameterized](#typeparameterized)
-  * [typeparameters](#typeparameters)
-  * [typeparameterat](#typeparameterat)
-- [Bit Opcodes](#-bit-opcodes)
-  * [bitand](#bitand)
-  * [bitneg](#bitneg)
-  * [bitor](#bitor)
-  * [bitshiftl](#bitshiftl)
-  * [bitshiftr](#bitshiftr)
-  * [bitxor](#bitxor)
-- [Context Introspection Opcodes](#-context-introspection-opcodes)
-  * [ctx](#ctx)
-  * [ctxcaller](#ctxcaller)
-  * [ctxlexpad](#ctxlexpad)
-  * [curlexpad](#curlexpad)
-  * [ctxouter](#ctxouter)
-  * [lexprimspec](#lexprimspec)
-  * [savecapture](#savecapture)
-  * [usecapture](#usecapture)
-  * [captureposelems](#captureposelems)
-  * [getlex](#getlex-moar-jvm)
-  * [getlexref](#getlexref-moar-jvm)
-  * [bindlex](#bindlex-moar-jvm)
-  * [getlexdyn](#getlexdyn)
-  * [bindlexdyn](#bindlexdyn)
-  * [getlexouter](#getlexouter)
-  * [getlexcaller](#getlexcaller)
-  * [getlexrel](#getlexrel)
-  * [getlexreldyn](#getlexreldyn)
-  * [getlexrelcaller](#getlexrelcaller)
-- [Variable Opcodes](#-variable-opcodes)
-  * [bind](#bind)
-- [Miscellaneous Opcodes](#-miscellaneous-opcodes)
-  * [locallifetime](#locallifetime)
-  * [const](#const)
-  * [cpucores](#cpucores)
-  * [decodelocaltime](#decodelocaltime)
-  * [force_gc](#force_gc-moar-jvm)
-  * [freemem](#freemem)
-  * [getcodename](#getcodename)
-  * [getrusage](#getrusage)
-  * [uname](#uname-moar-js)
-  * [debugnoop `jvm`](#debugnoop-jvm)
-  * [exit](#exit)
-  * [getenvhash](#getenvhash)
-  * [getsignals](#getsignals)
-  * [backendconfig](#backendconfig)
-  * [getpid](#getpid)
-  * [getppid](#getppid-moar)
-  * [indexingoptimized](#indexingoptimized)
-  * [js](#js-moar=js)
-  * [jvmclasspaths](#jvmclasspaths-jvm)
-  * [jvmgetproperties](#jvmgetproperties-jvm)
-  * [objectid](#objectid)
-  * [setcodename](#setcodename)
-  * [sha1](#sha1)
-  * [sleep](#sleep)
-  * [takeclosure](#takeclosure)
-  * [time](#time)
-  * [totalmem](#totalmem)
-  * [mvmstartprofile](#mvmstartprofile-moar)
-  * [mvmendprofile](#mvmendprofile-moar)
-- [Native Call / Interoperability Opcodes](#-native-call--interoperability-opcodes)
-  * [buildnativecall](#buildnativecall)
-  * [nativecall](#nativecall)
-  * [nativecallcast](#nativecallcast)
-  * [nativecallglobal](#nativecallglobal)
-  * [nativecallinvoke](#nativecallinvoke)
-  * [nativecallrefresh](#nativecallrefresh)
-  * [nativecallsizeof](#nativecallsizeof)
-- [Thread Opcodes](#-thread-opcodes)
-  * [newthread](#newthread)
-  * [threadid](#threadid-moar-jvm)
-  * [threadrun](#threadrun-moar-jvm)
-  * [threadyield](#threadyield-moar-jvm)
-  * [threadjoin](#threadjoin-moar-jvm)
-  * [currentthread](#currentthread-moar-jvm)
-  * [threadlockcount](#threadlockcount-moar-jvm)
-- [Asynchronous Operations](#-asynchronous-operations)
-  * [permit](#permit)
-  * [cancel](#cancel-moar-jvm)
-  * [timer](#timer-moar-jvm)
-  * [signal](#signal-moar-jvm)
-  * [watchfile](#watchfile-moar-jvm)
-  * [asyncconnect](#asyncconnect)
-  * [asynclisten](#asynclisten)
-  * [asyncwritebytes](#asyncwritebytes)
-  * [asyncreadbytes](#asyncreadbytes-moar-jvm)
-  * [spawnprocasync](#spawnprocasync)
-  * [killprocasync](#killprocasync)
-- [HLL-Specific Operations](#-hll-specific-operations)
-  * [hllbool](#hllbool)
-  * [hllboxtype](#hllboxtype)
-  * [hllhash](#hllhash-moar-jvm)
-  * [hlllist](#hlllist-moar-jvm)
-- [Atomic Operations](#-atomic-operations)
-  * [cas](#cas-moar)
-  * [cas_i](#cas_i-moar)
-  * [atomicbindattr](#atomicbindattr)
-  * [atomicinc_i](#atomicinc_i-moar)
-  * [atomicdec_i](#atomicdec_i-moar)
-  * [atomicadd_i](#atomicadd_i-moar)
-  * [atomicload](#atomicload-moar)
-  * [atomicload_i](#atomicload_i-moar)
-  * [atomicstore](#atomicstore-moar)
-  * [atomicstore_i](#atomicstore_i-moar)
-  * [barrierfull](#barrierfull-moar)
-- [Serialization context](#-serialization-context)
-  * [createsc](#createsc)
-  * [scsetdesc](#scsetdesc)
-  * [scgetdesc](#scgetdesc)
-  * [scgethandle](#scgethandle)
-  * [pushcompsc](#pushcompsc)
-  * [popcompsc](#popcompsc)
-  * [scsetobj](#scsetobjc)
-  * [setobjsc](#setobjsc)
-  * [getobjsc](#getobjsc)
-  * [scgetobjidx](#scgetobjidx)
-  * [serialize](#serialize)
-  * [deserialize](#deserialize)
-  * [scobjcount](#scobjcount)
-
 # NQP Opcodes
 
 Opcodes (ops) are used both directly when writing NQP, and during code
@@ -390,75 +98,454 @@ The opcodes are grouped into the following categories:
 [srand](#srand)
 [sqrt](#sqrt)
 
-* [Trigonometric Opcodes](#trig)
+## [Trigonometric Opcodes](#trig)
 
-[asec](#asec) [asin](#asin) [acos](#acos) [atan](#atan) [atan2](#atan2) [cos](#cos) [cosh](#cosh) [sin](#sin) [sinh](#sinh) [sec](#sec) [sech](#sech) [tan](#tan) [tanh](#tanh)
+[asec](#asec)
+[asin](#asin)
+[acos](#acos)
+[atan](#atan)
+[atan2](#atan2)
+[cos](#cos)
+[cosh](#cosh)
+[sin](#sin)
+[sinh](#sinh)
+[sec](#sec)
+[sech](#sech)
+[tan](#tan)
+[tanh](#tanh)
 
-* [Relational / Logic Opcodes](#logic)
+## [Relational / Logic Opcodes](#logic)
 
-[cmp](#cmp) [eqat](#eqat) [eqatic](#eqatic) [eqatim](#eqatim-moar-js) [eqaticim](#eqaticim-moar-js) [falsey](#falsey) [iseq](#iseq) [isgt](#isgt) [isge](#isge) [islt](#islt) [isle](#isle) [isne](#isne) [not_i](#not_i)
+[cmp](#cmp)
+[eqat](#eqat)
+[eqatic](#eqatic)
+[eqatim](#eqatim-moar-js)
+[eqaticim](#eqaticim-moar-js)
+[falsey](#falsey)
+[iseq](#iseq)
+[isgt](#isgt)
+[isge](#isge)
+[islt](#islt)
+[isle](#isle)
+[isne](#isne)
+[not_i](#not_i)
 
-* [Array Opcodes](#array)
+## [Array Opcodes](#array)
 
-[atpos](#atpos) [atpos2d](#atpos2d) [atpos3d](#atpos3d) [atposnd](#atposnd) [bindpos](#bindpos) [bindpos2d](#bindpos2d) [bindpos3d](#bindpos3d) [bindposnd](#bindposnd) [atposref](#atposref) [elems](#elems) [existspos](#existspos) [list](#list) [push](#push) [pop](#pop) [setelems](#setelems) [shift](#shift) [slice](#slice) [splice](#splice) [unshift](#unshift) [iterator](#iterator)
+[atpos](#atpos)
+[atpos2d](#atpos2d)
+[atpos3d](#atpos3d)
+[atposnd](#atposnd)
+[bindpos](#bindpos)
+[bindpos2d](#bindpos2d)
+[bindpos3d](#bindpos3d)
+[bindposnd](#bindposnd)
+[atposref](#atposref)
+[elems](#elems)
+[existspos](#existspos)
+[iterator](#iterator)
+[list](#list)
+[push](#push)
+[pop](#pop)
+[setelems](#setelems)
+[shift](#shift)
+[slice](#slice)
+[splice](#splice)
+[unshift](#unshift)
 
-* [Hash Opcodes](#hash)
+## [Hash Opcodes](#hash)
 
-[atkey](#atkey) [bindkey](#bindkey) [existskey](#existskey) [deletekey](#deletekey) [hash](#hash) [iterator](#iterator) [iterkey](#iterkey) [iterval](#iterval)
+[atkey](#atkey)
+[bindkey](#bindkey)
+[existskey](#existskey)
+[deletekey](#deletekey)
+[hash](#hash)
+[iterator](#iterator)
+[iterkey](#iterkey)
+[iterval](#iterval)
 
-* [Coercion Opcodes](#coercion)
+## [Coercion Opcodes](#coercion)
 
-[coerce_in](#coerce_in-moar) [coerce_ni](#coerce_ni-moar) [coerce_is](#coerce_is) [coerce_ns](#coerce_ns-moar) [coerce_sn](#coerce_sn-moar) [coerce_si](#coerce_si) [intify](#intify-moar) [numify](#numify-moar) [stringify](#stringify)
+[coerce_in](#coerce_in-moar)
+[coerce_ni](#coerce_ni-moar)
+[coerce_is](#coerce_is)
+[coerce_ns](#coerce_ns-moar)
+[coerce_sn](#coerce_sn-moar)
+[coerce_si](#coerce_si)
+[intify](#intify-moar)
+[numify](#numify-moar)
+[stringify](#stringify)
 
-* [String Opcodes](#string)
+## [String Opcodes](#string)
 
-[chars](#chars) [chr](#chr) [codepointfromname](#codepointfromname) [codes](#codes) [concat](#concat) [decode](#decode) [decodetocodes](#decodetocodes-moar) [encode](#encode) [encodefromcodes](#encodefromcodes-moar) [encodenorm](#encodenorm) [escape](#escape) [fc](#fc) [findcclass](#findcclass) [findnotcclass](#findnotcclass)
-  * [flip](#flip)
-  * [index](#index)
-  * [indexic](#indexic-moar)
-  * [indexim](#indexim-moar)
-  * [indexicim](#indexicim-moar)
-  * [iscclass](#iscclass)
-  * [join](#join)
-  * [lc](#lc)
-  * [normalizecodes](#normalizecodes)
-  * [numify](#numify-moar)
-  * [ord](#ord)
-  * [ordbaseat](#ordbaseat)
-  * [radix](#radix)
-  * [replace](#replace)
-  * [rindex](#rindex)
-  * [split](#split)
-  * [sprintf](#sprintf)
-  * [sprintfdirectives](#sprintfdirectives)
-  * [sprintfaddargumenthandler](#sprintfaddargumenthandler)
-  * [strfromcodes](#strfromcodes)
-  * [strfromname](#strfromname)
-  * [strtocodes](#strtocodes)
-  * [substr](#substr)
-  * [tc](#tc)
-  * [tclc](#tclc)
-  * [uc](#uc)
-  * [unicmp_s](#unicmp_s-moar-js)
-  * [x](#x)
-* [Unicode Property Opcodes](#unicode)
-* [Conditional Opcodes](#conditional)
-* [Loop/Control Opcodes](#control)
-* [Exceptional Opcodes](#exceptions)
-* [Input/Output Opcodes](#io)
-* [External command Opcodes](#extern)
-* [File / Directory / Network Opcodes](#filedirnet)
-* [Type/Conversion Opcodes](#type)
-* [Binary Data Opcodes](#binarydata)
-* [OO/SixModel Opcodes](#sixmodel)
-- [SixModel Parametric Extensions Opcodes](#sixmodel-extensions)
-* [Bit Opcodes](#bit)
-* [Context Introspection Opcodes](#context)
-* [Variable Opcodes](#variable)
-* [Miscellaneous Opcodes](#misc)
-* [Native Call / Interoperability Opcodes](#nativecall)
-* [Asynchronous operations](#async)
-* [Atomic operations](#atomic)
+[chars](#chars)
+[chr](#chr)
+[codepointfromname](#codepointfromname)
+[codes](#codes)
+[concat](#concat)
+[decode](#decode)
+[decodetocodes](#decodetocodes-moar)
+[encode](#encode)
+[encodefromcodes](#encodefromcodes-moar)
+[encodenorm](#encodenorm)
+[escape](#escape)
+[fc](#fc)
+[findcclass](#findcclass)
+[findnotcclass](#findnotcclass)
+[flip](#flip)
+[index](#index)
+[indexic](#indexic-moar)
+[indexim](#indexim-moar)
+[indexicim](#indexicim-moar)
+[iscclass](#iscclass)
+[join](#join)
+[lc](#lc)
+[normalizecodes](#normalizecodes)
+[numify](#numify-moar)
+[ord](#ord)
+[ordbaseat](#ordbaseat)
+[radix](#radix)
+[replace](#replace)
+[rindex](#rindex)
+[split](#split)
+[sprintf](#sprintf)
+[sprintfdirectives](#sprintfdirectives)
+[sprintfaddargumenthandler](#sprintfaddargumenthandler)
+[strfromcodes](#strfromcodes)
+[strfromname](#strfromname)
+[strtocodes](#strtocodes)
+[substr](#substr)
+[tc](#tc)
+[tclc](#tclc)
+[uc](#uc)
+[unicmp_s](#unicmp_s-moar-js)
+[x](#x)
+
+## [Unicode Property Opcodes](#unicode)
+
+[getuniname](#getuniname)
+[getuniprop_int](#getuniprop_int-moar)
+[getuniprop_str](#getuniprop_str)
+[getuniprop_bool](#getuniprop_bool-moar)
+[matchuniprop](#matchuniprop-moar)
+[unipropcode](#unipropcode)
+[unipvalcode](#unipvalcode-moar)
+[hasuniprop](#hasuniprop-moar)
+
+## [VM-Provided Streaming Decoder Opcodes](#-vm-provided-streaming-decoder-opcodes)
+
+[decoderconfigure](#decoderconfigure)
+[decodersetlineseps](#decodersetlineseps)
+[decoderaddbytes](#decoderaddbytes)
+[decodertakechars](#decodertakechars)
+[decodertakeallchars](#decodertakeallchars)
+[decodertakeavailablechars](#decodertakeavailablechars)
+[decodertakeline](#decodertakeline)
+[decoderbytesavailable](#decoderbytesavailable)
+[decodertakebytes](#decodertakebytes)
+[decoderempty](#decoderempty)
+
+## [Conditional Opcodes](#conditional)
+
+[if](#if)
+[unless](#unless)
+[with](#with)
+[without](#without)
+
+## [Loop/Control Opcodes](#control)
+
+[control](#control)
+[defor](#defor)
+[for](#for)
+[ifnull](#ifnull)
+[repeat_until](#repeat_until)
+[repeat_while](#repeat_while)
+[stmts](#stmts)
+[until](#until)
+[while](#while)
+
+## [Exceptional Opcodes](#exceptions)
+
+[backtrace](#backtrace)
+[backtracestrings](#backtracestrings)
+[die](#die)
+[exception](#exception)
+[getextype](#getextype)
+[getmessage](#getmessage)
+[getpayload](#getpayload)
+[newexception](#newexception)
+[resume](#resume)
+[rethrow](#rethrow)
+[setextype](#setextype)
+[setmessage](#setmessage)
+[setpayload](#setpayload)
+[throw](#throw)
+
+## [Input/Output Opcodes](#io)
+
+[closefh](#closefh)
+[eoffh](#eoffh)
+[filenofh](#filenofh)
+[flushfh](#flushfh)
+[getstderr](#getstderr)
+[getstdin](#getstdin)
+[getstdout](#getstdout)
+[open](#open)
+[print](#print)
+[readfh](#readfh)
+[say](#say)
+[seekfh](#seekfh)
+[tellfh](#tellfh)
+[writefh](#writefh)
+
+## [External command Opcodes](#extern)
+
+[execname](#execname-moar-js)
+
+## [File / Directory / Network Opcodes](#filedirnet)
+
+[chdir](#chdir)
+[chmod](#chmod)
+[closedir](#closedir)
+[copy](#copy)
+[cwd](#cwd)
+[fileexecutable](#fileexecutable)
+[fileislink](#fileislink)
+[filereadable](#filereadable)
+[filewritable](#filewritable)
+[gethostname](#gethostname)
+[getport](#getport-moar-jvm)
+[link](#link)
+[mkdir](#mkdir)
+[nextfiledir](#nextfiledir)
+[opendir](#opendir)
+[readlink](#readlink)
+[rename](#rename)
+[rmdir](#rmdir)
+[stat](#stat)
+[stat_time](#stat_time)
+[lstat](#lstat)
+[lstat_time](#lstat_time)
+[symlink](#symlink)
+[unlink](#unlink)
+
+## [Type/Conversion Opcodes](#type)
+
+[bool](#bool)
+[bootarray](#bootarray-moar-jvm)
+[boothash](#boothash-moar-jvm)
+[bootint](#bootint-moar-jvm)
+[bootintarray](#bootintarray-moar-jvm)
+[bootnum](#bootnum-moar-jvm)
+[bootnumarray](#bootnumarray-moar-jvm)
+[bootstr](#bootstr-moar-jvm)
+[bootstrarray](#bootstrarray-moar-jvm)
+[box](#box)
+[decont](#decont)
+[defined](#defined)
+[fromnum](#fromnum)
+[fromstr](#fromstr)
+[fromI_I](#fromI_I)
+[isbig](#isbig)
+[iscoderef](#iscoderef-moar)
+[isconcrete](#isconcrete)
+[iscont](#iscont)
+[isfalse](#isfalse)
+[ishash](#ishash)
+[isint](#isint)
+[isinvokable](#isinvokable)
+[islist](#islist)
+[isnanorinf](#isnanorinf)
+[isnull](#isnull)
+[isnum](#isnum)
+[isprime](#isprime)
+[isrwcont](#isrwcont)
+[isstr](#isstr)
+[istrue](#istrue)
+[istype](#istype)
+[isttyfh](#isttyfh)
+[null](#null)
+[tostr](#tostr)
+[tonum](#tonum)
+[unbox](#unbox)
+
+## [Binary Data Opcodes](#binarydata)
+
+[writeint](#writeint-moar-js)
+[writeuint](#writeuint-moar-js)
+[writenum](#writenum-moar-js)
+[readint](#readint-moar-js)
+[readuint](#readuint-moar-js)
+[readnum](#readnum-moar-js)
+
+## [OO/SixModel Opcodes](#sixmodel)
+
+[attrinited](#attrinited)
+[bindattr](#bindattr)
+[bindcomp](#bindcomp)
+[call](#call)
+[callmethod](#callmethod)
+[can](#can)
+[clone](#clone)
+[create](#create)
+[eqaddr](#eqaddr)
+[findmethod](#findmethod)
+[tryfindmethod](#tryfindmethod)
+[getattr](#getattr)
+[getcomp](#getcomp)
+[how](#how)
+[rebless](#rebless)
+[reprname](#reprname)
+[setwho](#setwho)
+[who](#who)
+[what](#what)
+[where](#where)
+
+## [SixModel Parametric Extensions Opcodes](#sixmodel-extensions)
+
+[setparameterizer](#setparameterizer)
+[setparameterizetype](#setparameterizetype)
+[typeparameterized](#typeparameterized)
+[typeparameters](#typeparameters)
+[typeparameterat](#typeparameterat)
+
+## [Bit Opcodes](#bit)
+
+[bitand](#bitand)
+[bitneg](#bitneg)
+[bitor](#bitor)
+[bitshiftl](#bitshiftl)
+[bitshiftr](#bitshiftr)
+[bitxor](#bitxor)
+
+## [Context Introspection Opcodes](#context)
+
+[ctx](#ctx)
+[ctxcaller](#ctxcaller)
+[ctxlexpad](#ctxlexpad)
+[curlexpad](#curlexpad)
+[ctxouter](#ctxouter)
+[lexprimspec](#lexprimspec)
+[savecapture](#savecapture)
+[usecapture](#usecapture)
+[captureposelems](#captureposelems)
+[getlex](#getlex-moar-jvm)
+[getlexref](#getlexref-moar-jvm)
+[bindlex](#bindlex-moar-jvm)
+[getlexdyn](#getlexdyn)
+[bindlexdyn](#bindlexdyn)
+[getlexouter](#getlexouter)
+[getlexcaller](#getlexcaller)
+[getlexrel](#getlexrel)
+[getlexreldyn](#getlexreldyn)
+[getlexrelcaller](#getlexrelcaller)
+
+## [Variable Opcodes](#variable)
+
+[bind](#bind)
+
+## [Native Call / Interoperability Opcodes](#nativecall)
+
+[buildnativecall](#buildnativecall)
+[nativecall](#nativecall)
+[nativecallcast](#nativecallcast)
+[nativecallglobal](#nativecallglobal)
+[nativecallinvoke](#nativecallinvoke)
+[nativecallrefresh](#nativecallrefresh)
+[nativecallsizeof](#nativecallsizeof)
+
+## [Thread Opcodes](#thread)
+
+[newthread](#newthread)
+[threadid](#threadid-moar-jvm)
+[threadrun](#threadrun-moar-jvm)
+[threadyield](#threadyield-moar-jvm)
+[threadjoin](#threadjoin-moar-jvm)
+[currentthread](#currentthread-moar-jvm)
+[threadlockcount](#threadlockcount-moar-jvm)
+
+## [Asynchronous operations](#async)
+
+[permit](#permit)
+[cancel](#cancel-moar-jvm)
+[timer](#timer-moar-jvm)
+[signal](#signal-moar-jvm)
+[watchfile](#watchfile-moar-jvm)
+[asyncconnect](#asyncconnect)
+[asynclisten](#asynclisten)
+[asyncwritebytes](#asyncwritebytes)
+[asyncreadbytes](#asyncreadbytes-moar-jvm)
+[spawnprocasync](#spawnprocasync)
+[killprocasync](#killprocasync)
+
+## [HLL-Specific Operations](#hll-specific)
+
+[hllbool](#hllbool)
+[hllboxtype](#hllboxtype)
+[hllhash](#hllhash-moar-jvm)
+[hlllist](#hlllist-moar-jvm)
+
+## [Atomic operations](#atomic)
+
+[cas](#cas-moar)
+[cas_i](#cas_i-moar)
+[atomicbindattr](#atomicbindattr)
+[atomicinc_i](#atomicinc_i-moar)
+[atomicdec_i](#atomicdec_i-moar)
+[atomicadd_i](#atomicadd_i-moar)
+[atomicload](#atomicload-moar)
+[atomicload_i](#atomicload_i-moar)
+[atomicstore](#atomicstore-moar)
+[atomicstore_i](#atomicstore_i-moar)
+[barrierfull](#barrierfull-moar)
+
+## [Serialization context](#-serialization-context)
+
+[createsc](#createsc)
+[scsetdesc](#scsetdesc)
+[scgetdesc](#scgetdesc)
+[scgethandle](#scgethandle)
+[pushcompsc](#pushcompsc)
+[popcompsc](#popcompsc)
+[scsetobj](#scsetobjc)
+[setobjsc](#setobjsc)
+[getobjsc](#getobjsc)
+[scgetobjidx](#scgetobjidx)
+[serialize](#serialize)
+[deserialize](#deserialize)
+[scobjcount](#scobjcount)
+
+## [Miscellaneous Opcodes](#misc)
+
+[locallifetime](#locallifetime)
+[const](#const)
+[cpucores](#cpucores)
+[decodelocaltime](#decodelocaltime)
+[force_gc](#force_gc-moar-jvm)
+[freemem](#freemem)
+[getcodename](#getcodename)
+[getrusage](#getrusage)
+[uname](#uname-moar-js)
+[debugnoop `jvm`](#debugnoop-jvm)
+[exit](#exit)
+[getenvhash](#getenvhash)
+[getsignals](#getsignals)
+[backendconfig](#backendconfig)
+[getpid](#getpid)
+[getppid](#getppid-moar)
+[indexingoptimized](#indexingoptimized)
+[js](#js-moar=js)
+[jvmclasspaths](#jvmclasspaths-jvm)
+[jvmgetproperties](#jvmgetproperties-jvm)
+[objectid](#objectid)
+[setcodename](#setcodename)
+[sha1](#sha1)
+[sleep](#sleep)
+[takeclosure](#takeclosure)
+[time](#time)
+[totalmem](#totalmem)
+[mvmstartprofile](#mvmstartprofile-moar)
+[mvmendprofile](#mvmendprofile-moar)
 
 # <a id="arithmetic"></a> Arithmetic Opcodes
 
@@ -2811,6 +2898,406 @@ $context. It checks all outer frames of the caller chain.
 Binds `$value` to the `$variable`. Dies if `$variable` isn't actually a
 variable. Same as the `:=` operator in NQP.
 
+# <a id="thread"></a> Thread opcodes
+
+## newthread `moar` `jvm`
+* `newthread(block, app_lifetime --> vm_thread)`
+
+Takes a block to execute in a thread, and a 1 to indicate that the thread
+will be killed if the main thread finishes, or 0 to keep the thread running
+even after the main thread has finished.  Returns a vm_thread object that
+can be passed to the other thread related opcodes.
+
+## threadid `moar` `jvm`
+* `threadid(vm_thread --> int)`
+
+Returns the numeric thread ID of the given vm_thread object.
+
+## threadrun `moar` `jvm`
+* `threadrun(vm_thread)`
+
+Actually start running the code specified in the creation of the vm_thread
+object.
+
+## threadyield `moar` `jvm`
+* `threadyield()`
+
+Tell the scheduler to prefer another thread then the thread this is being
+executed in, for now.
+
+## threadjoin `moar` `jvm`
+* `threadjoin(vm_thread)`
+
+Wait for the thread, indicated by the vm_thread object, to be finished.
+
+## currentthread `moar` `jvm`
+* `currentthread()`
+
+Returns the vm_thread object for the current thread.
+
+## threadlockcount `moar` `jvm`
+* `threadlockcount(vm_thread)`
+
+Returns the number of locks held by the given thread.
+
+# <a id="async"></a> Asynchronous Operations
+
+The various asynchronous operations, such as timers and asynchronous I/O, take
+a concurrent queue to push a work item into at an appropriate time. This may
+be a code object to be invoked, or it may be an array of a code item and some
+arguments to supply to it. Asynchronous operations are represented by some
+object with the AsyncTask REPR, the exact details of which are highly
+specific to a given backend. The type to use for that is given as $handle_type.
+
+[As of 2014.04, these are very new and subject to revision and additions.]
+
+## permit
+* `permit(AsyncTask $handle, int $channel, int $permits)`
+
+Takes something with the AsyncTask REPR (the `$handle` parameter) and
+permits it to emit up to `$permits` more notifications. This is used
+as a back-pressure mechanism for asynchronous tasks that produce a
+stream of events, such as representing data arriving over a
+socket. Some kinds of tasks may emit on multiple channels, for example
+an asynchronous process may emit events for STDOUT (channel 1) and
+STDERR (channel 2) if both are of interest. The `$channel` argument is
+used to specify which channel is to get the permits if needed (use a
+separate `permit` stament for each channel of interest).
+
+If `$permits` is less than zero (e.g., `permit($task, $channel, -1)`,
+then it means there is no limit to the emits.
+
+If `$permits` is set to any value greater than or equal to zero, then:
+
+* In the case unlimited emits were permitted previously, the permits will be
+  set to the new value. If the new value is zero, then the reader will be
+  stopped.
+* Otherwise the number of permits will be incremented by the specified value.
+  If the resulting number of permits allowed is greater than zero and the
+  reader is not running, it will be started.
+
+## cancel `moar` `jvm`
+* `cancel(AsyncTask $handle)`
+
+Takes something with the AsyncTask REPR and tries to cancel it, if it
+is possible to do so. If it is somehow not possible (for example, the
+operation already completed anyway), then nothing will happen. This is to
+avoid race conditions.
+
+## timer `moar` `jvm`
+* `timer($queue, $schedulee, int $timeout, int $repeat, $handle_type)`
+
+Starts a timer. If timeout is zero, the $schedulee is immediately pushed to
+the queue. Otherwise, it is pushed after the timeout period. If repeat is
+non-zero, after the initial timeout period it will then be pushed again at
+the repeat interval. Returns an object of type $handle_type, which has a
+AsyncTask REPR. Cancellation stops the timer ever repeating again.
+
+## signal `moar` `jvm`
+* `signal($queue, $schedulee, int [nqp::cosnt::SIG_], $handle_type)`
+
+Sets up a signal handler for the given signal. Whenever it occurs, an
+array is pushed to the queue containing the schedulee and the signal number.
+Cancel to stop handling it.
+
+## watchfile `moar` `jvm`
+* `watchfile($queue, $schedulee, str $filename, $handle_type)`
+
+Watches an individual file for changes. Pushes an array to the queue
+when a change is detected, consisting of the schedulee, the filename that
+changed if provided by the underlying watcher mechanism, a 0 if the file
+changed, and a 1 if it was renamed. Cancel to stop watching.
+
+## asyncconnect
+* `asyncconnect($queue, $schedulee, str $host, int $port, $handle_type)`
+
+Creates an asynchronous client socket and commences a connection operation.
+Upon connection, the queue will be passed an array consisting of the
+schedulee, a handle if the connection was successful (a type object if not)
+and an error string (some type object if no error). Returns an AsyncTask
+representing the connection attempt.
+
+## asynclisten
+* `asynclisten($queue, $schedulee, str $host, int $port, $handle_type)`
+
+Creates an asynchronous server socket listening on the specified host and port.
+Each time a connection arrives, the queue will be passed an array consisting of
+the schedulee and the newly created asynchronous socket, for communicating with
+the connecting client. Returns an AsyncTask that can be cancelled to stop
+listening, or throws an exception if there is an error starting to listen.
+
+## asyncwritebytes
+* `asyncwritebytes($handle, $queue, $schedulee, $to_write, $handle_type)`
+
+Writes a byte array to some handle capable of asynchronous operations. Once
+the write is complete, the queue will be passed an array consisting of the
+schedulee, an integer containing the number of bytes written or a type
+object if there was an error, and a string containing an error or some type
+object if none.
+
+## asyncreadbytes `moar` `jvm`
+* `asyncreadbytes($handle, $queue, $schedulee, $buf_type, $handle_type)`
+
+Starts reading bytes from the handle. When a packet is received, a $buf_type
+will be constructed and point to the received memory. An array will be
+pushed to the queue containing the schedulee, a sequence number that starts
+at 0, the buffer or just its type object on error, and an error string (type
+object if no error). If EOF is reached, a sequence number of -1 is sent.
+Cancel to stop reading.
+
+## spawnprocasync
+* `spawnprocasync($queue, $args, $cwd, %env, $callbacks)`
+
+Replaced *shell* and *spawn*. See t/nqp/111-spawnprocasync.t for an example of use.
+
+## killprocasync
+* `killprocasync($handle, $signal)`
+
+# <a id="hll-specific"></a> HLL-Specific Operations
+
+HLL, or High-Level Language, refers to the language being implemented in NQP.
+
+## hllbool
+* `hllbool(int -> obj)`
+
+If passed 0, return a HLL specific Boolean false value,
+otherwise, a true one. For Raku, this maps to ```Bool::False```
+and ```Bool::True```, respectively.
+
+## hllboxtype
+* `hllboxtype_i(Mu)`
+* `hllboxtype_n(Mu)`
+* `hllboxtype_s(Mu)`
+
+Ignores any args passed and returns the HLL specific type
+objects for each basic type. For Raku, this maps to ```Int```,
+```Num```, and ```Str```.
+
+## hllhash `moar` `jvm`
+* `hllhash(Mu)`
+
+Returns HLL specific type object for a hash.
+Ignores optional argument.
+
+## hlllist `moar` `jvm`
+* `hlllist(Mu)`
+
+Returns HLL specific type object for a list.
+Ignores optional argument.
+
+## bindhllsym / bindcurhllsym
+* `bindhllsym(str $hllname, str $symname, $value)`
+* `bindcurhllsym(str $symname, $value)`
+
+Store a value in a specified HLL's symbol hash at a given key; the `cur`
+variant uses the hll the code that has the op in it was compiled for.
+
+## gethllsym / getcurhllsym
+* `gethllsym(str $hllname, str $symname --> Mu)`
+* `getcurhllsym(str $symname --> Mu)`
+
+Retrieve a value from a specified HLL's symbol hash at a given key; The `cur`
+variant uses the hll the code that has the op in it was compiled for.
+
+## usecompilerhll / usecompileehll
+* `usecompilerhllconfig`
+* `usecompileehllconfig`
+
+Increases or decreases the "compilee depth" value. When the compilee depth is
+greater than one, every hll access will hit the "compilee's HLL config",
+otherwise every access will hit the "compiler's HLL config".
+
+This serves, for example, to seperate a running NQP compiler from an NQP
+compiler it's compiling, when compile-time evaluation happens.
+
+# <a id="atomic"></a> Atomic Operations
+
+## cas `moar`
+* `cas(ObjectContainer $cont, Mu $expected, Mu $new --> Mu)`
+
+Takes an object which has a container spec set on it that knows how to do an
+atomic compare and swap, and performs an atomic compare and swap operation.
+The operation atomically compares the `$expected` object with what is currently
+held in the container. If they are the same object, then it replaces it with
+`$new`. If not, no change takes place. The original object stored in the
+container is returned, which can be used with `eqaddr` to check if it is the
+same as the `$expected` object. The container may perform type checks on the
+`$new` object before it attempts the operation.
+
+## cas_i `moar`
+* `cas_i(NativeIntRef $i, int64 $expected, int64 $new --> int)`
+
+Takes an object with the `NativeRef` representation, which must point to an
+integer of the machine's atomic operation size. Casts the expected and new
+parameters to the machine's atomic operation size, and then uses them to
+perform an atomic compare and swap operation on the referenced integer. The
+operation atomically compares the `$expected` value with the value currently
+at the referenced location. If they are equal, it replaces the value with
+`$new`. If they are not equal, nothing happens. The operation evaluates to the
+value originally at the location (which can be compared with `$expected` to
+see if the operation was a success).
+
+## atomicbindattr `moar`
+* `atomicbindattr(Mu $obj, Mu:T $type, str $attributename, Mu $new_value)`
+
+Atomically binds `$new_value` to the attribute of name `$attributename` of
+object `$obj`, where the attribute was declared in type `$type`. The notes
+in the `getattr` documentation also apply to `atomicbindattr`.
+
+
+## atomicinc_i `moar`
+* `atomicinc_i(NativeIntRef $i --> int)`
+
+Takes an object with the `NativeRef` representation, which must point to an
+integer of the machine's atomic operation size. Performs an atomic increment
+of the referenced integer. Returns the value **before** it was incremented.
+
+## atomicdec_i `moar`
+* `atomicdec_i(NativeIntRef $i --> int)`
+
+Takes an object with the `NativeRef` representation, which must point to an
+integer of the machine's atomic operation size. Performs an atomic decrement
+of the referenced integer. Returns the value **before** it was decremented.
+
+## atomicadd_i `moar`
+* `atomicadd_i(NativeIntRef $i, int $value --> int)`
+
+Takes an object with the `NativeRef` representation, which must point to an
+integer of the machine's atomic operation size. Performs an atomic addition of
+the provided value, which will be cast to the machine's atomic operation size
+before the operation is performed. Returns the value at the memory location
+**before** the addition was performed.
+
+## atomicload `moar`
+* `atomicload(ObjectContainer $c)`
+
+Takes an object which has a container spec set on it that knows how to do an
+atomic load (that is, with appropriate barriering to ensure the latest value
+is read). Performs the atomic load, and returns the loaded object.
+
+## atomicload_i `moar`
+* `atomicload_i(NativeIntRef $i --> int)`
+
+Takes an object with the `NativeRef` representation, which must point to an
+integer of the machine's atomic operation size. Performs an atomic load (that
+is, with appropriate barriering to ensure the latest value is read).
+
+## atomicstore `moar`
+* `atomicstore(ObjectContainer $c, Mu $value)`
+
+Takes an object which has a container spec set on it that knows how to do an
+atomic load. Performs the atomic store, which may fail if the value being
+stored does not, for example, meet type constraints. Evaluates to the stored
+value. The store performs appropriate barriering to ensure the changed value
+is "published".
+
+## atomicstore_i `moar`
+* `atomicstore_i(NativeIntRef $i, int64 $value)`
+
+Takes an object with the `NativeRef` representation, which must point to an
+integer of the machine's atomic operation size. Performs an atomic store (that
+is, with appropriate barriering to ensure the changed value is "published").
+
+## barrierfull `moar`
+* `barrierfull()`
+
+Performs a full memory barrier.
+
+# <a id="serialization-context"></a> Serialization context
+
+Abbreviated as SC.
+You probably don't need any of these. When creating a new language and possibly a new World class, you will inherit serialization code that uses these opcodes.
+For test examples, see [t/serialization/](https://github.com/Raku/nqp/tree/master/t/serialization)
+
+## createsc
+* `createsc($handle-string)`
+
+Creates a serialization context and returns it.
+
+## scsetdesc
+* `scsetdesc($sc, $descriptor-string)`
+
+Set a descriptor for `$sc` created by `createsc()`
+
+## scgetdesc
+* `scgetdesc($sc)`
+
+Get the descriptor set by `scsetdec`
+
+## scgethandle
+* `scgethandle($sc)`
+
+Get the handle string used by `createsc` to create the SC `$sc`
+
+## pushcompsc
+* `pushcompsc($sc)`
+
+## popcompsc
+* `popcompsc($sc)`
+
+## scsetobjc
+* `scsetobj($sc, $idx, $obj)`
+
+## setobjsc
+* `setobjsc($obj, $sc)`
+
+## getobjsc
+* `getobjsc($obj)`
+
+## scgetobjidx
+* `scgetobjidx()`
+
+## serialize
+* `serialize()`
+
+## deserialize
+* `deserialize()`
+
+## scobjcount
+* `scobjcount()`
+
+## freshcoderef
+* `freshcoderef($code-object)`
+
+Creates a clone of the given code object and a clone of its static frame and
+connects the two. Returns the clone of the code object. Used for creating a
+fresh copy of a statically compiled piece of code so each of some high level
+code object can gets its own low level executable.
+
+## markcodestatic
+* `markcodestatic($code-object)`
+
+Marks the code as "static" meaning it's not a closure and thus no closure will
+be serialized.
+
+## scsetcode
+* `scsetcode($sc, $index, $code-object)`
+
+Adds $code-object to the serialization context at block index $index
+
+## forceouterctx
+* `forceouterctx($code-object, $context)`
+
+Sets the code object's outer to the context's frame and also the code object's
+static frame's outer to the context's static frame.
+
+Used to embed a separately compiled code object in a given context, e.g. to
+give an EVALed code a surrounding lexical scope.
+
+## neverrepossess
+* `neverrepossess($obj)`
+
+Prevents the object from ever getting repossessed. Repossession means that an
+object from a different serialization context, i.e. something we got from
+loading a module, gets added to our own serialization context as well. This is
+done to keep modifications to the object. Of course if different versions of
+the same object are loaded from different serialization contexts, there's a
+conflict that requires resolution -> resolve_reposession_conflicts. In the
+common case of the object being a Stash, we can just merge the different
+versions unless the keys overlap. For some objects we do not want repossession
+even if they were modified, i.e. they were only needed for compilation and/or
+there wouldn't be a way to resolve conflicts.
+
 # <a id="misc"></a> Miscellaneous Opcodes
 
 ## locallifetime
@@ -3262,403 +3749,3 @@ Refresh the C-based data backing the Raku object. This op should only be used if
 
 Return the size in bytes of the given C-based object. Works for both
 simple values like different sized integers, but also structs.
-
-# <a id="thread"></a> Thread opcodes
-
-## newthread `moar` `jvm`
-* `newthread(block, app_lifetime --> vm_thread)`
-
-Takes a block to execute in a thread, and a 1 to indicate that the thread
-will be killed if the main thread finishes, or 0 to keep the thread running
-even after the main thread has finished.  Returns a vm_thread object that
-can be passed to the other thread related opcodes.
-
-## threadid `moar` `jvm`
-* `threadid(vm_thread --> int)`
-
-Returns the numeric thread ID of the given vm_thread object.
-
-## threadrun `moar` `jvm`
-* `threadrun(vm_thread)`
-
-Actually start running the code specified in the creation of the vm_thread
-object.
-
-## threadyield `moar` `jvm`
-* `threadyield()`
-
-Tell the scheduler to prefer another thread then the thread this is being
-executed in, for now.
-
-## threadjoin `moar` `jvm`
-* `threadjoin(vm_thread)`
-
-Wait for the thread, indicated by the vm_thread object, to be finished.
-
-## currentthread `moar` `jvm`
-* `currentthread()`
-
-Returns the vm_thread object for the current thread.
-
-## threadlockcount `moar` `jvm`
-* `threadlockcount(vm_thread)`
-
-Returns the number of locks held by the given thread.
-
-# <a id="async"></a> Asynchronous Operations
-
-The various asynchronous operations, such as timers and asynchronous I/O, take
-a concurrent queue to push a work item into at an appropriate time. This may
-be a code object to be invoked, or it may be an array of a code item and some
-arguments to supply to it. Asynchronous operations are represented by some
-object with the AsyncTask REPR, the exact details of which are highly
-specific to a given backend. The type to use for that is given as $handle_type.
-
-[As of 2014.04, these are very new and subject to revision and additions.]
-
-## permit
-* `permit(AsyncTask $handle, int $channel, int $permits)`
-
-Takes something with the AsyncTask REPR (the `$handle` parameter) and
-permits it to emit up to `$permits` more notifications. This is used
-as a back-pressure mechanism for asynchronous tasks that produce a
-stream of events, such as representing data arriving over a
-socket. Some kinds of tasks may emit on multiple channels, for example
-an asynchronous process may emit events for STDOUT (channel 1) and
-STDERR (channel 2) if both are of interest. The `$channel` argument is
-used to specify which channel is to get the permits if needed (use a
-separate `permit` stament for each channel of interest).
-
-If `$permits` is less than zero (e.g., `permit($task, $channel, -1)`,
-then it means there is no limit to the emits.
-
-If `$permits` is set to any value greater than or equal to zero, then:
-
-* In the case unlimited emits were permitted previously, the permits will be
-  set to the new value. If the new value is zero, then the reader will be
-  stopped.
-* Otherwise the number of permits will be incremented by the specified value.
-  If the resulting number of permits allowed is greater than zero and the
-  reader is not running, it will be started.
-
-## cancel `moar` `jvm`
-* `cancel(AsyncTask $handle)`
-
-Takes something with the AsyncTask REPR and tries to cancel it, if it
-is possible to do so. If it is somehow not possible (for example, the
-operation already completed anyway), then nothing will happen. This is to
-avoid race conditions.
-
-## timer `moar` `jvm`
-* `timer($queue, $schedulee, int $timeout, int $repeat, $handle_type)`
-
-Starts a timer. If timeout is zero, the $schedulee is immediately pushed to
-the queue. Otherwise, it is pushed after the timeout period. If repeat is
-non-zero, after the initial timeout period it will then be pushed again at
-the repeat interval. Returns an object of type $handle_type, which has a
-AsyncTask REPR. Cancellation stops the timer ever repeating again.
-
-## signal `moar` `jvm`
-* `signal($queue, $schedulee, int [nqp::cosnt::SIG_], $handle_type)`
-
-Sets up a signal handler for the given signal. Whenever it occurs, an
-array is pushed to the queue containing the schedulee and the signal number.
-Cancel to stop handling it.
-
-## watchfile `moar` `jvm`
-* `watchfile($queue, $schedulee, str $filename, $handle_type)`
-
-Watches an individual file for changes. Pushes an array to the queue
-when a change is detected, consisting of the schedulee, the filename that
-changed if provided by the underlying watcher mechanism, a 0 if the file
-changed, and a 1 if it was renamed. Cancel to stop watching.
-
-## asyncconnect
-* `asyncconnect($queue, $schedulee, str $host, int $port, $handle_type)`
-
-Creates an asynchronous client socket and commences a connection operation.
-Upon connection, the queue will be passed an array consisting of the
-schedulee, a handle if the connection was successful (a type object if not)
-and an error string (some type object if no error). Returns an AsyncTask
-representing the connection attempt.
-
-## asynclisten
-* `asynclisten($queue, $schedulee, str $host, int $port, $handle_type)`
-
-Creates an asynchronous server socket listening on the specified host and port.
-Each time a connection arrives, the queue will be passed an array consisting of
-the schedulee and the newly created asynchronous socket, for communicating with
-the connecting client. Returns an AsyncTask that can be cancelled to stop
-listening, or throws an exception if there is an error starting to listen.
-
-## asyncwritebytes
-* `asyncwritebytes($handle, $queue, $schedulee, $to_write, $handle_type)`
-
-Writes a byte array to some handle capable of asynchronous operations. Once
-the write is complete, the queue will be passed an array consisting of the
-schedulee, an integer containing the number of bytes written or a type
-object if there was an error, and a string containing an error or some type
-object if none.
-
-## asyncreadbytes `moar` `jvm`
-* `asyncreadbytes($handle, $queue, $schedulee, $buf_type, $handle_type)`
-
-Starts reading bytes from the handle. When a packet is received, a $buf_type
-will be constructed and point to the received memory. An array will be
-pushed to the queue containing the schedulee, a sequence number that starts
-at 0, the buffer or just its type object on error, and an error string (type
-object if no error). If EOF is reached, a sequence number of -1 is sent.
-Cancel to stop reading.
-
-## spawnprocasync
-* `spawnprocasync($queue, $args, $cwd, %env, $callbacks)`
-
-Replaced *shell* and *spawn*. See t/nqp/111-spawnprocasync.t for an example of use.
-
-## killprocasync
-* `killprocasync($handle, $signal)`
-
-# <a id="hll-specific"></a> HLL-Specific Operations
-
-HLL, or High-Level Language, refers to the language being implemented in NQP.
-
-## hllbool
-* `hllbool(int -> obj)`
-
-If passed 0, return a HLL specific Boolean false value,
-otherwise, a true one. For Raku, this maps to ```Bool::False```
-and ```Bool::True```, respectively.
-
-## hllboxtype
-* `hllboxtype_i(Mu)`
-* `hllboxtype_n(Mu)`
-* `hllboxtype_s(Mu)`
-
-Ignores any args passed and returns the HLL specific type
-objects for each basic type. For Raku, this maps to ```Int```,
-```Num```, and ```Str```.
-
-## hllhash `moar` `jvm`
-* `hllhash(Mu)`
-
-Returns HLL specific type object for a hash.
-Ignores optional argument.
-
-## hlllist `moar` `jvm`
-* `hlllist(Mu)`
-
-Returns HLL specific type object for a list.
-Ignores optional argument.
-
-## bindhllsym / bindcurhllsym
-* `bindhllsym(str $hllname, str $symname, $value)`
-* `bindcurhllsym(str $symname, $value)`
-
-Store a value in a specified HLL's symbol hash at a given key; the `cur`
-variant uses the hll the code that has the op in it was compiled for.
-
-## gethllsym / getcurhllsym
-* `gethllsym(str $hllname, str $symname --> Mu)`
-* `getcurhllsym(str $symname --> Mu)`
-
-Retrieve a value from a specified HLL's symbol hash at a given key; The `cur`
-variant uses the hll the code that has the op in it was compiled for.
-
-## usecompilerhll / usecompileehll
-* `usecompilerhllconfig`
-* `usecompileehllconfig`
-
-Increases or decreases the "compilee depth" value. When the compilee depth is
-greater than one, every hll access will hit the "compilee's HLL config",
-otherwise every access will hit the "compiler's HLL config".
-
-This serves, for example, to seperate a running NQP compiler from an NQP
-compiler it's compiling, when compile-time evaluation happens.
-
-# <a id="atomic"></a> Atomic Operations
-
-## cas `moar`
-* `cas(ObjectContainer $cont, Mu $expected, Mu $new --> Mu)`
-
-Takes an object which has a container spec set on it that knows how to do an
-atomic compare and swap, and performs an atomic compare and swap operation.
-The operation atomically compares the `$expected` object with what is currently
-held in the container. If they are the same object, then it replaces it with
-`$new`. If not, no change takes place. The original object stored in the
-container is returned, which can be used with `eqaddr` to check if it is the
-same as the `$expected` object. The container may perform type checks on the
-`$new` object before it attempts the operation.
-
-## cas_i `moar`
-* `cas_i(NativeIntRef $i, int64 $expected, int64 $new --> int)`
-
-Takes an object with the `NativeRef` representation, which must point to an
-integer of the machine's atomic operation size. Casts the expected and new
-parameters to the machine's atomic operation size, and then uses them to
-perform an atomic compare and swap operation on the referenced integer. The
-operation atomically compares the `$expected` value with the value currently
-at the referenced location. If they are equal, it replaces the value with
-`$new`. If they are not equal, nothing happens. The operation evaluates to the
-value originally at the location (which can be compared with `$expected` to
-see if the operation was a success).
-
-## atomicbindattr `moar`
-* `atomicbindattr(Mu $obj, Mu:T $type, str $attributename, Mu $new_value)`
-
-Atomically binds `$new_value` to the attribute of name `$attributename` of
-object `$obj`, where the attribute was declared in type `$type`. The notes
-in the `getattr` documentation also apply to `atomicbindattr`.
-
-
-## atomicinc_i `moar`
-* `atomicinc_i(NativeIntRef $i --> int)`
-
-Takes an object with the `NativeRef` representation, which must point to an
-integer of the machine's atomic operation size. Performs an atomic increment
-of the referenced integer. Returns the value **before** it was incremented.
-
-## atomicdec_i `moar`
-* `atomicdec_i(NativeIntRef $i --> int)`
-
-Takes an object with the `NativeRef` representation, which must point to an
-integer of the machine's atomic operation size. Performs an atomic decrement
-of the referenced integer. Returns the value **before** it was decremented.
-
-## atomicadd_i `moar`
-* `atomicadd_i(NativeIntRef $i, int $value --> int)`
-
-Takes an object with the `NativeRef` representation, which must point to an
-integer of the machine's atomic operation size. Performs an atomic addition of
-the provided value, which will be cast to the machine's atomic operation size
-before the operation is performed. Returns the value at the memory location
-**before** the addition was performed.
-
-## atomicload `moar`
-* `atomicload(ObjectContainer $c)`
-
-Takes an object which has a container spec set on it that knows how to do an
-atomic load (that is, with appropriate barriering to ensure the latest value
-is read). Performs the atomic load, and returns the loaded object.
-
-## atomicload_i `moar`
-* `atomicload_i(NativeIntRef $i --> int)`
-
-Takes an object with the `NativeRef` representation, which must point to an
-integer of the machine's atomic operation size. Performs an atomic load (that
-is, with appropriate barriering to ensure the latest value is read).
-
-## atomicstore `moar`
-* `atomicstore(ObjectContainer $c, Mu $value)`
-
-Takes an object which has a container spec set on it that knows how to do an
-atomic load. Performs the atomic store, which may fail if the value being
-stored does not, for example, meet type constraints. Evaluates to the stored
-value. The store performs appropriate barriering to ensure the changed value
-is "published".
-
-## atomicstore_i `moar`
-* `atomicstore_i(NativeIntRef $i, int64 $value)`
-
-Takes an object with the `NativeRef` representation, which must point to an
-integer of the machine's atomic operation size. Performs an atomic store (that
-is, with appropriate barriering to ensure the changed value is "published").
-
-## barrierfull `moar`
-* `barrierfull()`
-
-Performs a full memory barrier.
-
-# <a id="serialization-context"></a> Serialization context
-
-Abbreviated as SC.
-You probably don't need any of these. When creating a new language and possibly a new World class, you will inherit serialization code that uses these opcodes.
-For test examples, see [t/serialization/](https://github.com/Raku/nqp/tree/master/t/serialization)
-
-## createsc
-* `createsc($handle-string)`
-
-Creates a serialization context and returns it.
-
-## scsetdesc
-* `scsetdesc($sc, $descriptor-string)`
-
-Set a descriptor for `$sc` created by `createsc()`
-
-## scgetdesc
-* `scgetdesc($sc)`
-
-Get the descriptor set by `scsetdec`
-
-## scgethandle
-* `scgethandle($sc)`
-
-Get the handle string used by `createsc` to create the SC `$sc`
-
-## pushcompsc
-* `pushcompsc($sc)`
-
-## popcompsc
-* `popcompsc($sc)`
-
-## scsetobjc
-* `scsetobj($sc, $idx, $obj)`
-
-## setobjsc
-* `setobjsc($obj, $sc)`
-
-## getobjsc
-* `getobjsc($obj)`
-
-## scgetobjidx
-* `scgetobjidx()`
-
-## serialize
-* `serialize()`
-
-## deserialize
-* `deserialize()`
-
-## scobjcount
-* `scobjcount()`
-
-## freshcoderef
-* `freshcoderef($code-object)`
-
-Creates a clone of the given code object and a clone of its static frame and
-connects the two. Returns the clone of the code object. Used for creating a
-fresh copy of a statically compiled piece of code so each of some high level
-code object can gets its own low level executable.
-
-## markcodestatic
-* `markcodestatic($code-object)`
-
-Marks the code as "static" meaning it's not a closure and thus no closure will
-be serialized.
-
-## scsetcode
-* `scsetcode($sc, $index, $code-object)`
-
-Adds $code-object to the serialization context at block index $index
-
-## forceouterctx
-* `forceouterctx($code-object, $context)`
-
-Sets the code object's outer to the context's frame and also the code object's
-static frame's outer to the context's static frame.
-
-Used to embed a separately compiled code object in a given context, e.g. to
-give an EVALed code a surrounding lexical scope.
-
-## neverrepossess
-* `neverrepossess($obj)`
-
-Prevents the object from ever getting repossessed. Repossession means that an
-object from a different serialization context, i.e. something we got from
-loading a module, gets added to our own serialization context as well. This is
-done to keep modifications to the object. Of course if different versions of
-the same object are loaded from different serialization contexts, there's a
-conflict that requires resolution -> resolve_reposession_conflicts. In the
-common case of the object being a Stash, we can just merge the different
-versions unless the keys overlap. For some objects we do not want repossession
-even if they were modified, i.e. they were only needed for compilation and/or
-there wouldn't be a way to resolve conflicts.
