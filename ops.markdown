@@ -360,11 +360,9 @@ opcodes will eventually be removed from NQP. Internal opcodes are typically
 used at compile time to replace opcodes that take a variable number of
 arguments.
 
-## Table of Contents
-
 The opcodes are grouped into the following categories:
 
-### [Arithmetic Opcodes](#arithmetic)
+## [Arithmetic Opcodes](#arithmetic)
 
 [abs](#abs)
 [add](#add)
@@ -376,7 +374,7 @@ The opcodes are grouped into the following categories:
 [neg](#neg)
 [sub](#sub)
 
-### [Numeric Opcodes](#numeric)
+## [Numeric Opcodes](#numeric)
 
 [base](#base)
 [ceil](#ceil)
