@@ -366,7 +366,15 @@ The opcodes are grouped into the following categories:
 
 * [Arithmetic Opcodes](#arithmetic)
 
-[abs](#abs) [add](#add) [div](#div) [gcd](#gcd) [lcm](#lcm) [mod](#mod) [mul](#mul) [neg](#neg) [sub](#sub)
+[abs](#abs),
+[add](#add),
+[div](#div),
+[gcd](#gcd),
+[lcm](#lcm),
+[mod](#mod),
+[mul](#mul),
+[neg](#neg),
+[sub](#sub)
 
 * [Numeric Opcodes](#numeric)
 
