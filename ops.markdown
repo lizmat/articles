@@ -143,7 +143,6 @@ The opcodes are grouped into the following categories:
 [atposref](#atposref) |
 [elems](#elems) |
 [existspos](#existspos) |
-[iterator](#iterator) |
 [list](#list) |
 [push](#push) |
 [pop](#pop) |
@@ -1040,24 +1039,6 @@ Bind $v to @arr at index 0, move all other bindings of @arr to the index one
 above what they were previously bound to.
 Return the $v on JVM.
 
-## iterator
-* `iterator()`
-
-Returns an iterator object to iterate over a list's items.  For example:
-
-```raku
-
-my $list := nqp::list('a', 'b', 'c');
-my $iter := nqp::iterator($list);
-
-while $iter {
-    say(nqp::shift($iter));
-}
-
-```
-
-You can also use `nqp::iterator()` to iterate over a hash's key-value pairs.
-
 # <a id="hash"></a> Hash
 
 ## atkey
@@ -1097,6 +1078,28 @@ Return a hash. The first argument is a key, the second its value, and so on.
 Be sure to pass an even number of arguments, a VM specific error may occur
 otherwise.
 
+## iterator
+* `iterator(hash)`
+
+Returns an iterator object to iterate over a hash's items.  For example:
+```raku
+my $iter := nqp::iterator(%hash);
+while $iter {
+    my $pair := nqp::shift($iter);
+    say(nqp::iterkey_s($pair), ' => ', nqp::iterval($pair));
+}
+```
+
+You can also use `nqp::iterator()` to iterate over a list:
+```raku
+my $list := nqp::list('a', 'b', 'c');
+my $iter := nqp::iterator($list);
+
+while $iter {
+    say(nqp::shift($iter));
+}
+```
+
 ## iterkey
 * `iterkey_s($pair --> str)`
 
@@ -1115,7 +1118,6 @@ while $iter {
     my $pair := nqp::shift($iter);
     say(nqp::iterkey_s($pair), ' => ', nqp::iterval($pair));
 }
-
 ```
 
 ## iterval
@@ -1123,7 +1125,7 @@ while $iter {
 
 Returns the value associated with the given key-value pair.
 
-# <a id="coercion"></a> Coercion opcodes
+# <a id="coercion"></a> Coercion
 
 coerce_* opcodes do lower level conversion between int, num and str.
 intify, numify try to use the .Int, .Num or .Str method.
