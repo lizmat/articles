@@ -72,230 +72,230 @@ The opcodes are grouped into the following categories:
 
 ## [Arithmetic Opcodes](#arithmetic)
 
-[abs](#abs)
-[add](#add)
-[div](#div)
-[gcd](#gcd)
-[lcm](#lcm)
-[mod](#mod)
-[mul](#mul)
-[neg](#neg)
+[abs](#abs) |
+[add](#add) |
+[div](#div) |
+[gcd](#gcd) |
+[lcm](#lcm) |
+[mod](#mod) |
+[mul](#mul) |
+[neg](#neg) |
 [sub](#sub)
 
 ## [Numeric Opcodes](#numeric)
 
-[base](#base)
-[ceil](#ceil)
-[exp](#exp)
-[floor](#floor)
-[inf](#inf)
-[log_n](#log_n)
-[expmod](#expmod)
-[nan](#nan)
-[neginf](#neginf)
-[pow](#pow)
-[rand](#rand)
-[srand](#srand)
+[base](#base) |
+[ceil](#ceil) |
+[exp](#exp) |
+[floor](#floor) |
+[inf](#inf) |
+[log_n](#log_n) |
+[expmod](#expmod) |
+[nan](#nan) |
+[neginf](#neginf) |
+[pow](#pow) |
+[rand](#rand) |
+[srand](#srand) |
 [sqrt](#sqrt)
 
 ## [Trigonometric Opcodes](#trig)
 
-[asec](#asec)
-[asin](#asin)
-[acos](#acos)
-[atan](#atan)
-[atan2](#atan2)
-[cos](#cos)
-[cosh](#cosh)
-[sin](#sin)
-[sinh](#sinh)
-[sec](#sec)
-[sech](#sech)
-[tan](#tan)
+[asec](#asec) |
+[asin](#asin) |
+[acos](#acos) |
+[atan](#atan) |
+[atan2](#atan2) |
+[cos](#cos) |
+[cosh](#cosh) |
+[sin](#sin) |
+[sinh](#sinh) |
+[sec](#sec) |
+[sech](#sech) |
+[tan](#tan) |
 [tanh](#tanh)
 
 ## [Relational / Logic Opcodes](#logic)
 
-[cmp](#cmp)
-[eqat](#eqat)
-[eqatic](#eqatic)
-[eqatim](#eqatim-moar-js)
-[eqaticim](#eqaticim-moar-js)
-[falsey](#falsey)
-[iseq](#iseq)
-[isgt](#isgt)
-[isge](#isge)
-[islt](#islt)
-[isle](#isle)
-[isne](#isne)
+[cmp](#cmp) |
+[eqat](#eqat) |
+[eqatic](#eqatic) |
+[eqatim](#eqatim-moar-js) |
+[eqaticim](#eqaticim-moar-js) |
+[falsey](#falsey) |
+[iseq](#iseq) |
+[isgt](#isgt) |
+[isge](#isge) |
+[islt](#islt) |
+[isle](#isle) |
+[isne](#isne) |
 [not_i](#not_i)
 
 ## [Array Opcodes](#array)
 
-[atpos](#atpos)
-[atpos2d](#atpos2d)
-[atpos3d](#atpos3d)
-[atposnd](#atposnd)
-[bindpos](#bindpos)
-[bindpos2d](#bindpos2d)
-[bindpos3d](#bindpos3d)
-[bindposnd](#bindposnd)
-[atposref](#atposref)
-[elems](#elems)
-[existspos](#existspos)
-[iterator](#iterator)
-[list](#list)
-[push](#push)
-[pop](#pop)
-[setelems](#setelems)
-[shift](#shift)
-[slice](#slice)
-[splice](#splice)
+[atpos](#atpos) |
+[atpos2d](#atpos2d) |
+[atpos3d](#atpos3d) |
+[atposnd](#atposnd) |
+[bindpos](#bindpos) |
+[bindpos2d](#bindpos2d) |
+[bindpos3d](#bindpos3d) |
+[bindposnd](#bindposnd) |
+[atposref](#atposref) |
+[elems](#elems) |
+[existspos](#existspos) |
+[iterator](#iterator) |
+[list](#list) |
+[push](#push) |
+[pop](#pop) |
+[setelems](#setelems) |
+[shift](#shift) |
+[slice](#slice) |
+[splice](#splice) |
 [unshift](#unshift)
 
 ## [Hash Opcodes](#hash)
 
-[atkey](#atkey)
-[bindkey](#bindkey)
-[existskey](#existskey)
-[deletekey](#deletekey)
-[hash](#hash)
-[iterator](#iterator)
-[iterkey](#iterkey)
+[atkey](#atkey) |
+[bindkey](#bindkey) |
+[existskey](#existskey) |
+[deletekey](#deletekey) |
+[hash](#hash) |
+[iterator](#iterator) |
+[iterkey](#iterkey) |
 [iterval](#iterval)
 
 ## [Coercion Opcodes](#coercion)
 
-[coerce_in](#coerce_in-moar)
-[coerce_ni](#coerce_ni-moar)
-[coerce_is](#coerce_is)
-[coerce_ns](#coerce_ns-moar)
-[coerce_sn](#coerce_sn-moar)
-[coerce_si](#coerce_si)
-[intify](#intify-moar)
-[numify](#numify-moar)
+[coerce_in](#coerce_in-moar) |
+[coerce_ni](#coerce_ni-moar) |
+[coerce_is](#coerce_is) |
+[coerce_ns](#coerce_ns-moar) |
+[coerce_sn](#coerce_sn-moar) |
+[coerce_si](#coerce_si) |
+[intify](#intify-moar) |
+[numify](#numify-moar) |
 [stringify](#stringify)
 
 ## [String Opcodes](#string)
 
-[chars](#chars)
-[chr](#chr)
-[codepointfromname](#codepointfromname)
-[codes](#codes)
-[concat](#concat)
-[decode](#decode)
-[decodetocodes](#decodetocodes-moar)
-[encode](#encode)
-[encodefromcodes](#encodefromcodes-moar)
-[encodenorm](#encodenorm)
-[escape](#escape)
-[fc](#fc)
-[findcclass](#findcclass)
-[findnotcclass](#findnotcclass)
-[flip](#flip)
-[index](#index)
-[indexic](#indexic-moar)
-[indexim](#indexim-moar)
-[indexicim](#indexicim-moar)
-[iscclass](#iscclass)
-[join](#join)
-[lc](#lc)
-[normalizecodes](#normalizecodes)
-[numify](#numify-moar)
-[ord](#ord)
-[ordbaseat](#ordbaseat)
-[radix](#radix)
-[replace](#replace)
-[rindex](#rindex)
-[split](#split)
-[sprintf](#sprintf)
-[sprintfdirectives](#sprintfdirectives)
-[sprintfaddargumenthandler](#sprintfaddargumenthandler)
-[strfromcodes](#strfromcodes)
-[strfromname](#strfromname)
-[strtocodes](#strtocodes)
-[substr](#substr)
-[tc](#tc)
-[tclc](#tclc)
-[uc](#uc)
-[unicmp_s](#unicmp_s-moar-js)
+[chars](#chars) |
+[chr](#chr) |
+[codepointfromname](#codepointfromname) |
+[codes](#codes) |
+[concat](#concat) |
+[decode](#decode) |
+[decodetocodes](#decodetocodes-moar) |
+[encode](#encode) |
+[encodefromcodes](#encodefromcodes-moar) |
+[encodenorm](#encodenorm) |
+[escape](#escape) |
+[fc](#fc) |
+[findcclass](#findcclass) |
+[findnotcclass](#findnotcclass) |
+[flip](#flip) |
+[index](#index) |
+[indexic](#indexic-moar) |
+[indexim](#indexim-moar) |
+[indexicim](#indexicim-moar) |
+[iscclass](#iscclass) |
+[join](#join) |
+[lc](#lc) |
+[normalizecodes](#normalizecodes) |
+[numify](#numify-moar) |
+[ord](#ord) |
+[ordbaseat](#ordbaseat) |
+[radix](#radix) |
+[replace](#replace) |
+[rindex](#rindex) |
+[split](#split) |
+[sprintf](#sprintf) |
+[sprintfdirectives](#sprintfdirectives) |
+[sprintfaddargumenthandler](#sprintfaddargumenthandler) |
+[strfromcodes](#strfromcodes) |
+[strfromname](#strfromname) |
+[strtocodes](#strtocodes) |
+[substr](#substr) |
+[tc](#tc) |
+[tclc](#tclc) |
+[uc](#uc) |
+[unicmp_s](#unicmp_s-moar-js) |
 [x](#x)
 
 ## [Unicode Property Opcodes](#unicode)
 
-[getuniname](#getuniname)
-[getuniprop_int](#getuniprop_int-moar)
-[getuniprop_str](#getuniprop_str)
-[getuniprop_bool](#getuniprop_bool-moar)
-[matchuniprop](#matchuniprop-moar)
-[unipropcode](#unipropcode)
-[unipvalcode](#unipvalcode-moar)
+[getuniname](#getuniname) |
+[getuniprop_int](#getuniprop_int-moar) |
+[getuniprop_str](#getuniprop_str) |
+[getuniprop_bool](#getuniprop_bool-moar) |
+[matchuniprop](#matchuniprop-moar) |
+[unipropcode](#unipropcode) |
+[unipvalcode](#unipvalcode-moar) |
 [hasuniprop](#hasuniprop-moar)
 
 ## [VM-Provided Streaming Decoder Opcodes](#-vm-provided-streaming-decoder-opcodes)
 
-[decoderconfigure](#decoderconfigure)
-[decodersetlineseps](#decodersetlineseps)
-[decoderaddbytes](#decoderaddbytes)
-[decodertakechars](#decodertakechars)
-[decodertakeallchars](#decodertakeallchars)
-[decodertakeavailablechars](#decodertakeavailablechars)
-[decodertakeline](#decodertakeline)
-[decoderbytesavailable](#decoderbytesavailable)
-[decodertakebytes](#decodertakebytes)
+[decoderconfigure](#decoderconfigure) |
+[decodersetlineseps](#decodersetlineseps) |
+[decoderaddbytes](#decoderaddbytes) |
+[decodertakechars](#decodertakechars) |
+[decodertakeallchars](#decodertakeallchars) |
+[decodertakeavailablechars](#decodertakeavailablechars) |
+[decodertakeline](#decodertakeline) |
+[decoderbytesavailable](#decoderbytesavailable) |
+[decodertakebytes](#decodertakebytes) |
 [decoderempty](#decoderempty)
 
 ## [Conditional Opcodes](#conditional)
 
-[if](#if)
-[unless](#unless)
-[with](#with)
+[if](#if) |
+[unless](#unless) |
+[with](#with) |
 [without](#without)
 
 ## [Loop/Control Opcodes](#control)
 
-[control](#control)
-[defor](#defor)
-[for](#for)
-[ifnull](#ifnull)
-[repeat_until](#repeat_until)
-[repeat_while](#repeat_while)
-[stmts](#stmts)
-[until](#until)
-[while](#while)
+[control](#control) |
+[defor](#defor) |
+[for](#for) |
+[ifnull](#ifnull) |
+[repeat_until](#repeat_until) |
+[repeat_while](#repeat_while) |
+[stmts](#stmts) |
+[until](#until) |
+[while](#while) |
 
 ## [Exceptional Opcodes](#exceptions)
 
-[backtrace](#backtrace)
-[backtracestrings](#backtracestrings)
-[die](#die)
-[exception](#exception)
-[getextype](#getextype)
-[getmessage](#getmessage)
-[getpayload](#getpayload)
-[newexception](#newexception)
-[resume](#resume)
-[rethrow](#rethrow)
-[setextype](#setextype)
-[setmessage](#setmessage)
-[setpayload](#setpayload)
+[backtrace](#backtrace) |
+[backtracestrings](#backtracestrings) |
+[die](#die) |
+[exception](#exception) |
+[getextype](#getextype) |
+[getmessage](#getmessage) |
+[getpayload](#getpayload) |
+[newexception](#newexception) |
+[resume](#resume) |
+[rethrow](#rethrow) |
+[setextype](#setextype) |
+[setmessage](#setmessage) |
+[setpayload](#setpayload) |
 [throw](#throw)
 
 ## [Input/Output Opcodes](#io)
 
-[closefh](#closefh)
-[eoffh](#eoffh)
-[filenofh](#filenofh)
-[flushfh](#flushfh)
-[getstderr](#getstderr)
-[getstdin](#getstdin)
-[getstdout](#getstdout)
-[open](#open)
-[print](#print)
-[readfh](#readfh)
-[say](#say)
-[seekfh](#seekfh)
-[tellfh](#tellfh)
+[closefh](#closefh) |
+[eoffh](#eoffh) |
+[filenofh](#filenofh) |
+[flushfh](#flushfh) |
+[getstderr](#getstderr) |
+[getstdin](#getstdin) |
+[getstdout](#getstdout) |
+[open](#open) |
+[print](#print) |
+[readfh](#readfh) |
+[say](#say) |
+[seekfh](#seekfh) |
+[tellfh](#tellfh) |
 [writefh](#writefh)
 
 ## [External command Opcodes](#extern)
@@ -304,247 +304,247 @@ The opcodes are grouped into the following categories:
 
 ## [File / Directory / Network Opcodes](#filedirnet)
 
-[chdir](#chdir)
-[chmod](#chmod)
-[closedir](#closedir)
-[copy](#copy)
-[cwd](#cwd)
-[fileexecutable](#fileexecutable)
-[fileislink](#fileislink)
-[filereadable](#filereadable)
-[filewritable](#filewritable)
-[gethostname](#gethostname)
-[getport](#getport-moar-jvm)
-[link](#link)
-[mkdir](#mkdir)
-[nextfiledir](#nextfiledir)
-[opendir](#opendir)
-[readlink](#readlink)
-[rename](#rename)
-[rmdir](#rmdir)
-[stat](#stat)
-[stat_time](#stat_time)
-[lstat](#lstat)
-[lstat_time](#lstat_time)
-[symlink](#symlink)
+[chdir](#chdir) |
+[chmod](#chmod) |
+[closedir](#closedir) |
+[copy](#copy) |
+[cwd](#cwd) |
+[fileexecutable](#fileexecutable) |
+[fileislink](#fileislink) |
+[filereadable](#filereadable) |
+[filewritable](#filewritable) |
+[gethostname](#gethostname) |
+[getport](#getport-moar-jvm) |
+[link](#link) |
+[mkdir](#mkdir) |
+[nextfiledir](#nextfiledir) |
+[opendir](#opendir) |
+[readlink](#readlink) |
+[rename](#rename) |
+[rmdir](#rmdir) |
+[stat](#stat) |
+[stat_time](#stat_time) |
+[lstat](#lstat) |
+[lstat_time](#lstat_time) |
+[symlink](#symlink) |
 [unlink](#unlink)
 
 ## [Type/Conversion Opcodes](#type)
 
-[bool](#bool)
-[bootarray](#bootarray-moar-jvm)
-[boothash](#boothash-moar-jvm)
-[bootint](#bootint-moar-jvm)
-[bootintarray](#bootintarray-moar-jvm)
-[bootnum](#bootnum-moar-jvm)
-[bootnumarray](#bootnumarray-moar-jvm)
-[bootstr](#bootstr-moar-jvm)
-[bootstrarray](#bootstrarray-moar-jvm)
-[box](#box)
-[decont](#decont)
-[defined](#defined)
-[fromnum](#fromnum)
-[fromstr](#fromstr)
-[fromI_I](#fromI_I)
-[isbig](#isbig)
-[iscoderef](#iscoderef-moar)
-[isconcrete](#isconcrete)
-[iscont](#iscont)
-[isfalse](#isfalse)
-[ishash](#ishash)
-[isint](#isint)
-[isinvokable](#isinvokable)
-[islist](#islist)
-[isnanorinf](#isnanorinf)
-[isnull](#isnull)
-[isnum](#isnum)
-[isprime](#isprime)
-[isrwcont](#isrwcont)
-[isstr](#isstr)
-[istrue](#istrue)
-[istype](#istype)
-[isttyfh](#isttyfh)
-[null](#null)
-[tostr](#tostr)
-[tonum](#tonum)
+[bool](#bool) |
+[bootarray](#bootarray-moar-jvm) |
+[boothash](#boothash-moar-jvm) |
+[bootint](#bootint-moar-jvm) |
+[bootintarray](#bootintarray-moar-jvm) |
+[bootnum](#bootnum-moar-jvm) |
+[bootnumarray](#bootnumarray-moar-jvm) |
+[bootstr](#bootstr-moar-jvm) |
+[bootstrarray](#bootstrarray-moar-jvm) |
+[box](#box) |
+[decont](#decont) |
+[defined](#defined) |
+[fromnum](#fromnum) |
+[fromstr](#fromstr) |
+[fromI_I](#fromI_I) |
+[isbig](#isbig) |
+[iscoderef](#iscoderef-moar) |
+[isconcrete](#isconcrete) |
+[iscont](#iscont) |
+[isfalse](#isfalse) |
+[ishash](#ishash) |
+[isint](#isint) |
+[isinvokable](#isinvokable) |
+[islist](#islist) |
+[isnanorinf](#isnanorinf) |
+[isnull](#isnull) |
+[isnum](#isnum) |
+[isprime](#isprime) |
+[isrwcont](#isrwcont) |
+[isstr](#isstr) |
+[istrue](#istrue) |
+[istype](#istype) |
+[isttyfh](#isttyfh) |
+[null](#null) |
+[tostr](#tostr) |
+[tonum](#tonum) |
 [unbox](#unbox)
 
 ## [Binary Data Opcodes](#binarydata)
 
-[writeint](#writeint-moar-js)
-[writeuint](#writeuint-moar-js)
-[writenum](#writenum-moar-js)
-[readint](#readint-moar-js)
-[readuint](#readuint-moar-js)
+[writeint](#writeint-moar-js) |
+[writeuint](#writeuint-moar-js) |
+[writenum](#writenum-moar-js) |
+[readint](#readint-moar-js) |
+[readuint](#readuint-moar-js) |
 [readnum](#readnum-moar-js)
 
 ## [OO/SixModel Opcodes](#sixmodel)
 
-[attrinited](#attrinited)
-[bindattr](#bindattr)
-[bindcomp](#bindcomp)
-[call](#call)
-[callmethod](#callmethod)
-[can](#can)
-[clone](#clone)
-[create](#create)
-[eqaddr](#eqaddr)
-[findmethod](#findmethod)
-[tryfindmethod](#tryfindmethod)
-[getattr](#getattr)
-[getcomp](#getcomp)
-[how](#how)
-[rebless](#rebless)
-[reprname](#reprname)
-[setwho](#setwho)
-[who](#who)
-[what](#what)
+[attrinited](#attrinited) |
+[bindattr](#bindattr) |
+[bindcomp](#bindcomp) |
+[call](#call) |
+[callmethod](#callmethod) |
+[can](#can) |
+[clone](#clone) |
+[create](#create) |
+[eqaddr](#eqaddr) |
+[findmethod](#findmethod) |
+[tryfindmethod](#tryfindmethod) |
+[getattr](#getattr) |
+[getcomp](#getcomp) |
+[how](#how) |
+[rebless](#rebless) |
+[reprname](#reprname) |
+[setwho](#setwho) |
+[who](#who) |
+[what](#what) |
 [where](#where)
 
 ## [SixModel Parametric Extensions Opcodes](#sixmodel-extensions)
 
-[setparameterizer](#setparameterizer)
-[setparameterizetype](#setparameterizetype)
-[typeparameterized](#typeparameterized)
-[typeparameters](#typeparameters)
+[setparameterizer](#setparameterizer) |
+[setparameterizetype](#setparameterizetype) |
+[typeparameterized](#typeparameterized) |
+[typeparameters](#typeparameters) |
 [typeparameterat](#typeparameterat)
 
 ## [Bit Opcodes](#bit)
 
-[bitand](#bitand)
-[bitneg](#bitneg)
-[bitor](#bitor)
-[bitshiftl](#bitshiftl)
-[bitshiftr](#bitshiftr)
+[bitand](#bitand) |
+[bitneg](#bitneg) |
+[bitor](#bitor) |
+[bitshiftl](#bitshiftl) |
+[bitshiftr](#bitshiftr) |
 [bitxor](#bitxor)
 
 ## [Context Introspection Opcodes](#context)
 
-[ctx](#ctx)
-[ctxcaller](#ctxcaller)
-[ctxlexpad](#ctxlexpad)
-[curlexpad](#curlexpad)
-[ctxouter](#ctxouter)
-[lexprimspec](#lexprimspec)
-[savecapture](#savecapture)
-[usecapture](#usecapture)
-[captureposelems](#captureposelems)
-[getlex](#getlex-moar-jvm)
-[getlexref](#getlexref-moar-jvm)
-[bindlex](#bindlex-moar-jvm)
-[getlexdyn](#getlexdyn)
-[bindlexdyn](#bindlexdyn)
-[getlexouter](#getlexouter)
-[getlexcaller](#getlexcaller)
-[getlexrel](#getlexrel)
-[getlexreldyn](#getlexreldyn)
+[ctx](#ctx) |
+[ctxcaller](#ctxcaller) |
+[ctxlexpad](#ctxlexpad) |
+[curlexpad](#curlexpad) |
+[ctxouter](#ctxouter) |
+[lexprimspec](#lexprimspec) |
+[savecapture](#savecapture) |
+[usecapture](#usecapture) |
+[captureposelems](#captureposelems) |
+[getlex](#getlex-moar-jvm) |
+[getlexref](#getlexref-moar-jvm) |
+[bindlex](#bindlex-moar-jvm) |
+[getlexdyn](#getlexdyn) |
+[bindlexdyn](#bindlexdyn) |
+[getlexouter](#getlexouter) |
+[getlexcaller](#getlexcaller) |
+[getlexrel](#getlexrel) |
+[getlexreldyn](#getlexreldyn) |
 [getlexrelcaller](#getlexrelcaller)
 
 ## [Variable Opcodes](#variable)
 
-[bind](#bind)
+[bind](#bind) |
 
 ## [Native Call / Interoperability Opcodes](#nativecall)
 
-[buildnativecall](#buildnativecall)
-[nativecall](#nativecall)
-[nativecallcast](#nativecallcast)
-[nativecallglobal](#nativecallglobal)
-[nativecallinvoke](#nativecallinvoke)
-[nativecallrefresh](#nativecallrefresh)
+[buildnativecall](#buildnativecall) |
+[nativecall](#nativecall) |
+[nativecallcast](#nativecallcast) |
+[nativecallglobal](#nativecallglobal) |
+[nativecallinvoke](#nativecallinvoke) |
+[nativecallrefresh](#nativecallrefresh) |
 [nativecallsizeof](#nativecallsizeof)
 
 ## [Thread Opcodes](#thread)
 
-[newthread](#newthread)
-[threadid](#threadid-moar-jvm)
-[threadrun](#threadrun-moar-jvm)
-[threadyield](#threadyield-moar-jvm)
-[threadjoin](#threadjoin-moar-jvm)
-[currentthread](#currentthread-moar-jvm)
+[newthread](#newthread) |
+[threadid](#threadid-moar-jvm) |
+[threadrun](#threadrun-moar-jvm) |
+[threadyield](#threadyield-moar-jvm) |
+[threadjoin](#threadjoin-moar-jvm) |
+[currentthread](#currentthread-moar-jvm) |
 [threadlockcount](#threadlockcount-moar-jvm)
 
 ## [Asynchronous operations](#async)
 
-[permit](#permit)
-[cancel](#cancel-moar-jvm)
-[timer](#timer-moar-jvm)
-[signal](#signal-moar-jvm)
-[watchfile](#watchfile-moar-jvm)
-[asyncconnect](#asyncconnect)
-[asynclisten](#asynclisten)
-[asyncwritebytes](#asyncwritebytes)
-[asyncreadbytes](#asyncreadbytes-moar-jvm)
-[spawnprocasync](#spawnprocasync)
+[permit](#permit) |
+[cancel](#cancel-moar-jvm) |
+[timer](#timer-moar-jvm) |
+[signal](#signal-moar-jvm) |
+[watchfile](#watchfile-moar-jvm) |
+[asyncconnect](#asyncconnect) |
+[asynclisten](#asynclisten) |
+[asyncwritebytes](#asyncwritebytes) |
+[asyncreadbytes](#asyncreadbytes-moar-jvm) |
+[spawnprocasync](#spawnprocasync) |
 [killprocasync](#killprocasync)
 
 ## [HLL-Specific Operations](#hll-specific)
 
-[hllbool](#hllbool)
-[hllboxtype](#hllboxtype)
-[hllhash](#hllhash-moar-jvm)
+[hllbool](#hllbool) |
+[hllboxtype](#hllboxtype) |
+[hllhash](#hllhash-moar-jvm) |
 [hlllist](#hlllist-moar-jvm)
 
 ## [Atomic operations](#atomic)
 
-[cas](#cas-moar)
-[cas_i](#cas_i-moar)
-[atomicbindattr](#atomicbindattr)
-[atomicinc_i](#atomicinc_i-moar)
-[atomicdec_i](#atomicdec_i-moar)
-[atomicadd_i](#atomicadd_i-moar)
-[atomicload](#atomicload-moar)
-[atomicload_i](#atomicload_i-moar)
-[atomicstore](#atomicstore-moar)
-[atomicstore_i](#atomicstore_i-moar)
+[cas](#cas-moar) |
+[cas_i](#cas_i-moar) |
+[atomicbindattr](#atomicbindattr) |
+[atomicinc_i](#atomicinc_i-moar) |
+[atomicdec_i](#atomicdec_i-moar) |
+[atomicadd_i](#atomicadd_i-moar) |
+[atomicload](#atomicload-moar) |
+[atomicload_i](#atomicload_i-moar) |
+[atomicstore](#atomicstore-moar) |
+[atomicstore_i](#atomicstore_i-moar) |
 [barrierfull](#barrierfull-moar)
 
 ## [Serialization context](#-serialization-context)
 
-[createsc](#createsc)
-[scsetdesc](#scsetdesc)
-[scgetdesc](#scgetdesc)
-[scgethandle](#scgethandle)
-[pushcompsc](#pushcompsc)
-[popcompsc](#popcompsc)
-[scsetobj](#scsetobjc)
-[setobjsc](#setobjsc)
-[getobjsc](#getobjsc)
-[scgetobjidx](#scgetobjidx)
-[serialize](#serialize)
-[deserialize](#deserialize)
+[createsc](#createsc) |
+[scsetdesc](#scsetdesc) |
+[scgetdesc](#scgetdesc) |
+[scgethandle](#scgethandle) |
+[pushcompsc](#pushcompsc) |
+[popcompsc](#popcompsc) |
+[scsetobj](#scsetobjc) |
+[setobjsc](#setobjsc) |
+[getobjsc](#getobjsc) |
+[scgetobjidx](#scgetobjidx) |
+[serialize](#serialize) |
+[deserialize](#deserialize) |
 [scobjcount](#scobjcount)
 
 ## [Miscellaneous Opcodes](#misc)
 
-[locallifetime](#locallifetime)
-[const](#const)
-[cpucores](#cpucores)
-[decodelocaltime](#decodelocaltime)
-[force_gc](#force_gc-moar-jvm)
-[freemem](#freemem)
-[getcodename](#getcodename)
-[getrusage](#getrusage)
-[uname](#uname-moar-js)
-[debugnoop `jvm`](#debugnoop-jvm)
-[exit](#exit)
-[getenvhash](#getenvhash)
-[getsignals](#getsignals)
-[backendconfig](#backendconfig)
-[getpid](#getpid)
-[getppid](#getppid-moar)
-[indexingoptimized](#indexingoptimized)
-[js](#js-moar=js)
-[jvmclasspaths](#jvmclasspaths-jvm)
-[jvmgetproperties](#jvmgetproperties-jvm)
-[objectid](#objectid)
-[setcodename](#setcodename)
-[sha1](#sha1)
-[sleep](#sleep)
-[takeclosure](#takeclosure)
-[time](#time)
-[totalmem](#totalmem)
-[mvmstartprofile](#mvmstartprofile-moar)
+[locallifetime](#locallifetime) |
+[const](#const) |
+[cpucores](#cpucores) |
+[decodelocaltime](#decodelocaltime) |
+[force_gc](#force_gc-moar-jvm) |
+[freemem](#freemem) |
+[getcodename](#getcodename) |
+[getrusage](#getrusage) |
+[uname](#uname-moar-js) |
+[debugnoop](#debugnoop-jvm) |
+[exit](#exit) |
+[getenvhash](#getenvhash) |
+[getsignals](#getsignals) |
+[backendconfig](#backendconfig) |
+[getpid](#getpid) |
+[getppid](#getppid-moar) |
+[indexingoptimized](#indexingoptimized) |
+[js](#js-moar=js) |
+[jvmclasspaths](#jvmclasspaths-jvm) |
+[jvmgetproperties](#jvmgetproperties-jvm) |
+[objectid](#objectid) |
+[setcodename](#setcodename) |
+[sha1](#sha1) |
+[sleep](#sleep) |
+[takeclosure](#takeclosure) |
+[time](#time) |
+[totalmem](#totalmem) |
+[mvmstartprofile](#mvmstartprofile-moar) |
 [mvmendprofile](#mvmendprofile-moar)
 
 # <a id="arithmetic"></a> Arithmetic Opcodes
