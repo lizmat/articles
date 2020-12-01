@@ -70,7 +70,7 @@ arguments.
 
 The opcodes are grouped into the following categories:
 
-## [Arithmetic Opcodes](#arithmetic)
+## [Arithmetic](#arithmetic)
 
 [abs](#abs) |
 [add](#add) |
@@ -82,7 +82,7 @@ The opcodes are grouped into the following categories:
 [neg](#neg) |
 [sub](#sub)
 
-## [Numeric Opcodes](#numeric)
+## [Numeric](#numeric)
 
 [base](#base) |
 [ceil](#ceil) |
@@ -98,7 +98,7 @@ The opcodes are grouped into the following categories:
 [srand](#srand) |
 [sqrt](#sqrt)
 
-## [Trigonometric Opcodes](#trig)
+## [Trigonometric](#trig)
 
 [asec](#asec) |
 [asin](#asin) |
@@ -114,7 +114,7 @@ The opcodes are grouped into the following categories:
 [tan](#tan) |
 [tanh](#tanh)
 
-## [Relational / Logic Opcodes](#logic)
+## [Relational / Logic](#logic)
 
 [cmp](#cmp) |
 [eqat](#eqat) |
@@ -130,7 +130,7 @@ The opcodes are grouped into the following categories:
 [isne](#isne) |
 [not_i](#not_i)
 
-## [Array Opcodes](#array)
+## [Array](#array)
 
 [atpos](#atpos) |
 [atpos2d](#atpos2d) |
@@ -153,7 +153,7 @@ The opcodes are grouped into the following categories:
 [splice](#splice) |
 [unshift](#unshift)
 
-## [Hash Opcodes](#hash)
+## [Hash](#hash)
 
 [atkey](#atkey) |
 [bindkey](#bindkey) |
@@ -164,7 +164,7 @@ The opcodes are grouped into the following categories:
 [iterkey](#iterkey) |
 [iterval](#iterval)
 
-## [Coercion Opcodes](#coercion)
+## [Coercion](#coercion)
 
 [coerce_in](#coerce_in-moar) |
 [coerce_ni](#coerce_ni-moar) |
@@ -176,7 +176,7 @@ The opcodes are grouped into the following categories:
 [numify](#numify-moar) |
 [stringify](#stringify)
 
-## [String Opcodes](#string)
+## [String](#string)
 
 [chars](#chars) |
 [chr](#chr) |
@@ -221,7 +221,7 @@ The opcodes are grouped into the following categories:
 [unicmp_s](#unicmp_s-moar-js) |
 [x](#x)
 
-## [Unicode Property Opcodes](#unicode)
+## [Unicode Properties](#unicode)
 
 [getuniname](#getuniname) |
 [getuniprop_int](#getuniprop_int-moar) |
@@ -232,7 +232,7 @@ The opcodes are grouped into the following categories:
 [unipvalcode](#unipvalcode-moar) |
 [hasuniprop](#hasuniprop-moar)
 
-## [VM-Provided Streaming Decoder Opcodes](#-vm-provided-streaming-decoder-opcodes)
+## [Stream Decoding](#stream-decoding)
 
 [decoderconfigure](#decoderconfigure) |
 [decodersetlineseps](#decodersetlineseps) |
@@ -245,14 +245,14 @@ The opcodes are grouped into the following categories:
 [decodertakebytes](#decodertakebytes) |
 [decoderempty](#decoderempty)
 
-## [Conditional Opcodes](#conditional)
+## [Conditional](#conditional)
 
 [if](#if) |
 [unless](#unless) |
 [with](#with) |
 [without](#without)
 
-## [Loop/Control Opcodes](#control)
+## [Loop/Control](#control)
 
 [control](#control) |
 [defor](#defor) |
@@ -264,7 +264,7 @@ The opcodes are grouped into the following categories:
 [until](#until) |
 [while](#while) |
 
-## [Exceptional Opcodes](#exceptions)
+## [Exception Handling](#exception-handling)
 
 [backtrace](#backtrace) |
 [backtracestrings](#backtracestrings) |
@@ -281,7 +281,7 @@ The opcodes are grouped into the following categories:
 [setpayload](#setpayload) |
 [throw](#throw)
 
-## [Input/Output Opcodes](#io)
+## [Input/Output](#io)
 
 [closefh](#closefh) |
 [eoffh](#eoffh) |
@@ -298,11 +298,11 @@ The opcodes are grouped into the following categories:
 [tellfh](#tellfh) |
 [writefh](#writefh)
 
-## [External command Opcodes](#extern)
+## [External Commands](#extern)
 
 [execname](#execname-moar-js)
 
-## [File / Directory / Network Opcodes](#filedirnet)
+## [File / Directory / Network](#filedirnet)
 
 [chdir](#chdir) |
 [chmod](#chmod) |
@@ -329,7 +329,7 @@ The opcodes are grouped into the following categories:
 [symlink](#symlink) |
 [unlink](#unlink)
 
-## [Type/Conversion Opcodes](#type)
+## [Type/Conversion](#type)
 
 [bool](#bool) |
 [bootarray](#bootarray-moar-jvm) |
@@ -369,7 +369,7 @@ The opcodes are grouped into the following categories:
 [tonum](#tonum) |
 [unbox](#unbox)
 
-## [Binary Data Opcodes](#binarydata)
+## [Binary Data](#binarydata)
 
 [writeint](#writeint-moar-js) |
 [writeuint](#writeuint-moar-js) |
@@ -378,7 +378,7 @@ The opcodes are grouped into the following categories:
 [readuint](#readuint-moar-js) |
 [readnum](#readnum-moar-js)
 
-## [OO/SixModel Opcodes](#sixmodel)
+## [Objects](#objects)
 
 [attrinited](#attrinited) |
 [bindattr](#bindattr) |
@@ -401,7 +401,7 @@ The opcodes are grouped into the following categories:
 [what](#what) |
 [where](#where)
 
-## [SixModel Parametric Extensions Opcodes](#sixmodel-extensions)
+## [Parametric Type Extensions](#parametric-type-extensions)
 
 [setparameterizer](#setparameterizer) |
 [setparameterizetype](#setparameterizetype) |
@@ -409,7 +409,7 @@ The opcodes are grouped into the following categories:
 [typeparameters](#typeparameters) |
 [typeparameterat](#typeparameterat)
 
-## [Bit Opcodes](#bit)
+## [Bit](#bit)
 
 [bitand](#bitand) |
 [bitneg](#bitneg) |
@@ -418,7 +418,7 @@ The opcodes are grouped into the following categories:
 [bitshiftr](#bitshiftr) |
 [bitxor](#bitxor)
 
-## [Context Introspection Opcodes](#context)
+## [Context Introspection](#context)
 
 [ctx](#ctx) |
 [ctxcaller](#ctxcaller) |
@@ -440,11 +440,11 @@ The opcodes are grouped into the following categories:
 [getlexreldyn](#getlexreldyn) |
 [getlexrelcaller](#getlexrelcaller)
 
-## [Variable Opcodes](#variable)
+## [Variable](#variable)
 
-[bind](#bind) |
+[bind](#bind)
 
-## [Native Call / Interoperability Opcodes](#nativecall)
+## [NativeCall](#nativecall)
 
 [buildnativecall](#buildnativecall) |
 [nativecall](#nativecall) |
@@ -454,7 +454,7 @@ The opcodes are grouped into the following categories:
 [nativecallrefresh](#nativecallrefresh) |
 [nativecallsizeof](#nativecallsizeof)
 
-## [Thread Opcodes](#thread)
+## [Threads](#thread)
 
 [newthread](#newthread) |
 [threadid](#threadid-moar-jvm) |
@@ -464,7 +464,7 @@ The opcodes are grouped into the following categories:
 [currentthread](#currentthread-moar-jvm) |
 [threadlockcount](#threadlockcount-moar-jvm)
 
-## [Asynchronous operations](#async)
+## [Asynchronous](#async)
 
 [permit](#permit) |
 [cancel](#cancel-moar-jvm) |
@@ -478,14 +478,14 @@ The opcodes are grouped into the following categories:
 [spawnprocasync](#spawnprocasync) |
 [killprocasync](#killprocasync)
 
-## [HLL-Specific Operations](#hll-specific)
+## [HLL-Specific](#hll-specific)
 
 [hllbool](#hllbool) |
 [hllboxtype](#hllboxtype) |
 [hllhash](#hllhash-moar-jvm) |
 [hlllist](#hlllist-moar-jvm)
 
-## [Atomic operations](#atomic)
+## [Atomic](#atomic)
 
 [cas](#cas-moar) |
 [cas_i](#cas_i-moar) |
@@ -499,7 +499,7 @@ The opcodes are grouped into the following categories:
 [atomicstore_i](#atomicstore_i-moar) |
 [barrierfull](#barrierfull-moar)
 
-## [Serialization context](#-serialization-context)
+## [Serialization Context](#-serialization-context)
 
 [createsc](#createsc) |
 [scsetdesc](#scsetdesc) |
@@ -515,7 +515,7 @@ The opcodes are grouped into the following categories:
 [deserialize](#deserialize) |
 [scobjcount](#scobjcount)
 
-## [Miscellaneous Opcodes](#misc)
+## [Miscellaneous](#misc)
 
 [locallifetime](#locallifetime) |
 [const](#const) |
@@ -547,7 +547,7 @@ The opcodes are grouped into the following categories:
 [mvmstartprofile](#mvmstartprofile-moar) |
 [mvmendprofile](#mvmendprofile-moar)
 
-# <a id="arithmetic"></a> Arithmetic Opcodes
+# <a id="arithmetic"></a> Arithmetic
 
 ## abs
 * `abs_i(int $i --> int)`
@@ -624,7 +624,7 @@ Return the negative of a number.
 Subtract $r from $l, returning the result.
 Typed variants return an object of the given type.
 
-# <a id="numeric"></a> Numeric Opcodes
+# <a id="numeric"></a> Numeric
 
 ## base
 * `base_I(Int $i, int $radix --> str)`
@@ -702,7 +702,7 @@ an integer.
 
 Return the square root of the given num.
 
-# <a id="trig"></a> Trigonometric Opcodes
+# <a id="trig"></a> Trigonometric
 
 ## asec
 * `asec_n(num $n --> num)`
@@ -769,7 +769,7 @@ Tangent.
 
 Hyperbolic tangent.
 
-# <a id="logic"></a> Relational / Logic Opcodes
+# <a id="logic"></a> Relational / Logic
 
 ## cmp
 * `cmp_i(int $l, int $r --> int)`
@@ -864,7 +864,7 @@ Return 1 if the two parameters are not equal, otherwise 0.
 
 Return 1 if `$val` is 0, 0 otherwise.
 
-# <a id="array"></a> Array Opcodes
+# <a id="array"></a> Array
 
 ## atpos
 * `atpos(@arr, int $i --> Mu)`
@@ -1058,7 +1058,7 @@ while $iter {
 
 You can also use `nqp::iterator()` to iterate over a hash's key-value pairs.
 
-# <a id="hash"></a> Hash Opcodes
+# <a id="hash"></a> Hash
 
 ## atkey
 * `atkey(%hash, str $key --> Mu)`
@@ -1174,7 +1174,7 @@ Coerce an object to num.
 
 Coerce an object to str.
 
-# <a id="string"></a> String Opcodes
+# <a id="string"></a> String
 
 ## chars
 * `chars(str $str --> int)`
@@ -1564,7 +1564,7 @@ For more information see [Unicode TR10][UCA].
 
 Return a new string containing `$count` copies of `$str`.
 
-# <a id="unicode"></a> Unicode Property Opcodes
+# <a id="unicode"></a> Unicode Properties
 
 ## getuniname
 * `getuniname(int $codepoint --> str)`
@@ -1620,7 +1620,7 @@ table within that category to use.
 Checks if the string has a specific property value at a specific offset.
 Requires both the propcode and the pvalcode to work.
 
-# <a id="-vm-provided-streaming-decoder-opcodes"></a> VM-Provided Streaming Decoder Opcodes
+# <a id="stream-decoding"></a> Stream Decoding
 
 ## decoderconfigure
 * `decoderconfigure(Decoder $dec, str $encoding, VMHash $config)`
@@ -1702,7 +1702,7 @@ Returns 1 if the decoder is empty (this means that there are no undecoded
 bytes, no decoded but untaken chars, and nothing in the normalization buffer).
 Otherwise returns 0.
 
-# <a id="conditional"></a> Conditional Opcodes
+# <a id="conditional"></a> Conditional
 
 ## if
 * `if(Block $condition, Block $then)`
@@ -1736,7 +1736,7 @@ If the `$condition` evaluates to an **undefined** value, run the `$then` block.
 If not, and an `$else` block is present, run that instead, if it's absent,
 return result of `$condition`.
 
-# <a id="control"></a> Loop/Control Opcodes
+# <a id="control"></a> Loop/Control
 
 ## control
 * `QAST::Op.new(:op<control>, :name<next>);`
@@ -1813,7 +1813,7 @@ Enter a loop, running the `$body` only if the condition returns a non-0 value.
 
 If a `$post` block is present, run that at the end, regardless of `$condition`.
 
-# <a id="exceptions"></a> Exceptional Opcodes
+# <a id="exception-handling"></a> Exception Handling
 
 ## backtrace
 * `backtrace(Exception $ex)`
@@ -1886,7 +1886,7 @@ Sets the exception payload.
 
 Throw the exception.
 
-# <a id="io"></a> Input/Output Opcodes
+# <a id="io"></a> Input/Output
 
 ## closefh
 * `closefh(Handle $fh)`
@@ -1963,7 +1963,7 @@ Return current access position for an open filehandle.
 
 Output the given object to the filehandle. Returns the number of bytes written.
 
-# <a id="extern"></a> External command Opcodes
+# <a id="extern"></a> External Command
 ## execname `moar` `js`
 * `execname(--> str)`
 
@@ -1974,7 +1974,7 @@ to MoarVM, since `raku` is actually a shell script. But when we do get to
 providing a fake executable for `raku` instead, then it'd just initialize it
 to `argv[0]`.
 
-# <a id="filedirnet"></a> File / Directory / Network Opcodes
+# <a id="filedirnet"></a> File / Directory / Network
 
 ## chdir
 * `chdir(str $path --> str)`
@@ -2191,7 +2191,7 @@ Create a symbolic link from `$after` to `$before`
 Delete the given file $path. Returns 0 on success, -2 if the file
 didn't exist. May throw an exception.
 
-# <a id="type"></a> Type/Conversion Opcodes
+# <a id="type"></a> Type / Conversion
 
 ## bool
 * `bool_I(Int $val)`
@@ -2418,7 +2418,7 @@ Convert Big Integer value to a native number.
 Given a Raku object, return a native with the same value,
 of the type indicated by the opcode suffix.
 
-# <a id="binarydata"></a> Binary Data Opcodes
+# <a id="binarydata"></a> Binary Data
 
 For these definitions, `buffer` refers to a concrete object with a REPR of
 either `VMArray` or `MultiDimArray`, the latter being constrained to a single
@@ -2484,7 +2484,7 @@ endianness specified by `$flags`. Returns that value, widened to a 64-bit uint.
 Reads a floating point number at offset `$offset` from `$source` with the
 size specified by `$flags`. Returns that value, widened to a 64-bit num.
 
-# <a id="sixmodel"></a> OO/SixModel Opcodes
+# <a id="objects"></a> Objects
 
 ## attrinited
 * `attrinited(Mu $obj. Mu:T $type, str $attributename --> int)`
@@ -2656,7 +2656,7 @@ The `_nd` variant does not decontainerize the object.
 Return the memory address for this `$obj`.  Please note that this is **NOT**
 a constant value for a given object.  Please use `objectid` for that.
 
-# <a id="sixmodel-extensions"></a> SixModel Parametric Extension Opcodes
+# <a id="parametric-type-extensions"></a> SixModel Parametric Extensions
 
 The sixmodel parametric extensions add parametric type support at the VM level.
 A type may configure itself as supporting parameterization. Parameterizations
@@ -2710,7 +2710,7 @@ Equivalent to nqp::atpos(nqp::typeparameters(type), idx), except much easieri
 for type specialization to understand and deal with and avoids an array
 construction.
 
-# <a id="bit"></a> Bit Opcodes
+# <a id="bit"></a> Bit
 
 ## bitand
 * `bitand_i(int $l, int $r)`
@@ -2757,7 +2757,7 @@ Signed right shift of `$bits` by `$count`.
 XOR the bits in `$l` and `$r`.
 `_I` variant returns an object of the given type.
 
-# <a id="context"></a> Context Introspection Opcodes
+# <a id="context"></a> Context Introspection
 
 ## ctx
 * `ctx(--> Context)`
@@ -2890,7 +2890,7 @@ starting at the given $context.
 Looks up the lexical with the specified name, starting at the given
 $context. It checks all outer frames of the caller chain.
 
-# <a id="variable"></a> Variable Opcodes
+# <a id="variable"></a> Variable
 
 ## bind
 * `bind(Mu $variable, Mu $value)`
@@ -2898,7 +2898,7 @@ $context. It checks all outer frames of the caller chain.
 Binds `$value` to the `$variable`. Dies if `$variable` isn't actually a
 variable. Same as the `:=` operator in NQP.
 
-# <a id="thread"></a> Thread opcodes
+# <a id="threads"></a> Threads
 
 ## newthread `moar` `jvm`
 * `newthread(block, app_lifetime --> vm_thread)`
@@ -2940,7 +2940,7 @@ Returns the vm_thread object for the current thread.
 
 Returns the number of locks held by the given thread.
 
-# <a id="async"></a> Asynchronous Operations
+# <a id="async"></a> Asynchronous
 
 The various asynchronous operations, such as timers and asynchronous I/O, take
 a concurrent queue to push a work item into at an appropriate time. This may
@@ -3053,7 +3053,7 @@ Replaced *shell* and *spawn*. See t/nqp/111-spawnprocasync.t for an example of u
 ## killprocasync
 * `killprocasync($handle, $signal)`
 
-# <a id="hll-specific"></a> HLL-Specific Operations
+# <a id="hll-specific"></a> HLL-Specific
 
 HLL, or High-Level Language, refers to the language being implemented in NQP.
 
@@ -3110,7 +3110,7 @@ otherwise every access will hit the "compiler's HLL config".
 This serves, for example, to seperate a running NQP compiler from an NQP
 compiler it's compiling, when compile-time evaluation happens.
 
-# <a id="atomic"></a> Atomic Operations
+# <a id="atomic"></a> Atomic
 
 ## cas `moar`
 * `cas(ObjectContainer $cont, Mu $expected, Mu $new --> Mu)`
@@ -3298,7 +3298,7 @@ versions unless the keys overlap. For some objects we do not want repossession
 even if they were modified, i.e. they were only needed for compilation and/or
 there wouldn't be a way to resolve conflicts.
 
-# <a id="misc"></a> Miscellaneous Opcodes
+# <a id="misc"></a> Miscellaneous
 
 ## locallifetime
 * `QAST::Op.new(:op<locallifetime>, :node($/), QAST::Stmt.new(...))`
@@ -3694,7 +3694,7 @@ following structure (times are in microseconds, sizes are in bytes):
             ├ nursery_seen => 10                - seen before in a GC
             └ nursery_fresh => 6                - *not* seen before in a GC
 
-# <a id="nativecall"></a> Native Call / Interoperability Opcodes
+# <a id="nativecall"></a> NativeCall
 
 ## buildnativecall
 * `buildnativecall(obj &routine, str $lib, $symbol, str $conv, obj $arg_info, obj $ret_info -> int jit)`
