@@ -364,21 +364,33 @@ arguments.
 
 The opcodes are grouped into the following categories:
 
-* [Arithmetic Opcodes](#arithmetic)
+### [Arithmetic Opcodes](#arithmetic)
 
-[abs](#abs),
-[add](#add),
-[div](#div),
-[gcd](#gcd),
-[lcm](#lcm),
-[mod](#mod),
-[mul](#mul),
-[neg](#neg),
+[abs](#abs)
+[add](#add)
+[div](#div)
+[gcd](#gcd)
+[lcm](#lcm)
+[mod](#mod)
+[mul](#mul)
+[neg](#neg)
 [sub](#sub)
 
-* [Numeric Opcodes](#numeric)
+### [Numeric Opcodes](#numeric)
 
-[base](#base) [ceil](#ceil) [exp](#exp) [floor](#floor) [inf](#inf) [log_n](#log_n) [expmod](#expmod) [nan](#nan) [neginf](#neginf) [pow](#pow) [rand](#rand) [srand](#srand) [sqrt](#sqrt)
+[base](#base)
+[ceil](#ceil)
+[exp](#exp)
+[floor](#floor)
+[inf](#inf)
+[log_n](#log_n)
+[expmod](#expmod)
+[nan](#nan)
+[neginf](#neginf)
+[pow](#pow)
+[rand](#rand)
+[srand](#srand)
+[sqrt](#sqrt)
 
 * [Trigonometric Opcodes](#trig)
 
