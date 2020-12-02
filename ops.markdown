@@ -546,6 +546,8 @@ The opcodes are grouped into the following categories:
 [mvmstartprofile](#mvmstartprofile-moar) |
 [mvmendprofile](#mvmendprofile-moar)
 
+#------------------------------------------------------------------------------
+
 # <a id="arithmetic"></a> Arithmetic
 
 ## abs
