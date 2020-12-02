@@ -1092,7 +1092,7 @@ while $iter {
 
 You can also use `nqp::iterator()` to iterate over a list, which is
 functionally equivalent to cloning the list and not having to know
-which form of "shift" to have to use.
+which form of `shift` to have to use.
 ```raku
 my $list := nqp::list('a', 'b', 'c');
 my $iter := nqp::iterator($list);
