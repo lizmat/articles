@@ -128,7 +128,7 @@ The opcodes are grouped into the following categories:
 [islt](#islt) |
 [isle](#isle) |
 [isne](#isne) |
-[not_i](#not_i)
+[not](#not)
 
 ## [Array](#array)
 
@@ -858,7 +858,7 @@ Return 1 if the two parameters are not equal, otherwise 0.
 
 `isne_snfg` is a JS specific opcode that first normalizes string arguments to NFC.
 
-## not_i
+## not
 * `not_i(int $val --> int)`
 
 Return 1 if `$val` is 0, 0 otherwise.
