@@ -108,38 +108,38 @@ The opcodes are grouped into the following categories:
 
 [asyncconnect](#asyncconnect) |
 [asynclisten](#asynclisten) |
-[asyncreadbytes `moar` `jvm`](#asyncreadbytes `moar` `jvm`) |
+[asyncreadbytes](#asyncreadbytes) |
 [asyncwritebytes](#asyncwritebytes) |
-[cancel `moar` `jvm`](#cancel `moar` `jvm`) |
+[cancel](#cancel) |
 [killprocasync](#killprocasync) |
 [permit](#permit) |
-[signal `moar` `jvm`](#signal `moar` `jvm`) |
+[signal](#signal) |
 [spawnprocasync](#spawnprocasync) |
-[timer `moar` `jvm`](#timer `moar` `jvm`) |
-[watchfile `moar` `jvm`](#watchfile `moar` `jvm`)
+[timer](#timer) |
+[watchfile](#watchfile)
 
 ## [Atomic](#atomic)
 
-[atomicadd_i `moar`](#atomicadd_i `moar`) |
-[atomicbindattr `moar`](#atomicbindattr `moar`) |
-[atomicdec_i `moar`](#atomicdec_i `moar`) |
-[atomicinc_i `moar`](#atomicinc_i `moar`) |
-[atomicload `moar`](#atomicload `moar`) |
-[atomicload_i `moar`](#atomicload_i `moar`) |
-[atomicstore `moar`](#atomicstore `moar`) |
-[atomicstore_i `moar`](#atomicstore_i `moar`) |
-[barrierfull `moar`](#barrierfull `moar`) |
-[cas `moar`](#cas `moar`) |
-[cas_i `moar`](#cas_i `moar`)
+[atomicadd_i](#atomicadd_i) |
+[atomicbindattr](#atomicbindattr) |
+[atomicdec_i](#atomicdec_i) |
+[atomicinc_i](#atomicinc_i) |
+[atomicload](#atomicload) |
+[atomicload_i](#atomicload_i) |
+[atomicstore](#atomicstore) |
+[atomicstore_i](#atomicstore_i) |
+[barrierfull](#barrierfull) |
+[cas](#cas) |
+[cas_i](#cas_i)
 
 ## [Binary Data](#binarydata)
 
-[readint `moar` `js`](#readint `moar` `js`) |
-[readnum `moar` `js`](#readnum `moar` `js`) |
-[readuint `moar` `js`](#readuint `moar` `js`) |
-[writeint `moar` `js`](#writeint `moar` `js`) |
-[writenum `moar` `js`](#writenum `moar` `js`) |
-[writeuint `moar` `js`](#writeuint `moar` `js`)
+[readint](#readint) |
+[readnum](#readnum) |
+[readuint](#readuint) |
+[writeint](#writeint) |
+[writenum](#writenum) |
+[writeuint](#writeuint)
 
 ## [Bit](#bit)
 
@@ -152,14 +152,14 @@ The opcodes are grouped into the following categories:
 
 ## [Coercion](#coercion)
 
-[coerce_in `moar`](#coerce_in `moar`) |
+[coerce_in](#coerce_in) |
 [coerce_is](#coerce_is) |
-[coerce_ni `moar`](#coerce_ni `moar`) |
-[coerce_ns `moar`](#coerce_ns `moar`) |
+[coerce_ni](#coerce_ni) |
+[coerce_ns](#coerce_ns) |
 [coerce_si](#coerce_si) |
-[coerce_sn `moar`](#coerce_sn `moar`) |
-[intify `moar`](#intify `moar`) |
-[numify `moar`](#numify `moar`) |
+[coerce_sn](#coerce_sn) |
+[intify](#intify) |
+[numify](#numify) |
 [stringify](#stringify)
 
 ## [Conditional](#conditional)
@@ -171,7 +171,7 @@ The opcodes are grouped into the following categories:
 
 ## [Context Introspection](#context)
 
-[bindlex `moar` `jvm`](#bindlex `moar` `jvm`) |
+[bindlex](#bindlex) |
 [bindlexdyn](#bindlexdyn) |
 [captureposelems](#captureposelems) |
 [ctx](#ctx) |
@@ -179,11 +179,11 @@ The opcodes are grouped into the following categories:
 [ctxlexpad](#ctxlexpad) |
 [ctxouter](#ctxouter) |
 [curlexpad](#curlexpad) |
-[getlex `moar` `jvm`](#getlex `moar` `jvm`) |
+[getlex](#getlex) |
 [getlexcaller](#getlexcaller) |
 [getlexdyn](#getlexdyn) |
 [getlexouter](#getlexouter) |
-[getlexref `moar` `jvm`](#getlexref `moar` `jvm`) |
+[getlexref](#getlexref) |
 [getlexrel](#getlexrel) |
 [getlexrelcaller](#getlexrelcaller) |
 [getlexreldyn](#getlexreldyn) |
@@ -222,7 +222,7 @@ The opcodes are grouped into the following categories:
 
 ## [External Command](#extern)
 
-[execname `moar` `js`](#execname `moar` `js`)
+[execname](#execname)
 
 ## [File / Directory / Network](#filedirnet)
 
@@ -236,7 +236,7 @@ The opcodes are grouped into the following categories:
 [filereadable](#filereadable) |
 [filewritable](#filewritable) |
 [gethostname](#gethostname) |
-[getport `moar` `jvm`](#getport `moar` `jvm`) |
+[getport](#getport) |
 [link](#link) |
 [lstat](#lstat) |
 [lstat_time](#lstat_time) |
@@ -264,13 +264,13 @@ The opcodes are grouped into the following categories:
 
 ## [HLL-Specific](#hll-specific)
 
-[bindhllsym / bindcurhllsym](#bindhllsym / bindcurhllsym) |
-[gethllsym / getcurhllsym](#gethllsym / getcurhllsym) |
+[bindhllsym](#bindhllsym) |
+[gethllsym](#gethllsym) |
 [hllbool](#hllbool) |
 [hllboxtype](#hllboxtype) |
-[hllhash `moar` `jvm`](#hllhash `moar` `jvm`) |
-[hlllist `moar` `jvm`](#hlllist `moar` `jvm`) |
-[usecompilerhll / usecompileehll](#usecompilerhll / usecompileehll)
+[hllhash](#hllhash) |
+[hlllist](#hlllist) |
+[usecompilerhll](#usecompilerhll)
 
 ## [Input/Output](#io)
 
@@ -294,8 +294,8 @@ The opcodes are grouped into the following categories:
 [cmp](#cmp) |
 [eqat](#eqat) |
 [eqatic](#eqatic) |
-[eqaticim `moar` `js`](#eqaticim `moar` `js`) |
-[eqatim `moar` `js`](#eqatim `moar` `js`) |
+[eqaticim](#eqaticim) |
+[eqatim](#eqatim) |
 [falsey](#falsey) |
 [iseq](#iseq) |
 [isge](#isge) |
@@ -404,9 +404,9 @@ The opcodes are grouped into the following categories:
 [codes](#codes) |
 [concat](#concat) |
 [decode](#decode) |
-[decodetocodes `moar`](#decodetocodes `moar`) |
+[decodetocodes](#decodetocodes) |
 [encode](#encode) |
-[encodefromcodes `moar`](#encodefromcodes `moar`) |
+[encodefromcodes](#encodefromcodes) |
 [encodenorm](#encodenorm) |
 [escape](#escape) |
 [fc](#fc) |
@@ -414,9 +414,9 @@ The opcodes are grouped into the following categories:
 [findnotcclass](#findnotcclass) |
 [flip](#flip) |
 [index](#index) |
-[indexic `moar`](#indexic `moar`) |
-[indexicim `moar`](#indexicim `moar`) |
-[indexim `moar`](#indexim `moar`) |
+[indexic](#indexic) |
+[indexicim](#indexicim) |
+[indexim](#indexim) |
 [iscclass](#iscclass) |
 [join](#join) |
 [lc](#lc) |
@@ -438,18 +438,18 @@ The opcodes are grouped into the following categories:
 [tc](#tc) |
 [tclc](#tclc) |
 [uc](#uc) |
-[unicmp_s `moar` `js`](#unicmp_s `moar` `js`) |
+[unicmp_s](#unicmp_s) |
 [x](#x)
 
 ## [Threads](#threads)
 
-[currentthread `moar` `jvm`](#currentthread `moar` `jvm`) |
-[newthread `moar` `jvm`](#newthread `moar` `jvm`) |
-[threadid `moar` `jvm`](#threadid `moar` `jvm`) |
-[threadjoin `moar` `jvm`](#threadjoin `moar` `jvm`) |
-[threadlockcount `moar` `jvm`](#threadlockcount `moar` `jvm`) |
-[threadrun `moar` `jvm`](#threadrun `moar` `jvm`) |
-[threadyield `moar` `jvm`](#threadyield `moar` `jvm`)
+[currentthread](#currentthread) |
+[newthread](#newthread) |
+[threadid](#threadid) |
+[threadjoin](#threadjoin) |
+[threadlockcount](#threadlockcount) |
+[threadrun](#threadrun) |
+[threadyield](#threadyield)
 
 ## [Trigonometric](#trig)
 
@@ -470,14 +470,14 @@ The opcodes are grouped into the following categories:
 ## [Type / Conversion](#type)
 
 [bool](#bool) |
-[bootarray `moar` `jvm`](#bootarray `moar` `jvm`) |
-[boothash `moar` `jvm`](#boothash `moar` `jvm`) |
-[bootint `moar` `jvm`](#bootint `moar` `jvm`) |
-[bootintarray `moar` `jvm`](#bootintarray `moar` `jvm`) |
-[bootnum `moar` `jvm`](#bootnum `moar` `jvm`) |
-[bootnumarray `moar` `jvm`](#bootnumarray `moar` `jvm`) |
-[bootstr `moar` `jvm`](#bootstr `moar` `jvm`) |
-[bootstrarray `moar` `jvm`](#bootstrarray `moar` `jvm`) |
+[bootarray](#bootarray) |
+[boothash](#boothash) |
+[bootint](#bootint) |
+[bootintarray](#bootintarray) |
+[bootnum](#bootnum) |
+[bootnumarray](#bootnumarray) |
+[bootstr](#bootstr) |
+[bootstrarray](#bootstrarray) |
 [box](#box) |
 [decont](#decont) |
 [defined](#defined) |
@@ -485,7 +485,7 @@ The opcodes are grouped into the following categories:
 [fromnum](#fromnum) |
 [fromstr](#fromstr) |
 [isbig](#isbig) |
-[iscoderef `moar`](#iscoderef `moar`) |
+[iscoderef](#iscoderef) |
 [isconcrete](#isconcrete) |
 [iscont](#iscont) |
 [isfalse](#isfalse) |
@@ -510,13 +510,13 @@ The opcodes are grouped into the following categories:
 ## [Unicode Properties](#unicode)
 
 [getuniname](#getuniname) |
-[getuniprop_bool `moar`](#getuniprop_bool `moar`) |
-[getuniprop_int `moar`](#getuniprop_int `moar`) |
+[getuniprop_bool](#getuniprop_bool) |
+[getuniprop_int](#getuniprop_int) |
 [getuniprop_str](#getuniprop_str) |
-[hasuniprop `moar`](#hasuniprop `moar`) |
-[matchuniprop `moar`](#matchuniprop `moar`) |
+[hasuniprop](#hasuniprop) |
+[matchuniprop](#matchuniprop) |
 [unipropcode](#unipropcode) |
-[unipvalcode `moar`](#unipvalcode `moar`)
+[unipvalcode](#unipvalcode)
 
 ## [Variable](#variable)
 
@@ -527,24 +527,24 @@ The opcodes are grouped into the following categories:
 [backendconfig](#backendconfig) |
 [const](#const) |
 [cpucores](#cpucores) |
-[debugnoop `jvm`](#debugnoop `jvm`) |
+[debugnoop](#debugnoop) |
 [decodelocaltime](#decodelocaltime) |
 [exit](#exit) |
-[force_gc `moar` `jvm`](#force_gc `moar` `jvm`) |
+[force_gc](#force_gc) |
 [freemem](#freemem) |
 [getcodename](#getcodename) |
 [getenvhash](#getenvhash) |
 [getpid](#getpid) |
-[getppid `moar`](#getppid `moar`) |
+[getppid](#getppid) |
 [getrusage](#getrusage) |
 [getsignals](#getsignals) |
 [indexingoptimized](#indexingoptimized) |
-[js `moar` `js`](#js `moar` `js`) |
-[jvmclasspaths `jvm`](#jvmclasspaths `jvm`) |
-[jvmgetproperties `jvm`](#jvmgetproperties `jvm`) |
+[js](#js) |
+[jvmclasspaths](#jvmclasspaths) |
+[jvmgetproperties](#jvmgetproperties) |
 [locallifetime](#locallifetime) |
-[mvmendprofile `moar`](#mvmendprofile `moar`) |
-[mvmstartprofile `moar`](#mvmstartprofile `moar`) |
+[mvmendprofile](#mvmendprofile) |
+[mvmstartprofile](#mvmstartprofile) |
 [objectid](#objectid) |
 [setcodename](#setcodename) |
 [sha1](#sha1) |
@@ -552,7 +552,7 @@ The opcodes are grouped into the following categories:
 [takeclosure](#takeclosure) |
 [time](#time) |
 [totalmem](#totalmem) |
-[uname `moar` `js`](#uname `moar` `js`)
+[uname](#uname)
 
 # <a id="arithmetic"></a> Arithmetic
 
