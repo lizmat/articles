@@ -1090,13 +1090,27 @@ while $iter {
 }
 ```
 
-You can also use `nqp::iterator()` to iterate over a list:
+You can also use `nqp::iterator()` to iterate over a list, which is
+functionally equivalent to cloning the list and not having to know
+which form of "shift" to have to use.
 ```raku
 my $list := nqp::list('a', 'b', 'c');
 my $iter := nqp::iterator($list);
 
 while $iter {
     say(nqp::shift($iter));
+}
+```
+Using `iterator` this way proved to be not very well optimizable,
+so this form will probably be deprecated in the future.  Depending
+on circumstances one could use `clone` instead, or use an index
+variable:
+```raku
+my $list := nqp::list('a', 'b', 'c');
+my int $i = -1;
+
+while ++$i < nqp::elems($list) {
+    say(nqp::atpos($list,$i));
 }
 ```
 
