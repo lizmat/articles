@@ -50,14 +50,14 @@ It's always great to see green, like in the test results of [Hash::LRU](https://
 
 Now, when I am testing out modules locally, I usually do it like this:
 
-```raku
+```perl6
     raku -Ilib t/01-basic.t  # or whatever test-file that shows a problem
 ```
 
 Why?  Well, really because this allows one to directly add any debugging code to the test-file in case of failures, to more easily track the bug down.  And if there's an execution error, `--ll-exception` usually gets added to the call as well to get a more revealing backtrace, like so:
 
 
-```raku
+```perl6
     raku -Ilib --ll-exception t/01-basic.t  # make sure we get a *full* backtrace
 ```
 
@@ -67,7 +67,7 @@ Making things faster, better and more economic
 ----------------------------------------------
 So, why not embed this manual workflow in a nice script, and add that to the distribution?  And make sure that only that script gets run?  That seems like an easy idea to implement.  And it was!  The script (called [`run-tests`](https://github.com/lizmat/Hash-LRU/blob/master/run-tests)) basically became (slightly shortened for this blog post):
 
-```raku
+```perl6
     my @failed;
     my $done = 0;
 
@@ -125,27 +125,27 @@ New to Raku?
 
 If you're new to Raku, you might appreciate some explanation of what the `run-tests` script actually does.  So here goes:
 
-```raku
+```perl6
     my @failed;
     my $done = 0;
 ```
 
 Sets up an array `@failed` for keeping the names of test-files that failed somehow, and a `$done` counter for the number of test-files that were done.
 
-```raku
+```perl6
     for "t".IO.dir(:test(*.ends-with: '.t' | '.rakutest')).map(*.Str).sort {
 ```
 
 This may be the hardest to grok if you're new to Raku.  What it does, is that it basically looks into the "t" directory `"t".IO` then starts looking for files `.dir(` that either have the ".t" or ".rakutest" extension `:test(*.ends-with: '.t' | '.rakutest'))`, change the resulting `IO::Path` objects to strings `.map(*.Str)`, then `.sort` these and loop over them `for ... {`.
 
-```raku
+```perl6
         say "=== $_";
         my $proc = run "raku", "--ll-exception", "-Ilib", $_, :out, :merge;
 ```
 
 Show which test-file is being tested `say "=== $_";` and run the actual actual test file `run "raku", "--ll-exception","-Ilib", $_,` and make sure that its STDOUT and STDERR output become available as a single stream `:out, :merge;` and put the resulting `Proc` object into `my $proc`.
 
-```raku
+```perl6
         if $proc {
             $proc.out.slurp;
         }
@@ -153,7 +153,7 @@ Show which test-file is being tested `say "=== $_";` and run the actual actual t
 
 If the run of the test file was successful `if $proc`, then simply eat all output and don't do anything with it `$proc.out.slurp`.
 
-```raku
+```perl6
         else {
             @failed.push($_);
             if $proc.out.slurp -> $output {
@@ -167,14 +167,14 @@ If the run of the test file was successful `if $proc`, then simply eat all outpu
 
 If not successful `else`, then add the name of the failed test file to the list of failed tests `@failed.push($_)`.  If there was any output `if $proc.out.slurp`, store it in a variable `-> $output` and show it to the world `say $output`.  If there was no output `else`, let the world know there was none with the exitcode `say "No output received, exit-code $proc.exitcode()"`.
 
-```raku
+```perl6
         $done++;
     }
 ```
 
 Remember that we've done a test-file, regardless of whether successful or not `$done++`.
 
-```raku
+```perl6
     if @failed {
         say "FAILED: {+@failed} of $done:";
         say "  $_" for @failed;
@@ -184,7 +184,7 @@ Remember that we've done a test-file, regardless of whether successful or not `$
 
 If there was any test-file that failed `if @failed`, tell the world how many failed `say "FAILED: {+@failed} of $done:"` and show the names of the test-files that failed `say "  $_" for @failed`, and then exit the script indicating an error state `exit +@failed` in concordance with the [TAP-protocol](https://en.wikipedia.org/wiki/Test_Anything_Protocol).
 
-```raku
+```perl6
     say "\nALL {"$done " if $done > 1}OK";
 ```
 
