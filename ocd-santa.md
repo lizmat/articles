@@ -5,7 +5,7 @@ Santa has been around for a long time already.  Santa remembers the days when bi
 
 Santa likes the Raku Programming Language a lot, because it just works like Santa thinks.  There's just this one thing missing to make Santa feel at home again, just like in the olden days: an easy way to make sorted lists and easily insert new values into these lists to keep them up-to-date.
 
-Sure, Santa knows there are hashes.  And if you want to iterate over all keys, you can easily do:
+Sure, Santa knows there are hashes.  And if you want to iterate over all keys alphabetically sorted, you can easily do:
 ````raku
 for %hash.keys.sort -> $key {
     ...
@@ -50,28 +50,29 @@ So Santa made changes to the code to use two lists instead of a hash.  But the e
 ````raku
 use Array::Sorted::Map;
 my %gifts := Array::Sorted::Map.new(keys => @names, values => @gifts);
+%gifts = Zaphod => 'arm', Arthur => 'tea', Ford => 'blanket';
 .say with %gifts<Arthur>;  # tea
 .say with %gifts<Marvin>;  # (no output)
 ````
-That was good as a temporary measure.  But it still wouldn't allow the elves to make changes to the hash without having to resort to things like [finds](https://raku.land/zef:lizmat/Array::Sorted::Util#finds), [inserts](https://raku.land/zef:lizmat/Array::Sorted::Util#inserts) or [deletes](https://raku.land/zef:lizmat/Array::Sorted::Util#finds) operating on the underlying arrays.
+That was good as a temporary measure.  But it still wouldn't allow the elves to make changes to the hash without having to resort to things like [finds](https://raku.land/zef:lizmat/Array::Sorted::Util#finds), [inserts](https://raku.land/zef:lizmat/Array::Sorted::Util#inserts) or [deletes](https://raku.land/zef:lizmat/Array::Sorted::Util#deletes) operating on the underlying arrays.
 
-The wise Santa realized that the elves have the future, so it was important to find a way that elves as well as Santa would be happy with.  A further search revealed the existence of a [Hash::Sorted](https://raku.land/zef:lizmat/Hash::Sorted#name) module, which promised to keep the keys of the hash always in sorted order.
+The wise Santa realized that the elves have the future, so it was important to find a way that elves as well as Santa would be happy with.  A further search revealed the existence of a [Hash::Sorted](https://raku.land/zef:lizmat/Hash::Sorted#name) module, which promised to keep the keys of a hash created with that class, to always be in sorted order.
 
 When Santa proposed to have the elves use that module, they were very glad.  Now to could use the familiar hash idioms **and** satisfy Santa's need for order:
 ````raku
 use Hash::Sorted;
 
-my %hash is Hash::Sorted;
+my %gifts is Hash::Sorted;
 my @names := %hash.keys;
 my @gifts := %hash.values;
 
-%hash = Zaphod => 'arm', Arthur => 'tea', Ford => 'blanket';
+%gifts = Zaphod => 'arm', Arthur => 'tea', Ford => 'blanket';
 say @names;  # (Arthur Ford Zaphod)
 say @gifts;  # (tea blanket arm)
 
-use Array::Sorted::Map;
-my %gifts := Array::Sorted::Map.new(keys => @names, values => @gifts);
 .say with %gifts<Arthur>;  # tea
 .say with %gifts<Marvin>;  # (no output)
 ````
-What the elves didn't realize, was that the [Hash::Sorted](https://raku.land/zef:lizmat/Hash::Sorted#name) module is just a frontend for the subroutines provided by [Array::Sorted::Util](https://raku.land/zef:lizmat/Array::Sorted::Util#name).  But Santa wisely didn't tell that to the elves.  And all was well on the North Pole!
+What the elves didn't realize, was that the [Hash::Sorted](https://raku.land/zef:lizmat/Hash::Sorted#name) module is just a frontend for the subroutines provided by [Array::Sorted::Util](https://raku.land/zef:lizmat/Array::Sorted::Util#name).  But Santa wisely didn't tell that to the elves.
+
+And all was well on the North Pole!
