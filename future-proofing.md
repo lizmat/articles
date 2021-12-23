@@ -6,7 +6,7 @@ Around this time of year, *Jonathan Worthington* was writing their Advent Post c
 
 The Raku Programming Language, as a language, has not seen lot of development this year, as most of the work has been "under the hood".  The most visible highlights in the Raku Programming Language are basically:
 
-### last / next with value
+### `last` / `next` with a value
 
 ````raku
 use v6.e.PREVIEW;
@@ -23,7 +23,7 @@ Similarly with `map`, if you want to skip a value (which was already possible), 
 
 Note that you need to activate the upcoming `6.e` Raku language level to enable this feature, as there were some potential issues when activated in `6.d`.  But that's just one example of future proofing the Raku Programming Language.
 
-### .pick(\*\*)
+### `.pick(\*\*)`
 
 The [`.pick(*)`](https://docs.raku.org/routine/pick) call will produce all possible values of the [`Iterable`](https://docs.raku.org/type/Iterable) on which it is called in random order, and then stop.  The `.pick(**)` will do the same, but then start again producing values in (another) random order until exhausted, ad infinitum.
 ````raku
@@ -48,9 +48,9 @@ Subroutines and methods in the core that are considered to be an implementation-
 
 There were many smaller and bigger fixes and improvements "under the hood" of the Raku Programming Language.  Some code refactoring that e.g. made [`Allomorph`](https://docs.raku.org/type/Allomorph) a proper class, without changing any functionality of [allomorphs](https://docs.raku.org/language/glossary#index-entry-Allomorph) in general.  Or speeding up by using smarter algorithms, or by refactoring so that common hot code paths become smaller than the inlinining limit, and this become a lot faster.
 
-But the **BIG** thing in the past year, was that the so-called ["new-disp" work was merged](https://6guts.wordpress.com/2021/09/29/the-new-moarvm-dispatch-mechanism-is-here/).  In short, you could compare this to ripping out a gasoline engine from a car (with all its optimizations for fuel efficiency of 100+ years of experience) and replacing this by an electrical engine, while its being driven running errands.  And although the electrical engine is much more efficient, it still can gain a lot from more optimizations, which have been applied since the merge.
+But the **BIG** thing in the past year, was that the so-called ["new-disp" work was merged](https://6guts.wordpress.com/2021/09/29/the-new-moarvm-dispatch-mechanism-is-here/).  In short, you could compare this to ripping out a gasoline engine from a car (with all its optimizations for fuel efficiency of 100+ years of experience) and replacing this by an electrical engine, while its being driven running errands.  And although the electrical engine is much more efficient, it still can gain a lot from more optimizations.
 
-For yours truly, the notion that it is better to remove certain optimizations written in `C` in the virtual engine, and replace them by code written in `NQP`, was the most eye-opening one.  The reason for this is that all of the optimization work that `MoarVM` does, can only work on the parts it understands at runtime.  And `C` code, is not what `MoarVM` understands, so it can not optimize that at runtime.
+For yours truly, the notion that it is better to remove certain optimizations written in `C` in the virtual engine, and replace them by code written in `NQP`, was the most eye-opening one.  The reason for this is that all of the optimization work that `MoarVM` does at runtime, can only work on the parts it understands.  And `C` code, is not what `MoarVM` understands, so it can not optimize that at runtime.  Simple things such as assignment, had been optimized in `C` code, and basically had become an "island" of unoptimization.  But no more!
 
 The current state of this work, is that it for now is a step forward, but also a step back in some aspects (at least for now).  Some workflows most definitely have benefitted from the work so far (especially if you dispatch on anything that has a `where` clause in it, or use [`NativeCall`](https://docs.raku.org/language/nativecall) directly, or indirectly with e.g. [`Inline::Perl5`](https://raku.land/cpan:NINE/Inline::Perl5#description)).  But the bare startup time of Rakudo has increased.  Which has its effects on the speed with modules are installed, or testing is being done.
 
