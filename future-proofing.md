@@ -23,7 +23,7 @@ Similarly with `map`, if you want to skip a value (which was already possible), 
 
 Note that you need to activate the upcoming `6.e` Raku language level to enable this feature, as there were some potential issues when activated in `6.d`.  But that's just one example of future proofing the Raku Programming Language.
 
-### `.pick(\*\*)`
+### `.pick(**)`
 
 The [`.pick(*)`](https://docs.raku.org/routine/pick) call will produce all possible values of the [`Iterable`](https://docs.raku.org/type/Iterable) on which it is called in random order, and then stop.  The `.pick(**)` will do the same, but then start again producing values in (another) random order until exhausted, ad infinitum.
 ````raku
