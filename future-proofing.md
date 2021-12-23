@@ -1,10 +1,8 @@
 # Future-proofing the Raku Programming Language
 
-Around this time of year, *Jonathan Worthington* was writing their Advent Post called [Reminiscence, refinement, revolution](https://raku-advent.blog/2020/12/25/day-25-reminiscence-refinement-revolution/).  Today, yours truly finds themselves writing a similar blog post after what can only be called a peculiar year in the world.
+Around this time last year, *Jonathan Worthington* was writing their Advent Post called [Reminiscence, refinement, revolution](https://raku-advent.blog/2020/12/25/day-25-reminiscence-refinement-revolution/).  Today, yours truly finds themselves writing a similar blog post after what can only be called a peculiar year in the world.
 
 ## The Language
-
-The Raku Programming Language, as a language, has not seen lot of development this year, as most of the work has been "under the hood".
 
 ### Visible highlights
 
