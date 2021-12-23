@@ -60,13 +60,15 @@ The current state of this work, is that it for now is a step forward, but also a
 
 The really good thing about this work, is that it will allow more people to work on optimizing Rakudo, as that optimizing work can now be done in `NQP`, rather than in `C`.  The next year will most definitely see one or more blog posts and/or presentations about this, to lower the already lowered threshold even further.
 
+In any case, kudos to *Jonathan Worthington*, *Stefan Seifert*, *Daniel Green*, *Nicholas Clark* and many, many others for pulling this off!
+
 ## The Ecosystem
 
 Thanks to [`Cro`](https://cro.services), a set of libraries for building reactive distributed systems (lovingly crafted to take advantage of all Raku has to offer), a number of ecosystem related services have come into development and production.
 
 ### zef ecosystem
 
-The new `zef` ecosystem has become of age and is now support by various developer apps, such as [`App::Mi6`](https://raku.land/cpan:SKAJI/App::Mi6#synopsis), which basically reduces the distribution upload / commit process to a single `mi6 release`.  Recommended by yours truly, especially if you are about to develop a Raku module from scratch.  There are a number of advantages to using the `zef` ecosystem:
+The new `zef` ecosystem has become of age and is now support by various developer apps, such as [`App::Mi6`](https://raku.land/cpan:SKAJI/App::Mi6#synopsis), which basically reduces the distribution upload / commit process to a single `mi6 release↵`.  Recommended by yours truly, especially if you are about to develop a Raku module from scratch.  There are a number of advantages to using the `zef` ecosystem:
 
 #### direct availability
 
@@ -78,9 +80,13 @@ Distributions from the older ecosystem backends could be removed by the author w
 
 #### more dogfooding
 
-The `zef` ecosystem is completely written in the Raku Programming Language itself.
+The `zef` ecosystem is completely written in the Raku Programming Language itself.  And you could argue that's one more place where Raku is in production.  Kudos to *Nick Logan* and *Tony O'Dell* for making this all happen!
 
 ### raku.land
+
+The [raku.land](https://raku.land) is a website entirely developed with the Raku Programming Language as a place to browse the Raku ecosystem.  It should be seen as the successor of the [modules.raku.org](https://modules.raku.org) website, which is **not** based on Raku itself.  Although some of the features are still missing, it is an excellent piece of work by *James Raspass* and very much under continuous development.
+
+
 
 Ecosystem / Raku Land
 
