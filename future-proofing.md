@@ -84,16 +84,26 @@ The `zef` ecosystem is completely written in the Raku Programming Language itsel
 
 ### raku.land
 
-The [raku.land](https://raku.land) is a website entirely developed with the Raku Programming Language as a place to browse the Raku ecosystem.  It should be seen as the successor of the [modules.raku.org](https://modules.raku.org) website, which is **not** based on Raku itself.  Although some of the features are still missing, it is an excellent piece of work by *James Raspass* and very much under continuous development.
+[raku.land](https://raku.land) is a place where one can browse the Raku ecosystem.  A website entirely developed with the Raku Programming Language, it should be seen as the successor of the [modules.raku.org](https://modules.raku.org) website, which is **not** based on Raku itself.  Although some of the features are still missing, it is an excellent piece of work by *James Raspass* and very much under continuous development.
 
+## Not forgetting the past
 
+"Those who cannot remember the past are condemned to repeat it." [George Santanaya](https://en.wikiquote.org/wiki/George_Santayana#Vol._I,_Reason_in_Common_Sense) has said.  And that is certainly true in the context of the Raku Programming Language with its now 20+ year history.
 
-Ecosystem / Raku Land
+### Permanent Distributions
 
-Preserving history
+Even though distributions can not be removed from the `zef` ecosystem, there's of course still a chance that it may become unavailable temporarily, or more permanently.  And there are still many distributions in the old ecosystems that can still disappear for whatever reason.  Which is why the [Raku Ecosystem Archive](https://github.com/lizmat/REA#raku-programming-language-ecosystem-archive) has been created: this provides a place where (ideally) all distributions ever to be available in the Raku ecosystem, are archived.  In Perl terms: a BackPAN if you will.  Before long, this repository will be able to serve as another backend for `zef`, in case a distribution one needs, is no longer available.
 
-CCR
+### Permanent Blog Posts
 
-IRC Logs
+A lot of blog post have been written in the 20+ year history of what is now the Raku Programming Language.  They provide sometime invaluable insights into the development of all aspects of the Raku Programming Language.  Sadly, some of these blog posts have been lost in the mists of time.  To prevent more memory loss, the [CCR - The Raku Collect, Conserve and Remaster Project](https://github.com/raku/CCR#readme) was started.  I'm pretty sure a Cro-driven website will soon emerge that will make these saved blog posts more generally available.  In the mean time, if you know of any old blog posts not yet collected, please make [an issue for it](https://github.com/Raku/CCR/issues).
 
+### Permanent IRC Logs
 
+Ever since [2005](https://logs.liz.nl/perl6/2005-02-26.html), IRC has been the focal point of discussions between developers and users of the Raku Programming Language.  In order to preserve all these discussions, a [repository](https://github.com/raku/IRC-logs#readme) was started to store all of these logs, up to the present.  Updating of the repository is not yet completey automated, but if you want to search something in the logs, or just want to keep up-to-date without using an IRC client, you can check out the [experimental IRC Logs server](https://logs.liz.nl).
+
+## Looking forward
+
+## Finally
+
+This year saw the loss of a lot of life.  Within the Raku Community, we sadly had to say goodbye to *Robert Lemmen* and *David H. Adler*.  Belated kudos to them for their contributions to what is now the Raku Programming Language, and Open Source in general.  You are missed!
