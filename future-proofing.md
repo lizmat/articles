@@ -2,11 +2,15 @@
 
 Around this time of year, *Jonathan Worthington* was writing their Advent Post called [Reminiscence, refinement, revolution](https://raku-advent.blog/2020/12/25/day-25-reminiscence-refinement-revolution/).  Today, yours truly finds themselves writing a similar blog post after what can only be called a peculiar year in the world.
 
-## Visible highlights
+## The Language
 
-The Raku Programming Language, as a language, has not seen lot of development this year, as most of the work has been "under the hood".  The most visible highlights in the Raku Programming Language are basically:
+The Raku Programming Language, as a language, has not seen lot of development this year, as most of the work has been "under the hood".
 
-### `last` / `next` with a value
+### Visible highlights
+
+The most visible highlights in the Raku Programming Language are basically:
+
+#### `last` / `next` with a value
 
 ````raku
 use v6.e.PREVIEW;
@@ -23,7 +27,7 @@ Similarly with `map`, if you want to skip a value (which was already possible), 
 
 Note that you need to activate the upcoming `6.e` Raku language level to enable this feature, as there were some potential issues when activated in `6.d`.  But that's just one example of future proofing the Raku Programming Language.
 
-### `.pick(**)`
+#### `.pick(**)`
 
 The [`.pick(*)`](https://docs.raku.org/routine/pick) call will produce all possible values of the [`Iterable`](https://docs.raku.org/type/Iterable) on which it is called in random order, and then stop.  The `.pick(**)` will do the same, but then start again producing values in (another) random order until exhausted, ad infinitum.
 ````raku
@@ -32,7 +36,7 @@ The [`.pick(*)`](https://docs.raku.org/routine/pick) call will produce all possi
 ````
 Nothing essential, but it is sure nice to have 😀.
 
-### `is implementation-detail` trait
+#### `is implementation-detail` trait
 
 The [`is implementation-detail`](https://docs.raku.org/routine/is-implementation-detail) trait indicates that something that *is* publicly visible, still should be considered off-limits as it is a detail of the implementation of something (whether that is your own code, or the core).  This will also mark that something as invisible for standard introspection:
 ````raku
@@ -44,7 +48,7 @@ class A {
 ````
 Subroutines and methods in the core that are considered to be an implementation-detail, have been marked as such.  This should make it more clear which parts of the Rakudo implementation are game, and which parts are off-limits for developers (knowing that they can be changed without notice).  Yet another way to make sure that any Raku programs will continue to work with future versions of the Raku Programming Language.
 
-## Invisible highlights
+### Invisible highlights
 
 There were many smaller and bigger fixes and improvements "under the hood" of the Raku Programming Language.  Some code refactoring that e.g. made [`Allomorph`](https://docs.raku.org/type/Allomorph) a proper class, without changing any functionality of [allomorphs](https://docs.raku.org/language/glossary#index-entry-Allomorph) in general.  Or speeding up by using smarter algorithms, or by refactoring so that common hot code paths become smaller than the inlinining limit, and this become a lot faster.
 
@@ -57,6 +61,26 @@ The current state of this work, is that it for now is a step forward, but also a
 The really good thing about this work, is that it will allow more people to work on optimizing Rakudo, as that optimizing work can now be done in `NQP`, rather than in `C`.  The next year will most definitely see one or more blog posts and/or presentations about this, to lower the already lowered threshold even further.
 
 ## The Ecosystem
+
+Thanks to [`Cro`](https://cro.services), a set of libraries for building reactive distributed systems (lovingly crafted to take advantage of all Raku has to offer), a number of ecosystem related services have come into development and production.
+
+### zef ecosystem
+
+The new `zef` ecosystem has become of age and is now support by various developer apps, such as [`App::Mi6`](https://raku.land/cpan:SKAJI/App::Mi6#synopsis), which basically reduces the distribution upload / commit process to a single `mi6 release`.  Recommended by yours truly, especially if you are about to develop a Raku module from scratch.  There are a number of advantages to using the `zef` ecosystem:
+
+#### direct availability
+
+Whenever you upload a new distribution to the `zef` ecosystem, it becomes (almost) immediately available for download by users.  This is particularly handy for CI situations, if you are first updating one or more dependencies of a distribution: the `zef` CLI wouldn't know about your upload upto an hour later.
+
+#### better ecosystem security
+
+Distributions from the older ecosystem backends could be removed by the author without the ecosystem noticing it (p6c), or not immediately noticing it (CPAN).  Distributions, once uploaded to the `zef` ecosystem, can not be removed.
+
+#### more dogfooding
+
+The `zef` ecosystem is completely written in the Raku Programming Language itself.
+
+### raku.land
 
 Ecosystem / Raku Land
 
