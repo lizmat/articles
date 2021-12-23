@@ -36,7 +36,7 @@ Nothing essential, but it is sure nice to have 😀.
 
 #### `is implementation-detail` trait
 
-The [`is implementation-detail`](https://docs.raku.org/routine/is-implementation-detail) trait indicates that something that *is* publicly visible, still should be considered off-limits as it is a detail of the implementation of something (whether that is your own code, or the core).  This will also mark that something as invisible for standard introspection:
+The [`is implementation-detail`](https://docs.raku.org/routine/is-implementation-detail) trait indicates that something that *is* publicly visible, still should be considered off-limits as it is a detail of the implementation of something (whether that is your own code, or the core).  This will also mark something as invisible for standard introspection:
 ````raku
 class A {
     method foo() is implementation-detail { }
@@ -52,9 +52,9 @@ There were many smaller and bigger fixes and improvements "under the hood" of th
 
 But the **BIG** thing in the past year, was that the so-called ["new-disp" work was merged](https://6guts.wordpress.com/2021/09/29/the-new-moarvm-dispatch-mechanism-is-here/).  In short, you could compare this to ripping out a gasoline engine from a car (with all its optimizations for fuel efficiency of 100+ years of experience) and replacing this by an electrical engine, while its being driven running errands.  And although the electrical engine is already much more efficient to begin with, it still can gain a lot from more optimizations.
 
-For yours truly, the notion that it is better to remove certain optimizations written in `C` in the virtual engine, and replace them by code written in `NQP`, was the most eye-opening one.  The reason for this is that all of the optimization work that `MoarVM` does at runtime, can only work on the parts it understands.  And `C` code, is not what `MoarVM` understands, so it can not optimize that at runtime.  Simple things such as assignment, had been optimized in `C` code, and basically had become an "island" of unoptimization.  But no more!
+For yours truly, the notion that it is better to remove certain optimizations written in `C` in the virtual engine, and replace them by code written in `NQP`, was the most eye-opening one.  The reason for this is that all of the optimization work that `MoarVM` does at runtime, can only work on the parts it understands.  And `C` code, is not what `MoarVM` understands, so it can not optimize that at runtime.  Simple things such as assignment had been optimized in `C` code and basically had become an "island" of unoptimization.  But no more!
 
-The current state of this work, is that it for now is a step forward, but also a step back in some aspects (at least for now).  Some workflows most definitely have benefitted from the work so far (especially if you dispatch on anything that has a `where` clause in it, or use [`NativeCall`](https://docs.raku.org/language/nativecall) directly, or indirectly with e.g. [`Inline::Perl5`](https://raku.land/cpan:NINE/Inline::Perl5#description)).  But the bare startup time of Rakudo has increased.  Which has its effects on the speed with modules are installed, or testing is being done.
+The current state of this work, is that it for now is a step forward, but also a step back in some aspects (at least for now).  Some workflows most definitely have benefitted from the work so far (especially if you dispatch on anything that has a `where` clause in it, or use [`NativeCall`](https://docs.raku.org/language/nativecall) directly, or indirectly with e.g. [`Inline::Perl5`](https://raku.land/cpan:NINE/Inline::Perl5#description)).  But the bare startup time of Rakudo has increased.  Which has its effect on the speed with which modules are installed, or testing is being done.
 
 The really good thing about this work, is that it will allow more people to work on optimizing Rakudo, as that optimizing work can now be done in `NQP`, rather than in `C`.  The next year will most definitely see one or more blog posts and/or presentations about this, to lower the already lowered threshold even further.
 
@@ -66,11 +66,11 @@ Thanks to [`Cro`](https://cro.services), a set of libraries for building reactiv
 
 ### zef ecosystem
 
-The new `zef` ecosystem has become of age and is now support by various developer apps, such as [`App::Mi6`](https://raku.land/cpan:SKAJI/App::Mi6#synopsis), which basically reduces the distribution upload / commit process to a single `mi6 release↵`.  Recommended by yours truly, especially if you are about to develop a Raku module from scratch.  There are a number of advantages to using the `zef` ecosystem:
+The new `zef` ecosystem has become of age and is now supported by various developer apps, such as [`App::Mi6`](https://raku.land/cpan:SKAJI/App::Mi6#synopsis), which basically reduces the distribution upload / commit process to a single `mi6 release↵`.  Recommended by yours truly, especially if you are about to develop a Raku module from scratch.  There are a number of advantages to using the `zef` ecosystem.
 
 #### direct availability
 
-Whenever you upload a new distribution to the `zef` ecosystem, it becomes (almost) immediately available for download by users.  This is particularly handy for CI situations, if you are first updating one or more dependencies of a distribution: the `zef` CLI wouldn't know about your upload upto an hour later.
+Whenever you upload a new distribution to the `zef` ecosystem, it becomes (almost) immediately available for download by users.  This is particularly handy for CI situations, if you are first updating one or more dependencies of a distribution: the `zef` CLI wouldn't know about your upload upto an hour later on the older ecosystem backends.
 
 #### better ecosystem security
 
@@ -94,7 +94,7 @@ Even though distributions can not be removed from the `zef` ecosystem, there's o
 
 ### Permanent Blog Posts
 
-A lot of blog post have been written in the 20+ year history of what is now the Raku Programming Language.  They provide sometime invaluable insights into the development of all aspects of the Raku Programming Language.  Sadly, some of these blog posts have been lost in the mists of time.  To prevent more memory loss, the [CCR - The Raku Collect, Conserve and Remaster Project](https://github.com/raku/CCR#readme) was started.  I'm pretty sure a Cro-driven website will soon emerge that will make these saved blog posts more generally available.  In the mean time, if you know of any old blog posts not yet collected, please make [an issue for it](https://github.com/Raku/CCR/issues).
+A lot of blog post have been written in the 20+ year history of what is now the Raku Programming Language.  They provide sometimes invaluable insights into the development of all aspects of the Raku Programming Language.  Sadly, some of these blog posts have been lost in the mists of time.  To prevent more memory loss, the [CCR - The Raku Collect, Conserve and Remaster Project](https://github.com/raku/CCR#readme) was started.  I'm pretty sure a Cro-driven website will soon emerge that will make these saved blog posts more generally available.  In the meantime, if you know of any old blog posts not yet collected, please make [an issue for it](https://github.com/Raku/CCR/issues).
 
 ### Permanent IRC Logs
 
@@ -124,7 +124,7 @@ After the work on RakuAST has become stable enough, a new language level (tentat
 
 The new [#raku-beginner](https://logs.liz.nl/raku-beginner/live.html) channel has become pretty active.  It's good to see a lot of new names on that channel, also thanks to a Discord bridge (kudos to *Wenzel P.P. Peppmeyer* for that).
 
-The coming year will see some Raku-only events.  First, there is the [Raku DevRoom](https://fosdem.org/2022/schedule/track/raku/), which will be an online-only event (you can still signup for a presentation or a lightning talk!).  And barring all going ok, there will be an in-person/online hybrid [Raku Conference](https://conf.raku.org) in Riga (August 11-13 2022).
+The coming year will see some Raku-only events.  First, there is the [Raku DevRoom at FOSDEM](https://fosdem.org/2022/schedule/track/raku/) (5-6 February), which will be an online-only event (you can still sign up for a presentation or a lightning talk!).  And if all goes ok, there will be an in-person/online hybrid [Raku Conference](https://conf.raku.org) in Riga (August 11-13 2022).
 
 And of course there are other events where Raku users are welcome: the [German Perl/Raku Workshop](https://act.yapc.eu/gpw2022/index.html) (30 March/1 April in Leipzig), and the [Perl and Raku Conference in Houston](https://news.perlfoundation.org/post/tprc-houston-newsletter-1) (21-25 June).
 
