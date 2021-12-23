@@ -18,7 +18,7 @@ Normally, `last` just stops an iteration, but now you can give it a value as wel
 use v6.*;
 say (^5).map: { next    if $_ == 2; $_ } # (0 1 3 4)
 say (^5).map: { next 42 if $_ == 2; $_ } # (0 1 42 3 4)
-```
+````
 Similarly with `map`, if you want to skip a value (which was already possible), you can now replace that value by another value.
 
 Note that you need to activate the upcoming `6.e` Raku language level to enable this feature, as there were some potential issues when activated in `6.d`.  But that's just one example of future proofing the Raku Programming Language.
@@ -30,6 +30,7 @@ The `.pick(*)` call will produce all possible values of the `Iterable` on which 
 .say for (^5).pick(* ); # 3␤4␤0␤2␤1␤
 .say for (^5).pick(**); # 3␤4␤0␤2␤1␤0␤2␤1␤4␤3␤3␤4␤2␤1␤0␤....
 ````
+Nothing essential, but it is sure nice to have 😀.
 
 ### is implementation-detail trait
 
@@ -41,7 +42,7 @@ class A {
 }
 .name.say for A.^methods; # bar␤BUILDALL␤
 ````
-Subroutines and methods in the core that are considered to be an implementation-detail, have been marked as such.  This should make it more clear which parts of the Rakudo implementation are game, and which parts are off-limits for developers (knowing that they can be changed without notice).
+Subroutines and methods in the core that are considered to be an implementation-detail, have been marked as such.  This should make it more clear which parts of the Rakudo implementation are game, and which parts are off-limits for developers (knowing that they can be changed without notice).  Yet another way to make sure that any Raku programs will continue to work with future versions of the Raku Programming Language.
 
 ## Invisible highlights
 
