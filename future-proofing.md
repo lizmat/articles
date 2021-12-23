@@ -50,9 +50,9 @@ Subroutines and methods in the core that are considered to be an implementation-
 
 ### Invisible highlights
 
-There were many smaller and bigger fixes and improvements "under the hood" of the Raku Programming Language.  Some code refactoring that e.g. made [`Allomorph`](https://docs.raku.org/type/Allomorph) a proper class, without changing any functionality of [allomorphs](https://docs.raku.org/language/glossary#index-entry-Allomorph) in general.  Or speeding up by using smarter algorithms, or by refactoring so that common hot code paths become smaller than the inlinining limit, and this become a lot faster.
+There were many smaller and bigger fixes and improvements "under the hood" of the Raku Programming Language.  Some code refactoring that e.g. made [`Allomorph`](https://docs.raku.org/type/Allomorph) a proper class, without changing any functionality of [allomorphs](https://docs.raku.org/language/glossary#index-entry-Allomorph) in general.  Or speeding up by using smarter algorithms, or by refactoring so that common hot code paths became smaller than the inlinining limit, and thus become a lot faster.
 
-But the **BIG** thing in the past year, was that the so-called ["new-disp" work was merged](https://6guts.wordpress.com/2021/09/29/the-new-moarvm-dispatch-mechanism-is-here/).  In short, you could compare this to ripping out a gasoline engine from a car (with all its optimizations for fuel efficiency of 100+ years of experience) and replacing this by an electrical engine, while its being driven running errands.  And although the electrical engine is much more efficient, it still can gain a lot from more optimizations.
+But the **BIG** thing in the past year, was that the so-called ["new-disp" work was merged](https://6guts.wordpress.com/2021/09/29/the-new-moarvm-dispatch-mechanism-is-here/).  In short, you could compare this to ripping out a gasoline engine from a car (with all its optimizations for fuel efficiency of 100+ years of experience) and replacing this by an electrical engine, while its being driven running errands.  And although the electrical engine is already much more efficient to begin with, it still can gain a lot from more optimizations.
 
 For yours truly, the notion that it is better to remove certain optimizations written in `C` in the virtual engine, and replace them by code written in `NQP`, was the most eye-opening one.  The reason for this is that all of the optimization work that `MoarVM` does at runtime, can only work on the parts it understands.  And `C` code, is not what `MoarVM` understands, so it can not optimize that at runtime.  Simple things such as assignment, had been optimized in `C` code, and basically had become an "island" of unoptimization.  But no more!
 
@@ -60,7 +60,7 @@ The current state of this work, is that it for now is a step forward, but also a
 
 The really good thing about this work, is that it will allow more people to work on optimizing Rakudo, as that optimizing work can now be done in `NQP`, rather than in `C`.  The next year will most definitely see one or more blog posts and/or presentations about this, to lower the already lowered threshold even further.
 
-In any case, kudos to *Jonathan Worthington*, *Stefan Seifert*, *Daniel Green*, *Nicholas Clark* and many, many others for pulling this off!
+In any case, kudos to *Jonathan Worthington*, *Stefan Seifert*, *Daniel Green*, *Nicholas Clark* and many, many others for pulling this off!  The Virtual Machine of choice for the Raku Programming Language is now ready to be taken for many more spins!
 
 ## The Ecosystem
 
@@ -100,10 +100,40 @@ A lot of blog post have been written in the 20+ year history of what is now the 
 
 ### Permanent IRC Logs
 
-Ever since [2005](https://logs.liz.nl/perl6/2005-02-26.html), IRC has been the focal point of discussions between developers and users of the Raku Programming Language.  In order to preserve all these discussions, a [repository](https://github.com/raku/IRC-logs#readme) was started to store all of these logs, up to the present.  Updating of the repository is not yet completey automated, but if you want to search something in the logs, or just want to keep up-to-date without using an IRC client, you can check out the [experimental IRC Logs server](https://logs.liz.nl).
+Ever since [2005](https://logs.liz.nl/perl6/2005-02-26.html), IRC has been the focal point of discussions between developers and users of the Raku Programming Language.  In order to preserve all these discussions, a [repository](https://github.com/raku/IRC-logs#readme) was started to store all of these logs, up to the present.  Updating of the repository is not yet completey automated, but if you want to search something in the logs, or just want to keep up-to-date without using an IRC client, you can check out the [experimental IRC Logs server](https://logs.liz.nl) (completely written in the Raku Programming Language).
 
 ## Looking forward
+
+So what will the coming year(s) bring?  Now that the [Raku Programming Language](https://raku.org) is assured of a good base to build more things upon?  Well, let's have a look at some of the developments:
+
+### new-disp based improvements
+
+The tools that "new-disp" have made available, haven't really been used all that much yet: so one can expect quite a few performance improvements to come to fruition.  Which in turn will make some language changes possible that were previously deemed too hard, or affecting the general performance of Raku too much.
+
+### RakuAST
+
+*Jonathan Worthington*'s focus has been mostly on the "new-disp" work, but the work on [RakuAST](https://conf.raku.org/talk/147) will be picked up again as well.  This should give the Raku Programming Language a very visible boost, by adding full blown `macro` and proper `slang` support.  While making all applications that depend to an extent on generating Raku code and then executing it, much easier to make and maintain (e.g. `Cro` routing and templates, `printf` functionality that doesn't depend on running a grammar every time it is called).
+
+### More `Cro` driven websites
+
+It looks like most, if not all Raku related websites, will be running on `Cro` in the coming year.  With a few new ones as well (no, yours truly will not reveal more at this moment).
+
+### A new language level
+
+After the work on RakuAST has become stable enough, a new language level (tentatively still called "6.e") will become the default.  The intent is to come with language levels more frequently than before (the last language level increase was in 2018), targeting a yearly language level increase.
+
+### More community
+
+The new [#raku-beginner](https://logs.liz.nl/raku-beginner/live.html) channel has become pretty active.  It's good to see a lot of new names on that channel, also thanks to a Discord bridge (kudos to *Wenzel P.P. Peppmeyer* for that).
+
+The coming year will see some Raku-only events.  First, there is the [Raku DevRoom](https://fosdem.org/2022/schedule/track/raku/), which will be an online-only event (you can still signup for a presentation or a lightning talk!).  And barring all going ok, there will be an in-person/online hybrid [Raku Conference](https://conf.raku.org) in Riga (August 11-13 2022).
+
+And of course there are other events where Raku users are welcome: the [German Perl/Raku Workshop](https://act.yapc.eu/gpw2022/index.html) (30 March/1 April in Leipzig), and the [Perl and Raku Conference in Houston](https://news.perlfoundation.org/post/tprc-houston-newsletter-1) (21-25 June).
+
+And who knows, once Covid restrictions have been lifted, how many other Raku related events will be organized!
 
 ## Finally
 
 This year saw the loss of a lot of life.  Within the Raku Community, we sadly had to say goodbye to *Robert Lemmen* and *David H. Adler*.  Belated kudos to them for their contributions to what is now the Raku Programming Language, and Open Source in general.  You are missed!
+
+Which brings yours truly to install in all of you again: please be careful, stay healthy and keep up the good work!
