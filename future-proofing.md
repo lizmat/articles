@@ -52,10 +52,15 @@ But the **BIG** thing in the past year, was that the so-called ["new-disp" work 
 
 For yours truly, the notion that it is better to remove certain optimizations written in `C` in the virtual engine, and replace them by code written in `NQP`, was the most eye-opening one.  The reason for this is that all of the optimization work that `MoarVM` does, can only work on the parts it understands at runtime.  And `C` code, is not what `MoarVM` understands, so it can not optimize that at runtime.
 
-The current state of this work, is that it for now is a step forward, but also a step back (at least for now).  Some workflows most definitely have benefitted from the work so far (especially if you dispatch on anything that has a `where` clause in it, or use [`NativeCall`](https://docs.raku.org/language/nativecall) directly, or indirectly with e.g. [`Inline::Perl5`](https://raku.land/cpan:NINE/Inline::Perl5#description)).  But the bare startup time of Rakudo has increased.
+The current state of this work, is that it for now is a step forward, but also a step back in some aspects (at least for now).  Some workflows most definitely have benefitted from the work so far (especially if you dispatch on anything that has a `where` clause in it, or use [`NativeCall`](https://docs.raku.org/language/nativecall) directly, or indirectly with e.g. [`Inline::Perl5`](https://raku.land/cpan:NINE/Inline::Perl5#description)).  But the bare startup time of Rakudo has increased.  Which has its effects on the speed with modules are installed, or testing is being done.
 
+The really good thing about this work, is that it will allow more people to work on optimizing Rakudo, as that optimizing work can now be done in `NQP`, rather than in `C`.  The next year will most definitely see one or more blog posts and/or presentations about this, to lower the already lowered threshold even further.
+
+## The Ecosystem
 
 Ecosystem / Raku Land
+
+Preserving history
 
 CCR
 
