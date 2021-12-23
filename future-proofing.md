@@ -102,7 +102,13 @@ Ever since [2005](https://logs.liz.nl/perl6/2005-02-26.html), IRC has been the f
 
 ## Looking forward
 
-So what will the coming year(s) bring?  Now that the [Raku Programming Language](https://raku.org) is assured of a good base to build more things upon?  Well, let's have a look at some of the developments:
+So what will the coming year(s) bring?  That is a good question.
+
+The Raku Programming Language is an all volunteer Open Source project without any big financial backing.  As such, it is dependent on the time that people put into it *voluntarily*.  That doesn't mean that plans cannot be made.  But sometimes, sometimes even regularly, $work and Real Life take precedence and change the planning.  And things take longer than expected.
+
+If you want to make things happen in the Raku Programming Language, you can start by reporting problems in a manner that other people can easily reproduce.  Or if it is a documentation problem, create a Pull Request with the way you think it should be.  In other words: put some effort into it yourself.  It will be recognized and appreciated by other people in the Raku Community.
+
+Now that we've established that, let's have a look at some of the developments now that we ensured the [Raku Programming Language](https://raku.org) is a good base to build more things upon.
 
 ### new-disp based improvements
 
@@ -134,4 +140,4 @@ And who knows, once Covid restrictions have been lifted, how many other Raku rel
 
 This year saw the loss of a lot of life.  Within the Raku Community, we sadly had to say goodbye to *Robert Lemmen* and *David H. Adler*.  Belated kudos to them for their contributions to what is now the Raku Programming Language, and Open Source in general.  You are missed!
 
-Which brings yours truly to install in all of you again: please be careful, stay healthy and keep up the good work!
+Which brings yours truly to instill in all of you again: please be careful, stay healthy and keep up the good work!
