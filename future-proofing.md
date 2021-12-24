@@ -112,11 +112,11 @@ Now that we've established that, let's have a look at some of the developments n
 
 ### new-disp based improvements
 
-The tools that "new-disp" have made available, haven't really been used all that much yet: so one can expect quite a few performance improvements to come to fruition.  Which in turn will make some language changes possible that were previously deemed too hard, or affecting the general performance of Raku too much.
+The tools that "new-disp" have made available, haven't really been used all that much yet: the emphasis was on making things work again (after the engine had been ripped out)!  So one can expect quite a few performance improvements to come to fruition now that it all works.  Which in turn will make some language changes possible that were previously deemed too hard, or affecting the general performance of Raku too much.
 
 ### RakuAST
 
-*Jonathan Worthington*'s focus has been mostly on the "new-disp" work, but the work on [RakuAST](https://conf.raku.org/talk/147) will be picked up again as well.  This should give the Raku Programming Language a very visible boost, by adding full blown `macro` and proper `slang` support.  While making all applications that depend to an extent on generating Raku code and then executing it, much easier to make and maintain (e.g. `Cro` routing and templates, `printf` functionality that doesn't depend on running a grammar every time it is called).
+*Jonathan Worthington*'s focus has been mostly on the "new-disp" work, but the work on [RakuAST](https://conf.raku.org/talk/147) will be picked up again as well.  This should give the Raku Programming Language a very *visible* boost, by adding full blown `macro` and proper `slang` support.  While making all applications that depend to an extent on generating Raku code and then executing it, much easier to make and maintain (e.g. `Cro` routing and templates, `printf` functionality that doesn't depend on running a grammar every time it is called).
 
 ### More `Cro` driven websites
 
