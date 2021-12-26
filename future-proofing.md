@@ -4,9 +4,9 @@ Around this time last year, *Jonathan Worthington* was writing their Advent Post
 
 ## The Language
 
-### Visible highlights
+### Visible Changes
 
-The most visible highlights in the Raku Programming Language are basically:
+The most visible changes in the Raku Programming Language are basically:
 
 #### `last` / `next` with a value
 
@@ -46,7 +46,7 @@ class A {
 ````
 Subroutines and methods in the core that are considered to be an implementation-detail, have been marked as such.  This should make it more clear which parts of the Rakudo implementation are game, and which parts are off-limits for developers (knowing that they can be changed without notice).  Yet another way to make sure that any Raku programs will continue to work with future versions of the Raku Programming Language.
 
-### Invisible highlights
+### Invisible Changes
 
 There were many smaller and bigger fixes and improvements "under the hood" of the Raku Programming Language.  Some code refactoring that e.g. made [`Allomorph`](https://docs.raku.org/type/Allomorph) a proper class, without changing any functionality of [allomorphs](https://docs.raku.org/language/glossary#index-entry-Allomorph) in general.  Or speeding up by using smarter algorithms, or by refactoring so that common hot code paths became smaller than the inlinining limit, and thus become a lot faster.
 
