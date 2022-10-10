@@ -2,13 +2,17 @@
 
 A few months ago, I had a bit of a scare with a notebook showing signs of going nuclear (as in batteries growing up to about 3x their original size, dislodging the bottom plate).  In the end, all turned out well, thanks to [iFixit](https://ifixit.com), patience and a steady hand.
 
-Not wanting to install Perl's `ack` utility on a clean temporary machine, made me write an alpha version of a Raku module [`App::Rak`, providing a similar utility: `rak` CLI]((https://raku.land/zef:lizmat/App::Rak)).  Which I presented at the second Raku Conference: [Looking for clues with rak](https://conf.raku.org/talk/174).
+Not wanting to install Perl's `ack` utility on a clean temporary machine, made me write an alpha version of a Raku module [`App::Rak`, providing a similar utility: the `rak` CLI]((https://raku.land/zef:lizmat/App::Rak)).  Which I presented at the second Raku Conference: [Looking for clues with rak](https://conf.raku.org/talk/174).
 
 Since then, the utility has seen two refactors: the first one was taking out the "plumbing" functionality into a [separate module](https://raku.land/zef:lizmat/rak).  The second one was rewriting the argument handling (now up to 135 options) to make it easier to produce better error messages, and to make it more maintainable.  And now it's at what I would like to think as "beta version" level.
 
 ## What is it?
 
-So what is `rak` anyway?  Maybe the tag line explains it a bit: "21st century grep / find / ack / ag / rg on steroids".  In other words, a utility to find stuff (usually text) from somewhere (usually a set of files on a filesystem) and present the results in some form.
+So what is `rak` anyway?  Maybe the tag line explains it a bit:
+
+> 21st century grep / find / ack / ag / rg on steroids
+
+In other words, a utility to find stuff (usually text) from somewhere (usually a set of files on a filesystem) and present the results in some form.  BTW, kudos to *Damian Conway* for suggesting this tag line.
 
 But aren't there quite a few utilities like that already?  Yes, there are.  But I think it being based on the [Raku Programming Language](https://raku.org), allows it to have some unique features that would be hard to implement in any other programming language.
 
