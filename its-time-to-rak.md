@@ -12,7 +12,7 @@ So what is `rak` anyway?  Maybe the tag line explains it a bit:
 
 > 21st century grep / find / ack / ag / rg on steroids
 
-In other words, a utility to find stuff (usually text) from somewhere (usually a set of files on a filesystem) and present the results in some form.  BTW, kudos to *Damian Conway* for suggesting this tag line.
+In other words, a utility to find stuff (usually text) from somewhere (usually a set of files on a filesystem) and present the results in some form.  BTW, kudos to *Damian Conway* for suggesting this tag line!
 
 But aren't there quite a few utilities like that already?  Yes, there are.  But I think it being based on the [Raku Programming Language](https://raku.org), allows it to have some unique features that would be hard to implement in any other programming language.
 
@@ -65,7 +65,7 @@ $ rak foo --extensions=txt,text
 # Find all files that have "lib" in their name from the current dir
 $ rak lib --find
 
-# Show all unique name fields in JSON files
+# Show all unique "name" fields in JSON files
 $ rak --json-per-file '*<name>' --unique
 
 # Show all lines with numbers between 1 and 65
