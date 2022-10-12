@@ -1,6 +1,6 @@
-# Don't fear the grepper!
+# Don't fear the grepper! (Part 1)
 
-This blog post provides an introduction to the Raku Programmming Language and its [`grep` functionality](https://docs.raku.org/routine/grep#(List)\_routine_grep).  It does not require any specific knowledge about the Raku Programming Language, although being familiar with basic `grep` (as a unix utility) functionality, is recommended.
+This blog post provides an introduction to the [Raku Programmming Language](https://raku.orf) and its [`grep` functionality](https://docs.raku.org/routine/grep#(List)\_routine_grep).  It does not require any specific knowledge about the Raku Programming Language, although being familiar with basic `grep` (as a unix utility) functionality, is recommended.
 
 The `grep` functionality comes in two flavours in Raku: a procedural (`sub`) version, and an object oriented (`method`) version.  Since everything in Raku is an object (or can be thought of as one), and I personally mostly prefer the object oriented way, I will be discussing only the `method` way of using `grep` and friends.
 
@@ -53,11 +53,11 @@ However, we can even further simplify this code.  The subroutine "is-even" doesn
 ```raku
 -> $number { $number %% 2 }
 ```
-In Raku this is referred to as a ["pointy block"](https://docs.raku.org/language/functions#index-entry-pointy_blocks).  You could think of this as subroutine without name, but there's a subtle difference with a `sub`: you **can** `return` from a `sub`, but you can **not** return from a pointy block.  If you execute a `return` in a pointy block, it will return out of the first outer subroutine.
+In Raku this is referred to as a ["pointy block"](https://docs.raku.org/language/functions#index-entry-pointy_blocks).  You could think of this as subroutine without name, but there's a subtle difference with a `sub`: you **can** `return` from a subroutine, but you can **not** return from just a pointy block.  If you execute a `return` in a pointy block, it will return out of the first outer subroutine.
 
 ## Third simplification
 
-In programming one often talks about [**DRY** as in Don't Repeat Yourself](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself).  Note that in the second simmplification, we removed the repeated mentions of `@whole` and `@even`.  In this third simplification, we will remve the repeated mention of `$number`:
+In programming one often talks about [**DRY** as in Don't Repeat Yourself](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself).  Note that in the second simplification, we removed the repeated mentions of `@whole` and `@even`.  In this third simplification, we will remove the repeated mention of `$number`:
 ```raku
 { $^number %% 2 }
 ```
@@ -69,5 +69,25 @@ But why would we need to have a name for a variable in such a simple expression 
 ```
 What?  That's it?  Yup.  Expressive, isn't it?  So the actual code to show the even numbers between 1 and 10 inclusive, becomes:
 ```raku
-say (1..10).grep(* %% 2);
+say (1..10).grep(* %% 2); # (2 4 6 8 10)
 ```
+
+## Moving the goal
+
+Now suppose you're only interested in the first even number?  Well, you're in luck: the Raku Programming Language comes with a [`first` method`](https://docs.raku.org/routine/first#(List)_routine_first), which is essentially the same as `grep`, but which stops as soon as it has the first match.  So our code would become:
+```raku
+say (1..10).first(* %% 2);  # 2
+```
+But what if we want to have the third even number?  Remember how we used arrays in our first version?  Well, even though `(1..10).grep(\* %% 2)` is not an array, it can be considered one.  Which means you can apply indexing on it!
+```raku
+say (1..10).grep(* %% 2)[2];  # 6
+```
+The `[2]` syntax indicates indexing, and since the first element starts at index `0`, `[2]` means the third element.
+
+Some people, coming from other languages, might argue that this would be wasteful, checking all the values in the range to only use the third value.  And they'd be right in (most) other languages.  But in the Raku Programming Language, `grep` is a lazy method, so it will only check as many values as it needs to produce the third element.
+
+## Conclusion
+
+This concludes the first part of the introduction to the `grep` method, and possibly to the Raku Programming Language.  Questions and comments are always welcome.  You can also drop into the [#raku-beginner channel](https://web.libera.chat/?channel=#raku-beginner) on Libera.chat, or on Discord if you'd like to have more immediate feedback.
+
+I hope you liked it!  Thank you for reading all the way to the end.
