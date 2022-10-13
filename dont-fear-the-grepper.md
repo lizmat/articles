@@ -1,6 +1,6 @@
 # Don't fear the grepper! (Part 1)
 
-This blog post provides an introduction to the [Raku Programmming Language](https://raku.orf) and its [`grep` functionality](https://docs.raku.org/routine/grep#(List)\_routine_grep).  It does not require any specific knowledge about the Raku Programming Language, although being familiar with basic `grep` (as a unix utility) functionality, is recommended.
+This blog post provides an introduction to the [Raku Programmming Language](https://raku.org) and its [`grep` functionality](https://docs.raku.org/routine/grep#(List)\_routine_grep).  It does not require any specific knowledge about the Raku Programming Language, although being familiar with basic `grep` functionality (of the unix utility), is recommended.
 
 The `grep` functionality comes in two flavours in Raku: a procedural (`sub`) version, and an object oriented (`method`) version.  Since everything in Raku is an object (or can be thought of as one), and I personally mostly prefer the object oriented way, I will be discussing only the `method` way of using `grep` and friends.
 
@@ -43,7 +43,7 @@ say (1..10).grep(&is-even);            # also works on ranges
 ```
 Note that we removed the `return` from the subroutine declaration.  By default, the last expression evaluated in any block of code (recognizable by the curly braces `{` `}`) will be returned automatically.
 
-Also note that we removed the use of arrays altogether: `(1..10)` in Raku is a [`Range` object](https://docs.raku.org/type/Range) that can also handle `grep` method.
+Also note that we removed the use of arrays altogether: `(1..10)` in Raku is a [`Range` object](https://docs.raku.org/type/Range) that can also have the `grep` method called on it.
 
 And the `say` subroutine will take any expression as its argument, so we're good here as well.
 
@@ -74,11 +74,14 @@ say (1..10).grep(* %% 2); # (2 4 6 8 10)
 
 ## Moving the goal
 
-Now suppose you're only interested in the first even number?  Well, you're in luck: the Raku Programming Language comes with a [`first` method`](https://docs.raku.org/routine/first#(List)_routine_first), which is essentially the same as `grep`, but which stops as soon as it has the first match.  So our code would become:
+Now suppose you're only interested in the first even number?  Well, you're in luck: the Raku Programming Language comes with a [`first` method](https://docs.raku.org/routine/first#(List)_routine_first), which is essentially the same as `grep`, but which stops as soon as it has the first match.  So our code would become:
 ```raku
 say (1..10).first(* %% 2);  # 2
 ```
-But what if we want to have the third even number?  Remember how we used arrays in our first version?  Well, even though `(1..10).grep(\* %% 2)` is not an array, it can be considered one.  Which means you can apply indexing on it!
+But what if we want to have the third even number?
+
+Remember how we used arrays in our first version?  Well, even though `(1..10).grep(* %% 2)` is not an array, it can be considered one.  Which means you can apply indexing on it!
+
 ```raku
 say (1..10).grep(* %% 2)[2];  # 6
 ```
