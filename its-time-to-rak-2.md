@@ -50,9 +50,7 @@ Creating / changing / removing a custom option, is done with the `--save=name` o
 
 ## Some basic custom options
 
-Let's create some basic shortcuts that you will probably need the most.  The `--save` option is special: it disables all of the other options (after having them checked for validity).  It takes the value as the name under which all of the specified options should be saved.
-
-If you would live to have the pattern saved as (part of) a custom options, you need to use the `--pattern` form of pattern specification.
+Let's create some basic shortcuts that you will probably need the most.
 ```
 # save --ignorecase as -i, without description
 $ rak --ignorecase --save=i
@@ -63,6 +61,8 @@ $ rak --ignoremark --description='Ignore any accents' --save=m
 # add / change description -i at a later time
 $ rak --description='Do not care about case' --save=i
 ```
+
+If you would like to have the pattern saved as (part of) a custom options, you need to use the `--pattern` form of pattern specification.  If you would like to have one or more paths to be part of a custom option, you would need to specify that with the `--paths` option.
 
 ## Setting up default options
 
