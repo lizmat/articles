@@ -14,8 +14,8 @@ However, you do *not* have to give your custom options a single letter.  Especia
 
 Any option that starts with one or two dashes, and which is **not** followed by a equal sign (`=`), is considered to be a boolean flag, by default indicating *True*.  The default meaning of a boolean flag can be reversed in two ways:
 
-- --/foo    a single slash after the dashe(s) indicates *False*
-- --no-foo  the string `no-` after the initial dashe(s) indicates *False*
+- --/foo    *a single slash after the dashe(s) indicates* **False**
+- --no-foo  *the string `no-` after the initial dashe(s) indicates* **False**
 
 Specifying an option with a *False* value is typically needed if the default for that option is *True*.
 
