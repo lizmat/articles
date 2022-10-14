@@ -6,13 +6,13 @@ But before discussing all of the myriad options of `rak` (shown to you when you 
 
 ## One dash vs two dash
 
-If an option is specified by a single dash, then all of its letters are considered to be separate single letter options.  So `-im` is really short for specifying the `i` and `m` options.  Since `rak` by itself does not not have any single letter options, this implies that single letter options are always custom options.  More about that later.
+If an option is specified by a single dash, then all of its letters are considered to be separate single letter option.  So `-im` is really short for specifying the `i` and `m` option.  Since `rak` by itself does not not have any single letter options, this implies that a single letter option is always a custom option.  But more about that later.  Single letter options are sometimes referred to as a "short option".
 
-If an option is specified with two dashes, then all of the identifying letters after that, are considered to be the name of the option.  So `--foo` is specifying the `foo` option.
+If an option is specified with two dashes, then all of the identifying letters after that, are considered to be the name of the option.  So `--foo` is specifying the `foo` option.  This is sometimes referred to as a "long option".
 
-## Specifying boolean flags
+## Boolean flags
 
-Any option that starts with one or two dashes, and which is **not** followed by a equal sign (`=`), is considered to be a boolean flag, by default indicating *True*.  The default meaning of a boolean flag can be reversed in two ways:
+Any option that starts with one or two dashes, and which is **not** followed by a equal sign (`=`), is considered to be a boolean flag.  If only a name is specified, the flag is considerd to be *True*.  The meaning of a boolean flag can be changed to *False* in two ways:
 
 ### --/foo
 
@@ -89,7 +89,7 @@ $ rak 'sub min' --rakudo
 
 ## Accepting a value with a custom option
 
-Some options require a value.  So you need to be able to specify a value with a custom option referring to an option that needs a value.  You can do this in two ways: by specifying an exclamation mark `!` (to indicate a value is required) or by specifying a default between square brackets `[` `]`.  Some examples:
+Some options require a value.  So you need to be able to specify a value with a custom option referring to an option that needs a value.  You can do this in two ways: by specifying an exclamation mark `!` (to indicate a value is required) or by specifying a default (between square brackets `[` `]`).  Some examples:
 
 ```
 # save --after-context as -A, requiring a value
@@ -105,12 +105,17 @@ $ rak --context='[2]' --save=C
 $ rak foo -C
 
 # search for "foo" and show 4 lines of context
+$ rak foo -C=4
+
+# same, without equal sign
 $ rak foo -C4
 ```
 
+Note that you can omit the equal sign (`=`) on single letter options that take a numerical value.
+
 ## Setting up default options
 
-If you are not happy with the default settings of `rak`, you can set the options you would like to have applied automatilly every time you start `rak`.  This is possible by saving these options as a custom option with the special name `(default)`.
+If you are not happy with the default settings of `rak`, you can set the options you would like to have applied automatically every time you start `rak`.  This is possible by saving those options as a custom option with the special name `(default)`.
 ```
 # set up smartcase by default
 $ rak --smartcase --save='(default)'
