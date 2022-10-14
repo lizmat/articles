@@ -2,7 +2,7 @@
 
 This is a follow-up on an [introduction to rak](https://dev.to/lizmat/its-time-to-rak-part-1-30ji).  This blog post builds on that.
 
-But before discussing all of the myriad options of `rak`, it is important to know how the specification of options work exactly, and how they interact with any of *your* customized options.
+But before discussing all of the myriad options of `rak` (shown to you when you do `rak --help`), it is important to know how the specification of options work exactly, and how they interact with any of *your* customized options.
 
 ## One dash vs two dash
 
@@ -64,6 +64,21 @@ $ rak --description='Do not care about case' --save=i
 
 If you would like to have the pattern saved as (part of) a custom options, you need to use the `--pattern` form of pattern specification.  If you would like to have one or more paths to be part of a custom option, you would need to specify that with the `--paths` option.
 
+## Accepting a value with a custom option
+
+Some options require a value.  So you need to be able to specify a value with a custom option referring to an option that needs a value.  You can do this in two ways: by specifying an exclamation mark `!` (to indicate a value is required) or by specifying a default between square brackets `[` `]`.  Some examples:
+
+```
+# save --after-context as -A, requiring a value
+$ rak --after-context=! --save=A
+
+# save --before-context as -B, requiring a value
+$ rak --before-context=! --save=B
+
+# save --context as -C, setting a default of 2
+$ rak --context='[2]' --save=C
+```
+
 ## Setting up default options
 
 If you are not happy with the default settings of `rak`, you can set the options you would like to have applied automatilly every time you start `rak`.  This is possible by saving these options as a custom option with the special name `(default)`.
@@ -71,6 +86,7 @@ If you are not happy with the default settings of `rak`, you can set the options
 # set up smartcase by default
 $ rak --smartcase --save='(default)'
 ```
+After having done this, all of your searches will be case-insensitive, provided that the iteral pattern that you provide does **not** contain any uppercase characters.
 
 ## Changing a custom option
 
@@ -82,10 +98,11 @@ $ rak list-custom-options
 -m: Ignore any accents
   --ignoremark
 ```
+And then it'd be a matter of copy-and-paste.
 
 ## Removing a custom option
 
-Removing a custom option, is just saving it again *without* any options.
+Removing a custom option, is just saving it again *without* any options specified.
 ```
 # remove the --frobnicate custom option
 $ rak --save=frobnicate
