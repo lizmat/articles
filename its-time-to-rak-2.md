@@ -2,17 +2,25 @@
 
 This is a follow-up on an [It's time to rak (Part 1)](https://dev.to/lizmat/its-time-to-rak-part-1-30ji).  This blog post builds on that, so you should maybe read that first if you haven't already.
 
+With `rak`, anything that starts with a dash (`-`) is considered to be an "option".  Anything else that you specify on the command line, is considered to be an "argumentxs".  It does *not* matter in which order options are specified.  The order of arguments **is** important: the first being the pattern, and the other arguments being the paths to search in.
+
 But before discussing all of the myriad options of `rak` (shown to you when you do `rak --help`), it is important to know how the specification of options work exactly, and how they interact with any of *your* customized options.
 
 ## One dash vs two dash
 
-If an option is specified by a single dash, then all of its letters are considered to be separate single letter option.  So `-im` is really short for specifying the `i` and `m` option.  Since `rak` by itself does not not have any single letter options, this implies that a single letter option is always a custom option.  But more about that later.  Single letter options are sometimes referred to as a "short option".
+If an option is specified by a single dash, then all of its letters are considered to be a separate single letter option.  So `-im` is really short for specifying the `i` and `m` option, as if you would specify `rak -i -m`.
+
+Since `rak` by itself does not not have any single letter options, this implies that a single letter option is always a custom option.  But more about that later.  Single letter options are sometimes referred to as a "short option".
 
 If an option is specified with two dashes, then all of the identifying letters after that, are considered to be the name of the option.  So `--foo` is specifying the `foo` option.  This is sometimes referred to as a "long option".
 
+The order in which options (anything that starts with a dash (`-`)
+
 ## Boolean flags
 
-Any option that starts with one or two dashes, and which is **not** followed by a equal sign (`=`), is considered to be a boolean flag.  If only a name is specified, the flag is considerd to be *True*.  The meaning of a boolean flag can be changed to *False* in two ways:
+Any option that starts with one or two dashes, and which is **not** followed by a equal sign (`=`), is considered to be a boolean flag.  If only a name is specified, the flag is considerd to be *True*.
+
+The meaning of a boolean flag can be changed to *False* in two ways:
 
 ### --/foo
 
@@ -36,7 +44,7 @@ $ rak foo --no-human
 Any option that needs a value other than a boolean, must specify this with an equal sign (`=`), followed by a value.  Whether or not that value needs to be quoted, and how they are to be quoted, really depends on the shell that you use to access `rak`.  In the following examples, quoting with single quotes is assumed to be the way to do that.  Some shells (most notably on Windows) require double quotes instead (so YMMV).
 ```
 # specify a literal pattern at the end of a line
-$ rak foo --type=ends-with
+$ rak --type=ends-with foo
 
 # same, with a regular expression
 $ rak '/ foo $/'
@@ -174,7 +182,7 @@ $ RAK_CONFIG= rak foo
 
 ## Conclusion
 
-This concludes part 2 of a series of blog posts about `rak`.  This episode showed you how to specify options, and how you can make your own custom options out of the many, many options that `rak` provides out of the box.
+This concludes part 2 of a series of blog posts about `rak`.  This episode shows you how to specify options, and how you can make your own custom options out of the many, many options that `rak` provides out of the box.
 
 If you have any comments, find bugs, have recommendations / ideas, please submit them as issues at the [App::Rak repository](https://github.com/lizmat/App-Rak/issues).  If you would like to have a more direct interaction, you can visit the [#raku-rak](https://web.libera.chat/?channel=#raku-rak) channel on [Libera.chat](https://libera.chat).
 
