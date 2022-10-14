@@ -1,14 +1,14 @@
 # It's time to rak! (Part 2)
 
-This is a follow-up on an [introduction to rak](https://dev.to/lizmat/its-time-to-rak-part-1-30ji).  This blog post builds on that.
+This is a follow-up on an [It's time to rak (Part 1)](https://dev.to/lizmat/its-time-to-rak-part-1-30ji).  This blog post builds on that, so you should maybe read that first if you haven't already.
 
 But before discussing all of the myriad options of `rak` (shown to you when you do `rak --help`), it is important to know how the specification of options work exactly, and how they interact with any of *your* customized options.
 
 ## One dash vs two dash
 
-If an option is specified by a single dash, then all of its letters are considered to be single letter options.  So `-im` is really short for `-i -m`.  Since `rak` by itself does not not have any single letter options, this implies that single letter options are always custom options.
+If an option is specified by a single dash, then all of its letters are considered to be separate single letter options.  So `-im` is really short for specifying the `i` and `m` options.  Since `rak` by itself does not not have any single letter options, this implies that single letter options are always custom options.  More about that later.
 
-However, you do *not* have to give your custom options a single letter.  Especially if the option is not a boolean flag, it is advisable to give your custom option more than one letter (it will make life easier for you, mnemonically speaking).
+If an option is specified with two dashes, then all of the identifying letters after that, are considered to be the name of the option.  So `--foo` is specifying the `foo` option.
 
 ## Specifying boolean flags
 
@@ -16,11 +16,11 @@ Any option that starts with one or two dashes, and which is **not** followed by 
 
 ### --/foo
 
-A single slash after the dashe(s) indicates **False**.
+A single slash after the dash(es) indicates **False**.
 
 ### --no-foo
 
-The string `no-` after the initial dashe(s) indicates **False**.
+The string `no-` after the initial dash(es) indicates **False**.
 
 Specifying an option with a *False* value is typically needed if the default for that option is *True*.  Some examples:
 ```
@@ -47,6 +47,10 @@ $ rak '/ foo $/'
 The `rak` command line utility allows you to create your own custom options, shortcuts if you will.  If you're used to another search utility, you might want to use the same option names as that other search utility.  Or you could decide to just create custom options following your own logic.
 
 Creating / changing / removing a custom option, is done with the `--save=name` option.  If that is specified, all of the other options are checked for validity by name, but do **not** perform any function.  Instead, they become the set of options to be associated with the "name".  And those options themselves, are either one of `rak`s standard options, or previously defined custom options.
+
+Note that you can give your custom options a single letter, which is especially handy if the option it is referring to, is a flag.  If it is not referring to a flag, it is advisable to give your custom option more than one letter (it will make life easier for you, mnemonically speaking).
+
+To help you (or others) to later understand what a custom option was intended to do, you can add a description with the `--description` option.  Either when creating the custom option, or at a later time.
 
 ## Some basic custom options
 
