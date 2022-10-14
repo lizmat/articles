@@ -64,9 +64,28 @@ $ rak --ignoremark --description='Ignore any accents' --save=m
 
 # add / change description -i at a later time
 $ rak --description='Do not care about case' --save=i
+
+# look for the literal string "foo", without caring for case or accents
+$ rak foo -im
 ```
 
-If you would like to have the pattern saved as (part of) a custom options, you need to use the `--pattern` form of pattern specification.  If you would like to have one or more paths to be part of a custom option, you would need to specify that with the `--paths` option.
+If you would like to have the pattern saved as (part of) a custom options, you need to use the `--pattern` form of pattern specification.
+```
+# save looking for whitespace at end of a line as --wseol
+$ rak --pattern='/ \s+ $/' --save=wseol
+
+# search for trailing whitespace
+$ rak --wseol
+```
+
+If you would like to have one or more paths to be part of a custom option, you would need to specify that with the `--paths` option.
+```
+# save searching in Rakudo's committed files as --rakudo
+$ rak --paths='~/Github/rakudo' --under-version-control --save=rakudo
+
+# search for 'sub min' in Rakudo's source 
+$ rak 'sub min' --rakudo
+```
 
 ## Accepting a value with a custom option
 
@@ -81,6 +100,12 @@ $ rak --before-context=! --save=B
 
 # save --context as -C, setting a default of 2
 $ rak --context='[2]' --save=C
+
+# search for "foo" and show two lines of context
+$ rak foo -C
+
+# search for "foo" and show 4 lines of context
+$ rak foo -C4
 ```
 
 ## Setting up default options
@@ -91,6 +116,14 @@ If you are not happy with the default settings of `rak`, you can set the options
 $ rak --smartcase --save='(default)'
 ```
 After having done this, all of your searches will be case-insensitive, provided that the iteral pattern that you provide does **not** contain any uppercase characters.
+
+```
+# look for "foo" case-insensitively
+$ rak foo
+
+# look for "Foo", while taking case into account
+$ rak Foo
+```
 
 ## Changing a custom option
 
@@ -110,6 +143,12 @@ Removing a custom option, is just saving it again *without* any options specifie
 ```
 # remove the --frobnicate custom option
 $ rak --save=frobnicate
+
+# Check there's no "frobnicate" option anymore
+$ rak --frobnicate
+Regarding unexpected option --frobnicate, did you mean:
+ --proximate: Grouping of matched lines?
+Specify --help for an overview of available options.
 ```
 
 ## Conclusion
