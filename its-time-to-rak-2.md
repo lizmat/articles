@@ -65,7 +65,7 @@ $ rak --ignoremark --description='Ignore any accents' --save=m
 # add / change description -i at a later time
 $ rak --description='Do not care about case' --save=i
 
-# look for the literal string "foo", without caring for case or accents
+# look for literal string "foo", don't check case or accents
 $ rak foo -im
 ```
 
@@ -135,6 +135,7 @@ $ rak list-custom-options
 -m: Ignore any accents
   --ignoremark
 ```
+
 And then it'd be a matter of copy-and-paste.
 
 ## Removing a custom option
@@ -149,6 +150,21 @@ $ rak --frobnicate
 Regarding unexpected option --frobnicate, did you mean:
  --proximate: Grouping of matched lines?
 Specify --help for an overview of available options.
+```
+
+## About the configuration file
+
+By default, the configuration file is at `~/.rak-config.json`.  You can specify the location of the
+configuration file by setting the `RAK_CONFIG` environment variable:
+```
+# start rak with configuration file at /usr/local/rak-config.json
+$ RAK_CONFIG=/usr/local/rak-config.json rak foo
+```
+
+You can also use that environment variable to start rak *without* any custom options (or default options), by **not** specifying a value:
+````
+# start rak with *without* any custom options
+$ RAK_CONFIG= rak foo
 ```
 
 ## Conclusion
