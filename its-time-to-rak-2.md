@@ -1,8 +1,8 @@
 # It's time to rak! (Part 2)
 
-This is a follow-up on an [It's time to rak (Part 1)](https://dev.to/lizmat/its-time-to-rak-part-1-30ji).  This blog post builds on that, so you should maybe read that first if you haven't already.
+This is a follow-up on [It's time to rak (Part 1)](https://dev.to/lizmat/its-time-to-rak-part-1-30ji).  This blog post builds on that, so you should maybe read that first if you haven't already.
 
-With `rak`, anything that starts with a dash (`-`) is considered to be an "option".  Anything else that you specify on the command line, is considered to be an "argumentxs".  It does *not* matter in which order options are specified.  The order of arguments **is** important: the first being the pattern, and the other arguments being the paths to search in.
+With `rak`, anything that starts with a dash (`-`) is considered to be an "option".  Anything else that you specify on the command line, is considered to be an "argument".  It does *not* matter in which order options are specified.  The order of arguments **is** important: the first being the pattern, and the other arguments being the paths to search in.
 
 But before discussing all of the myriad options of `rak` (shown to you when you do `rak --help`), it is important to know how the specification of options work exactly, and how they interact with any of *your* customized options.
 
@@ -13,8 +13,6 @@ If an option is specified by a single dash, then all of its letters are consider
 Since `rak` by itself does not not have any single letter options, this implies that a single letter option is always a custom option.  But more about that later.  Single letter options are sometimes referred to as a "short option".
 
 If an option is specified with two dashes, then all of the identifying letters after that, are considered to be the name of the option.  So `--foo` is specifying the `foo` option.  This is sometimes referred to as a "long option".
-
-The order in which options (anything that starts with a dash (`-`)
 
 ## Boolean flags
 
@@ -91,7 +89,7 @@ If you would like to have one or more paths to be part of a custom option, you w
 # save searching in Rakudo's committed files as --rakudo
 $ rak --paths='~/Github/rakudo' --under-version-control --save=rakudo
 
-# search for 'sub min' in Rakudo's source 
+# search for 'sub min' in Rakudo's source
 $ rak 'sub min' --rakudo
 ```
 
@@ -167,8 +165,7 @@ Specify --help for an overview of available options.
 
 ## About the configuration file
 
-By default, the configuration file is at `~/.rak-config.json`.  You can specify the location of the
-configuration file by setting the `RAK_CONFIG` environment variable:
+By default, the configuration file is at `~/.rak-config.json`.  You can specify the location of the configuration file by  setting the `RAK_CONFIG` environment variable:
 ```
 # start rak with configuration file at /usr/local/rak-config.json
 $ RAK_CONFIG=/usr/local/rak-config.json rak foo
