@@ -43,7 +43,7 @@ say (1..10).grep(* %% 2); # (2 4 6 8 10)
 
 What happens under the hood, is that whatever you've given as argument to `grep`, will have its `.ACCEPTS` method called repeatedly for all values given.  And since we've given a piece of code as the argument, it will call the `.ACCEPTS` method on the underlying `Callable` object.  And `.ACCEPTS` method on a `Callable` object will execute the code with the given argument, and return whatever the result was of executing the code.  Which is then interpreted by the `grep` logic to include the value (trueish) or not (not-trueish).
 
-In pseudo-code, you could think of the above code as:
+Being very verbose, you could think of the above code doing:
 ```
 my @result;
 my $grepper = * %% 2;
@@ -54,3 +54,27 @@ for 1..10 -> $number {
 }
 say @result.List; # (2 4 6 8 10)
 ```
+Although the actual implementation takes some shortcuts, and is lazy.  But that's stuff for another series of blog posts.
+
+## Smart-matching against types and roles
+You can us smart-matching with type objects to filter out the objects of a certain type, or which do a certain role:
+```
+my @s = "a", "b", 42, "c", "d", 666, 137, π;
+say @s.grep(Int);      # (42 666 137)
+say @s.grep(Str);      # (a b c d)
+say @s.grep(Numeric);  # (42 666 137 3.141592653589793)
+```
+The first `grep` smart-matches against the [`Int`](https://docs.raku.org/type/Int) type object, which is the type for integer values.  By the way, in Raku, this means integers of unlimited size!
+
+The second `grep` smart-matches against the [`Str`](https://docs.raku.org/type/Str) type object, which is the type for string values.
+
+> For the more Unicode savvy: in Raku, these are *always* normalized to NFG (Normalization Form Grapheme).  You can think of that as a [Normalization Form C](https://unicode.org/reports/tr15/#Norm_Forms) on steroids, which tries to combine characters as observed by a human, into a *single* real (or virtual) codepoint.
+
+The third `grep` smart-matches against the [`Numeric`](https://docs.raku.org/type/Numeric) role.  This also includes the value for `π`, which is not an integer, but is definitely numeric.  Note that you can also spell `π` as `pi` in Raku.
+
+## Smart-matching against values
+Of course, you can also smart-match against values.  Let's go back to the original `grep` example, but check for a single value:
+```
+say (1..10).grep(2);  # (2)
+```
+That works, because values that are smart-matched against themselves, (generally) return C<True>.  But how would you express if you want to `grep` against more than one value?
