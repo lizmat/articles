@@ -29,7 +29,8 @@ Smart-matching in Raku is implemented by the [`.ACCEPTS` method](https://docs.ra
 So what happens if you write:
 ```
 $a ~~ $b
-```That construct is basically syntactic sugar for:
+```
+That construct is basically syntactic sugar for:
 ```
 $b.ACCEPTS($a)
 ```
