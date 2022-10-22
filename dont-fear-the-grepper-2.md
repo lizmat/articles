@@ -1,6 +1,6 @@
 # Don't fear the grepper! (2)
 
-This blog post is a follow-up on [Don't fear the grepper! (Part 1)](https://dev.to/lizmat/dont-fear-the-grepper-1-1k3e), recommended to read first if you haven't already.
+This blog post is a follow-up on [Don't fear the grepper! (1)](https://dev.to/lizmat/dont-fear-the-grepper-1-1k3e), recommended to read first if you haven't already.
 
 ## A confession
 
@@ -96,4 +96,4 @@ say (1..10).grep( any(@targets) );  # (the two values picked)
 ## Conclusion
 This concludes the second part of the introduction to the `grep` method.  Questions and comments are always welcome.  You can also drop into the [#raku-beginner](https://web.libera.chat/?channel=#raku-beginner) channel on Libera.chat, or on Discord if you'd like to have more immediate feedback.
 
-I hope you liked it! Thank you for reading all the way to the end.
+I hope you liked it! Thanks again for reading all the way to the end.
