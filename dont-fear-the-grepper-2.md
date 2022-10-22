@@ -8,7 +8,9 @@ When I said:
 
 > The grep method takes a piece of code as the argument: this will then be repeatedly called with a value to determine whether or not that value should be included.
 
-I was in fact not telling the entire truth.  The `grep` subroutine / method will take just about anything as the argument to filter on (not just a piece of code), in a process called "smart-matching".  Smart-matching basically means a form of comparison of two objects which somehow decides whether there is a match or not.  The most visible form of that is the [`~~` infix operator](https://docs.raku.org/language/operators#index-entry-smartmatch_operator), but that is basically just syntactic sugar for an underlying mechanism.
+I was in fact not telling the entire truth.  The `grep` subroutine / method will take just about anything as the argument to filter on (not just a piece of code), in a process called "smart-matching".
+
+Smart-matching basically is a form of comparison of two objects that somehow decides whether there is a match or not.  The most visible form of that is the [`~~` infix operator](https://docs.raku.org/language/operators#index-entry-smartmatch_operator), but that is basically just syntactic sugar for an underlying mechanism.
 
 Other programming languages have also tried an implementation of smart-match.  From that, the Raku Programming Language has learned that:
 
@@ -21,7 +23,7 @@ In hindsight, it seems odd that anybody thought that having smart-match be symme
 
 ## Why it must be configurable
 
-The Raku Programming Language comes with many classes of objects built in.  But any serious development of code in Raku, will see new classes of objects.  Either by yourself, or as part of a module in the [Raku ecosystem](https://raku.land).  Of course, Raku can provide some sensible defaults in smart-matching, but any developer should be able to specify the behaviour of smart-matching between any custom objects and any other (core or custom) objects.
+The Raku Programming Language comes with many classes of objects built in.  But any serious development of code in Raku will see new classes of objects.  Either by yourself, or as part of a module in the [Raku ecosystem](https://raku.land).  Of course, Raku can provide some sensible defaults in smart-matching, but any developer should be able to specify the behaviour of smart-matching between any custom objects and any other (core or custom) objects.
 
 ## The .ACCEPTS method
 Smart-matching in Raku is implemented by calling the [`.ACCEPTS` method](https://docs.raku.org/routine/ACCEPTS).  All core classes have an `.ACCEPTS` method implemented, either directly or through inheritance.  And you can program an `.ACCEPTS` method in your own classes: that's configurability for you!
@@ -56,7 +58,7 @@ for 1..10 -> $number {
 }
 say @result.List; # (2 4 6 8 10)
 ```
-Although the actual implementation takes some shortcuts, and is also lazy.  But that's stuff for another series of blog posts about iterators.
+Although the actual implementation of the `grep` method takes some shortcuts, and is also lazy.  But that's stuff for another series of blog posts about iterators.
 
 ## Smart-matching against types and roles
 You can use smart-matching with type objects to filter out the objects of a certain type, or which do a certain role.  Let's create an array `@s` with different types of values:
@@ -66,7 +68,7 @@ say @s.grep(Int);      # (42 666 137)
 say @s.grep(Str);      # (a b c d)
 say @s.grep(Numeric);  # (42 666 137 3.141592653589793)
 ```
-The first `grep` smart-matches against the [`Int`](https://docs.raku.org/type/Int) type object, which is the type for integer values.  By the way, in Raku, this means integers of unlimited size!
+The first `grep` smart-matches against the [`Int`](https://docs.raku.org/type/Int) type object, which is the type for integer values.
 
 The second `grep` smart-matches against the [`Str`](https://docs.raku.org/type/Str) type object, which is the type for string values.
 
@@ -97,7 +99,7 @@ my @targets = (1..10).pick(2);     # picks two random values
 say (1..10).grep( any(@targets) ); # (the two values picked)
 ```
 ## Conclusion
-This concludes the second part of the introduction to the `grep` method.  This refined the functionality of `grep` by introducing the concept of "smart-matching".  And also introduced the concept of the superposition of values, aka "junctions".
+This concludes the second part of the introduction to the `grep` method.  This refined the functionality of `grep` by introducing the concept of "smart-matching".  And also introduced the concept of "Normalization Form Grapheme" as well as the concept of the superposition of values, aka "junctions".
 
 Questions and comments are always welcome.  You can also drop into the [#raku-beginner](https://web.libera.chat/?channel=#raku-beginner) channel on Libera.chat, or on Discord if you'd like to have more immediate feedback.
 
