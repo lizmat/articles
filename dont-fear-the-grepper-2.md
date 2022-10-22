@@ -1,4 +1,4 @@
-# Don't fear the grepper! (Part 2)
+# Don't fear the grepper! (2)
 
 This blog post is a follow-up on [Don't fear the grepper! (Part 1)](https://dev.to/lizmat/dont-fear-the-grepper-1-1k3e), recommended to read first if you haven't already.
 
@@ -77,4 +77,23 @@ Of course, you can also smart-match against values.  Let's go back to the origin
 ```
 say (1..10).grep(2);  # (2)
 ```
-That works, because values that are smart-matched against themselves, (generally) return C<True>.  But how would you express if you want to `grep` against more than one value?
+That works, because values that are smart-matched against themselves, (generally) return `True`.  But how would you express if you want to `grep` against more than one value?  Suppose we want to filter out any values that are `2` or `7`?  Well, you can!
+```
+say (1..10).grep( 2 | 7 );  # (2 7)
+```
+What magic is this?  Well, the `2 | 7` indicates a superposition of values Something that is actually more than one value at the same time.  These are called [Junctions](https://docs.raku.org/type/Junction) in Raku.
+
+In the above example, the `Junction` consists of the values `2` and `7`.  The [`|`](https://docs.raku.org/language/operators#index-entry-Any_junction_operator) indicates that **any** of the values will do when that `Junction` is being used in an expression and the result should collapse to something trueish or non-trueish.  The `|` is basically syntactic sugar to collect the values for the [`any` function](https://docs.raku.org/routine/any).
+So the above could also have been written as:
+```
+say (1..10).grep( any(2,7) );  # (2 7)
+```
+And if you do not know the values you want to smart-match on at compile time, you can also them into an array and give that to `any`:
+```
+my @targets = (1..10).pick(2);      # two random values between 1 and 10
+say (1..10).grep( any(@targets) );  # (the two values picked)
+```
+## Conclusion
+This concludes the second part of the introduction to the `grep` method.  Questions and comments are always welcome.  You can also drop into the [#raku-beginner](https://web.libera.chat/?channel=#raku-beginner) channel on Libera.chat, or on Discord if you'd like to have more immediate feedback.
+
+I hope you liked it! Thank you for reading all the way to the end.
