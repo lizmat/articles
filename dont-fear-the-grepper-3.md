@@ -18,9 +18,13 @@ and after that, it got simplified to
 ```
 Now, this is all very cool, but it limits to what you can do in the condition.  A more complex condition could not be specified that way.  So maybe we need to look at simplification in another direction as well.
 
-Another way to simplify the pointy block version is using [the topic variable `$_`](https://docs.raku.org/language/variables#index-entry-topic_variable).
+Another way to simplify the pointy block version is using [the topic variable `$_`](https://docs.raku.org/language/variables#index-entry-topic_variable).  So instead of:
 ```
--> $_ { $_ %% s }
+-> $number { $number %% 2 }
+```
+we could write:
+```
+-> $_ { $_ %% 2 }
 ```
 The topic variable `$_` is an important tool to avoid repeating yourself.  Like in any conversation, one does not need to repeat the topic over and over again.  However, you might say, in the above example we *did* repeat `$_`!  Well, in fact, you don't have to:
 ```
@@ -36,13 +40,13 @@ say { $_ %% 2 }(42);  # True
 
 ## More on the topic
 
-You don't need to define the `$_` variable: it is automatically defined in any scope, so you can assign to it whenever you want to.
+You don't need to define the `$_` variable yourself: it is automatically defined in any scope, so you can assign to it whenever you want to.
 ```
 $_ = 42;
 say $_; # 42
 ```
 
-To make this clearer in code, there is actually a [`given` control construct](https://docs.raku.org/syntax/given) that will set `$_` inside the scope it indicates:
+To make this clearer in code, there is actually a [`given` control construct](https://docs.raku.org/syntax/given) that will set `$_` inside the scope it defines:
 ```
 given 42 {
     say $_; # 42
@@ -58,7 +62,7 @@ given 42 {
 }
 say $_; # 666
 ```
-Note that the `$_` after the `given` block retained the value it had before the `given` block.  No need to worry about stepping on each others toes!
+Note that the `$_` after the `given` block retained the value it had before the `given` block.  That's because the (implicit) outer block also had its own `$_` defined in it.  No need to worry about stepping on each others toes!
 
 ## The invisible invocant
 
@@ -78,10 +82,14 @@ No invocant specified: the topic is assumed.
 
 ## Using the topic in grep
 
-
+So let's expand the logic inside the block of a `grep`.  In this example, we have a list of words, and we want to filter out the ones that are completely written in uppercase:
+```
+say <dog BIRD Cat COW>.grep({ $_ eq .uc }); # (BIRD COW)
+```
+Inside the block, we're converting whatever was given as argument to uppercase (`.uc`) and then comparing that as a string (`eq`) with what was given as argument (`$_`).  The result is that you get just the words that were already all uppercase to begin with.
 
 ## Conclusion
-This concludes the third part of the series, this time introducing the `map` method.
+This concludes the third part of the series, this time introducing [the topic variable `$_`](https://docs.raku.org/language/variables#index-entry-topic_variable), how it is always defined in every scope, and how it can be used as an invisible invocant to methods.
 
 Questions and comments are always welcome.  You can also drop into the [#raku-beginner](https://web.libera.chat/?channel=#raku-beginner) channel on Libera.chat, or on Discord if you'd like to have more immediate feedback.
 
