@@ -8,7 +8,7 @@ In the first instalment, we saw that a subroutine could be reduced to a [pointy 
 ```
 sub is-even($number) { $number %% 2 }
 ```
-could be simplified to:
+And that could be simplified to:
 ```
 -> $number { $number %% 2 }
 ```
@@ -16,7 +16,7 @@ and after that, it got simplified to
 ```
 * %% 2
 ```
-Now, this is all very cool, but it limits to what you can do in the condition.  And it prohibits any more complex conditions.  So maybe we need to look at simplification in another direction.
+Now, this is all very cool, but it limits to what you can do in the condition.  A more complex condition could not be specified that way.  So maybe we need to look at simplification in another direction as well.
 
 Another way to simplify the pointy block version is using [the topic variable `$_`](https://docs.raku.org/language/variables#index-entry-topic_variable).
 ```
@@ -26,9 +26,9 @@ The topic variable `$_` is an important tool to avoid repeating yourself.  Like 
 ```
 { $_ %% 2 }
 ```
-is an even more simplified block (which may be familiar to some of you as a ["lambda"](https://en.wikipedia.org/wiki/Anonymous_function)).  Any block with code in it, will automatically set the topic variable `$_` *inside* of that block to the argument passed to it.  One could argue that it no longer looks like a pointy block, and you'd be right.  But under the hood, it still acts as if `-> $_` was specified.
+is an even more simplified block (which may be familiar to some of you as a ["lambda"](https://en.wikipedia.org/wiki/Anonymous_function)).  Any block with code in it, will automatically set the topic variable `$_` *inside* of that block to the argument passed to it.  One could argue that it no longer looks like a pointy block, and you'd be right.  But under the hood, it still acts as if `-> $_` was specified, and thus preserves its "pointy" behaviour.
 
-Note that can call still call that block as if it were a subroutine:
+Note that you can call still call that block as if it were a subroutine:
 ```
 say { $_ %% 2 }(137); # False
 say { $_ %% 2 }(42);  # True
@@ -42,13 +42,15 @@ $_ = 42;
 say $_; # 42
 ```
 
-To make this clearer in code, there is actually a [`given` control construct](https://docs.raku.org/syntax/given):
+To make this clearer in code, there is actually a [`given` control construct](https://docs.raku.org/syntax/given) that will set `$_` inside the scope it indicates:
 ```
 given 42 {
     say $_; # 42
 }
 ```
 *Every* scope has its own topic, its own `$_` variable.  You could think of it like every scope has a `my $_` in it.  Fortunately, you don't have to specify that, so you don't have to repeat yourself!
+
+Here's an example of multiple scopes and topics:
 ```
 $_ = 666;
 given 42 {
@@ -56,7 +58,7 @@ given 42 {
 }
 say $_; # 666
 ```
-No need to worry about stepping on each others toes!
+Note that the `$_` after the `given` block retained the value it had before the `given` block.  No need to worry about stepping on each others toes!
 
 ## The invisible invocant
 
