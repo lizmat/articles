@@ -76,23 +76,9 @@ given 42 {
 ```
 No invocant specified: the topic is assumed.
 
-## Expanding the notion of grep
+## Using the topic in grep
 
-The `grep` method allows one to filter a list of values: either a value gets through, or it does not.  In this way, the functionality of `grep` is rather limited.  What if you would not only like to filter out unwanted values, but also would like to *adapt* acceptable values on the fly?  With the `map` method, you can!
 
-The `map` method provides a superset of the functionality of `grep`, but you can also use it as `grep` provided you're using a piece of code to do the filtering.
-
-## Using map as a grep
-
-Let's go back to the original example of `grep` in this series:
-```
-say (1..10).grep(* %% 2); # (2 4 6 8 10)
-```
-
-This would look like this when using `map`:
-```
-say (1..10).map({ $_ if $_ %% 2 }); # (2 4 6 8 10)
-```
 
 ## Conclusion
 This concludes the third part of the series, this time introducing the `map` method.
