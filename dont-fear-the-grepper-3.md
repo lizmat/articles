@@ -30,7 +30,9 @@ The topic variable `$_` is an important tool to avoid repeating yourself.  Like 
 ```
 { $_ %% 2 }
 ```
-is an even more simplified block (which may be familiar to some of you as a ["lambda"](https://en.wikipedia.org/wiki/Anonymous_function)).  Any block with code in it, will automatically set the topic variable `$_` *inside* of that block to the argument passed to it.  One could argue that it no longer looks like a pointy block, and you'd be right.  But under the hood, it still acts as if `-> $_` was specified, and thus preserves its "pointy" behaviour.
+is an even more simplified block (which may be familiar to some of you as a ["lambda"](https://en.wikipedia.org/wiki/Anonymous_function)).  Any block with code in it, will automatically set the topic variable `$_` *inside* of that block to the argument passed to it.
+
+One could argue that it no longer looks like a pointy block, and you'd be right.  But under the hood, it still acts as if `-> $_` was specified, and thus preserves its "pointy" behaviour.
 
 Note that you can call still call that block as if it were a subroutine:
 ```
@@ -86,10 +88,12 @@ So let's expand the logic inside the block of a `grep`.  In this example, we hav
 ```
 say <dog BIRD Cat COW>.grep({ $_ eq .uc }); # (BIRD COW)
 ```
-Inside the block, we're converting whatever was given as argument to uppercase (`.uc`) and then comparing that as a string (`eq`) with what was given as argument (`$_`).  The result is that you get just the words that were already all uppercase to begin with.
+Inside the block, we're converting whatever was given as argument to uppercase ([`.uc`](https://docs.raku.org/routine/uc#(Str)_routine_uc)) and then comparing that as a string ([`eq`](https://docs.raku.org/routine/eq#(Operators)_infix_eq)) with what was given as argument (`$_`).  The result is that you get just the words that were already all uppercase to begin with.
+
+Note the syntax for creating a list of words, using `< ... >`.  This is called ["word quoting"](https://docs.raku.org/language/quoting#Word_quoting:_%3C_%3E) in Raku, and is really handy for specifying a list of words, separated by whitespace.
 
 ## Conclusion
-This concludes the third part of the series, this time introducing [the topic variable `$_`](https://docs.raku.org/language/variables#index-entry-topic_variable), how it is always defined in every scope, and how it can be used as an invisible invocant to methods.
+This concludes the third part of the series, this time introducing [the topic variable `$_`](https://docs.raku.org/language/variables#index-entry-topic_variable), how it is always defined in every scope, and how it can be used as an invisible invocant to methods.  And on the fly, also introduced the `< ... >` word quoting feature.
 
 Questions and comments are always welcome.  You can also drop into the [#raku-beginner](https://web.libera.chat/?channel=#raku-beginner) channel on Libera.chat, or on Discord if you'd like to have more immediate feedback.
 
