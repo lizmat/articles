@@ -93,7 +93,7 @@ Inside the block, we're converting whatever was given as argument to uppercase (
 Note the syntax for creating a list of words, using `< ... >`.  This is called ["word quoting"](https://docs.raku.org/language/quoting#Word_quoting:_%3C_%3E) in Raku, and is really handy for specifying a list of words, separated by whitespace.
 
 ## Conclusion
-This concludes the third part of the series, this time introducing [the topic variable `$_`](https://docs.raku.org/language/variables#index-entry-topic_variable), how it is always defined in every scope, and how it can be used as an invisible invocant to methods.  And on the fly, also introduced the `< ... >` word quoting feature.
+This concludes the third part of the series, this time introducing [the topic variable `$_`](https://docs.raku.org/language/variables#index-entry-topic_variable), how it is always defined in every scope, and how it can be used as an invisible invocant to methods.  And on the fly, also got introduced to the `< ... >` word quoting feature.
 
 Questions and comments are always welcome.  You can also drop into the [#raku-beginner](https://web.libera.chat/?channel=#raku-beginner) channel on Libera.chat, or on Discord if you'd like to have more immediate feedback.
 
