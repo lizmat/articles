@@ -73,7 +73,7 @@ say (1..10).map({
 ```
 What?  You just removed the `else`?  Yup!  The reason this works, is that the value of a failed `if` (or `elsif` for that matter), is `Empty`.  So you don't have to specify the `else` clause explicitely!
 
-Still, it feels this could still be shorter.  And you'd be right!  Since there is no `else` in the code anymore, you can use the "statement modifier" version of `if` (sometimes also referred to as "postfix if": 
+Still, it feels this could still be shorter.  And you'd be right!  Since there is no `else` in the code anymore, you can use the "statement modifier" version of `if` (sometimes also referred to as "postfix if"): 
 ```
 say (1..10).map({
     slip($_ - .5, $_ + .5) if $_ %% 2
@@ -85,7 +85,7 @@ That reduces on curly braces, but is also known to not improve readability for *
 
 Whenever you're coding something to reach a certain goal, you should always think about the way you got to a solution.  And think about whether there couldn't be an easier way to reach the same result.
 
-This is not just about efficiency of code execution, but also about whether your code shows the intent clearly or not.  And thus will make it easier for you, or anybody else, to [grok](https://en.wikipedia.org/wiki/Grok) the source code.
+This is not just about efficiency of code execution, but also about whether your code shows the intent clearly or not.  And clear intent will make it easier for you, or anybody else, now or in the future, to [grok](https://en.wikipedia.org/wiki/Grok) the source code.
 
 In this case, producing the values 1.5 through 10.5 with an interval of 1, can be done **much** easier, because with `map` we can also *change* values unconditionally!
 ```
