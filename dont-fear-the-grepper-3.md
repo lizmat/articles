@@ -1,6 +1,6 @@
 # Don't fear the grepper! (3)
 
-This blog post containse the third instalment of the Don't fear the grepper! series ([Part 1](https://dev.to/lizmat/dont-fear-the-grepper-1-1k3e)), [Part 2](https://dev.to/lizmat/dont-fear-the-grepper-2-4ki5), recommended to read first if you haven't already.
+This blog post contains the third instalment of the Don't fear the grepper! series ([Part 1](https://dev.to/lizmat/dont-fear-the-grepper-1-1k3e), [Part 2](https://dev.to/lizmat/dont-fear-the-grepper-2-4ki5)), recommended reading if you haven't already.
 
 ## Setting the topic
 
@@ -26,7 +26,7 @@ The topic variable `$_` is an important tool to avoid repeating yourself.  Like 
 ```
 { $_ %% 2 }
 ```
-is an even more simplified block (which may be familiar to some of you as a ["lambda"](https://en.wikipedia.org/wiki/Anonymous_function)).  Any block with code in it, will automatically set the topic variable `$_` to the argument passed to it.  One could argue that it no longer looks like a pointy block, and you'd be right.  But under the hood, it still has a signature as if `-> $_` was specified.
+is an even more simplified block (which may be familiar to some of you as a ["lambda"](https://en.wikipedia.org/wiki/Anonymous_function)).  Any block with code in it, will automatically set the topic variable `$_` *inside* of that block to the argument passed to it.  One could argue that it no longer looks like a pointy block, and you'd be right.  But under the hood, it still acts as if `-> $_` was specified.
 
 Note that can call still call that block as if it were a subroutine:
 ```
@@ -48,6 +48,18 @@ given 42 {
     say $_; # 42
 }
 ```
+*Every* scope has its own topic, its own `$_` variable.  You could think of it like every scope has a `my $_` in it.  Fortunately, you don't have to specify that, so you don't have to repeat yourself!
+```
+$_ = 666;
+given 42 {
+    say $_; # 42
+}
+say $_; # 666
+```
+No need to worry about stepping on each others toes!
+
+## The invisible invocant
+
 Like many things in the Raku Programming Language, there is also a method version of [`say`](https://docs.raku.org/routine/say#(Mu)_method_say).  So you could write the above code as:
 ```
 given 42 {
@@ -60,7 +72,7 @@ given 42 {
     .say; # 42
 }
 ```
-Note that there is no invocant specified, the topic is assumed.
+No invocant specified: the topic is assumed.
 
 ## Expanding the notion of grep
 
