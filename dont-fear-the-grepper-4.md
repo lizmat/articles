@@ -1,6 +1,6 @@
 # Don't fear the grepper! (4)
 
-This blog post contains the fourth instalment of the Don't fear the grepper! series ([Part 1](https://dev.to/lizmat/dont-fear-the-grepper-1-1k3e), [Part 2](https://dev.to/lizmat/dont-fear-the-grepper-2-4ki5), [Part 3](https://dev.to/lizmat/dont-fear-the-grepper-3-hfp)) are all recommended reading, if you haven't read them already.
+This blog post contains the fourth instalment of the Don't fear the grepper! series. [Part 1](https://dev.to/lizmat/dont-fear-the-grepper-1-1k3e), [Part 2](https://dev.to/lizmat/dont-fear-the-grepper-2-4ki5), [Part 3](https://dev.to/lizmat/dont-fear-the-grepper-3-hfp) are all recommended reading, if you haven't read them already.
 
 ## Expanding the notion of grep
 
@@ -10,7 +10,7 @@ What if you would not only like to filter out unwanted values, but also would li
 
 The [`map`](https://docs.raku.org/routine/map) method provides a superset of the functionality of `grep`.  But you can also use it as `grep` with a block to do the filtering (instead of using something to smart-match against).
 
-In many ways, understanding `map` well, will make understanding a lot of aspects of the Raku Programming Language a lot easier!
+In many ways, understanding `map` well, will make understanding a lot of aspects of the Raku Programming Language a lot easier!  So let's focus on that a bit.
 
 ## Using map as grep
 
@@ -21,11 +21,11 @@ say (1..10).grep({ $_ %% 2 }); # (2 4 6 8 10)
 You could write this using `map` as:
 ```
 say (1..10).map({
-    if $_ %% 2 {
-        $_
+    if $_ %% 2 {   # is it divisible by 2?
+        $_         # yes, accept
     }
-    else {
-        Empty
+    else {         # not divisible by 2
+        Empty      # don't accept
     }
 }); # (2 4 6 8 10)
 ```
@@ -42,30 +42,32 @@ So if the condition `$_ %% 2` is **not** true, an empty Slip will be put into th
 But you are not limited to slipping an empty list!  You can use the [`slip`](https://docs.raku.org/routine/slip) subroutine to create a Slip with any values you give it.  For example:
 ```
 say (1..10).map({
-    if $_ %% 2 {
-        slip($_ - .5, $_ + .5)
+    if $_ %% 2 {                 # divisible by 2?
+        slip($_ - 0.5, $_ + 0.5) # produce values around it
     }
-    else {
-        Empty
+    else {                       # not divisibly by 2
+        Empty                    # don't accept
     }
 }); # (1.5 2.5 3.5 4.5 5.5 6.5 7.5 8.5 9.5 10.5)
 ```
-In this example the even numbers are replaced by two values, one .5 less and one .5 more than the topic.
+In this example the even numbers are replaced by two values, one 0.5 less and one 0.5 more than the topic.
 
 ## Consequences of not slipping
 
 So, what would happen if you do **not** slip these values, but just produce the two values?
 ```
 say (1..10).map({
-    if $_ %% 2 {
-        $_ - .5, $_ + .5
+    if $_ %% 2 {           # divisible by 2?
+        $_ - 0.5, $_ + 0.5 # produce list with values
     }
-    else {
-        Empty
+    else {                 # not divisible by 2
+        Empty              # don't accept
     }
 }); # ((1.5 2.5) (3.5 4.5) (5.5 6.5) (7.5 8.5) (9.5 10.5))
 ```
 You would get a 5-element list of 2-element lists.  Instead of a single 10-element list.  In other words, the produced lists do **not** get flattened.
+
+> Note that it was not necessary to put parentheses around the 2-element list.  In Raku the comma (aka the [`,` operator](https://docs.raku.org/language/operators#infix_,)) creates lists, not parentheses!
 
 If that is what you wanted, then be happy. In this blog post, it is not what we wanted, so we used a `slip` instead.
 
@@ -75,7 +77,7 @@ Using an `if` / `else` structure is still pretty verbose though, and yes this ca
 ```
 say (1..10).map({
     if $_ %% 2 {
-        slip($_ - .5, $_ + .5)
+        slip($_ - 0.5, $_ + 0.5)
     }
 }); # (1.5 2.5 3.5 4.5 5.5 6.5 7.5 8.5 9.5 10.5)
 ```
