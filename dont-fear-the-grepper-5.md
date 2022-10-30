@@ -104,6 +104,8 @@ say "$seen even numbers"; # 6 even numbers
 
 This has now become a case in which the `.map` method **only** executes the given block for its side-effects.
 
+## For all we know
+
 Actually, the Raku Programming Language has a better syntax for that: the [`for` control statement](https://docs.raku.org/syntax/for):
 ```
 my $seen = 0;             # initialize counter
@@ -149,10 +151,10 @@ This series of blog posts has "grep" in its title.  So how does this apply to `.
 my $seen = 0;             # initialize counter
 (1..12).grep({
     $seen++ if $_ %% 2;   # divisible by 2, increment!
-}
+});
 say "$seen even numbers"; # 6 even numbers
 ```
-But you probably shouldn't!
+But you probably shouldn't.  Because `.grep` is intended to filter out values from a list, and you're not using it for that in this example.  And using `.grep` for its side-effects only will confuse whoever will be maintaining your code in the future!  And that could be you!
 
 ## Conclusion
 This concludes the fifth part of the series, this time introducing the `next` and `last` loop control flow statements.  And hopefully instilled the notion that a `for` loop is nothing but a `.map` that is only executed for its side-effects.  Also that blocks have signatures, that can be specified in many other situations in Raku code, such as with an `if`.
