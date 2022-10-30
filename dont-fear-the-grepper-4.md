@@ -95,7 +95,7 @@ That reduces on curly braces, but is also known to not improve readability for *
 
 Whenever you're coding something to reach a certain goal, you should always think about the way you got to a solution.  And think about whether there couldn't be an easier way to reach the same result.
 
-This is not just about efficiency of code execution, but also about whether your code shows the intent clearly or not.  And clear intent will make it easier for you, or anybody else, now or in the future, to [grok](https://en.wikipedia.org/wiki/Grok) the source code.
+This is not just about efficiency of code execution, but also about whether your code shows the intent clearly, or not.  And clear intent will make it easier for you, or anybody else, now or in the future, to [grok](https://en.wikipedia.org/wiki/Grok) the source code.
 
 In this case, producing the values 1.5 through 10.5 with an interval of 1, can be done **much** easier, because with `map` we can also *change* values unconditionally!
 ```
@@ -110,7 +110,7 @@ say (1..10).map(* + .5);
 And there you have a hopefully easy way to grok the use of the `map` method in a nutshell!
 
 ## Conclusion
-This concludes the fourth part of the series, this time introducing the `map` method.  And also introducing the concept of `Empty`, and `Slip`s in general.  And also showing that you can have a statement modifier version of `if` if you don't need an `else` or an `elsif`.!
+This concludes the fourth part of the series, this time introducing the `map` method.  And also introducing the concept of `Empty`, and `Slip` in general.  And also showing that you can have a statement modifier version of `if` if you don't need an `else` or an `elsif`.!
 
 Questions and comments are always welcome.  You can also drop into the [#raku-beginner](https://web.libera.chat/?channel=#raku-beginner) channel on Libera.chat, or on Discord if you'd like to have more immediate feedback.
 
