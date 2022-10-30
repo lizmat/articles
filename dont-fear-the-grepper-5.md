@@ -6,7 +6,7 @@ This blog post contains the fifth instalment of the Don't fear the grepper! seri
 
 ## The next confession
 
-Yes, another one.  In the previous blog post I said that you can remove (not accept) values in a `.map` by returning the `Empty` value from the block.
+Yes, another one.  In the previous blog post I said that you can decide to not accept some values in a `.map`, by returning the `Empty` value from the block.
 ```
 say (1..12).map({
     if $_ %% 2 {   # is it divisible by 2?
@@ -18,14 +18,16 @@ say (1..12).map({
 }); # (2 4 6 8 10 12)
 ```
 
-There's actually another way to not accept the value, and that is using the [`next` control flow statement](https://docs.raku.org/syntax/next).  With `next`, you're actually telling `.map` to stop executing any code inside the block immediately, and start the **next** iteration.  So how would that look in the above case?
+There's actually another way to decide to not accept a value, and that is by using the [`next` control flow statement](https://docs.raku.org/syntax/next).  With `next`, you're actually telling `.map` to stop executing any code inside the block immediately, and start the **next** iteration.
+
+So how would that look in the above case?
 ```
 say (1..12).map({
     next unless $_ %% 2;  # not divisible by 2, next!
     $_                    # accept
 }); # (2 4 6 8 10 12)
 ```
-Note that using `next` will interrupt the normal flow of the program.  When it executes, it will look up the call stack and instruct the first handler capable of handling `next` to immediately continue with the next iteration.  In this case, the `.map` has such a handler.
+Note that using `next` will interrupt the normal flow of the program.  When it executes, it will look up the call stack and instruct the first handler capable of handling `next` to immediately continue with the next iteration.  In this case, the `.map` method has installed such a handler.
 
 And you see I used [`unless`](https://docs.raku.org/syntax/unless), instead of [`if`](https://docs.raku.org/syntax/if) [`not`](https://docs.raku.org/routine/not) there.  I generally use `unless` only as a statement modifier, because using it with blocks generally doesn't improve readability, and therefor maintainability of any codebase.  But of course, I could also have written `next if not $_ %% 2`!
 
@@ -38,7 +40,7 @@ say (1..12).map({
 }); # (6 12)
 ```
 
-By using `next` you can create quite complicated logic when doing any `.map`ping.
+By using `next` you can create quite complicated logic when doing any mapping using `.map`.
 
 ## For the last time
 
@@ -62,7 +64,7 @@ say (1..12).map({
 }); # (2 4 6)
 ```
 
-Like `next`, `last` will interrupt the normal flow of the program.  When it executes, it will look up the call stack and instruct the first handler capable of handling `last` to stop iterating.  In this case, the `.map` has such a handler.
+Like `next`, `last` will interrupt the normal flow of the program.  When it executes, it will look up the call stack and instruct the first handler capable of handling `last` to stop iterating.  In this case, the `.map` method has installed such a handler.
 
 Wow, that is so much easier!
 
@@ -79,9 +81,9 @@ say (1..12).map({
 say "$seen even numbers"; # 6 even numbers
 ```
 
-As you can see, the Raku Programming Language also as a [`++` postfix operator](https://docs.raku.org/routine/++#(Operators)_postfix_++) for incrementing integer values!
+As you can see, the Raku Programming Language also has a [`++` postfix operator](https://docs.raku.org/routine/++#(Operators)_postfix_++) for incrementing integer values!
 
-But what if you're only interested in the **how many** even numbers were seen, and not interested in the actual numbers themselves?  Well, that should be easy: remove the `say`, and the final `$_` in the block (as we're not interested in the actual value when returning from the block anyway).
+But what if you're only interested in **how many** even numbers were seen, and not interested in the actual numbers themselves?  Well, that should be easy: remove the `say`, and the final `$_` in the block (as we're not interested in the actual value when returning from the block anyway).
 ```
 my $seen = 0;             # initialize counter
 (1..12).map({
@@ -100,7 +102,9 @@ my $seen = 0;             # initialize counter
 say "$seen even numbers"; # 6 even numbers
 ```
 
-This has now become a case in which the `.map` is **only** executed for its side-effects.  And actually, the Raku Programming Language has a better syntax for that: the [`for` control statement](https://docs.raku.org/syntax/for):
+This has now become a case in which the `.map` method **only** executes the given block for its side-effects.
+
+Actually, the Raku Programming Language has a better syntax for that: the [`for` control statement](https://docs.raku.org/syntax/for):
 ```
 my $seen = 0;             # initialize counter
 for 1..12 {
@@ -109,7 +113,7 @@ for 1..12 {
 say "$seen even numbers"; # 6 even numbers
 ```
 
-Yes.  The `for` loop in Raku, is basically a `.map` of which the body is only executed for its side-effects.  And actually, they both use the same underlying iterator mechanism.  Which means that you can use `next` and `last` also in `for` loops, because it is basically a `.map` (or vice-versa, depending on how you look at it).
+Yes.  The `for` loop in Raku, is basically a `.map` of which the body is only executed for its side-effects.  They both use the same underlying iterator mechanism.  Which means that you can use `next` and `last` also in `for` loops, because it is basically a `.map` (or vice-versa, depending on how you look at it).
 
 The underlying iterator mechanism is material for a whole separate set of blog posts, so I won't go further into that here and now.  Suffice to say that Raku attempts to unify many different concepts that appear to be different on the surface, to deeper unifying logic and syntax.
 
@@ -136,7 +140,19 @@ if complicated-calcution($input) -> $result {
 }
 ```
 
-Because that is also just a block, just as it was with `.map` or `for`!
+Because the `if` statement also just accepts a block, just as `.map` or `for` expect a block!
+
+## But what about grep?
+
+This series of blog posts has "grep" in its title.  So how does this apply to `.grep`?  Could you use `.grep` for its side-effects?  Yes, you could:
+```
+my $seen = 0;             # initialize counter
+(1..12).grep({
+    $seen++ if $_ %% 2;   # divisible by 2, increment!
+}
+say "$seen even numbers"; # 6 even numbers
+```
+But you probably shouldn't!
 
 ## Conclusion
 This concludes the fifth part of the series, this time introducing the `next` and `last` loop control flow statements.  And hopefully instilled the notion that a `for` loop is nothing but a `.map` that is only executed for its side-effects.  Also that blocks have signatures, that can be specified in many other situations in Raku code, such as with an `if`.
