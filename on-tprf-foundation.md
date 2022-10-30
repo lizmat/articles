@@ -7,7 +7,7 @@ But before we go on, a little history is in order:
 
 During the mid 1990's, O'Reilly started organizing a yearly "Perl Conference".  Over the years, this morphed into "**OS**CON" focusing on **O**pen **So**urce in general, rather than being just about Perl.  And it became actually quite expensive to attend.
 
-By the end of the 1990's, a group of people decided that it was time to have a proper Perl conference again, being as cheap as possible, organised by local Perl groups.  These conferences became known as "Yet Another Perl Conference" or "YAPC".  The reason that it couldn't be just called "The Perl Conference" was that O'Reilly had the rights to that name, or was at least perceived to have that right.
+By the end of the 1990's, a group of people decided that it was time to have a proper Perl conference again, being as cheap as possible, organised by local Perl groups.  These conferences became known as "Yet Another Perl Conference" or "YAPC".  The reason that it couldn't be just called "The Perl Conference", was that O'Reilly had the rights to that name, or was at least perceived to have that right.
 
 In order to support people organizing YAPC's in the United States, a foundation was created by the name of "Yet Another Society" (aka "YAS").  Over the years, this foundation added a "doing business as" (aka "dba") registration with the name "The Perl Foundation".  And it is mostly known by *that* name nowadays, rather than its officially business name "Yet Another Society".
 
@@ -15,7 +15,7 @@ As such, The Perl Foundation (aka "TPF") has been supporting Perl (both 5 and 6)
 
 ## Consequences of rename of Perl 6
 
-When Perl 6 was renamed to "The Raku Programming Language" in 2019, the consequences of that rename were discussed by yours truly with the then treasurer of YAS.  The conclusion of this discussion was that it would be best to create *another* "dba" for YAS, called "The Raku Foundation".  This would allow to project both Perl and Raku to project having their own foundation in any Public Relations efforts.  And as such, reduce the misconceptions that people might have about the relationship between Perl and Raku going forward in time.
+When Perl 6 was renamed to "The Raku Programming Language" in 2019, the consequences of that rename were discussed by yours truly with the then treasurer of YAS.  The conclusion of this discussion was that it would be best to create *another* "dba" for YAS, called "The Raku Foundation".  This would offer both Perl and Raku communities their own foundation in any Public Relations efforts.  And as such, reduce the misconceptions that people might have about the relationship between Perl and Raku going forward in time.
 
 Unfortunately, it took until the summer of 2022 for this "doing business as" to be finally registered.  So now, YAS is known as "The Perl Foundation", but also as "The Raku Foundation".  With the possibility of creating separate websites geared towards different audiences.
 
@@ -27,7 +27,7 @@ The announcement read as follows:
 
 Now, knowing the background, the following rewording may make it clearer what was actually meant:
 
-"Yet Another Society (aka YAS, of which The Perl Foundation is a "doing business as") operates as a nonprofit dedicated to supporting the advancement of the Perl and Raku programming languages. One way Yet Another Society supports Perl and Raku is through grants. Yet Another Society has had donations given specifically for both languages. As such, it is important to recognize the relationship the foundation has with not just Perl, but also Raku. This is why, following a vote from the board, will be registering a new "doing business as" called "The Perl And Raku Foundation" for YAS.  And will now be using "The Perl and Raku Foundation" (aka TPRF), where this is appropriate in the future."
+"Yet Another Society (aka YAS, of which The Perl Foundation is a "doing business as") operates as a nonprofit dedicated to supporting the advancement of the Perl and Raku programming languages. One way Yet Another Society supports Perl and Raku is through grants. Yet Another Society has had donations given specifically for both languages. As such, it is important to recognize the relationship the foundation has with not just Perl, but also Raku. This is why, following a vote from the board, YAS will be registering a new "doing business as" called "The Perl And Raku Foundation".  And will now be using "The Perl and Raku Foundation" (aka TPRF), where this is appropriate in the future."
 
 ## Final words
 
