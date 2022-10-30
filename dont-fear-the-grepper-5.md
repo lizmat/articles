@@ -1,6 +1,8 @@
 # Don't fear the grepper! (5)
 
-This blog post contains the fourth instalment of the Don't fear the grepper! series. [Part 1](https://dev.to/lizmat/dont-fear-the-grepper-1-1k3e), [Part 2](https://dev.to/lizmat/dont-fear-the-grepper-2-4ki5), [Part 3](https://dev.to/lizmat/dont-fear-the-grepper-3-hfp), [Part 4](https://dev.to/lizmat/dont-fear-the-grepper-4-nki) are all recommended reading, if you haven't read them already.
+This blog post contains the fifth instalment of the Don't fear the grepper! series.
+
+[Part 1](https://dev.to/lizmat/dont-fear-the-grepper-1-1k3e), [Part 2](https://dev.to/lizmat/dont-fear-the-grepper-2-4ki5), [Part 3](https://dev.to/lizmat/dont-fear-the-grepper-3-hfp), [Part 4](https://dev.to/lizmat/dont-fear-the-grepper-4-nki) are all recommended reading, if you haven't read them already.
 
 ## The next confession
 
@@ -25,7 +27,7 @@ say (1..12).map({
 ```
 Note that using `next` will interrupt the normal flow of the program.  When it executes, it will look up the call stack and instruct the first handler capable of handling `next` to immediately continue with the next iteration.  In this case, the `.map` has such a handler.
 
-And you see I used [`unless`](https://docs.raku.org/syntax/unless), instead of [`if`](https://docs.raku.org/syntax/if) there.  I generally use `unless` only as a statement modifier, because using it with blocks generally doesn't improve readability, and therefor maintainability of any codebase.
+And you see I used [`unless`](https://docs.raku.org/syntax/unless), instead of [`if`](https://docs.raku.org/syntax/if) [`not`](https://docs.raku.org/routine/not) there.  I generally use `unless` only as a statement modifier, because using it with blocks generally doesn't improve readability, and therefor maintainability of any codebase.  But of course, I could also have written `next if not $_ %% 2`!
 
 Other than the program flow interruption feature of `next`, `next` is just a subroutine that is provided by the Raku core.  So you can have multiple references to `next` in the same block.
 ```
@@ -79,7 +81,7 @@ say "$seen even numbers"; # 6 even numbers
 
 As you can see, the Raku Programming Language also as a [`++` postfix operator](https://docs.raku.org/routine/++#(Operators)_postfix_++) for incrementing integer values!
 
-But what if you're only interested in the **number** of even numbers, and not interested in the actual numbers?  Well, that should be easy: remove the `say`, and the final `$_` in the block (as we're not interested in the actual value when returning from the block anyway).
+But what if you're only interested in the **how many** even numbers were seen, and not interested in the actual numbers themselves?  Well, that should be easy: remove the `say`, and the final `$_` in the block (as we're not interested in the actual value when returning from the block anyway).
 ```
 my $seen = 0;             # initialize counter
 (1..12).map({
@@ -89,7 +91,7 @@ my $seen = 0;             # initialize counter
 say "$seen even numbers"; # 6 even numbers
 ```
 
-And in that case, we might as well make the increment conditional:
+And in that case, we might as well make the increment conditional, and lose the `next`!
 ```
 my $seen = 0;             # initialize counter
 (1..12).map({
@@ -137,7 +139,7 @@ if complicated-calcution($input) -> $result {
 Because that is also just a block, just as it was with `.map` or `for`!
 
 ## Conclusion
-This concludes the fifth part of the series, this time introducing the `next` and `last` loop control flow statements.  And hopefully instilled the notion that a `for` loop is nothing but a `.map` that is only executed for its side-effects.  And that blocks have signatures, that can be specified in many other places, such as with an `if`.
+This concludes the fifth part of the series, this time introducing the `next` and `last` loop control flow statements.  And hopefully instilled the notion that a `for` loop is nothing but a `.map` that is only executed for its side-effects.  Also that blocks have signatures, that can be specified in many other situations in Raku code, such as with an `if`.
 
 Questions and comments are always welcome.  You can also drop into the [#raku-beginner](https://web.libera.chat/?channel=#raku-beginner) channel on Libera.chat, or on Discord if you'd like to have more immediate feedback.
 
