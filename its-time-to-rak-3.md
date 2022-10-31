@@ -9,16 +9,16 @@ The results in all these examples, are based on the existence of a file called "
 ## --type=contains
 
 Match all lines that contain the literal pattern **anywhere**.
-```
+`
 # Look for "ve" anywhere on any line in file "twenty"
 $ rak --type=contains ve twenty
 twenty
-5:fi<b>ve</b>
+5:fi`**`ve`**`
 7:se**ve**n
 11:ele**ve**n
 12:twel**ve**
 16:se**ve**nteen
-```
+`
 Note that first the filename is shown, and then the actual matches with the pattern highlighted in the result.  This is *on* by default, if `rak` is being run by a human (aka, there's actually someone at the keyboard).  Or more technically, if STDIN is connected to a TTY.
 
 Also note that the matched lines are prefixed with their line number (which happens to be the same as the textual version of the number).
