@@ -1,16 +1,76 @@
 # It's time to rak! (Part 3)
 
-This blog post will discuss the types of patterns you can specify with [`rak`](https://raku.land/zef:lizmat/App::Rak).  To start right off the bat: the `--type` argument indicates how a given pattern (specified as a string on the command line) should be interpreted.  However, there are a number of shortcuts that you can use to make your life easier.  These will be discussed at the end.
+This blog post will discuss the types of patterns you can specify with [`rak`](https://raku.land/zef:lizmat/App::Rak).
+
+To start right off the bat: the `--type` argument indicates how a given pattern (specified as a string on the command line) should be interpreted.  Having to specify `--type=foo` all of the time, can be bothersome.  So there are a number of shortcuts that you can use to make your life easier.  These will be discussed at the end.
+
+The results in all these examples, are based on the existence of a file called "twenty" in the current directory, which contains the words "one", "two", "three" ... "twenty", each on a separate line.  Because the contents of the line matches the line number, it hopefully makes understanding the example output in this post easier.
+
+## --type=contains
+
+Match all lines that contain the literal pattern **anywhere**.
+```
+# Look for "ve" anywhere on any line in file "twenty"
+$ rak --type=contains ve twenty
+twenty
+5:fi**ve**
+7:se**ve**n
+11:ele**ve**n
+12:twel**ve**
+16:se**ve**nteen
+```
+Note that first the filename is shown, and then the actual matches with the pattern highlighted in the result.  This is *on* by default, if `rak` is being run by a human (aka, there's actually someone at the keyboard).  Or more technically, if STDIN is connected to a TTY.
+
+Also note that the matched lines are prefixed with their line number (which happens to be the same as the textual version of the number).
 
 ## --type=words
 
+Match any line that contains the literal pattern as a **word**.  A word here is defined as a string consisting of alphanumeric characters, with non-alphanumeric characters (or the absence of a character) on both ends.
+```
+# Look for "six" as a word on any line in file "twenty"
+$ rak six twenty --type=words
+twenty
+6:**six**
+```
+
+In this case "six" was acceptable, because there are no characters before or after on the line.  So in that sense, it is a bad example of using "words" as a type of search.  Note that "sixteen" was *not* matched, because there was no word-boundary at "x".
+
 ## --type=starts-with
+
+Match any line that **starts** with the literal pattern.
+```
+# Look for "seven" at the start of all lines in file "twenty"
+$ rak seven twenty --type=starts-with
+twenty
+7:**seven**
+16:**seven**teen
+```
+
+Note that in this case the line with "seventeen" *was* matched, because it starts with "seven".
 
 ## --type=ends-with
 
+Match any line that **ends** with the literal pattern.
+```
+# Look for "ve" at the end of all lines in file "twenty"
+$ rak ve twenty --type=ends-with
+twenty
+5:fi**ve**
+12:twel**ve**
+```
+
+Note that in this case the lines with "seven", "eleven" and "seventeen" were *not* matched, because they didn't end with "ve", even though they had the literal string in them.
+
 ## --type=equal
 
-## --type=contains
+Match any line that matches in its **entirety**  with the literal pattern.
+```
+% rak eight twenty --type=equal
+twenty
+8:**eight**
+```
+
+Note that in this case the line with "eighteen" was *not* matched, because it had additional characters after "eight".
 
 ## --type=regex
 
@@ -23,6 +83,10 @@ This blog post will discuss the types of patterns you can specify with [`rak`](h
 ## Shortcuts
 
 These shortcuts are only available if `--type=auto` is explicitely specified, or **no** `--type` argument has been specified.
+
+### string
+
+match if "string" occurs anywhere in a line
 
 ### §string
 
@@ -39,10 +103,6 @@ match if "string" occurs at the **end** of a line
 ### ^string$
 
 match if "string" is equal to a line
-
-### string
-
-match if "string" occurs anywhere in a line
 
 ### / regex /
 
