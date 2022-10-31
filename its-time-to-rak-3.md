@@ -2,11 +2,15 @@
 
 This blog post will discuss the types of patterns you can specify with [`rak`](https://raku.land/zef:lizmat/App::Rak).
 
+## The --type argument
+
 To start right off the bat: the `--type` argument indicates how a given pattern (specified as a string on the command line) should be interpreted.  Having to specify `--type=foo` all of the time, can be bothersome.  So there are a number of shortcuts that you can use to make your life easier.  These will be discussed at the end.
 
 The results in all these examples, are based on the existence of a file called "twenty" in the current directory, which contains the words "one", "two", "three" ... "twenty", each on a separate line.  Because the contents of the line matches the line number, it hopefully makes understanding the example output in this post easier.
 
-## --type=contains
+Note that lines will be matched **without** the end-of-line by default.
+
+### --type=contains
 
 Match all lines that contain the literal pattern **anywhere**.
 ```
@@ -19,66 +23,110 @@ twenty
 12:twel𝐯𝐞
 16:se𝐯𝐞nteen
 ```
-Note that first the filename is shown, and then the actual matches with the pattern highlighted in the result.  This is *on* by default, if `rak` is being run by a human (aka, there's actually someone at the keyboard).  Or more technically, if STDIN is connected to a TTY.
+Note that first the filename is shown, and then the actual matches with the pattern (𝐯𝐞) highlighted in the result.  This is *on* by default, if `rak` is being run by a human (aka, there's actually someone at the keyboard).  Or more technically, if STDIN is connected to a TTY.
 
 Also note that the matched lines are prefixed with their line number (which happens to be the same as the textual version of the number).
 
-## --type=words
+> Unfortunately, markdown (in which this blog post is written) does not allow bolding of characters inside code blocks.  So I've had to resort to using the equivalent "𝐛𝐨𝐥𝐝" codepoints (versus "normal" and "**bold**"), which may render not quite as I intended.  Hopefully they will get the message across anyway.
+
+### --type=words
 
 Match any line that contains the literal pattern as a **word**.  A word here is defined as a string consisting of alphanumeric characters, with non-alphanumeric characters (or the absence of a character) on both ends.
 ```
 # Look for "six" as a word on any line in file "twenty"
-$ rak six twenty --type=words
+$ rak --type=words six twenty
 twenty
-6:**six**
+6:𝐬𝐢𝐱
 ```
 
 In this case "six" was acceptable, because there are no characters before or after on the line.  So in that sense, it is a bad example of using "words" as a type of search.  Note that "sixteen" was *not* matched, because there was no word-boundary at "x".
 
-## --type=starts-with
+### --type=starts-with
 
 Match any line that **starts** with the literal pattern.
 ```
 # Look for "seven" at the start of all lines in file "twenty"
-$ rak seven twenty --type=starts-with
+$ rak --type=starts-with seven twenty
 twenty
-7:**seven**
-16:**seven**teen
+7:𝐬𝐞𝐯𝐞𝐧
+16:𝐬𝐞𝐯𝐞𝐧teen
 ```
 
 Note that in this case the line with "seventeen" *was* matched, because it starts with "seven".
 
-## --type=ends-with
+### --type=ends-with
 
 Match any line that **ends** with the literal pattern.
 ```
 # Look for "ve" at the end of all lines in file "twenty"
-$ rak ve twenty --type=ends-with
+$ rak --type=ends-with ve twenty
 twenty
-5:fi**ve**
-12:twel**ve**
+5:fi𝐯𝐞
+12:twel𝐯𝐞
 ```
 
 Note that in this case the lines with "seven", "eleven" and "seventeen" were *not* matched, because they didn't end with "ve", even though they had the literal string in them.
 
-## --type=equal
+### --type=equal
 
 Match any line that matches in its **entirety**  with the literal pattern.
 ```
-% rak eight twenty --type=equal
+# Look for "eight" as the whole line in file "twenty"
+% rak --type=equal eight twenty
 twenty
-8:**eight**
+8:𝐞𝐢𝐠𝐡𝐭
 ```
 
 Note that in this case the line with "eighteen" was *not* matched, because it had additional characters after "eight".
 
-## --type=regex
+### --type=regex
 
-## Ignoring case and accents
+Match any line that matches the literal pattern as a **regex**.
+```
+# Look for strings starting with "e" and ending with "t" and any
+# number of characters between them (.*), in file twenty
+$ rak --type=regex 'e.*t' twenty
+twenty
+8:𝐞𝐢𝐠𝐡𝐭
+16:s𝐞𝐯𝐞𝐧𝐭een
+17:𝐞𝐢𝐠𝐡𝐭een
+18:nin𝐞𝐭een
+19:tw𝐞𝐧𝐭y
+```
 
-## --type=code
+Note that because of shell issues, you will most likely need to quote this string, because `.` and `*` have special meanings in most shells.
 
-## --type=auto
+We will get back to what you can do with Raku regexes at the end of this blog post.
+
+### Ignoring case and accents
+
+All of the above values of the `--type` argument, adhere to the `--ignorecase`, `--ignoremark` and `--smartcase` flags.
+
+#### --ignorecase
+
+If this flag is specified, then any matching will be done without regards to case.  In other words "E" will match "e", and vice-versa.
+```
+% rak --type=contains --ignorecase Y twenty
+twenty
+19:twent𝐲
+```
+
+#### --ignoremark
+
+If this flag is specified, then any matching will be done by comparing base characters, and ignore additional marks such as combining accents.  In other words "é" will match "e", and vice-versa.
+```
+% rak --type=contains --ignoremark ú twenty
+twenty
+4:fo𝐮r
+```
+
+#### --smartcase
+
+If this flag is specified, then the pattern is checked for uppercase characters.  If none are found, then it acts as if `--ignorecase` has been specified.  Otherwise it does not perform any action.
+
+### --type=code
+
+### --type=auto
 
 ## Shortcuts
 
