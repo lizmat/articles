@@ -379,7 +379,7 @@ twenty
 15:𝐟𝐢𝐟𝐭𝐞𝐞𝐧
 ```
 
-There's a lot more about regexes that can be told.  There is even a dedicated book about it by *Moritz Lenz*:
+There's a lot more about [regexes](https://docs.raku.org/language/regexes) that can be told.  There is even a dedicated book about it by *Moritz Lenz*:
 [Parsing with Regexes and Grammars: A Recursive Descent into Parsing](https://www.amazon.com/Parsing-Perl-Regexes-Grammars-Recursive/dp/1484232275#customerReviews).
 
 ## Conclusion
