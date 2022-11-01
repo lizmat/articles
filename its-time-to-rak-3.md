@@ -339,10 +339,15 @@ Regexes in Raku look like your average regular expression: some recipe to tell a
 
 Within the context of `rak`, the most important thing to know, is that you have to quote any non-alphanumeric character in Raku regexes, unless it has a special meaning in the context of regexes, such as `.`, `*`, `?`, to name but a few.  The reason for this strictness, is to ensure future compatibility of regexes, should another non-alphanumeric character get a special meaning in Raku regexes at some time in the future.
 ```
-# Look for lines consisting of "Example:" or "Examples:"
-$ rak '/^ Example s? ":" $/'
+# Show all lines that have an "h" in them, optionally followed by a "t"
+$ rak '/ h t? /' twenty
+twenty
+3:t𝐡ree
+8:eig𝐡𝐭
+13:t𝐡irteen
+18:eig𝐡𝐭een
 ```
-Note that in the above example we used `^` to anchor the pattern to the start, and `?` to indicate that the "s" may or may not occur.  Also note that the colon has been quoted.
+Note that in the above example we used `?` to indicate that the "t" may or may not occur.
 
 You should also be aware that whitespace in Raku regexes has no meaning.  So whitespace will need to be explicitely specified if it is intended to be part of the regex.  However, if there is whitespace between alphanumeric characters, it will warn.
 ```
