@@ -187,68 +187,88 @@ twenty
 
 The [`.subst` for "substitute"](https://docs.raku.org/routine/subst) method is a very handy tool to convert a target into something else.  The target can also be a [`regex`](https://docs.raku.org/language/regexes).
 
-Code patterns are typically used with options such as `--unique`, `--
-
-1. True       produce item, unless --invert-match was specified
-2. False      do **NOT** produce item, unless --invert-match was specified
-3. Empty      do **NOT** produce item, unless --invert-match was specified
-4. Nil        do **NOT** produce item, unless --invert-match was specified
-5. Slip       produce all items in the Slip, always
-6. product    produce that, always
-Match any line that matches the literal pattern as a **regex**.
+Code patterns are typically used with options such as `--unique` and `--modify-files` and similar.
+```
+# Produce the frequencies of the letters in file "twenty"
+$ rak 'slip .comb' twenty --type=code --frequencies
+33:e
+17:n
+15:t
+9:i
+5:f
+5:v
+4:h
+4:o
+4:r
+4:s
+3:w
+2:g
+2:l
+2:u
+2:x
+1:y
+```
 
 ### --type=auto
 
+This is the default type if there is no `--type` specified.  It indicates that the given pattern(s) should be inspected for shortcuts, and act accordingly.
+
 ## Shortcuts
 
-These shortcuts are only available if `--type=auto` is explicitely specified, or **no** `--type` argument has been specified.
+These shortcuts are only available if `--type=auto` has been (implicitely) specified.
 
 ### string
 
-match if "string" occurs anywhere in a line
+If there are no special characters in the pattern, then a line will match if the pattern occurse anywhere on a line (as if `--type=contains` was specified).
 
 ### §string
 
-match if "string" occurs as a **word** in a line
+If the pattern starts with "`§`" (A7 SECTION SIGN), then the rest of the pattern must match as a **word** in a line.  So `rak §string` is the same as `rak string --type=words`.
+
+> Depending on your keyboard and OS, the § character may be hard to type: if you're going to use this feature often, it probably makes sense to create a keyboard shortcut for it.
 
 ### ^string
 
-match if "string" occurs at the **start** of a line
+If the pattern starts with "`^`" (5E CIRCUMFLEX ACCENT), then the rest of the pattern must match at the **start** of a line.  So `rak ^string` is the same as `rak string --type=starts-with`.
 
 ### string$
 
-match if "string" occurs at the **end** of a line
+If the pattern starts with "`$`" (24 DOLLAR SIGN), then the rest of the pattern must match at the **end** of a line.  So `rak string$` is the same as `rak string --type=ends-with`.
 
 ### ^string$
 
-match if "string" is equal to a line
+If the pattern starts with "`^`" (5E CIRCUMFLEX ACCENT) and ends with "`$`" (24 DOLLAR SIGN), then the rest of the pattern must match the line in its entirety.  So `rak ^string$` is the same as `rak string --type=equal`.
 
 ### / regex /
 
-match if regex matches a line
+If the pattern starts and ends with "`/`" (2F SOLIDUS), then the rest of the pattern will be interpreted as a **regex** to match lines with.  So `rak /string/` is the same as `rak string --type=regex`.  The pattern generally will need to be quoted as the shell may interpret the pattern in unwanted ways otherwise.
 
 ### { code }
 
-match if code called with line returns True
+If the pattern starts with "`{`" (7B LEFT CURLY BRACKET) and ends with "`}`" (7D RIGHT CURLY BRACKET), then the rest of the pattern will be interpreted as Raku code.  So `rak string$` is the same as `rak string --type=code`.  The pattern generally will need to be quoted as the shell may interpret the pattern in unwanted ways otherwise.
 
 ### \*code
-match if whatever-curried code called with line returns True
 
-Basically, you can recognize three types of patterns that you can specify: literal string, regex or code.
+If the pattern starts with "`*`" (2A ASTERISK), then the rest of the pattern will be interpreted as Raku code.  So `rak *string` is the same as `rak string --type=code`.  The pattern generally will need to be quoted as the shell may interpret the pattern in unwanted ways otherwise.
 
-## Regex
+This is typically used for short pieces of code that use [Whatever-currying](https://docs.raku.org/type/Whatever#index-entry-Whatever-currying)
 
-Before we go on with how you can use regexes in `rak`, a small detour.
+## On Raku regexes
 
-> Everybody knows regular expressions, right?  Well, I guess that's true to some extent.  But regular expressions haven't been regular for a long time already.  That's why it was decided to just call them ["regexes"](https://docs.raku.org/language/regexes) in the Raku Programming Language.
+Everybody knows regular expressions, right?  Well, I guess that's true to some extent.  But regular expressions haven't been regular for a long time already.  That's why it was decided to just call them ["regexes"](https://docs.raku.org/language/regexes) in the Raku Programming Language.
 
-> Regexes in Raku look like your average regular expression: some recipe to tell a state machine to look for matches.  The biggest difference with other regular expression implementations, is that Raku regexes are **code** under the hood that you specify with Raku's regex syntax.  You can think of a regex as a piece of code that you can call inside another regex, like a subroutine or a method.  This has all sorts of implications, but that will be for another series of blog posts.
+Regexes in Raku look like your average regular expression: some recipe to tell a state machine to look for matches.  The biggest difference with other regular expression implementations, is that Raku regexes are **code** under the hood that you specify with Raku's regex syntax.  You can think of a regex as a piece of code that you can call inside another regex, like a subroutine or a method.  This has all sorts of implications, but that will be for another series of blog posts.
 
+Within the context of `rak`, the most important thing to know, is that you have to quote any non-alphanumeric character in Raku regexes, unless it has a special meaning in the context of regexes, such as `.`, `*`, `?`, to name but a few.  The reason for this strictness, is to ensure future compatibility of regexes, should another non-alphanumeric character get a special meaning in Raku regexes at some time in the future.
 
-Regexes are recognized as a pattern if they start *and* end with a slash (`/`).  Some examples:
+You should also be aware that whitespace in Raku regexes has no meaning.  So whitespace will need to be explicitely specified if it is intended to be part of the regex.
+
 ```
 # Look for the string "foo"
 $ rak '/ foo /'
+
+# Look for the string "foo" (will warn, act as if "foo")
+$ rak '/ f o o /'
 
 # Look for the string "bar" at the start of a line
 $ rak '/^ bar /'
@@ -264,18 +284,6 @@ $ rak '/ foo | bar /'
 
 # Look for lines with words that start with "spec"
 $ rak '/ << spec \w* /'
-
-Whitespace between the slashes will be ignored.  Any non-alphanumeric character needs to be quoted.
-
-Some tips for a quick understanding of Raku regexes
-
-## Code
-
-## Literal string
-
-## Performance tweak
-
-If you're searching large files, e.g. log files, and you are sure that the files are encoded using Latin-1, you can specify C<--encoding=latin1> as a parameter.  This typically makes searching about 2x as fast, as Raku then doesn't need to interpret the contents into Normalization Form Grapheme (NFG).  This also makes comparisons to similar programs more fair, as none of the other programs support NFG.
 
 ## Conclusion
 
