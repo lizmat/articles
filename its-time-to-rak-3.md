@@ -284,6 +284,7 @@ $ rak '/ foo | bar /'
 
 # Look for lines with words that start with "spec"
 $ rak '/ << spec \w* /'
+```
 
 ## Conclusion
 
