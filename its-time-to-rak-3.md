@@ -6,7 +6,7 @@ This blog post will discuss the types of patterns you can specify with [`rak`](h
 
 To start right off the bat: the `--type` argument indicates how a given pattern (specified as a string on the command line) should be interpreted.  Having to specify `--type=foo` all of the time, can be bothersome.  So there are a number of shortcuts that you can use to make your life easier.  These will be discussed at the end.
 
-The results in all these examples, are based on the existence of a file called "twenty" in the current directory, which contains the words "one", "two", "three" ... "twenty", each on a separate line.  Because the contents of the line matches the line number, it hopefully makes understanding the example output in this post easier.
+The results in all these examples are based on the existence of a file called "twenty" in the current directory, which contains the words "one", "two", "three" ... "twenty", each on a separate line.  Because the contents of the line matches the line number, it hopefully makes understanding the example output in this post easier.
 
 Note that lines will be matched **without** the end-of-line by default.
 
@@ -219,7 +219,15 @@ These shortcuts are only available if `--type=auto` has been (implicitely) speci
 
 ### string
 
-If there are no special characters in the pattern, then a line will match if the pattern occurse anywhere on a line (as if `--type=contains` was specified).
+If there are no special characters in the pattern, then a line will match if the pattern occurs anywhere on a line (as if `--type=contains` was specified).
+```
+# Show the lines containing "ne"
+$ rak ne twenty
+twenty
+1:o𝐧𝐞
+9:ni𝐧𝐞
+19:ni𝐧𝐞teen
+```
 
 ### §string
 
@@ -227,31 +235,101 @@ If the pattern starts with "`§`" (A7 SECTION SIGN), then the rest of the patter
 
 > Depending on your keyboard and OS, the § character may be hard to type: if you're going to use this feature often, it probably makes sense to create a keyboard shortcut for it.
 
+```
+# Show the lines that contain "six" as a word
+$ rak §six twenty
+twenty
+6:𝐬𝐢𝐱
+```
+
 ### ^string
 
 If the pattern starts with "`^`" (5E CIRCUMFLEX ACCENT), then the rest of the pattern must match at the **start** of a line.  So `rak ^string` is the same as `rak string --type=starts-with`.
+```
+# Show the lines starting with "e"
+$ rak ^e twenty
+twenty
+8:𝐞ight
+11:𝐞leven
+18:𝐞ighteen
+```
 
 ### string$
 
 If the pattern starts with "`$`" (24 DOLLAR SIGN), then the rest of the pattern must match at the **end** of a line.  So `rak string$` is the same as `rak string --type=ends-with`.
+```
+# Show the lines ending with "o"
+$ rak o$ twenty
+twenty
+2:tw𝐨
+```
 
 ### ^string$
 
 If the pattern starts with "`^`" (5E CIRCUMFLEX ACCENT) and ends with "`$`" (24 DOLLAR SIGN), then the rest of the pattern must match the line in its entirety.  So `rak ^string$` is the same as `rak string --type=equal`.
+```
+# Show all the lines that consist of "seven"
+$ rak ^seven$ twenty
+twenty
+7:𝐬𝐞𝐯𝐞𝐧
+```
 
 ### / regex /
 
 If the pattern starts and ends with "`/`" (2F SOLIDUS), then the rest of the pattern will be interpreted as a **regex** to match lines with.  So `rak /string/` is the same as `rak string --type=regex`.  The pattern generally will need to be quoted as the shell may interpret the pattern in unwanted ways otherwise.
+```
+# Show all the lines with exactly on character between "e" and "t"
+$ rak /e.t/ twenty
+twenty
+17:sev𝐞𝐧𝐭een
+20:tw𝐞𝐧𝐭y
+```
 
 ### { code }
 
 If the pattern starts with "`{`" (7B LEFT CURLY BRACKET) and ends with "`}`" (7D RIGHT CURLY BRACKET), then the rest of the pattern will be interpreted as Raku code.  So `rak string$` is the same as `rak string --type=code`.  The pattern generally will need to be quoted as the shell may interpret the pattern in unwanted ways otherwise.
+```
+# Show all lines starting with "t" titlecased
+$ rak '{.tc if /^ t /}' twenty
+twenty
+2:Two
+3:Three
+10:Ten
+12:Twelve
+13:Thirteen
+20:Twenty
+```
 
 ### \*code
 
 If the pattern starts with "`*`" (2A ASTERISK), then the rest of the pattern will be interpreted as Raku code.  So `rak *string` is the same as `rak string --type=code`.  The pattern generally will need to be quoted as the shell may interpret the pattern in unwanted ways otherwise.
 
 This is typically used for short pieces of code that use [Whatever-currying](https://docs.raku.org/type/Whatever#index-entry-Whatever-currying)
+```
+# Reverse the order of the characters of each line
+$ rak '*.flip' twenty
+twenty
+1:eno
+2:owt
+3:eerht
+4:ruof
+5:evif
+6:xis
+7:neves
+8:thgie
+9:enin
+10:net
+11:nevele
+12:evlewt
+13:neetriht
+14:neetruof
+15:neetfif
+16:neetxis
+17:neetneves
+18:neethgie
+19:neetenin
+20:ytnewt
+```
 
 ## On Raku regexes
 
@@ -260,31 +338,44 @@ Everybody knows regular expressions, right?  Well, I guess that's true to some e
 Regexes in Raku look like your average regular expression: some recipe to tell a state machine to look for matches.  The biggest difference with other regular expression implementations, is that Raku regexes are **code** under the hood that you specify with Raku's regex syntax.  You can think of a regex as a piece of code that you can call inside another regex, like a subroutine or a method.  This has all sorts of implications, but that will be for another series of blog posts.
 
 Within the context of `rak`, the most important thing to know, is that you have to quote any non-alphanumeric character in Raku regexes, unless it has a special meaning in the context of regexes, such as `.`, `*`, `?`, to name but a few.  The reason for this strictness, is to ensure future compatibility of regexes, should another non-alphanumeric character get a special meaning in Raku regexes at some time in the future.
-
-You should also be aware that whitespace in Raku regexes has no meaning.  So whitespace will need to be explicitely specified if it is intended to be part of the regex.
-
 ```
-# Look for the string "foo"
-$ rak '/ foo /'
-
-# Look for the string "foo" (will warn, act as if "foo")
-$ rak '/ f o o /'
-
-# Look for the string "bar" at the start of a line
-$ rak '/^ bar /'
-
-# Look for the string "baz" at the end of a line
-$ rak '/ baz $/'
-
 # Look for lines consisting of "Example:" or "Examples:"
 $ rak '/^ Example s? ":" $/'
-
-# Look for lines with either "foo" or "bar"
-$ rak '/ foo | bar /'
-
-# Look for lines with words that start with "spec"
-$ rak '/ << spec \w* /'
 ```
+Note that in the above example we used `^` to anchor the pattern to the start, and `?` to indicate that the "s" may or may not occur.  Also note that the colon has been quoted.
+
+You should also be aware that whitespace in Raku regexes has no meaning.  So whitespace will need to be explicitely specified if it is intended to be part of the regex.  However, if there is whitespace between alphanumeric characters, it will warn.
+```
+# Look for one, with unneeded whitespace
+% rak '/ o ne /' twenty
+Potential difficulties:
+    Space is not significant here; please use quotes or :s (:sigspace) modifier (or, to suppress this warning, omit the space, or otherwise change the spacing)
+    ------> / o⏏ ne /
+twenty
+1:𝐨𝐧𝐞
+```
+
+The pipe character `|` can be use to indicate alternatives:
+```
+# Look for lines with either "foo" or "bar"
+$ rak '/ one | four /' twenty
+twenty
+1:𝐨𝐧𝐞
+4:𝐟𝐨𝐮𝐫
+14:𝐟𝐨𝐮𝐫teen
+```
+
+The `<<` marker indicates the start of a word, and `\w*` indicates zero or more alphanumeric characters.
+```
+# Look for lines in which there are words that start with "fi"
+$ rak '/ << fi \w+ /' twenty
+twenty
+5:𝐟𝐢𝐯𝐞
+15:𝐟𝐢𝐟𝐭𝐞𝐞𝐧
+```
+
+There's a lot more about regexes that can be told.  There is even a dedicated book about it by *Moritz Lenz*:
+[Parsing with Regexes and Grammars: A Recursive Descent into Parsing](https://www.amazon.com/Parsing-Perl-Regexes-Grammars-Recursive/dp/1484232275#customerReviews).
 
 ## Conclusion
 
