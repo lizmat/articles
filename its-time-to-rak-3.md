@@ -12,7 +12,7 @@ Note that lines will be matched **without** the end-of-line by default.
 
 ### --type=contains
 
-Match all lines that contain the literal pattern **anywhere**.
+The "contains" value on `--type` indicates that a line will match if they contain the given literal pattern **anywhere** on the line.
 ```
 # Look for "ve" anywhere on any line in file "twenty"
 $ rak --type=contains ve twenty
@@ -31,7 +31,7 @@ Also note that the matched lines are prefixed with their line number (which happ
 
 ### --type=words
 
-Match any line that contains the literal pattern as a **word**.  A word here is defined as a string consisting of alphanumeric characters, with non-alphanumeric characters (or the absence of a character) on both ends.
+The "words" value on `--type` indicates that a line will match if it contains the literal pattern as a **word**.  A word here is defined as a string consisting of alphanumeric characters, with non-alphanumeric characters (or the absence of a character) on both ends.
 ```
 # Look for "six" as a word on any line in file "twenty"
 $ rak --type=words six twenty
@@ -43,7 +43,7 @@ In this case "six" was acceptable, because there are no characters before or aft
 
 ### --type=starts-with
 
-Match any line that **starts** with the literal pattern.
+The "starts-with" value on `--type` indicates that a line will match if it **starts** with the literal pattern.
 ```
 # Look for "seven" at the start of all lines in file "twenty"
 $ rak --type=starts-with seven twenty
@@ -56,7 +56,7 @@ Note that in this case the line with "seventeen" *was* matched, because it start
 
 ### --type=ends-with
 
-Match any line that **ends** with the literal pattern.
+The "ends-with" value on `--type` indicates that a line will match if it **ends** with the literal pattern.
 ```
 # Look for "ve" at the end of all lines in file "twenty"
 $ rak --type=ends-with ve twenty
@@ -69,7 +69,7 @@ Note that in this case the lines with "seven", "eleven" and "seventeen" were *no
 
 ### --type=equal
 
-Match any line that matches in its **entirety**  with the literal pattern.
+The "equal" value on `--type` indicates that a line will be accepted if it matches in its **entirety**  with the literal pattern.
 ```
 # Look for "eight" as the whole line in file "twenty"
 $ rak --type=equal eight twenty
@@ -81,7 +81,7 @@ Note that in this case the line with "eighteen" was *not* matched, because it ha
 
 ### --type=regex
 
-Match any line that matches the literal pattern as a **regex**.
+The "regex" value on `--type` indicates that a line will be accepted if it matches the literal pattern as a **regex**.
 ```
 # Look for strings starting with "e" and ending with "t" and any
 # number of characters between them (.*), in file twenty
@@ -128,7 +128,7 @@ If this flag is specified, then the pattern is checked for uppercase characters.
 
 ### --type=code
 
-Convert the pattern into Raku code and run the code for each line.  If it returns `True`, it will consider the line matched.  If it returns `False`, or [`Empty`](https://docs.raku.org/syntax/Empty), or [`Nil`](https://docs.raku.org/type/Nil) it will consider the line did **not** match.
+The "code" value on `--type` instructs `rak` to convert the pattern into Raku code and run the code for each line.  If it returns `True`, it will consider the line matched.  If it returns `False`, or [`Empty`](https://docs.raku.org/syntax/Empty), or [`Nil`](https://docs.raku.org/type/Nil) it will consider the line did **not** match.
 
 If it returns a [`Slip`](https://docs.raku.org/type/Slip), it will produce the elements of the slip as separate items, and consider the line matched.
 
@@ -185,7 +185,7 @@ twenty
 20:twenty
 ```
 
-The [`.subst` for "substitute"](https://docs.raku.org/routine/subst) method is a very handy tool to convert a target into something else.  The target can also be a [`regex`](https://docs.raku.org/language/regexes).
+The [`.subst` for "substitute"](https://docs.raku.org/routine/subst) method is a very handy tool to convert a target into something else, because it will return the original string if no match was found.  The target in `.subst` can also be a [`regex`](https://docs.raku.org/language/regexes).
 
 Code patterns are typically used with options such as `--unique` and `--modify-files` and similar.
 ```
@@ -287,7 +287,7 @@ twenty
 
 ### { code }
 
-If the pattern starts with "`{`" (7B LEFT CURLY BRACKET) and ends with "`}`" (7D RIGHT CURLY BRACKET), then the rest of the pattern will be interpreted as Raku code.  So `rak string$` is the same as `rak string --type=code`.  The pattern generally will need to be quoted as the shell may interpret the pattern in unwanted ways otherwise.
+If the pattern starts with "`{`" (7B LEFT CURLY BRACKET) and ends with "`}`" (7D RIGHT CURLY BRACKET), then the rest of the pattern will be interpreted as Raku code.  So `rak '{string}'` is the same as `rak string --type=code`.  The pattern generally will need to be quoted as the shell may interpret the pattern in unwanted ways otherwise.
 ```
 # Show all lines starting with "t" titlecased
 $ rak '{.tc if /^ t /}' twenty
@@ -379,8 +379,7 @@ twenty
 15:𝐟𝐢𝐟𝐭𝐞𝐞𝐧
 ```
 
-There's a lot more about [regexes](https://docs.raku.org/language/regexes) that can be told.  There is even a dedicated book about it by *Moritz Lenz*:
-[Parsing with Regexes and Grammars: A Recursive Descent into Parsing](https://www.amazon.com/Parsing-Perl-Regexes-Grammars-Recursive/dp/1484232275#customerReviews).
+There's a lot more about [regexes](https://docs.raku.org/language/regexes) that can be told.  There is even a dedicated book about it by *Moritz Lenz*: [Parsing with Regexes and Grammars: A Recursive Descent into Parsing](https://www.amazon.com/Parsing-Perl-Regexes-Grammars-Recursive/dp/1484232275#customerReviews).
 
 ## Conclusion
 
