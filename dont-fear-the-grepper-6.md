@@ -1,6 +1,6 @@
 # Don't fear the grepper! (6)
 
-This blog post contains the sixth instalment of the Don't fear the grepper! series.
+This is part 6 of the ["Don't fear the grepper!"](https://dev.to/lizmat/dont-fear-the-grepper-1-1k3e) series.
 
 ## Storing results
 
@@ -125,15 +125,15 @@ say (1..5).map({ .say; $_ + 2}).WHAT; # (Seq)
 ```
 A [`Seq`](https://docs.raku.org/type/Seq) object. Aha!.
 
-Note that calling `.WHAT` on the `Seq` object, was completely silent otherwise.  That's because it didn't execute anything.  Because it didn't need to.  Because it just interrogated the `Seq` object.
+Note that calling `.WHAT` on the `Seq` object, was completely silent otherwise.  That's because it didn't execute anything.  Because it didn't need to.  Because it just interrogated meta-information about the `Seq` object.
 
-# Indexing a Seq
+## Indexing a Seq
 
 So what will happen if you want to see the first element only of a `Seq` object stored in a scalar variable?  You can use the same indexing as we did on the `@result` array, because `Seq` objects understand that:
 ```
-my $result = (1..5).map({ say "calculating $_"; $_ + 2});
+my $seq = (1..5).map({ say "calculating $_"; $_ + 2});
 say "stored";
-say $result[0];
+say $seq[0];
 ```
 which outputs:
 ```
@@ -141,12 +141,70 @@ stored
 calculating 1
 3
 ```
+Wow.  It only calculated a single value!  Yes, here Raku could be as efficient as possible, because you only needed the first element.  But what if you also want the third element?
+```
+my $seq = (1..5).map({ say "calculating $_"; $_ + 2});
+say $seq[0];
+say $seq[2];
+```
+outputs:
+```
+calculating 1
+3
+calculating 2
+calculating 3
+5
+```
+As you can see, it doesn't re-calculate the first element again.  So yes, it looks like it is cached somewhere.  And you'd be right again.  As soon as you use indexing on a `Seq`, it will create a hidden array that will be used to cache previously calculated values.  Technically, that's because the `Seq` class performs the [`PositionalBindFailover`](https://docs.raku.org/type/PositionalBindFailover) role.
 
+## From here to infinity
 
+It's this efficiency in Raku that allows you to actually specify [`Inf`](https://docs.raku.org/type/Num#index-entry-Inf_(definition)) or [`Whatever`](https://docs.raku.org/type/Whatever) as the end-point of the range in our example:
+```
+my $seq = (1..*).map({ say "calculating $_"; $_ + 2});
+say $seq[0];
+```
+which outputs:
+```
+calculating 1
+3
+```
+without being busy calculating all values until the end of time or memory.
+
+## Grep the mapper
+
+One nice feature of `Seq`, is that you can call `.grep` (or `map` for that matter, or vice-versa) on it as well.  Going all the way back to the initial example of filtering on even numbers.  In this example, we first create a `Seq` object with `.map`, then create a new `Seq` object using `.grep` on that.  And then show the first three elements (`[0..2]`):
+```
+my $seq = (1..*).map({ say "map $_"; $_ + 2});
+$seq = $seq.grep({ 
+    say $_ %% 2 ?? "accept $_" !! "deny $_"; 
+    $_ %% 2
+});
+say $seq[0..2];
+```
+which outputs:
+```
+map 1
+deny 3
+map 2
+accept 4
+map 3
+deny 5
+map 4
+accept 6
+map 5
+deny 7
+map 6
+accept 8
+(4 6 8)
+```
+This shows that all values are produced one-by-one through the chain as efficiently as possible.
+
+Now how that all works under the hood, is going to be the subject of a slightly more advanced series of blog posts, tentatively titled "A gaze of iterators".
 
 ## Conclusion
 
-This concludes the sixth and final part of the series.
+This concludes the sixth and final part of the series.  It shows that the Raku Programming Language has a `Seq` object that is responsible for producing values.  And that there is a [`.WHAT` method](https://docs.raku.org/syntax/WHAT) that gives you the type object of an instance.  While sneakily introducing the [ternary `??` `!!` operator](https://docs.raku.org/routine/%3F%3F%20!!).
 
 Questions and comments are always welcome.  You can also drop into the [#raku-beginner](https://web.libera.chat/?channel=#raku-beginner) channel on Libera.chat, or on Discord if you'd like to have more immediate feedback.
 
