@@ -349,7 +349,7 @@ twenty
 ```
 Note that in the above example we used `?` to indicate that the "t" may or may not occur.
 
-You should also be aware that whitespace in Raku regexes has no meaning.  So whitespace will need to be explicitely specified if it is intended to be part of the regex.  However, if there is whitespace between alphanumeric characters, it will warn.
+You should also be aware that whitespace in Raku regexes has no meaning.  So whitespace will need to be explicitly specified if it is intended to be part of the regex.  However, if there is whitespace between alphanumeric characters, it will warn.
 ```
 # Look for one, with unneeded whitespace
 % rak '/ o ne /' twenty

@@ -34,7 +34,7 @@ Beware of [false friends](https://en.wikipedia.org/wiki/False_friend)!
 Binding
 -------
 Before we get to assignment, it is important to understand the concept of
-binding in Perl 6.  You can bind something explicitely to something else
+binding in Perl 6.  You can bind something explicitly to something else
 using the `:=` operator.  When you define a lexical variable you can bind
 a value to it:
 

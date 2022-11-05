@@ -165,7 +165,7 @@ worst of both worlds:
 
 To repeat: "Raku Perl 6" is the worst possible combination.  It is **not**
 a stage name in any shape or form.  It is an attempt at rebranding with the
-ultimate goal of eradicating Perl 6 as a name.  And thereby explicitely
+ultimate goal of eradicating Perl 6 as a name.  And thereby explicitly
 dividing the Perl community.  Which doesn't need a lot more dividing anymore
 before it completely disappears into oblivion.
 

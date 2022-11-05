@@ -143,7 +143,7 @@ If you do not want any warnings to emanate from the execution of a piece of
 code, you can use the `no warnings` pragma in Perl 5:
 
     # Perl 5
-    use warnings;     # need to enable warnings explicitely
+    use warnings;     # need to enable warnings explicitly
     {
         no warnings;
         my $foo;
@@ -274,7 +274,7 @@ you expected to return a "real" instantiated object, really did return
 something that you could actually use.
 
 Having said this, it does seem like a lot of work.  Fortunately you don't
-have to explicitely call these methods (unless you really want to).  Let's
+have to explicitly call these methods (unless you really want to).  Let's
 rephrase the above code to more gently handle not being able to open the file:
 
     # Perl 6

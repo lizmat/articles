@@ -81,7 +81,7 @@ say (1..10).map({
     }
 }); # (1.5 2.5 3.5 4.5 5.5 6.5 7.5 8.5 9.5 10.5)
 ```
-What?  You just removed the `else`?  Yup!  The reason this works, is that the value of a failed `if` (or `elsif` for that matter), is `Empty`.  So you don't have to specify the `else` clause explicitely!
+What?  You just removed the `else`?  Yup!  The reason this works, is that the value of a failed `if` (or `elsif` for that matter), is `Empty`.  So you don't have to specify the `else` clause explicitly!
 
 Still, it feels this could still be shorter.  And you'd be right!  Since there is no `else` in the code anymore, you can use the "statement modifier" version of `if` (sometimes also referred to as "postfix if"):
 ```
