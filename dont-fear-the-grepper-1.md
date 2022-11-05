@@ -1,6 +1,6 @@
 # Don't fear the grepper! (Part 1)
 
-This blog post provides an introduction to the [Raku Programmming Language](https://raku.org) and its [`grep` functionality](https://docs.raku.org/routine/grep#(List)\_routine_grep).  It does not require any specific knowledge about the Raku Programming Language, although being familiar with basic `grep` functionality (of the unix utility), is recommended.
+This blog post provides an introduction to the [Raku Programming Language](https://raku.org) and its [`grep` functionality](https://docs.raku.org/routine/grep#(List)\_routine_grep).  It does not require any specific knowledge about the Raku Programming Language, although being familiar with basic `grep` functionality (of the unix utility), is recommended!
 
 The `grep` functionality comes in two flavours in Raku: a procedural (`sub`) version, and an object oriented (`method`) version.  Since everything in Raku is an object (or can be thought of as one), and I personally mostly prefer the object oriented way, I will be discussing only the `method` way of using `grep` and friends.
 
