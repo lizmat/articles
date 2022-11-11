@@ -32,7 +32,7 @@ But to get the feel of what an iterator can do, we're going to tinker with itera
 
 ## Looking on the inside
 
-First of all, one would like to know which methods you can call on an iterator object.  Fortunately, the Raku Programming Language has many introspection capabilities.  One of them is the `.methods` method on the meta-object of the iterator.  Don't think too much about that at this point: just know that there's a special syntax for calling a method on the meta-object if an object: [`.^method-name`](https://docs.raku.org/language/operators#methodop_.^).
+First of all, one would like to know which methods you can call on an iterator object.  Fortunately, the Raku Programming Language has many introspection capabilities.  One of them is the `.methods` method on the meta-object of the iterator.  Don't think too much about that at this point: just know that there's a special syntax for calling a method on the meta-object of an object: [`.^method-name`](https://docs.raku.org/language/operators#methodop_.^).
 
 So let's see what the iterator on `42` can do:
 ```
@@ -43,7 +43,7 @@ So let's see what the iterator on `42` can do:
 # push-all
 ...
 ```
-`.new`?  There's nothing new about that?  Yes and no.  The fact that it is listed here, means that the class has its **own** (not inherited) `method new`.  Whether that is useful information, is up to the reader!
+`.new`?  There's nothing new about that?  Well, yes and no.  The fact that it is listed here, means that the class has its **own** (not inherited) `method new`.  Whether that is useful information, is up to the reader!
 
 The next one is `.pull-one`.  Let's see what happens if we call that on the iterator object:
 ```
@@ -77,7 +77,7 @@ say $iter.pull-one for ^4;
 
 ## Pulling until it's done
 
-Now that we know that the final value is `IterationEnd`, we should be able to write a loop checking for that value, right?  Indeed we can!
+Now that we know that the final value is `IterationEnd`, we should be able to write a loop checking for that value, right?  And end the loop on that?  Indeed we can!  But it requires some special care:
 ```
 my $iter = <a b c>.iterator;
 until ($_ := $iter.pull-one) =:= IterationEnd {
@@ -89,7 +89,7 @@ until ($_ := $iter.pull-one) =:= IterationEnd {
 ```
 That's maybe a lot of colons all of a sudden!
 
-The first one [`:=`](https://docs.raku.org/routine/:=) is the binding operator.  It aliases the left side with the right side.  That's to make sure that we're going to compare the actual **value** directly, rather than a value in a variable.
+The first one [`:=`](https://docs.raku.org/routine/:=) is the binding operator.  It aliases the left side with the right side.  That's to make sure that we're going to compare the actual **value** directly, rather than a value in a variable (as values in variables may actually appear differently to the outside world, if they want to).
 
 The second one is the [`=:=`](https://docs.raku.org/routine/=:=), the identity operator.  It checks whether both sides refer to the same item in memory.  Whether they are *really* the **same** object.
 
@@ -99,7 +99,7 @@ for <a b c> {
     .say
 }
 ```
-And you'd be right: what you see above is more or less essentially what is happening under the hood.  Of course, really is a bit more complicated, as in this example we didn't account for any loop phasers, such as [`FIRST`, `NEXT` and `LAST`](https://docs.raku.org/language/phasers#index-entry-Phasers__FIRST-FIRST).  But the basic principle is the same!
+And you'd be right: what you see above is more or less essentially what is happening under the hood.  Of course, reality is a bit more complicated: in this example we for instance didn't account for handling any loop phasers ([`FIRST`, `NEXT` and `LAST`](https://docs.raku.org/language/phasers#index-entry-Phasers__FIRST-FIRST)).  But the basic principle is the same!
 
 ## Conclusion
 
