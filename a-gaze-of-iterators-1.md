@@ -4,13 +4,13 @@ This blog post provides an introduction to iterators in the [Raku Programming La
 
 ## Iterator Central
 
-Iterators are at the basis of every type of iteration in the Raku Programming Language, except for `loop` (which iterates indefinitely), `while` and `until` (which iterate while a condition is `True` / `False`).
+Iterators are at the basis of every type of iteration in the Raku Programming Language, except for `loop` (which uses a counter or iterates indefinitely), `while` and `until` (which iterate while a condition is `True` / `False`).
 
-All values and classes support having an `iterator` method called on them.
+All values and classes support having the `iterator` method called on them.
 ```
 say 42.iterator;  # Rakudo::Iterator::ReifiedListIterator.new
 ```
-So why would that say what it does?  Well, as we've seen before, the `say` subroutine will call the `.gist` method on whatever it got.  And the default `.gist` method on instances of classes shows the name of the class and how it *possibly* be created.  Same for any other class, even one of your own:
+So why would that say what it does?  Well, as we've seen before, the `say` subroutine will call the `.gist` method on whatever it got.  And the default (inherited) `.gist` method on instances of classes shows the name of the class and how it could *possibly* be created.  Same for any other class, even one of your own:
 ```
 class Foo { }
 say Foo.new;  # Foo.new
@@ -22,18 +22,89 @@ for 42 {
 }
 # 42
 ```
+But we'll get back to this later.
 
-## How do we know it's an iterator?
+## What can you use an iterator for?
 
-Calling the `iterator` method on something, gives us an object.  How do we know it's an iterator?  We could see if smartmatch can tell:
+Good question!  Actually, in general you wouldn't be using an iterator yourself in your code.  You would provide Raku with an iterator (usually implicitly), and let that do the work for you.  In general.
+
+But to get the feel of what an iterator can do, we're going to tinker with iterators a bit in this blog post.  Just to get a feel of what is going on under the hood, as it were.
+
+## Looking on the inside
+
+First of all, one would like to know which methods you can call on an iterator object.  Fortunately, the Raku Programming Language has many introspection capabilities.  One of them is the `.methods` method on the meta-object of the iterator.  Don't think too much about that at this point: just know that there's a special syntax for calling a method on the meta-object if an object: [`.^method-name`](https://docs.raku.org/language/operators#methodop_.^).
+
+So let's see what the iterator on `42` can do:
 ```
-say 42 ~~ Iterator;           # False
-say 42.iterator ~~ Iterator;  # True
+.say for 42.iterator.^methods;
+# new
+# pull-one
+# push-exactly
+# push-all
+...
+```
+Well, `.new`, there's nothing new about that.  Yes and no.  The fact that it is listed here, means that the class has its **own** (not inherited) `method new`.  Whether that is useful information, is up to the reader!
+
+The next one is `.pull-one`.  Let's see what happens if we call that on the iterator object:
+```
+say 42.iterator.pull-one; # 42
+```
+I guess you could hardly call that surprising.  But what happens if you would call the `.pull-one` method for a second time?
+```
+my $iter = 42.iterator;
+say $iter.pull-one; # 42
+say $iter.pull-one; # IterationEnd
+```
+What's this [`IterationEnd`](https://docs.raku.org/type/Iterator#index-entry-IterationEnd) you say?  It's a very special sentinel value that indicates that the iterator is i**done** producing values.  And that you should not call any methods on the iterator anymore (as the results will be undefined).
+
+Ok, so let's try this with a small list of values:
+```
+my $iter = <a b c>.iterator;
+say $iter.pull-one; # a
+say $iter.pull-one; # b
+say $iter.pull-one; # c
+say $iter.pull-one; # IterationEnd
+```
+Or, shorter:
+```
+my $iter = <a b c>.iterator;
+say $iter.pull-one for ^4;
+# a
+# b
+# c
+# IterationEnd
 ```
 
+## Pulling until it's done
+
+Now that we know that the final value is `IterationEnd`, we should be able to write a loop checking for that value, right?
+```
+my $iter = <a b c>.iterator;
+until ($_ := $iter.pull-one) =:= IterationEnd {
+    .say;
+}
+# a
+# b
+# c
+```
+That's maybe a lot of colons all of a sudden!
+
+The first one [`:=`](https://docs.raku.org/routine/:=) is the binding operator.  It aliases the left side with the right side.  That's to make sure that we're going to compare the actual **value** directly, rather than a value in a variable.
+
+The second one is the [`=:=`](https://docs.raku.org/routine/=:=), the identity operator.  It checks whether both sides refer to the same item in memory.  Whether they are *really* the **same** object.
+
+Looking at this code, you might realize that this is actually a convoluted way to write:
+```
+for <a b c> {
+    .say
+}
+```
+And you'd be right: what you see above is more or less essentially what is happening under the hood.
 
 ## Conclusion
 
-This concludes the first part of the introduction to iterators, and possibly to the Raku Programming Language.  Questions and comments are always welcome.  You can also drop into the [#raku-beginner channel](https://web.libera.chat/?channel=#raku-beginner) on Libera.chat, or on Discord if you'd like to have more immediate feedback.
+This concludes the first part of the introduction to iterators, and possibly to the Raku Programming Language.  It introduced the `iterator` and `^methods` methods, as well as the `pull-one` method and the special `IterationEnd` sentinel value for iterators.  And it casually introduced the `:=` binding operator and the `=:=` identity operator.
+
+Questions and comments are always welcome.  You can also drop into the [#raku-beginner channel](https://web.libera.chat/?channel=#raku-beginner) on Libera.chat, or on Discord if you'd like to have more immediate feedback.
 
 I hope you liked it!  Thank you for reading all the way to the end.
