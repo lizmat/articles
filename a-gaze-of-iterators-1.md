@@ -6,7 +6,7 @@ This blog post provides an introduction to iterators in the [Raku Programming La
 
 Iterators are at the basis of every type of iteration in the Raku Programming Language, except for `loop` (which uses a counter or iterates indefinitely), `while` and `until` (which iterate while a condition is `True` / `False`).
 
-All values and classes support having the `iterator` method called on them.
+Iterators are everywhere in Raku: all values and classes support having the `iterator` method called on them.
 ```
 say 42.iterator;  # Rakudo::Iterator::ReifiedListIterator.new
 ```
@@ -28,7 +28,7 @@ But we'll get back to this later.
 
 Good question!  Actually, in general you wouldn't be using an iterator yourself in your code.  You would provide Raku with an iterator (usually implicitly), and let that do the work for you.  In general.
 
-But to get the feel of what an iterator can do, we're going to tinker with iterators a bit in this blog post.  Just to get a feel of what is going on under the hood, as it were.
+But to get the feel of what an iterator can do, we're going to tinker with iterators a bit in this series of blog posts.  Just to get a feel of what is going on under the hood, as it were.
 
 ## Looking on the inside
 
@@ -43,7 +43,7 @@ So let's see what the iterator on `42` can do:
 # push-all
 ...
 ```
-Well, `.new`, there's nothing new about that.  Yes and no.  The fact that it is listed here, means that the class has its **own** (not inherited) `method new`.  Whether that is useful information, is up to the reader!
+`.new`?  There's nothing new about that?  Yes and no.  The fact that it is listed here, means that the class has its **own** (not inherited) `method new`.  Whether that is useful information, is up to the reader!
 
 The next one is `.pull-one`.  Let's see what happens if we call that on the iterator object:
 ```
@@ -55,9 +55,9 @@ my $iter = 42.iterator;
 say $iter.pull-one; # 42
 say $iter.pull-one; # IterationEnd
 ```
-What's this [`IterationEnd`](https://docs.raku.org/type/Iterator#index-entry-IterationEnd) you say?  It's a very special sentinel value that indicates that the iterator is i**done** producing values.  And that you should not call any methods on the iterator anymore (as the results will be undefined).
+What's this [`IterationEnd`](https://docs.raku.org/type/Iterator#index-entry-IterationEnd) you say?  It's a very special sentinel value that indicates that the iterator is **done** producing values.  And that you should not call any methods on the iterator anymore (as the results will be undefined).
 
-Ok, so let's try this with a small list of values:
+Ok, so let's try this again, this time with a small list of values:
 ```
 my $iter = <a b c>.iterator;
 say $iter.pull-one; # a
@@ -77,7 +77,7 @@ say $iter.pull-one for ^4;
 
 ## Pulling until it's done
 
-Now that we know that the final value is `IterationEnd`, we should be able to write a loop checking for that value, right?
+Now that we know that the final value is `IterationEnd`, we should be able to write a loop checking for that value, right?  Indeed we can!
 ```
 my $iter = <a b c>.iterator;
 until ($_ := $iter.pull-one) =:= IterationEnd {
@@ -99,7 +99,7 @@ for <a b c> {
     .say
 }
 ```
-And you'd be right: what you see above is more or less essentially what is happening under the hood.
+And you'd be right: what you see above is more or less essentially what is happening under the hood.  Of course, really is a bit more complicated, as in this example we didn't account for any loop phasers, such as [`FIRST`, `NEXT` and `LAST`](https://docs.raku.org/language/phasers#index-entry-Phasers__FIRST-FIRST).  But the basic principle is the same!
 
 ## Conclusion
 
