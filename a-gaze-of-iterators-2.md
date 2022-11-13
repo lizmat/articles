@@ -2,7 +2,7 @@
 
 ## Pushing the limits
 
-So let's look at the list of methods the iterator on `42` has:
+So let's again look at the list of methods the iterator on `42` has:
 ```
 .say for 42.iterator.^methods'
 # new
@@ -40,7 +40,7 @@ Looking at this, you could realize that the above is just a convoluted way to wr
 my @array = <a b c>;
 say @array;  # [a b c]
 ```
-And you'd be right again!  And now you have a better idea of what goes on under the hood.
+And you'd be right again!  And now you have a better idea of what goes on under the hood.  Well, at least conceptually, because the actual implementation is of course at liberty to take short-cuts to improve efficiency.
 
 ## Don't like that one
 
@@ -52,7 +52,7 @@ say $iter.pull-one; # b
 say $iter.pull-one; # c
 say $iter.skip-one; # 0
 ```
-So it looks like `.skip-one` really skips a value.  But it also returns something?  Indeed, it returns either `1` to indicate a successful skip, and `0` for an unsuccessful skip.  Why not `True` and `False` you might ask?  Well, these are all methods that work under the hood as efficiently as possible, and turning a `1` into a `True` would just be extra and unnecessary work.
+So it looks like `.skip-one` really skips a value.  But it also returns something?  Indeed, it returns either `1` to indicate a successful skip, and `0` for an unsuccessful skip.  Why not `True` and `False` you might ask?  Well, these are all methods that work under the hood as efficiently as possible, and turning a native integer `1` into a boolean `True` would just be extra and unnecessary work.
 
 # What is it
 
@@ -61,15 +61,15 @@ Those two [`.is-lazy`](https://docs.raku.org/type/Iterator#method_is-lazy) and `
 say 42.iterator.is-lazy;           # False
 say 42.iterator.is-deterministic;  # True
 ```
-The `.is-lazy` method indicates whether the iterator is lazy or not.  In hindsight, the term "lazy" was probably a bad choice.  The most obvious thing about "lazy" iterators, is that you cannot calculate the number of elements it will produce.  So the term "countable" (with reversing the value) would probably have been better:
+The `.is-lazy` method indicates whether the iterator is lazy or not.  In hindsight, the term "lazy" was probably a bad choice.  The most obvious thing about "lazy" iterators, is that you cannot calculate the number of elements it will produce.  So the term "countable" (with reversing the value) would probably have been better.
 ```
 say (1..*).iterator.is-lazy;  # True
 ```
-is an example of a "lazy" iterator, of which you cannot count the number of elems.  If you try to do that with the `.elems` method, you will get an error:
+is an example of a "lazy" iterator, of which you can **not** count the number of elems.  If you try to do that with the `.elems` method, you will get an error:
 ```
 say (1..*).elems;  # Cannot .elems a lazy list
 ```
-If it wouldn't produce the error, it would hang because it would be producing values "ad infinitum" literally!
+If it wouldn't produce the error, it would hang because it would be producing values "ad infinitum" literally!  Before being able to tell you the number of elements.
 
 The `is-deterministic` method indicates whether the iterator, given a certain source, will always produce the same values in the same order.  The Raku internals can optimize certain situations if it knows whether the produced values will always be the same.
 ```
@@ -106,6 +106,7 @@ my $seen = 0;
 ++$seen for 1..10;
 say $seen;  # 10
 ```
+The term ["sink"](https://docs.raku.org/language/contexts#index-entry-sink_context) is the Raku equivalent for what other programming languages call "void context".  But more about that later in this series.
 
 ## Conclusion
 
