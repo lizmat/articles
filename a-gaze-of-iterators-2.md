@@ -84,7 +84,7 @@ say (1..10).pick(*);  # (4 6 8 9 2 10 7 5 1 3)
 
 ## That's weird
 
-Yeah, what does `BUILDALL` do?  Actually, nothing that should concern you.  The ALLCAPS of the method really indicates that it is something special, and it is!  It is a method that is automatically generated for every class, and it contains the default logic to initialize an object of that class.  There is no source code for it: the definition of a class determines how that method will be directly generated into executable bytecode.
+Yeah, what does `BUILDALL` do?  Actually, nothing that should concern you.  The ALLCAPS of the method really indicates that there is something special going on!  The `BUILDALL` method is a method that is automatically generated for every class, and it contains the default logic to initialize an object of that class.  There is no source code for it: the definition of a class determines how that method will be directly generated into executable bytecode.
 
 ## What are you sinking about?
 
@@ -94,7 +94,7 @@ say <a b c>.iterator.sink-all;  # IterationEnd
 ```
 That's informational?  But what does it do?  Well, in this particular case, it will mark the iterator as completed.  Not very useful.
 
-But there are other (very common) cases where it *is* very useful.  Remember that a `for` loop is really just a `.map` of which the result is discarded?
+But there are other (very common) cases where calling `sink-all` *is* very useful.  Remember that a `for` loop is really just a `.map` of which the results are discarded?
 ```
 my $seen = 0;
 (1..10).map({++$seen}).iterator.sink-all;
@@ -110,7 +110,7 @@ The term ["sink"](https://docs.raku.org/language/contexts#index-entry-sink_conte
 
 ## Conclusion
 
-This concludes the second part of the series, in which most of the other methods that you can call on an iterator have been explained.  Specifically `.skip-one`, `push-all`, `is-lazy`, `is-deterministic` and `sink-all`.
+This concludes the second part of the series, in which most of the other methods that you can call on an iterator have been explained.  Specifically `.skip-one`, `push-all`, `is-lazy`, `is-deterministic` and `sink-all`.  With a side-order of `.pick`.
 
 Questions and comments are always welcome.  You can also drop into the [#raku-beginner channel](https://web.libera.chat/?channel=#raku-beginner) on Libera.chat, or on Discord if you'd like to have more immediate feedback.
 
