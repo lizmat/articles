@@ -1,6 +1,6 @@
 # It's time to rak! (Part 3)
 
-This blog post will discuss the types of patterns you can specify with [`rak`](https://raku.land/zef:lizmat/App::Rak).
+This blog post will discuss the types of patterns you can specify with [`rak`](https://raku.land/zef:lizmat/App::Rak) as part 3 of the [It's time to rak!](https://dev.to/lizmat/its-time-to-rak-part-1-30ji) blog series.
 
 ## The --type argument
 
@@ -256,7 +256,7 @@ twenty
 
 ### string$
 
-If the pattern starts with "`$`" (24 DOLLAR SIGN), then the rest of the pattern must match at the **end** of a line.  So `rak string$` is the same as `rak string --type=ends-with`.
+If the pattern ends with "`$`" (24 DOLLAR SIGN), then the rest of the pattern must match at the **end** of a line.  So `rak string$` is the same as `rak string --type=ends-with`.
 ```
 # Show the lines ending with "o"
 $ rak o$ twenty
@@ -349,7 +349,7 @@ twenty
 ```
 Note that in the above example we used `?` to indicate that the "t" may or may not occur.
 
-You should also be aware that whitespace in Raku regexes has no meaning.  So whitespace will need to be explicitly specified if it is intended to be part of the regex.  However, if there is whitespace between alphanumeric characters, it will warn.
+You should also be aware that whitespace in Raku regexes has no meaning.  So whitespace will need to be explicitely specified if it is intended to be part of the regex.  However, if there is whitespace between alphanumeric characters, it will warn.
 ```
 # Look for one, with unneeded whitespace
 % rak '/ o ne /' twenty
