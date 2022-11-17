@@ -84,62 +84,12 @@ If there is no argument specified related to the basename of the file (any of th
 
 ## More peripherally
 
-The rest of the filesystem filter arguments can be roughly divided into the following groups:
-
-### By content
-
-- --is-text           content looks / does not look like text
-- --accept=condition  given IO::Path, return true to include
-- --deny=condition    given IO::Path, return true to *not* include
-
-### By epoch
-
-- --accessed=condition  Check on epoch when file was last accessed
-- --created=condition   Check on epoch when file was created
-- --meta-modified=cond  Check on epoch when meta-info of file was last changed
-- --modified=condition  Check on epoch when file was last changed
-
-See [Checking times on files](https://raku.land/zef:lizmat/App::Rak#checking-times-on-files) for more information.
-
-### By owner / group
-
-- --user=selector   File is owned by user names / expression
-- --group=selector  File is owned by group names / expression
-- --uid=condition   File is owned by numeric uid given
-- --gid=condition   File is owned by numeric gid given
-
-### By numeric meta value
-
-- --blocks=condition    Number of file system blocks used by file
-- --device-number=cond  Number of device on which file is located
-- --filesize=condition  Number of bytes of data used by file
-- --is-empty            Number of bytes of data used by file is zero
-- --hard-links=cond     Number of hard-links to file on file system
-- --inode=condition     Inode number of file on file system
-- --mode=condition      The full mode value of the file
-
-### By external program
-
-- --exec=program  Run program, include if successful
-- --shell=action  Run shell command, include if successful
-
-### By attribute
-
-- --has-setgid           Has SETGID bit (not) set in attributes
-- --has-setuid           Has SETUID bit (not) set in attributes
-- --is-executable        File can (not) be executed by owner
-- --is-readable          File can (not) be read by owner
-- --is-writable          File can (not) be written to by owner
-- --is-group-executable  File can (not) be executed by group members of owner
-- --is-group-readable    File can (not) be read by group members of owner
-- --is-group-writable    File can (not) be written to by group members of owner
-- --is-owned-by-group    File is (not) owned by group of user
-- --is-owned-by-user     File is (not) owned by user
-- --is-symbolic-link     File is (not) a symbolic link
-- --is-sticky            Has STICKY bit (not) set in attributes
-- --is-world-executable  File can (not) be executed by anybody
-- --is-world-readable    File can (not) be read by anybody
-- --is-world-writable    File can (not) be written to by anybody
+The rest of the filesystem filter arguments can be roughly divided into the following groups: by content, epoch, owner / group, numeric meta value, external program and by attribute.  Again, you can see all of the needed information about these by doing:
+```
+# produce extensive help on filesystem filters
+$ rak --help=filesystem
+```
+In any case, the end result of all of these filters is an internal list of files that will be checked for the pattern.
 
 ## Conclusion
 
