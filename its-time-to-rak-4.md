@@ -32,25 +32,29 @@ What this basically does is to download the indicated resource (courtesy of `cur
 
 ## Actually only two
 
-If you look at the above, then you realize that there are actually only two types of specification: a directory or a file (whether locally or remote).  And that a directory will be recursed into to look for files to include in the search.
+If you look at the above, then you realize that there are actually only two types of specification: a *directory* or a *file* (which could be local or remote).  And that a directory will be recursed into to look for files to include in the search.
 
-The search for files in a directory, and its subdirectories, can be influenced by **40** different arguments.  This blog post will **not** mention all of them.  You can call:
+The search for files in a directory, and its subdirectories, can be influenced by **40** different arguments.  This blog post will **not** mention all of them.  You can do:
 ```
 # produce extensive help on filesystem filters
 $ rak --help=filesystem --pager=less
 ```
 to get a more in-depth description of the logic for each of the options should you need a feature that is not covered in this blog post.  The `--pager` argument is to let you more easily scroll the extensive text, but is of course not necessary.
 
-What should be noted here is that these filesystem filters are **only** applied on subdirectories and files in those subdirectories.  So **not** on any directory or file that you specify *directly*.  With one caveat: many shells auto-expand anything you specify on the command line if they can: and these will be considered to be directly specified by `rak`, as it does not have a way to distinguish between what you typed and what the shell expanded it to.  For example:
+What should be noted here is that these filesystem filters are **only** applied on subdirectories and files in those subdirectories.  So **not** on any directory or file that you specify *directly*.
+
+But beware!  Many shells auto-expand anything you specify on the command line if they can: and these will be considered to be directly specified by `rak`, as it does not have a way to distinguish between what you typed and what the shell expanded it to.  For example:
 ```
 # Search all files and all subdirectories
 $ rak foo *
 ```
-The `*` in the shell will effectively do `ls -d *`.  In practice, this is *almost* the same as not specifying anything at all.  But with one subtle difference: none of the filesystem filters will be applied to what the shell expanded to.  Whereas if you would not specifying anything (or `.` to indicate the current directory), the filesystem filters **would** be applied, because you (implicitely) specified only the current directory.  So only the current directory would be exempt from filesystem filters.
+The `*` in the shell will effectively do `ls -d *`.  In practice, this is *almost* the same as not specifying anything at all.  But with one subtle difference: none of the filesystem filters will be applied to what the shell expanded to.
+
+Whereas if you would not specifying anything (or `.` to indicate the current directory), the filesystem filters **would** be applied, because you (implicitely) specified only the current directory.  So only the current directory would be exempt from filesystem filters.
 
 ## At the base
 
-The two most important filesystem filters are `--file` and `--dir`.  They expect a piece of code that will be given the [`basename`](https://docs.raku.org/type/IO::Path#method_basename) of a file or a directory, and which should return a trueish value to allow the file / directory to be accepted.  And they can also be specified as a flag: `--file` for unconditional acceptance, and `--/dir` for unconditional denial.
+The two most important filesystem filters are `--file` and `--dir`.  They expect a piece of code that will be given the [`basename`](https://docs.raku.org/type/IO::Path#method_basename) of a file or a directory, and which should return a trueish value to allow the file / directory to be accepted.  And they can also be specified as a flag: `--file` for unconditional acceptance, and `--/dir` for unconditional denial (which can be handy if you do **not** want recursion into subdirectories).
 
 By default, `--file` and `dir='!.starts-with(".")'` are assumed.  Which effectively means, don't recurse into directories that start with a period, and accept all files in any other directory.
 
@@ -84,12 +88,12 @@ If there is no argument specified related to the basename of the file (any of th
 
 ## More peripherally
 
-The rest of the filesystem filter arguments can be roughly divided into the following groups: by content, epoch, owner / group, numeric meta value, external program and by attribute.  Again, you can see all of the needed information about these by doing:
+The rest of the filesystem filter arguments can be roughly divided into the following groups: by content, epoch, owner / group, numeric meta value, external program and by filesystem attribute.  Again, you can see all of the needed information about these by doing:
 ```
 # produce extensive help on filesystem filters
 $ rak --help=filesystem
 ```
-In any case, the end result of all of these filters is an internal list of files that will be checked for the pattern.  You could think of this list as the haystack, and the pattern as the needle, as it were.
+In any case, the end result of all of these filters is an internal list of files that will be checked for the pattern.  You could think of this list as the **haystack**, and the pattern as the proverbial needle, as it were.
 
 ## More on the haystack
 
@@ -101,7 +105,7 @@ $ rak foo --paths=lib,doc
 ```
 The `--paths` argument allows you to save a set of paths with a shortcut (as we've seen in [Customizing your options](https://dev.to/lizmat/its-time-to-rak-part-2-18ha)).
 
-You can also store filenames and/or paths in a file, and specify that file to be taken as the haystack specification: the `--paths-from=filename` and `--files-from=filename` arguments.  Each line of the specified file will be taken as either a file or path specification.  The difference in handling is that if a file is specified on a line with `--paths-from`, it is accepted.  If a directory is specified on a line with `--files-from`, then it will be ignored as not being a file.  And either of these take `-` to mean to read from STDIN.
+You can also store filenames and/or paths in a file, and specify that file to be taken as the haystack specification: the `--paths-from=filename` and `--files-from=filename` arguments.  Each line of the specified file will be taken as either a file or path specification.  The difference in handling is that if a file is specified on a line with `--paths-from`, it is accepted.  If a directory is specified on a line with `--files-from`, then it will be ignored as not being a file.  And either of these take "`-`" (aka a single hyphen) to mean to read from STDIN.
 
 For open source developers, the `--under-version-control` argument may be of use.  When used in a git repository, it will set up the haystack with all the files that are under version control.
 
@@ -133,7 +137,9 @@ In any case, the `--find` argument is named after the Unix `find` command.  I th
 
 ## Conclusion
 
-This concludes part 4 of a series of blog posts about `rak`.  It shows how you can instruct rak where to look for matches, to create a haystack if you will.  By applying different acceptance rules for files and subdirectories, for instance by looking at extensions.  It also shows how you can twist the haystack to just show filenames or the names of directories.
+This concludes part 4 of a series of blog posts about `rak`.
+
+It shows how you can instruct rak where to look for matches, to create a haystack if you will.  By applying different acceptance rules for files and subdirectories, for instance by looking at extensions.  It also shows how you can twist the haystack to just show filenames or the names of directories.
 
 If you have any comments, find bugs, have recommendations / ideas, please submit them as issues at the [App::Rak repository](https://github.com/lizmat/App-Rak/issues).  If you would like to have a more direct interaction, you can visit the [#raku-rak](https://web.libera.chat/?channel=#raku-rak) channel on [Libera.chat](https://libera.chat).
 
