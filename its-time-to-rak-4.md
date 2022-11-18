@@ -129,6 +129,7 @@ And what if you would just like to see the names of *directories* instead of fil
 # Show all directory names from current directory down
 $ rak --find --/file
 ```
+In any case, the `--find` argument is named after the Unix `find` command.  I thought I'd mention that, if that wasn't clear just yet.
 
 ## Conclusion
 
