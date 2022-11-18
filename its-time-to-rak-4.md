@@ -52,7 +52,7 @@ The `*` in the shell will effectively do `ls -d *`.  In practice, this is *almos
 
 The two most important filesystem filters are `--file` and `--dir`.  They expect a piece of code that will be given the [`basename`](https://docs.raku.org/type/IO::Path#method_basename) of a file or a directory, and which should return a trueish value to allow the file / directory to be accepted.  And they can also be specified as a flag: `--file` for unconditional acceptance, and `--/dir` for unconditional denial.
 
-By default, `--file` and `dir='!.starts-with(".")'` are assumed.  Which effectively means, don't recurse into directories that start with a period, and accept all files in there.
+By default, `--file` and `dir='!.starts-with(".")'` are assumed.  Which effectively means, don't recurse into directories that start with a period, and accept all files in any other directory.
 
 To make it easier for you to specify files given by one or more extensions, you can use the `--extensions` argument:
 ```
@@ -80,7 +80,7 @@ Note that the groups of extensions are prefixed with `#`.  To get an up-to-date 
 # rak --list-known-extensions
 ```
 
-If there is no argument specified related to the basename of the file (any of the above here), then the content of each file will be checked to see if it looks like it contains text and only included if it is actually deemed to contain text.
+If there is no argument specified related to the basename of the file (any of the above here), then the *content* of each file will be checked to see if it looks like it contains text.  Only if it looks like that, will it actually be included.
 
 ## More peripherally
 
@@ -93,15 +93,15 @@ In any case, the end result of all of these filters is an internal list of files
 
 ## More on the haystack
 
-Apart from specifying paths after the pattern, there is also a `--paths=path1,path2` argument.  This is supposed to contain a comma separated list of paths.  So these two invocations are equivalent:
+Apart from specifying paths after the pattern, there is also a `--paths` argument.  This is supposed to contain a comma separated list of paths.  So these two invocations are equivalent:
 ```
 # Search in the "lib" and "doc" directories
 $ rak foo lib doc
 $ rak foo --paths=lib,doc
 ```
-The `--paths` argument allows you to save a set of paths with a shortcut (as we've seen in [Customizing your options](https://dev.to/lizmat/its-time-to-rak-part-2-18ha).
+The `--paths` argument allows you to save a set of paths with a shortcut (as we've seen in [Customizing your options](https://dev.to/lizmat/its-time-to-rak-part-2-18ha)).
 
-You can also store filenames and/or paths in a file, and specify that file to be taken as the haystack specification: the `--paths-from=filename` and `--files-from=filename` options.  Each line of the specified file, will be taken as either a file or path specification.  The difference in handling is that if a file is specified on a line with `--paths-from`, it is accepted.  If a directory is specified on a line with `--files-from`, then it will be ignored as not being a file.  And either of these take `-` to mean to read from STDIN.
+You can also store filenames and/or paths in a file, and specify that file to be taken as the haystack specification: the `--paths-from=filename` and `--files-from=filename` arguments.  Each line of the specified file will be taken as either a file or path specification.  The difference in handling is that if a file is specified on a line with `--paths-from`, it is accepted.  If a directory is specified on a line with `--files-from`, then it will be ignored as not being a file.  And either of these take `-` to mean to read from STDIN.
 
 For open source developers, the `--under-version-control` argument may be of use.  When used in a git repository, it will set up the haystack with all the files that are under version control.
 
@@ -113,7 +113,7 @@ $ rak --help=haystack
 
 ## Twisting the haystack
 
-There is one argument that converts the haystack into a list with the absolute paths of all the files in the haystack: `--find`.  It changes the list of targets into a target itself, if you will.  So instead of looking for the pattern in the contents of the files of the haystack, you'd be looking in the *names* of the files instead.
+There is one argument that converts the haystack into a list with the paths of all the files in the haystack: `--find`.  It changes the list of targets into a target itself, if you will.  So instead of looking for the pattern in the contents of the files of the haystack, you'd be looking in the *names* of the files instead.
 ```
 # Show all filenames that have "lib" in their name
 $ rak --find lib
@@ -126,7 +126,7 @@ $ rak --find
 ```
 And what if you would just like to see the names of *directories* instead of files?  Well, that'd be only legal way to use the `--file` argument as a negator:
 ```
-# Show all directory names fro current directory down
+# Show all directory names from current directory down
 $ rak --find --/file
 ```
 
