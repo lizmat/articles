@@ -28,15 +28,17 @@ say (1..10).pick(*).iterator.^mro;
 say (1..10).map({++$_}).iterator.^mro;
 # ((IterateOneWithoutPhasers) (Any) (Mu))
 ```
-That is odd?  They all seem to inherit from [`Any`](https://docs.raku.org/type/Any) and [`Mu`](https://docs.raku.org/type/Mu)?  Yet, one can **not** call the `.pull-one` method on every object:
+That is odd?  They all seem to inherit from [`Any`](https://docs.raku.org/type/Any) and [`Mu`](https://docs.raku.org/type/Mu)?  Yet, one can **not** call the `.pull-one` method on every object that just inherits from `Any` and `Mu`:
 ```
+say 42.^mro;
+# ((Int) (Cool) (Any) (Mu))
 say 42.pull-one;
 # No such method 'pull-one' for invocant of type 'Int'
 ```
 
 ## Role playing
 
-The Raku Programming Language also provides ["roles"](https://docs.raku.org/language/objects#Roles).  In short, you could think of a role as a collection of methods.  All of these iterator classes that we've seen here, actually do the [`Iterator`](https://docs.raku.org/type/Iterator) role.  And just as with the `^.mro`, you can introspect which roles a class performs.  Let's see how that works out here:
+The Raku Programming Language also provides a thing called ["roles"](https://docs.raku.org/language/objects#Roles).  In short, you could think of a role as a collection of methods.  All of these iterator classes that we've seen here, actually do the [`Iterator`](https://docs.raku.org/type/Iterator) role.  And just as with the `^.mro`, you can introspect which roles a class performs.  Let's see how that works out here:
 ```
 say <a b c>.iterator.^roles;
 # ((PredictiveIterator) (Iterator))
@@ -47,7 +49,53 @@ say (1..10).pick(*).iterator.^roles;
 say (1..10).map({++$_}).iterator.^roles;
 # ((SlippyIterator) (Iterator))
 ```
-So it looks like some classes are actually playing more than one role.  But they *all* do the `Iterator` role, it looks like.
+So it looks like some classes are actually playing more than one role.  But they *all* also do the `Iterator` role, it looks like.
+
+## How to be an iterator
+
+To make a `class` be an iterator, one must tell the class to do the `Iterator` role.  That's pretty simple, no?  Let's start with an empty class that just wants to be an iterator.  You do that by using [`does`](https://docs.raku.org/language/objects#index-entry-does):
+```
+class Foo does Iterator {
+}
+===SORRY!=== Error while compiling -e
+Method 'pull-one' must be implemented by Foo
+because it is required by roles: Iterator.
+```
+So we need to actually provide some type of implementation for the interface that the `Iterator` role is providing.  Ok, so let's make a very simple method `pull-one` that will randomly return `True` or `False`:
+```
+class TrueFalse does Iterator {
+    method pull-one() { Bool.roll }
+}
+say TrueFalse.pull-one;  # True | False
+```
+The `.roll` method randomly picks a single value from a set of values.  When called on an [`enum`](https://docs.raku.org/language/typesystem#index-entry-Enumeration-_Enums-_enum), it will randomly [select one of the enums values](https://docs.raku.org/routine/roll#role_Enumeration).  And the `Bool` enum has `True` and `False` as its values.
+
+Of course, this is all very boring, let's make it more interesting:
+```
+class YeahButNoBut does Iterator {
+    method pull-one() {
+        Bool.roll ?? "Yeah but" !! "No but"
+    }
+}
+say YeahButNoBut.pull-one;  # Yeah but | No but
+```
+So we now have a class that produces an iterator.  But how would you actually use that in any "normal" way in your program?  Well, by embedding the iterator into another class with a method `.iterator` in it:
+```
+class Jabbering {
+    method iterator() {
+        class YeahButNoBut does Iterator {
+            method pull-one() {
+                Bool.roll ?? "Yeah but" !! "No but"
+            }
+        }
+    }
+}
+```
+Note here that the `.iterator` method actually returns the class.  Because that's all we need from this iterator class.  So now you can start jabbering!
+```
+.say for Jabbering;
+```
+Hmmm... that doesn't stop now, does it?
 
 ## Conclusion
 
