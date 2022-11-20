@@ -38,7 +38,7 @@ say 42.pull-one;
 
 ## Role playing
 
-The Raku Programming Language also provides a thing called ["roles"](https://docs.raku.org/language/objects#Roles).  In short, you could think of a role as a collection of methods.  All of these iterator classes that we've seen here, actually do the [`Iterator`](https://docs.raku.org/type/Iterator) role.  And just as with the `^.mro`, you can introspect which roles a class performs.  Let's see how that works out here:
+The Raku Programming Language also provides a thing called ["roles"](https://docs.raku.org/language/objects#Roles).  In short, you could think of a role as a collection of methods that will be "implanted" into a class if the class itself does not provide a method implementation for it.  All of these iterator classes that we've seen here, actually do the [`Iterator`](https://docs.raku.org/type/Iterator) role.  And just as with the `^.mro`, you can introspect which roles a class performs by calling the `.^roles` method.  Let's see how that works out here:
 ```
 say <a b c>.iterator.^roles;
 # ((PredictiveIterator) (Iterator))
@@ -79,11 +79,11 @@ class YeahButNoBut does Iterator {
 }
 say YeahButNoBut.pull-one;  # Yeah but | No but
 ```
-So we now have a class that produces an iterator.  But how would you actually use that in any "normal" way in your program?  Well, by embedding the iterator into another class with a method `.iterator` in it:
+So we now have a class that produces an iterator.  But how would you actually use that in any "normal" way in your program?  Well, by embedding the iterator into another class, and have a method `.iterator` in it that returns the iterator class:
 ```
 class Jabbering {
     method iterator() {
-        class YeahButNoBut does Iterator {
+        my class YeahButNoBut does Iterator {
             method pull-one() {
                 Bool.roll ?? "Yeah but" !! "No but"
             }
@@ -91,15 +91,21 @@ class Jabbering {
     }
 }
 ```
-Note here that the `.iterator` method actually returns the class.  Because that's all we need from this iterator class.  So now you can start jabbering!
+Note here that the `.iterator` method actually returns the class.  Because that's all we need from this iterator class.
+
+Also note that classes in the Raku Programming Language can be lexically scoped by prefixing them with `my`, just as you would lexically scoped variables.  This makes sense in this case, as there would be no need for the iterator class outside of the scope of the "Jabbering" class.
+
+So now you can start jabbering!
 ```
 .say for Jabbering;
 ```
 Hmmm... that doesn't stop now, does it?
 
+Indeed it doesn't.  As to why, that's for the next instalment in this series!
+
 ## Conclusion
 
-This concludes the third part of the series, in which
+This concludes the third part of the series, in which the concept of roles in the Raku Programming Language is introduced, along with `does`.  And that you can alter the scope of a `class` by prefixing it with `my`.
 
 Questions and comments are always welcome.  You can also drop into the [#raku-beginner channel](https://web.libera.chat/?channel=#raku-beginner) on Libera.chat, or on Discord if you'd like to have more immediate feedback.
 
