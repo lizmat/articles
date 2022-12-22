@@ -135,7 +135,18 @@ Return an appropriate `Failure` object, rather than doing a conversion.  This wi
 
 Throw an appropriate exception.
 
-Note that you can introduce any custom behaviour by creating a class with a `UPGRADE-RAT` method in it, and settnig that class in the `$*RAT-OVERFLOW` dynamic variable.
+Note that you can introduce any custom behaviour by creating a class with a `UPGRADE-RAT` method in it, and setting that class in the `$*RAT-OVERFLOW` dynamic variable.
+```
+class Meh {
+    method UPGRADE-RAT($num,$denom) is hidden-from-backtrace {
+        die "$num / $denom is meh"
+    }
+}
+my $*RAT-OVERFLOW = Meh;
+my $a = 1 / 0xffffffffffffffff;
+say $a;      # 0.000000000000000000054
+say $a / 2;  # 1 / 36893488147419103230 is meh
+```
 
 ## New Environment Variables
 
