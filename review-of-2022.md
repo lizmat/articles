@@ -241,6 +241,16 @@ say Date.new(2022,12,*-6);  # 2022-12-25
 
 ## Additions in v6.e.PREVIEW:
 
+### term nano
+
+A `nano` term is now available.  It returns the number of **nanoseconds** since midnight UTC since 1 January 1970.  It is similar to the [`time` term](https://docs.raku.org/routine/time) but one billion times more accurate.  It is intended for *very* accurate timekeeping / logging.
+```
+use v6.e.PREVIEW;
+say time;  # 1671801948
+say nano;  # 1671801948827918628
+```
+With current 64-bit native unsigned integer precision, this should roughly be enough for another 700 years :-)
+
 ### prefix //
 
 You can now use `//` as a prefix as well as an infix.  It will return whatever the `.defined` method returns on the given argument).
@@ -253,12 +263,25 @@ say //$foo;  # True
 ```
 So you could consider `//$foo` to be syntactic sugar for `$foo.defined`.
 
-### Any.snip
+### snip() and Any.snip
 
-The new `snip` method allows one to cut up a list into sublists according the given specification.
-
-.snip 
-
+The new `snip` subroutine and method allows one to cut up a list into sublists according the given specification.  The specification consists of one or more smartmatch targets.  Each value of the list will be smartmatched with the given target: as soon as it returns `False`, will all the values before that be produced as a `List`.
+```
+use v6.e.PREVIEW;
+say (2,5,13,9,6,20).snip(* < 10);
+# ((2 5) (13 9 6 20))
+```
+Multiple targes can be specified.
+```
+say (2,5,13,9,6,20).snip(* < 10, * < 20);
+# ((2 5) (13 9 6) (20))
+```
+The arguments can also be an `Iterable`.  To split a list consisting of integers and strings into sublists of just integers and just strings, you can do:
+```
+say (2,"a","b",5,8,"c").snip(|(Int,Str) xx *);
+# ((2) (a b) (5 8) (c))
+```
+Inspired by Haskell's [`span`](https://hackage.haskell.org/package/base-4.16.1.0/docs/Prelude.html#v:span) function.
 
 ### Any.snitch
 
@@ -280,36 +303,79 @@ $ raku -e 'use v6.e.PREVIEW; say (^10).snitch(&dd).map(*+1).snitch(&dd).map(* * 
 ### Any.skip(produce,skip,...)
 
 You can now specify more than one argument to the `.skip` method.  Before, you could only specify a single (optional) argument.
-````raku
-my @a = ^10;
-say @a.skip;       # (1 2 3 4 5 6 7 8 9)
-say @a.skip(3);    # (3 4 5 6 7 8 9)
-say @a.skip(*-3);  # (7 8 9)
+```
+my @a = <a b c d e f g h i j>;
+say @a.skip;       # (b c d e f g h i j)
+say @a.skip(3);    # (d e f g h i j)
+say @a.skip(*-3);  # (h i j)
 ````
+On v6.e.PREVIEW, you can now specify any number of arguments in the order: produce, skip, produce, etc.  Some examples:
+```
+use v6.e.PREVIEW;
+my @a = <a b c d e f g h i j>;
+# produce 2, skip 5, produce rest
+say @a.skip(2, 5);        # (a b h i j)
+# produce 0, skip 3, then produce 2, skip rest
+say @a.skip(0, 3, 2);     # (d e)
+# same, but be explicit about skipping rest
+say @a.skip(0, 3, 2, *);  # (d e)
+```
+In fact, any `Iterable` can now be specified as the argument to `.skip`.
+```
+my @b = 3,5;
+# produce 3, skip 5, then produce rest
+say @a.skip(@b);           # (a b c i j)
+# produce 1, then skip 2, repeatedly until the end
+say @a.skip(|(1,2) xx *);  # (a d g j)
+```
 
+### Cool.comb(Pair)
 
-nano
-.skip(produce, skip,...)
-// as prefix
-.comb(rotor-args)
+On v6.e.PREVIEW, the [`.comb` method](https://docs.raku.org/routine/comb#(Str)_routine_comb) will also accept a `Pair` as an argument to give it [`.rotor`](https://docs.raku.org/routine/rotor#(Any)_method_rotor)_-like capabilities.  For instance, to produce [trigrams](https://en.wikipedia.org/wiki/Trigram) of a string, one can now do:
+```
+use v6.e.PREVIEW;
+say "foobar".comb(3 => -2);  # (foo oob oba bar)
+```
 
-Changed semantics in 6.e:
-Int.roll
-Int.pick
+### Changed semantics on Int.roll|pick
 
-Unmentioned:
-CompUnit::Repository::Staging.remove-artifacts
-CompUnit::Repository::Staging.self-destruct
-CompUnit::Repository::Staging.deploy
-CompUnit::Repository::Installation.install(:!precompile)
-Label.file|line
-Cool|Exception.Failure coercer
-Cool.Order coercer
-Allow semicolon in my :($a,$b) = 42,666
-Lock::Soft
-.hyper|batch Any is default
-bare sort is a runtime error
-.head|tail on native arrays return native arrays of same type rather than Seq
-Handling of Junctions in .classify / .categorize
-$?COMPILATION-ID removed -> Compiler.id
-RESTRICTED.setting
+To pick a number from 0 till N-1, one no longer has to specify a range, but can just the integer value as the invocant:
+```
+use v6.e.PREVIEW;
+say (^10).roll;     # 5
+say 10.roll;        # 7
+say (^10).pick(*);  # (2 0 6 9 4 1 5 7 8 3)
+say 10.pick(*);     # (4 6 1 0 2 9 8 3 5 7)
+```
+Of course, all of these values are examples, as each run will, most likely, produce different results.
+```
+
+There were some more new things and changes the past year.  I'll just mention them **very** succinctly here:
+
+- New methods on `CompUnit::Repository::Staging`
+
+`.deploy`, `.remove-artifacts`, and `.self-destruct`.
+
+- `:!precompile` flag on `CompUnit::Repository::Installation.install`
+
+Install module but precompile on first invocation rather than at installation.
+
+- New methods on `Label`
+
+`.file` and `.line` where the `Label` was created.
+
+- .Failure coercer
+
+Convert a `Cool` object or an `Exception` to a `Failure`.  Mainly intended to reduce binary size of hot paths that do some error checking.
+
+- `Cool.Order` coercer
+
+Coerce the given value to an `Int`, then convert to `Less` if less than 0, to `Same` if 0, and `More` if more than 0.
+
+- Allow semi-colon
+
+Now allow for the semi-colon in `my :($a,$b) = 42,666` because the left-hand side is really a `Signature` rather than a `List`.
+
+## Summary
+
+I guess we've seen **one** big change in the past year, namely having experimental support for `RakuAST` become available.  And many smaller goodies and tweaks and features.  Now that `RakuAST` has become "mainstream" as it were, we can think of having certain optimizations.  Such as making `sprintf` with a fixed format string about 30x as fast!  Exciting times ahead!
