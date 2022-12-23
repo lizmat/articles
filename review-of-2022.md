@@ -33,19 +33,29 @@ Allow specification of a numeric value together with the name of a single letter
 
 Native unsigned integers (both in scalar, as well as a (shaped) array) have become first class citizens.  This means that a native unsigned integer can now hold the value 18446744073709551615 as the largest positive value, from 9223372036854775807 before.  This also allowed for a number of internal optimisations as the check for negative values could be removed.  As simple as this sounds, this was quite an undertaking to get support for this on all VM backends.
 ```
-my uint $foo = 42;
+my uint  $foo = 42;
+my uint8 $bar = 255;
+my  int8 $baz = 255;
+
+say $foo;  # 42
+say $bar;  # 255
+say $baz;  # -1
+
+say ++$foo;  # 43
+say ++$bar;  # 0
+say ++$baz;  # 0
 ```
 
 ## New subroutines
 
-### NYI
+### NYI()
 
 The `NYI` subroutine takes a string to indicate a feature not yet implemented, and turn that into a `Failure` with the `X::NYI` exception at its core.  You could consider this short for [`...`](https://docs.raku.org/routine/....html#(Operators)_listop_...) **with** feedback, rather than just the "Stub code executed".
 ```
 say NYI "Frobnication";  # Frobnication not yet implemented. Sorry.
 ```
 
-### chown
+### chown()
 
 The `chown` subroutine takes zero or more filenames, and changes the UID (with the `:uid` argument) and/or the GID (with the `:gid` argument) if possible.  Returns the filenames that were successfully changed.  There is also a `IO::Path.chown` method version.
 ``` 
@@ -53,9 +63,9 @@ my @files = ...;
 say "Converted UID of {chown @files, :$uid} / @files.elems() files";
 ```
 
-### head, skip, tail
+### head(), skip(), tail()
 
-The [.head](https://docs.raku.org/routine/head#(Any)_method_head), [.skip](https://docs.raku.org/routine/skip#(Any)_method_skip) and [.tail](https://docs.raku.org/routine/tail#(Any)_method_tail)_ methods go their subroutine counterparts.
+The [.head](https://docs.raku.org/routine/head#(Any)_method_head), [.skip](https://docs.raku.org/routine/skip#(Any)_method_skip) and [.tail](https://docs.raku.org/routine/tail#(Any)_method_tail)_ methods got their subroutine counterparts.
 ```
 say head 3, ^10;  # (0 1 2)
 say skip 3, ^10;  # (3,4,5,6,7,8,9)
@@ -155,6 +165,13 @@ say $a / 2;  # 1 / 36893488147419103230 is meh
 This environment variable can be set to indicate the **maximum** number of OS-threads that Rakudo may use for its thread pool.  The default is 64, or the number of CPU-cores times 8, whichever is larger.  Apart from a numerical value, you can also specify `"Inf`" or `"unlimited"` to indicate that Rakudo should use as many OS-threads as it can.
 
 These same values can also be used in a call to `ThreadPoolScheduler.new` with the `:max_threads` named argument.
+```
+my $*SCHEDULER = ThreadPoolScheduler.new(:max_threads<unlimited>);
+```
+
+### INSIDE_EMACS
+
+This environment can be set to a true value if you do **not** want the REPL to check for installed modules to handle editing of lines, but instead want to fallback to the behaviour as if none of the supported line editing modules is installed.  This appears to be [handy for Emacs users](https://www.gnu.org/software/emacs/manual/html_node/emacs/Interactive-Shell.html), as the name implies :-)
 
 ## New experimental features
 
@@ -212,29 +229,73 @@ given DateTime.now {
 }
 ```
 
+## Additional meaning to existing arguments
 
+### Day from end of month
 
-Date(|Time).new(Y,M,\*)
-Date(|Time).new(Y,M,\*-2)
+The `day` parameter to `Date.new` and `DateTime.new` (whether named or positional) can now be specified as either a `Whatever` to indicate the last day of the month, or as a `Callable` indicating number of days from the end of the month.
+```
+say Date.new(2022,12,*);    # 2022-12-31
+say Date.new(2022,12,*-6);  # 2022-12-25
+```
 
-Additions in 6.e:
+## Additions in v6.e.PREVIEW:
+
+### prefix //
+
+You can now use `//` as a prefix as well as an infix.  It will return whatever the `.defined` method returns on the given argument).
+```
+use v6.e PREVIEW;
+my $foo;
+say //$foo;  # False
+$foo = 42;
+say //$foo;  # True
+```
+So you could consider `//$foo` to be syntactic sugar for `$foo.defined`.
+
+### Any.snip
+
+The new `snip` method allows one to cut up a list into sublists according the given specification.
+
 .snip 
+
+
+### Any.snitch
+
+The new `.snitch` method is a debugging tool that will show its invocant with `note` by default, and return the invocant.  So you can insert a `.snitch` in a sequence of method calls and see what's happening "half-way" as it were.
+```
+$ raku -e 'use v6.e.PREVIEW; say (^10).snitch.map(*+1).snitch.map(* * 2)'
+^10
+(1 2 3 4 5 6 7 8 9 10)
+(2 4 6 8 10 12 14 16 18 20)
+```
+You can also insert your own "reporter" in there: the `.snitch` method takes a `Callable`.  An easy example of this, is using `dd` for snitching:
+```
+$ raku -e 'use v6.e.PREVIEW; say (^10).snitch(&dd).map(*+1).snitch(&dd).map(* * 2)'
+^10
+(1, 2, 3, 4, 5, 6, 7, 8, 9, 10).Seq
+(2 4 6 8 10 12 14 16 18 20)
+```
+
+### Any.skip(produce,skip,...)
+
+You can now specify more than one argument to the `.skip` method.  Before, you could only specify a single (optional) argument.
+````raku
+my @a = ^10;
+say @a.skip;       # (1 2 3 4 5 6 7 8 9)
+say @a.skip(3);    # (3 4 5 6 7 8 9)
+say @a.skip(*-3);  # (7 8 9)
+````
+
+
 nano
 .skip(produce, skip,...)
 // as prefix
-.snitch
 .comb(rotor-args)
-
-Possibly breaking change:
-Handling of Junctions in .classify / .categorize
-$?COMPILATION-ID removed -> Compiler.id
 
 Changed semantics in 6.e:
 Int.roll
 Int.pick
-
-Removals:
-RESTRICTED.setting
 
 Unmentioned:
 CompUnit::Repository::Staging.remove-artifacts
@@ -246,7 +307,9 @@ Cool|Exception.Failure coercer
 Cool.Order coercer
 Allow semicolon in my :($a,$b) = 42,666
 Lock::Soft
-INSIDE_EMACS environment variable
 .hyper|batch Any is default
 bare sort is a runtime error
 .head|tail on native arrays return native arrays of same type rather than Seq
+Handling of Junctions in .classify / .categorize
+$?COMPILATION-ID removed -> Compiler.id
+RESTRICTED.setting
