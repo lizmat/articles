@@ -1,6 +1,10 @@
-# 2022 Review
+# Rakudo 2022 Review
 
-In a year as eventful as it was in the real world, it is a good idea to look back to see what one might have missed while life was messing with your Raku plans.  Unless otherwise noted, all of these changes are in language level 6.d, and available since a Rakudo compiler release in 2022.
+In a year as eventful as it was in the real world, it is a good idea to look back to see what one might have missed while life was messing with your Raku plans.
+
+Rakudo saw about 1500 commits this year, about the same as the year before that.  Many of these were bug fixes and performance improvements, which you would normally not notice.  But there were also commits that actually *added* features to the Raku Programming Language.  So it feels like a good idea to actually mention those more in depth.
+
+So here goes!  Unless otherwise noted, all of these changes are in language level 6.d, and available since a Rakudo compiler release in 2022.
 
 ## New REPL functionality
 
@@ -45,8 +49,11 @@ say ++$foo;  # 43
 say ++$bar;  # 0
 say ++$baz;  # 0
 ```
+And yes, all of the other explicitly sized types, such as `uint16`, `uint32` and `uint64`, are now also supported!
 
 ## New subroutines
+
+A number of subroutines entered the global namespace this year.  Please note that they will not interfere with any subroutines in your code with the same name, as these always take precedence.
 
 ### NYI()
 
@@ -71,12 +78,13 @@ say head 3, ^10;  # (0 1 2)
 say skip 3, ^10;  # (3,4,5,6,7,8,9)
 say tail 3, ^10;  # (7 8 9)
 ```
+Note that the number of elements is always the first positional argument.
 
 ## New methods
 
 ### Any.are
 
-The `.are` method returns the type object that all of the values of the invocant have in common.  This could be either a class or a role.
+The `.are` method returns the type object that **all** of the values of the invocant have in common.  This could be either a class or a role.
 ```
 say (1, 42e0, .137).are;         # (Real)
 say (1, 42e0, .137, "foo").are;  # (Cool)
@@ -86,16 +94,19 @@ In some languages this appears to be called [`infer`](https://en.wikipedia.org/w
 
 ### IO::Path.inode|dev|devtype|created|chown
 
-The `IO::Path` class had 4 methods added:
-- inode - the inode of the path (if available)
-- dev - the device number of the filesystem (if available)
-- devtype - the device identifier of the filesystem (if available)
-- created - DateTime object when path got created (if available)
-- chown - change uid and/or gid of path (if possible)
+Some low level IO features were added to the [`IO::Path`](https://docs.raku.org/type/IO::Path) class, in the form of 5 new methods.  Note that they may not actually work on your OS and/or filesystem (looking at you there, Windows :-)
+
+- .inode - the inode of the path (if available)
+- .dev - the device number of the filesystem (if available)
+- .devtype - the device identifier of the filesystem (if available)
+- .created - DateTime object when path got created (if available)
+- .chown - change uid and/or gid of path (if possible, method version of `chown()`)
 
 ### (Date|DateTime).days-in-year
 
-A `.days-in-year` class method was added to the `Date` and `DateTime` classes.  It takes a year as positional argument:
+The [`Date`](https://docs.raku.org/type/Date) and [`DateTime`](https://docs.raku.org/type/DateTime) classes already provide many powerfule date and time manipulation features.  But a few features were considered missing this year, and so they were added.
+
+A new `.days-in-year` class method was added to the `Date` and `DateTime` classes.  It takes a year as positional argument:
 ```
 say Date.days-in-year(2023);  # 365
 say Date.days-in-year(2024);  # 366
@@ -116,11 +127,13 @@ given Date.today {
 
 ## New Dynamic Variables
 
+[Dynamic variables](https://docs.raku.org/language/variables#index-entry-twigil_$*) provide a very powerful way to keep "global" variables.  A number of them are provided by the Raku Programming Language.  And now there is one more of them!
+
 ### $*RAT-OVERFLOW
 
-Determine the behaviour of rational numbers (aka [`Rat`s](https://docs.raku.org/type/Rat)) if they run out of precision.  More specifically when the denominator no longer fits in a native 64-bit integer.  By default, `Rat`s will be downgraded to floating point values (aka [`Num`s](https://docs.raku.org/type/Num)).  By setting the `$*RAT-OVERFLOW` dynamic variable, you can influence this behaviour.
+Determine the behaviour of rational numbers (aka [`Rat`](https://docs.raku.org/type/Rat)s) if they run out of precision.  More specifically when the denominator no longer fits in a native 64-bit integer.  By default, `Rat`s will be downgraded to floating point values (aka [`Num`](https://docs.raku.org/type/Num)s).  By setting the `$*RAT-OVERFLOW` dynamic variable, you can influence this behaviour.
 
-The `$*RAT-OVERFLOW` is expected to contain an entity (usually a class) on which an `UPGRADE-RAT` method will be called.  This method is expected to take the numerator and denominator as positional arguments, and is expected to return whatever representation one wants for the given arguments.
+The `$*RAT-OVERFLOW` is expected to contain a class (or an object) on which an `UPGRADE-RAT` method will be called.  This method is expected to take the numerator and denominator as positional arguments, and is expected to return whatever representation one wants for the given arguments.
 
 The following values can be specified using core features:
 
@@ -159,6 +172,8 @@ say $a / 2;  # 1 / 36893488147419103230 is meh
 
 ## New Environment Variables
 
+Quite a few environment variables are already checked by Rakudo.  Two more were added in the past year:
+
 ### RAKUDO_MAX_THREADS
 
 This environment variable can be set to indicate the **maximum** number of OS-threads that Rakudo may use for its thread pool.  The default is 64, or the number of CPU-cores times 8, whichever is larger.  Apart from a numerical value, you can also specify `"Inf`" or `"unlimited"` to indicate that Rakudo should use as many OS-threads as it can.
@@ -170,26 +185,43 @@ my $*SCHEDULER = ThreadPoolScheduler.new(:max_threads<unlimited>);
 
 ### INSIDE_EMACS
 
-This environment can be set to a true value if you do **not** want the REPL to check for installed modules to handle editing of lines, but instead want to fallback to the behaviour as if none of the supported line editing modules is installed.  This appears to be [handy for Emacs users](https://www.gnu.org/software/emacs/manual/html_node/emacs/Interactive-Shell.html), as the name implies :-)
+This environment variable can be set to a true value if you do **not** want the REPL to check for installed modules to handle editing of lines.  When set, it will fallback to the behaviour as if none of the supported line editing modules are installed.  This appears to be [handy for Emacs users](https://www.gnu.org/software/emacs/manual/html_node/emacs/Interactive-Shell.html), as the name implies :-)
 
 ## New experimental features
 
-### will complain
+Some Raku features are not yet cast in stone yet, so there's no guarantee that any code written by using these experimental features, will continue to work in the future.  Two new experimental features have been added in the past year:
 
-If you add a `use experimental :will-complain` to your code, you can customize typecheck errors by specifying a `will complain` trait.  The trait expects a `Callable` that will be given the offending value in question, and is expected to return a string to be added to the error message:
+### :will-complain
+
+If you add a `use experimental :will-complain` to your code, you can customize typecheck errors by specifying a `will complain` trait.  The trait expects a `Callable` that will be given the offending value in question, and is expected to return a string to be added to the error message.  For example:
 ```
 use experimental :will-complain;
 my Int $a will complain { "You cannot use -$_-, dummy!" }
 $a = "foo";
 # Type check failed in assignment to $a; You cannot use -foo-, dummy!
 ```
-The `will complain` trait can be used anywhere you can specify a type in Raku
+The `will complain` trait can be used anywhere you can specify a type constraint in Raku, so that includes parameters and attributes.
 
-### rakuast
+### :rakuast
 
-If you add a `use experimental :rakuast` to your code, you will be able to use all of the `RakuAST` classes to build code programmatically without needing to create source code.  This is an entire new area of Raku development, which will be covered by many blog posts in the coming year.
+The RakuAST classes allow you to dynamically build an AST ([Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) programmatically, and have that converted to executable code.  What was previously only possible by programmatically creating a piece of Raku code, and then calling [`EVAL`](https://docs.raku.org/routine/EVAL) on it.  But not only does it allow you to build code programmatically, it also allows you to introspect the AST, which opens up all sorts of syntax / lintifying possibilities.
 
-For the **very** curious, you can check out a proof-of-concept in the new [`Formatter`](https://github.com/rakudo/rakudo/blob/main/src/core.e/Formatter.pm6) class, that builds executable code out of an [`sprintf` format](https://docs.raku.org/routine/sprintf#Directives).
+There is an associated effort to compile the Raku core itself using a grammar that uses RakuAST to build executable code.  This effort is now capable of passing 585/1355 test-files in roast completely, and 83/131 of the Rakudo test-files completely.
+
+So, if you add a `use experimental :rakuast` to your code, you will be able to use all of the `RakuAST` classes to build code programmatically.  This is an entire new area of Raku development, which will be covered by many blog posts in the coming year.  A small example, showing how to build the expression `"foo" ~ "bar"`:
+```
+use experimental :rakuast;
+
+my $left  = RakuAST::StrLiteral.new("foo");
+my $infix = RakuAST::Infix.new("~");
+my $right = RakuAST::StrLiteral.new("bar");
+
+my $ast = RakuAST::ApplyInfix.new(:$left, :$infix, :$right);
+say $ast.DEPARSE;  # "foo" ~ "bar"
+```
+Note how each element of the expression can be created separately, and then combined together.  And that there is a `.DEPARSE` method to (re-)create the associated Raku source code.
+
+For the **very** curious, you can check out a proof-of-concept of the use of `RakuAST` classes in the Rakudo core in the [`Formatter`](https://github.com/rakudo/rakudo/blob/main/src/core.e/Formatter.pm6) class, that builds executable code out of an [`sprintf` format](https://docs.raku.org/routine/sprintf#Directives).
 
 ## New arguments to existing functionality
 
@@ -378,5 +410,7 @@ Coerce the given value to an `Int`, then convert to `Less` if less than 0, to `S
 Now allow for the semi-colon in `my :($a,$b) = 42,666` because the left-hand side is really a `Signature` rather than a `List`.
 
 ## Summary
+
+And about 1900 module releases, up from about 1650 in 2021.
 
 I guess we've seen **one** big change in the past year, namely having experimental support for `RakuAST` become available.  And many smaller goodies and tweaks and features.  Now that `RakuAST` has become "mainstream" as it were, we can think of having certain optimizations.  Such as making `sprintf` with a fixed format string about 30x as fast!  Exciting times ahead!
