@@ -195,7 +195,7 @@ For the **very** curious, you can check out a proof-of-concept in the new [`Form
 
 ### roundrobin(..., :slip)
 
-The [`roundrobin`](https://docs.raku.org/routine/roundrobin) now also accepts a `:slip` named argument.  When specified, it will produce all values as a single, flattened list.
+The [`roundrobin`](https://docs.raku.org/routine/roundrobin) subroutine now also accepts a `:slip` named argument.  When specified, it will produce all values as a single, flattened list.
 ```
 say roundrobin (1,2,3), <a b c>;         # ((1 a) (2 b) (3 c))
 say roundrobin (1,2,3), <a b c>, :slip;  # (1 a 2 b 3 c)
@@ -335,6 +335,7 @@ On v6.e.PREVIEW, the [`.comb` method](https://docs.raku.org/routine/comb#(Str)_r
 use v6.e.PREVIEW;
 say "foobar".comb(3 => -2);  # (foo oob oba bar)
 ```
+This is the functional equivalent of `"foobar".comb.rotor(3 => -2)>>.join`, but about 10x as fast.
 
 ### Changed semantics on Int.roll|pick
 
@@ -347,6 +348,8 @@ say (^10).pick(*);  # (2 0 6 9 4 1 5 7 8 3)
 say 10.pick(*);     # (4 6 1 0 2 9 8 3 5 7)
 ```
 Of course, all of these values are examples, as each run will, most likely, produce different results.
+
+## The rest
 
 There were some more new things and changes the past year.  I'll just mention them **very** succinctly here:
 
