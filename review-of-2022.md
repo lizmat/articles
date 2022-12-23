@@ -348,7 +348,6 @@ say (^10).pick(*);  # (2 0 6 9 4 1 5 7 8 3)
 say 10.pick(*);     # (4 6 1 0 2 9 8 3 5 7)
 ```
 Of course, all of these values are examples, as each run will, most likely, produce different results.
-```
 
 There were some more new things and changes the past year.  I'll just mention them **very** succinctly here:
 
