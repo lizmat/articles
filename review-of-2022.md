@@ -1,6 +1,6 @@
 # Rakudo 2022 Review
 
-In a year as eventful as it was in the real world, it is a good idea to look back to see what one might have missed while life was messing with your Raku plans.
+In a year as eventful as 2022 was in the real world, it is a good idea to look back to see what one might have missed while life was messing with your (Raku) plans.
 
 Rakudo saw about 1500 commits this year, about the same as the year before that.  Many of these were bug fixes and performance improvements, which you would normally not notice.  But there were also commits that actually *added* features to the Raku Programming Language.  So it feels like a good idea to actually mention those more in depth.
 
@@ -25,13 +25,19 @@ Note that the number before the prompt indicates the index with which the value 
 
 You can now affect the interpretation of command line arguments to [`MAIN`](https://docs.raku.org/language/create-cli#index-entry-MAIN) by setting these options in the `%*SUB-MAIN-OPTS` hash:
 
-### allow-no
+- allow-no
 
 Allow negation of a named argument to be specified as `--no-foo` instead of `--/foo`.
 
-### numeric-suffix-as-value
+- numeric-suffix-as-value
 
 Allow specification of a numeric value together with the name of a single letter named argument. So `-j2` being the equivalent of `--j=2`.
+
+So for example:
+```
+my %*SUB-MAIN-OPTS = :allow-no, :numeric-suffix-as-value;
+```
+at the top of you script, would be enough to enable these features in the command-line argument parsing.
 
 ## New types
 
