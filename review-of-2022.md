@@ -82,7 +82,7 @@ say (1, 42e0, .137).are;         # (Real)
 say (1, 42e0, .137, "foo").are;  # (Cool)
 say (42, DateTime.now).are;      # (Any)
 ```
-In some languages this appears to be called `infer`, but this name was deemed to be too ComputerSciency for Raku.
+In some languages this appears to be called [`infer`](https://en.wikipedia.org/wiki/Inference), but this name was deemed to be too ComputerSciency for Raku.
 
 ### IO::Path.inode|dev|devtype|created|chown
 
@@ -92,7 +92,6 @@ The `IO::Path` class had 4 methods added:
 - devtype - the device identifier of the filesystem (if available)
 - created - DateTime object when path got created (if available)
 - chown - change uid and/or gid of path (if possible)
-
 
 ### (Date|DateTime).days-in-year
 
