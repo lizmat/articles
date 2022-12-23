@@ -41,7 +41,7 @@ at the top of you script, would be enough to enable these features in the comman
 
 ## New types
 
-Native unsigned integers (both in scalar, as well as a (shaped) array) have become first class citizens.  This means that a native unsigned integer can now hold the value 18446744073709551615 as the largest positive value, from 9223372036854775807 before.  This also allowed for a number of internal optimisations as the check for negative values could be removed.  As simple as this sounds, this was quite an undertaking to get support for this on all VM backends.
+Native unsigned integers (both in scalar, as well as a (shaped) array) have finally become first class citizens.  This means that a native unsigned integer can now hold the value 18446744073709551615 as the largest positive value, from 9223372036854775807 before.  This also allowed for a number of internal optimisations as the check for negative values could be removed.  As simple as this sounds, this was quite an undertaking to get support for this on all VM backends.
 ```
 my uint  $foo = 42;
 my uint8 $bar = 255;
@@ -59,11 +59,11 @@ And yes, all of the other explicitly sized types, such as `uint16`, `uint32` and
 
 ## New subroutines
 
-A number of subroutines entered the global namespace this year.  Please note that they will not interfere with any subroutines in your code with the same name, as these always take precedence.
+A number of subroutines entered the global namespace this year.  Please note that they will not interfere with any subroutines in your code with the same name, as these will always take precedence.
 
 ### NYI()
 
-The `NYI` subroutine takes a string to indicate a feature not yet implemented, and turn that into a `Failure` with the `X::NYI` exception at its core.  You could consider this short for [`...`](https://docs.raku.org/routine/....html#(Operators)_listop_...) **with** feedback, rather than just the "Stub code executed".
+The `NYI` subroutine takes a string to indicate a feature not yet implemented, and turns that into a `Failure` with the `X::NYI` exception at its core.  You could consider this short for [`...`](https://docs.raku.org/routine/....html#(Operators)_listop_...) **with** feedback, rather than just the "Stub code executed".
 ```
 say NYI "Frobnication";  # Frobnication not yet implemented. Sorry.
 ```
@@ -72,9 +72,12 @@ say NYI "Frobnication";  # Frobnication not yet implemented. Sorry.
 
 The `chown` subroutine takes zero or more filenames, and changes the UID (with the `:uid` argument) and/or the GID (with the `:gid` argument) if possible.  Returns the filenames that were successfully changed.  There is also a `IO::Path.chown` method version.
 ``` 
-my @files = ...;
-say "Converted UID of {chown @files, :$uid} / @files.elems() files";
+my @files  = ...;
+my $uid    = +$*USER;
+my changed = chown @files, :$uid;
+say "Converted UID of $changed out of @files.elems() files";
 ```
+Also available as a method on `IO::Path`, but then only applicable to a single path.
 
 ### head(), skip(), tail()
 
@@ -90,13 +93,13 @@ Note that the number of elements is always the first positional argument.
 
 ### Any.are
 
-The `.are` method returns the type object that **all** of the values of the invocant have in common.  This could be either a class or a role.
+The `.are` method returns the type object that **all** of the values of the invocant have in common.  This can be either a class or a role.
 ```
 say (1, 42e0, .137).are;         # (Real)
 say (1, 42e0, .137, "foo").are;  # (Cool)
 say (42, DateTime.now).are;      # (Any)
 ```
-In some languages this appears to be called [`infer`](https://en.wikipedia.org/wiki/Inference), but this name was deemed to be too ComputerSciency for Raku.
+In some languages this functionality appears to be called [`infer`](https://en.wikipedia.org/wiki/Inference), but this name was deemed to be too ComputerSciency for Raku.
 
 ### IO::Path.inode|dev|devtype|created|chown
 
@@ -210,11 +213,13 @@ The `will complain` trait can be used anywhere you can specify a type constraint
 
 ### :rakuast
 
-The RakuAST classes allow you to dynamically build an AST ([Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) programmatically, and have that converted to executable code.  What was previously only possible by programmatically creating a piece of Raku code, and then calling [`EVAL`](https://docs.raku.org/routine/EVAL) on it.  But not only does it allow you to build code programmatically, it also allows you to introspect the AST, which opens up all sorts of syntax / lintifying possibilities.
+The RakuAST classes allow you to dynamically build an AST ([Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) programmatically, and have that converted to executable code.  What was previously only possible by programmatically creating a piece of Raku source code (with all of its escaping issues), and then calling [`EVAL`](https://docs.raku.org/routine/EVAL) on it.  But RakuAST not only allows you to build code programmatically, it also allows you to introspect the AST, which opens up all sorts of syntax / lintifying possibilities.
 
-There is an associated effort to compile the Raku core itself using a grammar that uses RakuAST to build executable code.  This effort is now capable of passing 585/1355 test-files in roast completely, and 83/131 of the Rakudo test-files completely.
+There is an associated effort to compile the Raku core itself using a grammar that uses RakuAST to build executable code.  This effort is now capable of passing 585/1355 test-files in roast completely, and 83/131 of the Rakudo test-files completely.  So still a lot of work to do, although it has now gotten to the point that implementation of a single Raku feature in the new grammar, often creates an avalanche of now passing test-files.
 
-So, if you add a `use experimental :rakuast` to your code, you will be able to use all of the `RakuAST` classes to build code programmatically.  This is an entire new area of Raku development, which will be covered by many blog posts in the coming year.  A small example, showing how to build the expression `"foo" ~ "bar"`:
+So, if you add a `use experimental :rakuast` to your code, you will be able to use all of the currently available `RakuAST` classes to build code programmatically.  This is an entire new area of Raku development, which will be covered by many blog posts in the coming year.  As of now, there is only some internal documentation.
+
+A small example, showing how to build the expression `"foo" ~ "bar"`:
 ```
 use experimental :rakuast;
 
@@ -225,7 +230,7 @@ my $right = RakuAST::StrLiteral.new("bar");
 my $ast = RakuAST::ApplyInfix.new(:$left, :$infix, :$right);
 say $ast.DEPARSE;  # "foo" ~ "bar"
 ```
-Note how each element of the expression can be created separately, and then combined together.  And that there is a `.DEPARSE` method to (re-)create the associated Raku source code.
+This is very verbose, agree.  Syntactic sugar for making this easier, will certainly be developed, either in core or in module space.  Note how each element of the expression can be created separately, and then combined together.  And that there is a `.DEPARSE` method to (re-)create the associated Raku source code.
 
 For the **very** curious, you can check out a proof-of-concept of the use of `RakuAST` classes in the Rakudo core in the [`Formatter`](https://github.com/rakudo/rakudo/blob/main/src/core.e/Formatter.pm6) class, that builds executable code out of an [`sprintf` format](https://docs.raku.org/routine/sprintf#Directives).
 
@@ -417,6 +422,6 @@ Now allow for the semi-colon in `my :($a,$b) = 42,666` because the left-hand sid
 
 ## Summary
 
-And about 1900 module releases, up from about 1650 in 2021.
+I guess we've seen only **one** big change in the past year, namely having experimental support for `RakuAST` become available.  And many smaller goodies and tweaks and features.  Now that `RakuAST` has become "mainstream" as it were, we can think of having certain optimizations.  Such as making `sprintf` with a fixed format string about 30x as fast!  Exciting times ahead!
 
-I guess we've seen **one** big change in the past year, namely having experimental support for `RakuAST` become available.  And many smaller goodies and tweaks and features.  Now that `RakuAST` has become "mainstream" as it were, we can think of having certain optimizations.  Such as making `sprintf` with a fixed format string about 30x as fast!  Exciting times ahead!
+Hopefully you will all be able to enjoy the Holiday Season with sufficient R&R.  The next Raku Advent Blog is only 340 days away!
