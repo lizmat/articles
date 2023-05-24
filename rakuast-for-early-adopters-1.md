@@ -1,29 +1,31 @@
 RakuAST for Early Adopters (part 1)
 ===================================
 
-Originally, I thought I'd name this series of blog posts "RakuAST for Beginners".  But since documentation on RakuAST is pretty non-existent at this stage, it felt that I would be doing people a service by making clear that they will be at the very *front* of development in the [Raku Programming Language](https://raku.org) if they start dabbling in RakuAST.
+Originally, I thought I'd name this series of blog posts "RakuAST for Beginners".  But since documentation on RakuAST is pretty non-existent at this stage, I felt I would be doing people a service by making clear that they will be at the very *front* of development in the [Raku Programming Language](https://raku.org) if they start dabbling in RakuAST.
 
 What Is It?
 -----------
 If you're a programmer, you may be aware of the concept of an [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree).  That's where the "AST" in RakuAST comes from.
 
-Normally, when you write a program in the Raku Programming Language, all of the business of compiling your code into something that can be executed, is done for you under the hood.  One of the steps that are taken in this process, is to create an Abstract Syntax Tree (aka **AST** from now on) from your code, and convert that to bytecode an interpreter (or "virtual machine") such as [MoarVM](https://moarvm.org) can execute.
+Normally, when you write a program in the Raku Programming Language, all of the business of compiling your code into something that can be executed, is done for you under the hood.  One of the steps in this process is to create an Abstract Syntax Tree (aka **AST** from now on) from your code, and convert that to bytecode that an interpreter (or "virtual machine") such as [MoarVM](https://moarvm.org) can execute.
 
 So where does RakuAST come into this?  Well, RakuAST allows you to create an AST (that can be converted to bytecode and run) programmatically **without** needing to create intermediate source code.
 
 How ready is it for primetime?
 ------------------------------
-Not (yet).  Several areas of RakuAST features and semantics are still un(der)developed.  But there is enough implemented to allow a new grammar (now commonly referred to as the "Raku" grammar, versus the "legacy" grammar that is still the default) to handle Raku source code well enough to make 140/150 of the `make test` files pass completely, and 825/1355 of the `make spectest` (roast) files pass completely.  And a lot of the work that needs to be done, is using the already existing RakuAST features in the new Raku grammar, rather than needing new features in RakuAST itself.  But that is worth another series of blog posts in itself.
+Not (yet).  Several areas of RakuAST features and semantics are still un(der)developed.  But there is enough implemented to allow the new "Raku" grammar to handle Raku source code well enough to make 64% of Raku test files pass completely.  A lot of the work that needs to be done with the "Raku" grammar, is to use the already existing RakuAST features, rather than needing new features in RakuAST itself.  But that is worth another series of blog posts in itself.
 
-In any case, because it is not ready from primetime (yet), and some interfaces and semantics might still change, you will either have to do a `use experimental :rakuast` in your code.  Or indicate you want the current development language version, by putting a `use v6.e.PREVIEW` in your code.
+> If you want to run your code with the new Raku grammar, you must set the `RAKUDO_RAKUAST=1` environment variable *before* running.  Otherwise the default grammar (which is now referred to as the "legacy" grammar) will be used.
+
+In any case, because it is not ready for primetime (yet), and some interfaces and semantics might still change, one will have to put a `use experimental :rakuast` in the code.  Or indicate you want the current development language version, by putting a `use v6.e.PREVIEW` in the code.
 
 So when should I use this?
 --------------------------
 When it is handy for you to do so.
 
-To give you an example: [`sprintf`](https://docs.raku.org/type/independent-routines#routine_sprintf) takes a format string to create a string representation of the values given.  This is currently implemented with a grammar.  Everytime you run `sprintf` (either directly, or by using [`printf`](https://docs.raku.org/type/independent-routines#routine_printf) or [`.fmt`](https://docs.raku.org/type/List#method_fmt)), it will parse the format using that grammar, and its actions then produce the string representation.  Needless to say, this is very repetitive and cpu-intensive.  Wouldn't it be better to only parse the format *once*, and then create code for that, and run that *code* everytime?
+To give you an example: [`sprintf`](https://docs.raku.org/type/independent-routines#routine_sprintf) takes a format string to create a string representation of the values given.  This is currently implemented with a special "format-string" grammar.  Everytime a `sprintf` is executed (either directly, or by using [`printf`](https://docs.raku.org/type/independent-routines#routine_printf) or [`.fmt`](https://docs.raku.org/type/List#method_fmt)), it will parse the format using that grammar.  And the associated actions then produce the string representation.  Needless to say, this is very repetitive and cpu-intensive.  Wouldn't it be better to only parse the format *once*, and then create code for that, and run that *code* everytime?
 
-Yes, it would.  But until there was RakuAST, that was virtually impossible to do because there was no proper API for building ASTs that can then be executed.  And now that there is, there **is** actually an implementation of that idea in the new [Formatter](https://github.com/rakudo/rakudo/blob/main/src/core.e/Formatter.pm6) class.  Although this is definitely **not** intended as an entry point into grokking RakuAST.
+Yes, it would.  But until there was RakuAST, that was virtually impossible to do because there was no proper API for building ASTs.  Nor was there an interface to execute those ASTs.  And now that there is RakuAST, it is actually possible to do this.  And there **is** actually already an implementation of that idea in the new [Formatter](https://github.com/rakudo/rakudo/blob/main/src/core.e/Formatter.pm6) class.  Although this is definitely **not** intended as an entry point into grokking RakuAST.
 
 But maybe a better way to tell whether it is handy for you to use RakuAST, is to use RakuAST whenever you need to resort to using [`EVAL`](https://docs.raku.org/type/independent-routines#routine_EVAL).  Because with RakuAST, you will have a way to not have to worry about incidental code insertion, and you will be able to create semantics for which there is no way in the Raku Programming Language (yet).
 
@@ -82,6 +84,8 @@ say $ast;
 # )
 ```
 Note that this is slightly more complex than the initial example.  But you hopefully see that that's because this is now wrapped as an expression in a statement, which is part of a statement list.  And the double quoted string hasn't been flattened yet.
+
+And it should also be noted that this functionality depends on the "Raku" grammar, which does not yet support all Raku Programming Language functionality yet.  So in some cases, it may still not do what you hoped it would do.
 
 Conclusion
 ----------
