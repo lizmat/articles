@@ -47,12 +47,12 @@ $ast.EVAL;  # Hello World
 Pretty neat, eh?  But that's not all.  To help in development and debugging, you can `say` the `.raku` method on a RakuAST object, and it will create a representation of the object in Raku code.
 ```
 say $ast.raku;
-\# RakuAST::Call::Name.new(
-\#   name => RakuAST::Name.from-identifier("say"),
-\#   args => RakuAST::ArgList.new(
-\#     RakuAST::StrLiteral.new("Hello world")
-\#   )
-\# );
+# RakuAST::Call::Name.new(
+#   name => RakuAST::Name.from-identifier("say"),
+#   args => RakuAST::ArgList.new(
+#     RakuAST::StrLiteral.new("Hello world")
+#   )
+# );
 ```
 And since most uses of `say`ing RakuAST objects will be to see this representation, you can actually drop the `.raku` part there, so `say $ast` will give you the same output.
 
@@ -66,20 +66,20 @@ Finally, sometimes you would have a piece of source code of which you would like
 ```
 my $ast = 'say "Hello World"'.AST;
 say $ast;
-\# RakuAST::StatementList.new(
-\#   RakuAST::Statement::Expression.new(
-\#     expression => RakuAST::Call::Name.new(
-\#       name => RakuAST::Name.from-identifier("say"),
-\#       args => RakuAST::ArgList.new(
-\#         RakuAST::QuotedString.new(
-\#           segments   => (
-\#             RakuAST::StrLiteral.new("Hello World"),
-\#           )
-\#         )
-\#       )
-\#     )
-\#   )
-\# )
+# RakuAST::StatementList.new(
+#   RakuAST::Statement::Expression.new(
+#     expression => RakuAST::Call::Name.new(
+#       name => RakuAST::Name.from-identifier("say"),
+#       args => RakuAST::ArgList.new(
+#         RakuAST::QuotedString.new(
+#           segments   => (
+#             RakuAST::StrLiteral.new("Hello World"),
+#           )
+#         )
+#       )
+#     )
+#   )
+# )
 ```
 Note that this is slightly more complex than the initial example.  But you hopefully see that that's because this is now wrapped as an expression in a statement, which is part of a statement list.  And the double quoted string hasn't been flattened yet.
 
