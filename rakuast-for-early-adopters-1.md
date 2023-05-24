@@ -23,7 +23,9 @@ So when should I use this?
 --------------------------
 When it is handy for you to do so.
 
-To give you an example: [`sprintf`](https://docs.raku.org/type/independent-routines#routine_sprintf) takes a format string to create a string representation of the values given.  This is currently implemented with a special "format-string" grammar.  Everytime a `sprintf` is executed (either directly, or by using [`printf`](https://docs.raku.org/type/independent-routines#routine_printf) or [`.fmt`](https://docs.raku.org/type/List#method_fmt)), it will parse the format using that grammar.  And the associated actions then produce the string representation.  Needless to say, this is very repetitive and cpu-intensive.  Wouldn't it be better to only parse the format *once*, and then create code for that, and run that *code* everytime?
+To give you an example: [`sprintf`](https://docs.raku.org/type/independent-routines#routine_sprintf) takes a format string to create a string representation of the values given.  This is currently implemented with a special "format-string" grammar.  Everytime a `sprintf` is executed (either directly, or by using [`printf`](https://docs.raku.org/type/independent-routines#routine_printf) or [`.fmt`](https://docs.raku.org/type/List#method_fmt)), it will parse the format using that grammar.  And the associated actions then produce the string representation for the given values.
+
+Needless to say, this is very repetitive and cpu-intensive.  Wouldn't it be better to only parse the format *once*, and then create code for that, and run that *code* everytime?
 
 Yes, it would.  But until there was RakuAST, that was virtually impossible to do because there was no proper API for building ASTs.  Nor was there an interface to execute those ASTs.  And now that there is RakuAST, it is actually possible to do this.  And there **is** actually already an implementation of that idea in the new [Formatter](https://github.com/rakudo/rakudo/blob/main/src/core.e/Formatter.pm6) class.  Although this is definitely **not** intended as an entry point into grokking RakuAST.
 
@@ -46,7 +48,7 @@ This creates a RakuAST tree and puts that in the `$ast` variable.  There is no o
 ```
 $ast.EVAL;  # Hello World
 ```
-Pretty neat, eh?  But that's not all.  To help in development and debugging, you can `say` the `.raku` method on a RakuAST object, and it will create a representation of the object in Raku code.
+Pretty neat, eh?  But that's not all.  To help in development and debugging, you can `say` the `.raku` method on a RakuAST object, and it will create a representation of the object as *RakuAST objects* in Raku code.
 ```
 say $ast.raku;
 # RakuAST::Call::Name.new(
@@ -58,7 +60,7 @@ say $ast.raku;
 ```
 And since most uses of `say`ing RakuAST objects will be to see this representation, you can actually drop the `.raku` part there, so `say $ast` will give you the same output.
 
-Of course, sometimes you would like to see how a RakuAST object would look like as Raku source code.  And there's a method for that as well: `.DEPARSE`:
+Of course, sometimes you would like to see how a RakuAST object would look like as Raku *source code*.  And there's a method for that as well: `.DEPARSE`:
 ```
 say $ast.DEPARSE;  # say("Hello World")
 ```
@@ -85,7 +87,7 @@ say $ast;
 ```
 Note that this is slightly more complex than the initial example.  But you hopefully see that that's because this is now wrapped as an expression in a statement, which is part of a statement list.  And the double quoted string hasn't been flattened yet.
 
-And it should also be noted that this functionality depends on the "Raku" grammar, which does not yet support all Raku Programming Language functionality yet.  So in some cases, it may still not do what you hoped it would do.
+And it should also be noted that this functionality depends on the "Raku" grammar, which does not yet support all Raku Programming Language functionality.  So in some cases, it may still not do what you hoped it would do.
 
 Conclusion
 ----------
