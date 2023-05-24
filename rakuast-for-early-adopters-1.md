@@ -60,7 +60,7 @@ Of course, sometimes you would like to see how a RakuAST object would look like 
 ```
 say $ast.DEPARSE;  # say("Hello World")
 ```
-Of course, the `.DEPARSE` output will be a little more formal than original.  But it will (usually) be legal source code, and round-trippable.  And you could argue that this could be used as a (simple) linter.  And you'd be right: the way `.DEPARSE` is implemented, is that it is pluggable (so one could implement their own way of deparsing RakuAST objects).  But that it itself is again enough for a series of blog posts.
+Of course, the `.DEPARSE` output will be a little more formal than original.  But it will (usually) be legal source code, and round-trippable.  And you could argue that this could be used as a (simple) linter.  And you'd be right: the way `.DEPARSE` is implemented, is that it is pluggable (so one could implement their own way of deparsing RakuAST objects).  But that in itself is again enough for a series of blog posts.
 
 Finally, sometimes you would have a piece of source code of which you would like to know the RakuAST representation.  And for that, there's the `.AST` method on strings:
 ```
@@ -85,6 +85,6 @@ Note that this is slightly more complex than the initial example.  But you hopef
 
 Conclusion
 ----------
-This blog post introduces RakuAST, an interface to create Abstract Syntax Trees in the Raku Programming Language.  It shows how to build a "Hello World" AST, and shows how to run the AST, to show how it was created and how it could be represented as Raku source code.
+This blog post introduces RakuAST, an interface to create Abstract Syntax Trees in the Raku Programming Language.  It shows how to build a "Hello World" AST, and shows how to run the AST, how it was created and how it could be represented as Raku source code.
 
-The intended audience are those people willing to be early adapters of these exciting new features in the Raku Programming Language.
+The intended audience are those people willing to be early adopters of these exciting new features in the Raku Programming Language.
