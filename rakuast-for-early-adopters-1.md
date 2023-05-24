@@ -13,7 +13,7 @@ So where does RakuAST come into this?  Well, RakuAST allows you to create an AST
 
 How ready is it for primetime?
 ------------------------------
-Not (yet).  Several areas of RakuAST features and semantics are still un(der)developed.  But there is enough implemented to allow a new grammar (now commonly referred to as the "Raku" grammar, versus the "legacy" grammar that is still the default) to handle Raku source code well enough to make 140/150 of the `make test` pass, and 825/1355 of the `make spectesti` (roast) tests pass.  And a lot of the work that needs to be done, is using the already existing RakuAST features in the new Raku grammar, rather than needing new features in RakuAST itself.  But is worth another series of blog posts in itself.
+Not (yet).  Several areas of RakuAST features and semantics are still un(der)developed.  But there is enough implemented to allow a new grammar (now commonly referred to as the "Raku" grammar, versus the "legacy" grammar that is still the default) to handle Raku source code well enough to make 140/150 of the `make test` files pass completely, and 825/1355 of the `make spectest` (roast) files pass completely.  And a lot of the work that needs to be done, is using the already existing RakuAST features in the new Raku grammar, rather than needing new features in RakuAST itself.  But that is worth another series of blog posts in itself.
 
 In any case, because it is not ready from primetime (yet), and some interfaces and semantics might still change, you will either have to do a `use experimental :rakuast` in your code.  Or indicate you want the current development language version, by putting a `use v6.e.PREVIEW` in your code.
 
