@@ -1,5 +1,5 @@
-A practical example
-=========================
+A practical example of RakuAST
+==============================
 RakuAST for Early Adopters (part 2)
 
 A while ago someone asked on #raku if it is possible to create a [Raku character class](https://docs.raku.org/language/regexes#Enumerated_character_classes_and_ranges) with the valid characters being supplied by a string.  This is *not* possible in Raku at the moment.  But it **is** possible using RakuAST!
