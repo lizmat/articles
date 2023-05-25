@@ -14,6 +14,7 @@ What this does is
 - create the AST (`.AST`) for an anonymous [`token`](https://docs.raku.org/language/grammars#Rules) with a charclass for the letters "a", "b" and "c"
 - then skips to the first statement (`.statements.head`)
 - then skips to its `.expression`
+
 because the `.AST` returns a statement list, and we're only interested in the expression of the first statement.
 
 The result is:
@@ -30,7 +31,7 @@ RakuAST::TokenDeclaration.new(
   )
 );
 ```
-So it looks like each character in the charclass is a separate `RakuAST::Regex::CharClassEnumerationElement::Character` object.  With this knowledge, it is pretty easy to make a custom `token` for the characters in a given string.  Let's create a subroutine "chars-matcher" that will create a token with a charclass with the characters for a given string:
+So it looks like each character in the charclass is a separate `RakuAST::Regex::CharClassEnumerationElement::Character` object.  With this knowledge, it is pretty easy to make a custom `token` for the characters in a given string.  Let's create a subroutine "chars-matcher" that will create a token with a charclass of the characters for a given string:
 ```
 sub chars-matcher($string) {
     my @elements = $string.comb.unique.map: {
@@ -43,9 +44,9 @@ sub chars-matcher($string) {
     ).EVAL
 }
 ```
-First we create an array "@elements" and fill that with an enumeration object for each unique char in the given string (`$string.comb.unique`).  And then we create the TokenDeclaration object as from the example, but with the `@elements` array as the specification of the characters.  And then we convert that into an actial usable `token` by running `.EVAL` on it.
+First we create an array "@elements" and fill that with an enumeration object for each unique char in the given string (`$string.comb.unique`).  And then we create the TokenDeclaration object as from the example, but with the `@elements` array as the specification of the characters.  And then we convert that into an actual usable `token` by running `.EVAL` on it.
 
-And an example of its usage:
+An example of its usage:
 ```
 my $matcher = chars-matcher("Anna Mae Bullock");
 say "Tina Turner" ~~ $matcher;       # ｢n｣
@@ -88,13 +89,15 @@ class RakuAST::StrLiteral is RakuAST::Literal {
 ```
 For simplicity's sake, only two methods are shown.  The `new` method, taking a single positional `Str $value`.  Which needs some NQP to create the object and bind the value to the `$!value` attribute.
 
-And we see an `IMPL-EXPR-QAST` method.  That method will be called whenever that RakuAST object needs to generate QAST (a pre-cursor to actual bytecode) for itself.  If you find this very interesting, you probably want to read the RakuAST [README](https://github.com/rakudo/rakudo/blob/main/src/Raku/ast/README.md#rakuast).  And the actual source code of the RakuAST classes can be found [in the same directory](https://github.com/rakudo/rakudo/tree/main/src/Raku/ast).  And if you're really feeling adventurous and you have the [Rakudo repository](https://github.com/rakudo/rakudo) checked out, you can have a look at the generated NQP code in `gen/moar/ast.nqp`.
+And we see an `IMPL-EXPR-QAST` method.  That method will be called whenever that RakuAST object needs to generate QAST (a pre-cursor to actual bytecode) for itself.
+
+If you find this very interesting, you probably want to read the RakuAST [README](https://github.com/rakudo/rakudo/blob/main/src/Raku/ast/README.md#rakuast).  And the actual source code of the RakuAST classes can be found [in the same directory](https://github.com/rakudo/rakudo/tree/main/src/Raku/ast).  And if you're really feeling adventurous and you have the [Rakudo repository](https://github.com/rakudo/rakudo) checked out, you can have a look at the generated NQP code in `gen/moar/ast.nqp`.
 
 What's the point?
 -----------------
 So why am I even mentioning this?  Because the `RakuAST` classes *look* like they're actual Raku classes, but they're really NQP subroutines wrapped up to appear like Raku classes.  Which results in unexpected failure modes if there's some error in your calls to `RakuAST` classes.   In other words: the edges are a little bit sharper with RakUAST classes, and [LTA](https://docs.raku.org/language/glossary#LTA) error messages can and will happen.  It's one of the "benefits" of living on the edge!
 
-Of course, as a user of RakuAST classes, you should only be interested in the `new` method, and any other non-internal methods.  Sadly, it is way *too early* in the bootstrap to mark internal methods with an [`is implementation-detail`](https://docs.raku.org/language/traits#is_implementation-detail_trait) trait, so another heuristic is needed.  Basically you should consider any ALL-CAPS method to be off-limits.
+Of course, as a user of RakuAST classes, you should only be interested in the `new` method, and any other non-internal methods.  Sadly, it is way *too early* in the bootstrap to mark internal methods with an [`is implementation-detail`](https://docs.raku.org/language/traits#is_implementation-detail_trait) trait, so another heuristic is needed.  And that would be: "consider any ALL-CAPS methods to be off-limits".
 
 Conclusion
 ----------
