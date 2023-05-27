@@ -101,6 +101,6 @@ Of course, as a user of RakuAST classes, you should only be interested in the `n
 
 Conclusion
 ----------
-This instalment gives an actual example of how you can use RakuAST in your code today.  And gives some technical background on the implementation of RakuAST classes, which still is a little sharp around the edges.
+This installment gives an actual example of how you can use RakuAST in your code today.  And gives some technical background on the implementation of RakuAST classes, which still is a little sharp around the edges.
 
 The intended audience are those people willing to be early adopters of these exciting new features in the Raku Programming Language.

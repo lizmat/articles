@@ -86,6 +86,6 @@ But now that we have RakuAST objects, it will actually be technically possible t
 
 Conclusion
 ----------
-This instalment gives a little background on why the development of RakuAST is so important for the future development of the Raku Programming Language.
+This installment gives a little background on why the development of RakuAST is so important for the future development of the Raku Programming Language.
 
 The intended audience are those people willing to be early adopters of these exciting new features in the Raku Programming Language.
