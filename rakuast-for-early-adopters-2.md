@@ -2,7 +2,7 @@ A practical example of RakuAST
 ==============================
 RakuAST for Early Adopters (part 2)
 
-A while ago someone asked on #raku if it is possible to create a [Raku character class](https://docs.raku.org/language/regexes#Enumerated_character_classes_and_ranges) with the valid characters being supplied by a string.  This is *not* possible in Raku at the moment.  But it **is** possible using RakuAST!
+A while ago someone asked on #raku if it is possible to create a [Raku character class](https://docs.raku.org/language/regexes#Enumerated_character_classes_and_ranges) with the valid characters being supplied by a string.  This is *not* possible by default in Raku at the moment.  But it **is** possible using RakuAST!
 
 Let's first see how one can create characters classes with RakuAST by applying the `.AST` method to an example.
 
