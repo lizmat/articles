@@ -20,7 +20,7 @@ After RakuAST
 -------------
 Until RakuAST, these data structures were just that: data structures that only could be manipulated if you really knew how.  And that required knowledge of the way these data-structures were set up, and the methods that you could use to manipulate them.  Since these were considered internal information, the format of these data structures could change from one release of Rakudo to the next, rendering any third party modules that used these feaures inoperable.
 
-With RakuAST, these data structures have been replaced by a set of [`RakuAST::`](https://docs.raku.org/type/RakuAST) objects, with a (not yet) documented interface.  But an interface that is intended to be stable, like all other Raku Programming Language features.  So it has [tests](https://github.com/rakudo/rakudo/tree/main/t/12-rakuast) that will ultimately be part of [roast](https://github.com/raku/roast#readme).  To facilitate development with RakuAST, and of RakuAST itself, there already are a number of  utility methods such as `.raku`, `.DEPARSE`, `.literalize` and of course, the `.AST` method on strings to have RakuAST objects created for you.
+With RakuAST, these data structures have been replaced by a set of [`RakuAST::`](https://docs.raku.org/type/RakuAST) objects, with a (not yet) documented interface.  But an interface that is intended to be stable, like all other Raku Programming Language features.  So it has [tests](https://github.com/rakudo/rakudo/tree/main/t/12-rakuast) that will ultimately be part of [roast](https://github.com/raku/roast#readme).  To facilitate development with RakuAST, and of RakuAST itself, there already are a number of  utility methods such as `.raku`, `.DEPARSE`, `.literalize`, '.rakudoc`, `.grep`, `.first` and of course, the `.AST` method on strings to have RakuAST objects created for you.
 
 Also with RakuAST, there is now a complete separation of steps: whereas in the old situation sometimes the precursor to bytecode would already be created, this does not happen with RakuAST.  At the end of the parsing stage,
 there is a single `RakuAST::CompUnit` object that contains a representation of **all** of the parsed code, including any documentation and declarator doc blocks.
@@ -68,7 +68,19 @@ say $ast;
 say fold-integers($ast);
 # RakuAST::IntLiteral.new(708)
 ```
-Or it can be used to provide run-time optimizers with more information, such as improved [escape analysis](https://en.wikipedia.org/wiki/Escape_analysis).  All of these that would **not** be possible (or at least magnitudes of difficulty harder) without RakuAST.
+Actually, this logic can be simplified by using the `.literalize` method, which attempts to reduce a given `Rakuast::` object to a literal value (or returns [`Nil`](https://docs.raku.org/type/Nil) if it cannot do this).
+```
+# fold expression into a literal, if possible
+sub constant-fold($ast) {
+    with $ast.literalize {
+        RakuAST::Literal.new($_)
+    }
+    else {
+        $ast
+    }
+}
+```
+Apart from constant-folding, RakuAST can be used to provide run-time optimizers with more information, such as improved [escape analysis](https://en.wikipedia.org/wiki/Escape_analysis).  All of these that would **not** be possible (or at least magnitudes of difficulty harder) without RakuAST.
 
 BEGIN
 -----
