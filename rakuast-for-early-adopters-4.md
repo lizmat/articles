@@ -90,11 +90,11 @@ say @data;  # [Blue Yellow]
 ```
 The `grep` routine that we created earlier, is called with the compilation unit (`$*CU`) and a code block.  That code block first checks whether the given object is a `RakuAST::Doc::Block` object (`$_ ~~ RakuAST::Doc::Block`), and if it is, whether the type is equal to 'data' (`.type eq 'data'`).
 
-Then the resulting values are mapped to their text content (`.map()`), by concatenating the paragraphs with a space between them (`.paragraphs.join(' ')` and then removing any trailing whitespace (`.trim-trailing`).  The latter is done, because all of the newlines until the next code or rakudoc block *are* preserved, and we're not intereste in that in this case.
+Then the resulting values are mapped to their text content (`.map()`), by concatenating the paragraphs with a space between them (`.paragraphs.join(' ')` and then removing any trailing whitespace (`.trim-trailing`).  The latter is done, because all of the newlines until the next code or rakudoc block *are* preserved, and we're not interested in that in this case.
 
-Note that the `CHECK` phasers returns the text from the selected `RakuAST` objects, and stores that in the `@data` array.  Many [phasers](https://docs.raku.org/language/phasers) in Raku return the value of the final expression, which is a handy feature to have!
+Note that the `CHECK` phaser returns the text from the selected `RakuAST` objects, and stores that in the `@data` array.  Many [phasers](https://docs.raku.org/language/phasers) in Raku return the value of the final expression, which is a handy feature to have!
 
-Oh, and by the way, now we've almost created the [`$=data` feature](https://design.raku.org/S26.html#Data_blocks) that wasn't implemented in Raku yet (so far).
+Oh, and by the way, in this example we've almost created the [`$=data` feature](https://design.raku.org/S26.html#Data_blocks) that wasn't implemented in Raku yet (so far).
 
 Picking foreign fruit
 ---------------------
