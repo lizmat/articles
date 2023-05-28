@@ -8,7 +8,7 @@ To allow walking the tree, each `RakuAST::Node` object has a `.visit-children` m
 
 Grepping the tree
 -----------------
-So let's make a `grep` subroutine that takes a `RakuAST::Node` object and a matcher for the object, and all of its "children" recursively.  And which returns a [`Seq`](https://docs.raku.org/type/Seq) of the `RakuAST::Node` objects that matched.
+So let's make a `grep` subroutine that takes a `RakuAST::Node` object and a matcher for the object, that will visit all of its "children" recursively.  And which returns a [`Seq`](https://docs.raku.org/type/Seq) of the `RakuAST::Node` objects that matched.
 ```
 sub grep(RakuAST::Node:D $ast, $matcher) {
     sub visitor($ast) {                   # recursive visitor
@@ -23,7 +23,7 @@ This is an excellent situation to use the [`gather`and `take`](https://docs.raku
 
 The `gather` returns a `Seq` and a dynamic scope in which each `take` will *lazily* be produced as an element in that `Seq`.  Its argument is an expression that will be executed within that dynamic scope: this can be a [`Block`](https://docs.raku.org/type/Block), but it doesn't have to be.
 
-The `visitor` subroutine takes a `RakuAST::Node` object as its argument, and checks that with the given `$matcher`, which is lexically visible to this subroutine.  And then visits all of its children, with a call to itself (which is what [`&?ROUTINE`](https://docs.raku.org/language/variables#&%3FROUTINE) allows you to do.
+The `visitor` subroutine takes a `RakuAST::Node` object as its argument, and checks that with the given `$matcher`, which is lexically visible to this subroutine.  And then visits all of its children, with a call to itself (which is what [`&?ROUTINE`](https://docs.raku.org/language/variables#&%3FROUTINE) allows you to do).
 
 Finding the tree
 ----------------
@@ -78,16 +78,16 @@ my @data = CHECK {
 
 say @data;  # [Blue Yellow]
 ```
-The `grep` routine that we created earlier, is called with the compilation unit (`$*CU`) and a code block.  That code block first checks whether the given object is a `RakuAST::Doc::Block` object, and if it is, whether the type of `'data'`.
+The `grep` routine that we created earlier, is called with the compilation unit (`$*CU`) and a code block.  That code block first checks whether the given object is a `RakuAST::Doc::Block` object (`$_ ~~ RakuAST::Doc::Block`), and if it is, whether the type is equal to 'data' (`.type eq 'data'`).
 
-Then the resulting values are mapped to their text content, by concatenating the paragraphs with a space between them (`.paragraphs.join(' ')` and then removing any trailing whitespace (`.trim-trailing`).
+Then the resulting values are mapped to their text content (`.map()`), by concatenating the paragraphs with a space between them (`.paragraphs.join(' ')` and then removing any trailing whitespace (`.trim-trailing`).  The latter is done, because all of the newlines until the next code or rakudoc block *are* preserved, and we're not intereste in that in this case.
 
 Note that the `CHECK` phasers returns the text from the selected `RakuAST` objects, and stores that in the `@data` array.  Many [phasers](https://docs.raku.org/language/phasers) in Raku return the value of the final expression, which is a handy feature to have!
 
 Oh, and by the way, now we've almost created the [`$=data` feature](https://design.raku.org/S26.html#Data_blocks) that wasn't implemented in Raku yet (so far).
 
 Picking foreign fruit
-=====================
+---------------------
 Now, this is all nice and good.  But what if you want to pick out elements from *another* source-file?  The `grep` routine doesn't care where the `RakuAST` object came from.  So, if you want to obtain the `=data` blocks from another file, the only thing you need to do is to create a `RakuAST` object of that file.  And that's where the `.AST` method comes in again:
 ```
 my @data = grep(
