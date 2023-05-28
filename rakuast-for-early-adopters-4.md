@@ -4,7 +4,17 @@ RakuAST for Early Adopters (part 4)
 
 One of the interesting things about ASTs in general, and RakuAST in particular, is that you can walk the tree to look for certain objects, or combination of objects, and act accordingly.
 
-To allow walking the tree, each `RakuAST::Node` object has a `.visit-children` method that takes a `Callable` that will be executed for all of the applicable "children" of the invocant.  Now, this sounds rather complicated.  But it is really a lot less complicated than it seems.
+To allow walking the tree, each `RakuAST::Node` object has a `.visit-children` method that takes a `Callable` that will be executed for all of the applicable "children" of the invocant.  So what are "children" in this context?  Let's take an example we've seen before:
+```
+RakuAST::ApplyInfix.new(
+  left  => RakuAST::IntLiteral.new(42),
+  infix => RakuAST::Infix.new("+"),
+  right => RakuAST::IntLiteral.new(666)
+)
+```
+In this example, the "left" (`RakuAST::IntLiteral.new(42)`), "infix" (`RakuAST::Infix.new("+")`) and "right" (`RakuAST::IntLiteral.new(666)`) are considered to be "children" of the `RakuAST::ApplyInfix` object.  In this case, these "children" do not have children of their own.  But in many cases, they do: in which case, the `.visit-children` will be called on these objects as well.
+
+Now, this sounds rather complicated.  But we can make it a lot less complicated by wrapping the complexity into a subroutine.
 
 Grepping the tree
 -----------------
@@ -64,7 +74,7 @@ As you can see, there's quite a lot there already.  So it's important that we ca
 
 Picking local fruit
 -------------------
-In this example, we will collect all of the `=data` Rakudoc blocks from the source code, extract the text from tthat, and store that in a `@data` array, and show the contents of that array:
+In this example, we will collect all of the `=data` Rakudoc blocks from the source code, extract the text from that, and store that in a `@data` array, and show the contents of that array:
 ```
 my @data = CHECK {
     grep($*CU, { $_ ~~ RakuAST::Doc::Block && .type eq 'data' })
@@ -96,7 +106,7 @@ my @data = grep(
     .map(*.paragraphs.join(' ').trim-trailing)
 );
 ```
-Given a `$filename` as a string. turn that into an [`IO::Path`](https://docs.raku.org/type/IO/Path) with `.IO`.  Then read all of the contents of the file into a string (`.slurp`) and then create a RakuAST tree out of it with `.AST`.  And then `grep` and `.map` as before.
+In other words: given a `$filename` as a string. turn that into an [`IO::Path`](https://docs.raku.org/type/IO/Path) with `.IO`.  Then read all of the contents of the file into a string (`.slurp`) and then create a RakuAST tree out of it with `.AST`.  And then `grep` and `.map` as before.
 
 Conclusion
 ----------
