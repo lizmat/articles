@@ -8,7 +8,7 @@ But before we go on:
 
 Long names shorter
 ------------------
-One reaction to the [second installment](https://dev.to/lizmat/a-practical-example-of-rakuast-18jk) of this series, was the length of the class names used (specifically `RakuAST::Regex::CharClassEnumerationElement::Character`): couldn't the class names be made shorter?
+Two people reacted to the [second installment](https://dev.to/lizmat/a-practical-example-of-rakuast-18jk) of this series about the length of the class names used (specifically `RakuAST::Regex::CharClassEnumerationElement::Character`): couldn't the class names be made shorter?
 
 And the answer is *no* and *yes*.  No, because when you're creating upto 400 classes in a new hierarchy, the semantics of a class should be very clear from its name.  It was a conscious decision to **not** make shorter names.
 
@@ -22,7 +22,9 @@ or do it in one go:
 ```
 constant Rxccee = RakuAST::Regex::CharClassEnumerationElement;
 ```
-After either of these you will be able to refer to `RakuAST::Regex::CharClassEnumerationElement::Character` as `Rxccee::Character`.  Does that make your code more readable?  Perhaps.  These `constant` definitions are by default [`our`](https://docs.raku.org/language/variables#The_our_declarator).  It is usually better to prefix them with [`my`](https://docs.raku.org/language/variables#The_my_declarator), so that you can **only** use them inside the scope where they are defined.  Taking the "char-matcher" example again, but this time defining a `Rx` constant **inside** the subroutine:
+After either of these you will be able to refer to `RakuAST::Regex::CharClassEnumerationElement::Character` as `Rxccee::Character`.  Does that make your code more readable?  Perhaps.  That's really upto the beholder.
+
+These `constant` definitions are by default [`our`](https://docs.raku.org/language/variables#The_our_declarator).  It is usually better to prefix them with [`my`](https://docs.raku.org/language/variables#The_my_declarator), so that you can **only** use them inside the scope where they are defined.  Take the "char-matcher" example, but this time with a `Rx` constant defined **inside** the subroutine:
 ```
 sub chars-matcher($string) {
     my constant Rx = RakuAST::Regex;
@@ -83,4 +85,4 @@ This installment shows how you can shorten long `RakuAST::` class names within a
 
 The intended audience are those people willing to be early adopters of these exciting new features in the Raku Programming Language.  The examples in this blog post will work in the next release of the Rakudo compiler (probably 2023.06), but are now already available in the [bleeding edge version](https://github.com/rakudo/rakudo/).
 
-This is also the last installment of this series: other aspects of RakuAST will be handles in different, more focused on specific RakuAST characteristics.
+This is also the last installment of this series: other aspects of RakuAST will be handled in different, more focused on specific RakuAST characteristics.
