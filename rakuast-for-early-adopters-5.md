@@ -81,6 +81,6 @@ Conclusion
 ----------
 This installment shows how you can shorten long `RakuAST::` class names within a scope by using `my constant`.  It also shows an example of actual constant folding.
 
-The intended audience are those people willing to be early adopters of these exciting new features in the Raku Programming Language.  The examples in this blog post will work in the next release of the Rakudo compiler (probably 2023.06), but are now already available in the bleeding edge version.
+The intended audience are those people willing to be early adopters of these exciting new features in the Raku Programming Language.  The examples in this blog post will work in the next release of the Rakudo compiler (probably 2023.06), but are now already available in the [bleeding edge version](https://github.com/rakudo/rakudo/).
 
 This is also the last installment of this series: other aspects of RakuAST will be handles in different, more focused on specific RakuAST characteristics.
