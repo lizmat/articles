@@ -75,7 +75,7 @@ If that is successful, then a new `RakuAST` object is created for that value (`R
 
 Then we show the source representation of the first line again: which is now "my $a = 845", showing that our constant folding was successful!
 
-Now that you've seen this, the question becomes: would you as a user of Raku, need to do this?  And the answer is **no**.  These types of optimizations will be built into Rakudo, so you don't need to worry about it.  This was just an example of how this could work internally, and perhaps give you some visions of evil sugarplums dancing in your head!
+Now that you've seen this, the question becomes: would you as a user of Raku, need to do this?  And the answer is **no**.  These types of optimizations will be built into Rakudo, so you don't need to worry about it.  This was just an example of how this could work internally, and perhaps give you some visions of evil sugarplums dancing in your head to do other types of introspection and/or modifications!
 
 Conclusion
 ----------
