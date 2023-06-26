@@ -32,7 +32,7 @@ So the question became: should the new implementation follow the behaviour of th
 
 ## Raku Core Summit
 
-This then became part of discussions at the first Raku Core Summit.  There it was decided that the new implementation should not adhere to the old one, because the new `sprintf` functionality would require a language version bump anyway.  And that the current `sprintf` tests should be frozen for language level `6.d`.  And so it was [done](https://github.com/Raku/roast/commit/a297e8d4e2510e0fbef2cbd4c766d5e4927f029f).
+This then became part of discussions at the first [Raku Core Summit](https://rakudoweekly.blog/2023/06/12/2023-23-4-at-48#RCS/).  There it was decided that the new implementation should not adhere to the old one, because the new `sprintf` functionality would require a language version bump anyway.  And that the current `sprintf` tests should be frozen for language level `6.d`.  And so it was [done](https://github.com/Raku/roast/commit/a297e8d4e2510e0fbef2cbd4c766d5e4927f029f).
 
 Another decision that was made, was that the functionality offered by the `Formatter` class (which converts a format string to a [`Callable`](https://docs.raku.org/type/Callable)), should be embedded into a `Format` class.  Which should normally act as a string, but when used as a `Callable` should perform the processing according to the format given.  This has now also been [implemented](https://github.com/rakudo/rakudo/commit/ebe0e0b2c7290dd27729a71da65e55f3f3a72558).  Which means you can now do:
 ```
