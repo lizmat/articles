@@ -24,7 +24,7 @@ This then became the [`Formatter`](https://github.com/rakudo/rakudo/blob/main/sr
 
 ## Obstacles
 
-One of the obstacles that was encountered while working on `Formatter`, was that there were *no* comprehensive tests for `sprintf` functionality for Raku.  Yes, there as *a* test-file, that tested some features, but no comprehensive tests for all possible combinations of format features, combined with possible values that they should operate upon.
+One of the obstacles that was encountered while working on `Formatter`, was that there were *no* comprehensive tests for `sprintf` functionality for Raku.  Yes, there was *a* test-file that tested some features, but no comprehensive tests for all possible combinations of format features, combined with possible values that they should operate upon.
 
 This became one of the first things that needed to be done, to be able to say that new implementation would be matching the old.  During the development of [these tests](https://github.com/Raku/roast/tree/master/6.d/S32-str), it became clear there were some inconsistencies in the existing implementation, and worse: [outright bugs](https://github.com/Raku/roast/blob/master/6.d/S32-str/sprintf-f.t#L101).
 
@@ -34,7 +34,7 @@ So the question became: should the new implementation follow the behaviour of th
 
 This then became part of discussions at the first Raku Core Summit.  There it was decided that the new implementation should not adhere to the old one, because the new `sprintf` functionality would require a language version bump anyway.  And that the current `sprintf` tests should be frozen for language level `6.d`.  And so it was [done](https://github.com/Raku/roast/commit/a297e8d4e2510e0fbef2cbd4c766d5e4927f029f).
 
-Another decision that was made, was that the functionality offered by the `Formatter` class (which converts a format string to a [`Callable`](https://docs.raku.org/type/Callable), should be embedded into a [`Format`] class.  Which should act as a string, but when used as a `Callable`, should perform the processing according to the format given.  This has now also been [implemented](https://github.com/rakudo/rakudo/commit/ebe0e0b2c7290dd27729a71da65e55f3f3a72558).  Which means you can now do:
+Another decision that was made, was that the functionality offered by the `Formatter` class (which converts a format string to a [`Callable`](https://docs.raku.org/type/Callable)), should be embedded into a `Format` class.  Which should normally act as a string, but when used as a `Callable` should perform the processing according to the format given.  This has now also been [implemented](https://github.com/rakudo/rakudo/commit/ebe0e0b2c7290dd27729a71da65e55f3f3a72558).  Which means you can now do:
 ```
 use v6.e.PREVIEW;
 my $f = Format.new("%5s");
@@ -44,31 +44,34 @@ dd $f("foo");       # "  foo"
 say "'$f'";         # '%5s'
 say "'$f("foo")'";  # '  foo'
 ```
-As you can see, the `Format` object acts very much so as a string.  Only when used as a `Callable` (by putting `()` after it, with arguments, will it show its special functionality.  Which isn't so strange when you realize the method resolution order of `Format`:
+As you can see, the `Format` object acts very much so as a string.  Which isn't so strange when you realize the method resolution order of `Format`:
 ```
 use v6.e.PREVIEW;
 say Format.^mro;  # ((Format) (Str) (Cool) (Any) (Mu))
 ```
+Only when used as a `Callable` (by putting `()` after it with arguments), will it show its special functionality.
 
 ## A new quote adverb
 
-At the RCS it was suggested that the `Format.new("%5s") would be too clunky.  But more seriously, would prevent compile time optimization of the `Format` object, because the lookup of methods are a runtime action in Raku (generally).  A way to get around that, would be to introduce a new string quoting construct / adverb / processor.  This [became](https://github.com/rakudo/rakudo/commit/e95c45a5ec641c301f0eec9c371f36683a0496fd) the `"format"` adverb (or `"o"` for the short version):
+At the RCS it was suggested that the `Format.new("%5s")` would be too clunky in common usage.  More seriously it would prevent compile time creation of the `Format` object because the lookup of methods are a runtime action in Raku (generally).  A way to get around that, would be to introduce a new string quoting construct / adverb / processor.  This [became](https://github.com/rakudo/rakudo/commit/e95c45a5ec641c301f0eec9c371f36683a0496fd) the `"format"` adverb (or `"o"` for the short version):
 ```
-use v6.e.PREVIEW;
+use v6.e.PREVIEW;  # RAKUDO_RAKUAST=1 also required for now
 my $format = q:format/%5s/;
 say "'$format("foo")'";   # '  foo'
 ```
-or more directly:
+or more directly and shorter using the "o" alternate adverb:
 ```
 use v6.e.PREVIEW;
-dd q:format/%5s/("foo");  # "  foo"
+dd q:o/%5s/("foo");  # "  foo"
 ```
 Why `"o"` for the short version?  Because `"f"` was already taken to enable/disable *f*unction interpolation.  And `q:o` felt visually closer to `fo` than anything else.
 
 ## Performance
-So how does this new way of formatting values into a string perform?  Without any optimization of the RakuAST version yet, upto a 30x speed increase has been reported.  So that's quite an improvement.  And potentially better than many other programming languages.
+So how does this new way of formatting values into a string perform?
+
+Without any optimization of the RakuAST version yet, upto a 30x speed increase has been reported.  So that's quite an improvement.  And potentially better than many other programming languages that also depend on some kind of runtime state-machine to create the string, rather than depending on executable code.
 
 ## Conclusion
-A new way of creating strings from a given set of values and format string (in other words `printf` functionality) has been implemented in the Raku Programming Language, making it up to 30x as fast.
+A new way of creating strings from a given set of values and format string (in other words `printf` functionality) has been implemented using RakuAST in the Raku Programming Language, making it up to 30x as fast.
 
-This functionality will be available from release 2023.06 of Rakudo.  The new quote adverb will for now only be available when compiled with the new RakuAST grammar, which can be activated by specifying the `RAKUDO_RAKUAST` environment variable.
+This functionality will be available from release 2023.06 of Rakudo and selecting the `6.e` language level by specifying `use v6.e.PREVIEW`..  The new quote adverb will for now only be available when compiled with the new RakuAST grammar, which can be activated by specifying the `RAKUDO_RAKUAST` environment variable.
