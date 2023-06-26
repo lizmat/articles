@@ -26,7 +26,7 @@ This then became the [`Formatter`](https://github.com/rakudo/rakudo/blob/main/sr
 
 One of the obstacles that was encountered while working on `Formatter`, was that there were *no* comprehensive tests for `sprintf` functionality for Raku.  Yes, there was *a* test-file that tested some features, but no comprehensive tests for all possible combinations of format features, combined with possible values that they should operate upon.
 
-This became one of the first things that needed to be done, to be able to say that new implementation would be matching the old.  During the development of [these tests](https://github.com/Raku/roast/tree/master/6.d/S32-str), it became clear there were some inconsistencies in the existing implementation, and worse: [outright bugs](https://github.com/Raku/roast/blob/master/6.d/S32-str/sprintf-f.t#L101).
+This became one of the first things that needed to be done, to be able to say the new implementation would be matching the old.  During the development of [these tests](https://github.com/Raku/roast/tree/master/6.d/S32-str), it became clear there were some inconsistencies in the existing implementation, and worse: [outright bugs](https://github.com/Raku/roast/blob/master/6.d/S32-str/sprintf-f.t#L101).
 
 So the question became: should the new implementation follow the behaviour of the old implementation to the letter, or not?
 
@@ -67,11 +67,11 @@ dd q:o/%5s/("foo");  # "  foo"
 Why `"o"` for the short version?  Because `"f"` was already taken to enable/disable *f*unction interpolation.  And `q:o` felt visually closer to `fo` than anything else.
 
 ## Performance
-So how does this new way of formatting values into a string perform?
+So what is the performance of this new way of formatting values into a string?
 
 Without any optimization of the RakuAST version yet, upto a 30x speed increase has been reported.  So that's quite an improvement.  And potentially better than many other programming languages that also depend on some kind of runtime state-machine to create the string, rather than depending on executable code.
 
 ## Conclusion
 A new way of creating strings from a given set of values and format string (in other words `printf` functionality) has been implemented using RakuAST in the Raku Programming Language, making it up to 30x as fast.
 
-This functionality will be available from release 2023.06 of Rakudo and selecting the `6.e` language level by specifying `use v6.e.PREVIEW`..  The new quote adverb will for now only be available when compiled with the new RakuAST grammar, which can be activated by specifying the `RAKUDO_RAKUAST` environment variable.
+This functionality will be available from release 2023.06 of Rakudo and selecting the `6.e` language level by specifying `use v6.e.PREVIEW`.  The new quote adverb will for now only be available when compiled with the new RakuAST grammar, which can be activated by specifying the `RAKUDO_RAKUAST` environment variable.
