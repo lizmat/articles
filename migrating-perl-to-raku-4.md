@@ -1,4 +1,4 @@
-# Syntactic Changes between Perl and Raku (Part 2 of 3)
+# Syntactic Changes between Perl and Raku (Part 3 of 3)
 
 ## For, While and Loop
 The [`while`](https://docs.raku.org/language/control#while,_until) loop structure is (almost) the same in Raku: you just don’t need to put the condition between parentheses in Raku:
@@ -43,7 +43,7 @@ In Raku, this is not the case: the `loop` statement is also used for that:
 loop (my $i = 0; $i < 10; $i++) {  # "loop" instead of "for"
     say $i;
 }
-
+```
 Note that this is one of the few cases in Raku where parentheses are actually required!
 
 The syntax for aliasing the iterated value in `for` is slightly different in Raku.  In Perl, you would specify `my` with name of a lexical variable.
@@ -56,7 +56,7 @@ for my $elem (@elements) {
 In Raku this is part of the standard syntax for blocks:
 ```
 # Raku
-for @elements -> $elem {  # take one value from the array each time
+for @elements -> $elem {  # take a value from the array each time
     $elem *= 2;
 }
 ```
@@ -155,6 +155,7 @@ Also note that chomping (the removal of the newline character from the end of th
 for lines(chomp => False) {  # also known as :!chomp
     …  # do something with $_
 }
+```
 
 ## Summary
-Even though there are some gotchas when trying to write Raku code coming from Perl, it generally is much the same, and generally simpler with fewer exceptions.  This makes it very possible to write Raku code in a way that is very similar to Perl idioms.
+Even though there are some gotchas when trying to write Raku code coming from Perl, it generally is much the same, and generally simpler with fewer exceptions.  This makes it very possible to write Raku code in a way that is very similar to Perl idioms.  Now whether that is a good thing in the long run, is another matter.
