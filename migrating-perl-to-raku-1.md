@@ -4,9 +4,9 @@
 
 Whether you are a programmer who is taking the first steps to convert Perl code to Raku and encountering some issues. or you're just interested in learning about what might happen if you try to port Perl programs to Raku, this series of blog posts should answer at least some of your questions.
 
-These blog posts assume familiarity with Perl as a programmer / user.   Expect concepts such as references, reference counting, and DESTROY to be discussed. If these concepts are unknown to you, then these blogs are probably not for you.
+These blog posts assume familiarity with Perl as a programmer / user.   Expect concepts such as "references", "reference counting", and "`DESTROY`" to be discussed.  If these concepts are unknown to you, then these blogs are probably not for you.
 
-The [Raku Programming Language documentation](https://docs.raku.org) already contains most (if not all) the documentation you need to deal with the issues you will confront in migrating Perl code to Raku. But, as documentation goes, the focus is on the factual differences.  These blogs will try to go a little more in-depth about specific issues and provide a little more hands-on information based on my experience porting quite a lot of Perl code to Raku.
+The [Raku Programming Language documentation](https://docs.raku.org) already contains most (if not all) the documentation you need to deal with the issues you will confront in [migrating Perl code to Raku](https://docs.raku.org/language/perl2raku-overview).  But, as documentation goes, the focus is on the factual differences.  These blogs will try to go a little more in-depth about specific issues and provide a little more hands-on information based on my experience porting quite a lot of Perl code to Raku.
 
 ## Using Perl features in Raku
 
@@ -16,7 +16,7 @@ But it *does* make it easy to get your Raku code running (if you need access to 
 
     use DBI:from<Perl5>;
 
-In January 2018, I proposed a [CPAN Butterfly Plan](https://www.perl.com/article/an-open-letter-to-the-perl-community/) to convert Perl functionality to Raku as closely as possible to the original API. I stated this as a goal because Perl (as a programming language) is so much more than syntax alone. Ask anyone what Perl's unique selling point is, and they will most likely tell you it is CPAN.
+In January 2018, I proposed a [CPAN Butterfly Plan](https://www.perl.com/article/an-open-letter-to-the-perl-community/) to convert Perl functionality to Raku as closely as possible to the original API. I stated this as a goal because Perl (as a programming language) is so much more than syntax alone. Ask anyone what Perl's unique selling point is, and they will most likely tell you it is [CPAN](https://metacpan.org).
 
 ## Converting Semantics
 
@@ -29,7 +29,7 @@ More than 90 [Perl CPAN distributions](https://raku.land/tags/cpan5) have also b
 ## Learning Curve
 It has been pointed out that Raku is perceived to have a steep learning curve, especially coming from Perl.  To an extent, this is true.  During development of Raku, many decisions have been made to make it easier to learn Raku.  Many concepts can be applied much more generally in Raku, then they are in Perl: there are fewer exceptions to the rules.
 
-So this brings this book in a place of the worst of both worlds.  On the one hand, the language can be best learned by people not having any previous experience in Perl.  And this book is intended for people who do have at least some Perl knowledge.  So a lot of Raku concepts are presented in how they differ from Perl, when in many cases it would probably be easier to just start with a blank slate from the underlying Raku concepts.
+So this brings these blog posts in a place of the worst of both worlds.  On the one hand, the language can be best learned by people not having any previous experience in Perl.  And this book is intended for people who do have at least some Perl knowledge.  So a lot of Raku concepts are presented in how they differ from Perl, when in many cases it would probably be easier to just start with a blank slate from the underlying Raku concepts.
 
 Still I felt that there is a point in presenting these blogs posts in this shape to you, the reader.  But please try to understand the underlying Raku principles, rather than memorise all the differences between Perl and Raku.
 
