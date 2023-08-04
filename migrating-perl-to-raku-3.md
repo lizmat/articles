@@ -3,10 +3,10 @@
 ## Ternaries
 Ternaries in Raku are formed with `??` and `!!` rather than `?` and `:` in Perl.
 ```
-say $condition ? "True" : "False";    # Perl
+say $condition ?  "True" :  "False";  # Perl
 say $condition ?? "True" !! "False";  # Raku
 ```
-It’s really to free up the colon `:` for a lot of other uses in Raku.
+It’s really to free up the colon `:` for a lot of other uses in Raku.  But more about that later.
 
 ## Matching
 The most obvious change is that Perl uses `=~` to match a string with a regular expression:
@@ -34,7 +34,7 @@ In Raku, positional captures start at `$0`.  This makes sense if you realize tha
 Also note that in Raku, any capture is a full `Match` object, that stringifies with the `｢｣` special quotation marks.
 
 ## Array and Hash Elements
-In Raku, the sigil of an array or a hash does not change, regardless of how it is used.  In Perl, the sigil of an array or hash changes depending on the context.
+In Raku, the sigil of an array or a hash does **not** change, regardless of how it is used.  In Perl, the sigil of an array or hash **changes** depending on the context.
 ```
 # Perl
 my @array = (1,2,3,4,5);
@@ -62,7 +62,7 @@ my %hash = a => 42, b => 666;
 say %hash<a>;    # 42, sigil does not change
 say %hash<a b>;  # (42 666)
 ```
-When specifying hash elements in Raku, the closest thing to using bare words is the [`< >`](https://docs.raku.org/language/operators#term_%3C_%3E) syntax.  This is closest to `qw( )` in Perl.
+Also note that when specifying hash elements in Raku, the closest thing to using bare words is the [`< >`](https://docs.raku.org/language/operators#term_%3C_%3E) syntax.  This is closest to `qw( )` in Perl.
 
 ## Curly Close at end of line
 In Perl, some structures that take a block (such as `if` and `while`)  do not need a semi-colon after them.  While others, such as `eval`, do need a semi-colon to prevent a syntax error:
@@ -76,6 +76,7 @@ eval {
 };      # requires a semi-colon
 ```
 In Raku, the rule with regards to a closing curly brace is that if it is the **last** non-whitespace character in source code on a line, then a semi-colon will **always** be assumed to follow it.
+
 This means that all code constructs that take a block, can be written like they are an `if`:
 ```
 # Raku
@@ -96,13 +97,13 @@ call-times 5, {
 This may however catch you off-guard in some situations.  Suppose you have an intricate expression involving a key in a hash that you want to split over multiple lines:
 ```
 # Raku
-my $result = %hash{$key}    # assumes semi-colon, so end of line
-  + 42;                     # a bare expression, which will be flagged
+my $result = %hash{$key}  # assumes semi-colon, so end of line
+  + 42;                    # a bare expression, will be flagged
 ```
 The only way to work around this is to either **not** do that:
 ```
 # Raku
-my $result =                # prevent bare } at end of line
+my $result =              # prevent bare } at end of line
   %hash{$key} + 42;
 ```
 Or you can use the [`unspace`](https://docs.raku.org/language/syntax#Unspace) feature to prevent the bare curly close at the end of the line.
@@ -111,7 +112,7 @@ Or you can use the [`unspace`](https://docs.raku.org/language/syntax#Unspace) fe
 my $result = %hash{$key} \  # use unspace to prevent bare }
   + 42;
 ```
-Which method you use, is really a matter of taste.  Or possibly some code standard that you enforce on yourself or you co-workers.
+Which method you use, is really a matter of taste.  Or possibly some code standard that you enforce on yourself or your co-workers.
 
 ## Summary
 
