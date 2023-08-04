@@ -34,4 +34,4 @@ So this brings these blog posts in a place of the worst of both worlds.  On the 
 Still I felt that there is a point in presenting these blogs posts in this shape to you, the reader.  But please try to understand the underlying Raku principles, rather than memorise all the differences between Perl and Raku.
 
 ## Summary
-Raku is a viable approach to creating new, interactive projects. Being able to use reliable and proven Perl language components aids in lowering the threshold for developers to use Raku, and it builds towards a situation where the sum of Perl and Raku becomes greater than its parts
+Raku is a viable approach to creating new, interactive projects. Being able to use reliable and proven Perl language components aids in lowering the threshold for developers to use Raku, and it builds towards a situation where the sum of Perl and Raku becomes greater than its parts.
