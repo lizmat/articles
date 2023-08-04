@@ -9,6 +9,7 @@ In Raku, the equivalent of `use strict` is always active, which in Perl is not 
     say $a;   # 42
 
 Compare to Raku:
+
     # Raku
     $a = 42;
     say $a;
@@ -44,13 +45,11 @@ Versus in Raku:
     #   in … at … line …
     # 1
 
-Disabling warnings in a section is achieved by using a `quietly` block:
+Disabling warnings in a section is achieved by using a [`quietly`](https://docs.raku.org/syntax/quietly%20%28statement%20prefix%29) statement prefix:
 
     # Raku
     my $a;
-    quietly {        # silence any warnings inside this block
-        say $a + 1;
-    }
+    quietly say $a + 1;  # silence any warnings for this statement
     # 1
 
 More on this in the blog post about phasers.
@@ -60,6 +59,8 @@ In Raku, you may use hyphens as part of [identifiers](https://docs.raku.org/synt
 
     # Perl
     my $the-answer = 42;  # syntax error
+
+Versus in Raku:
 
     # Raku
     my $the-answer = 42:  # just fine
@@ -95,23 +96,24 @@ Calling a method on an object in Raku is indicated with a period, followed by th
 Whitespace is slightly more important in Raku than it is in Perl.  On the other hand, Raku needs a lot less parentheses than Perl.  Where it is legal to say in Perl:
 
     # Perl
-    if($result == 42) {  # note missing space between “if” and (
-        say “The answer”;
+    if($result == 42) {  # note missing space between "if" and (
+        say "The answer";
     }
 
 In Raku, an item directly followed by a parenthesis open is always interpreted as calling that item with the given parameters between parentheses.  So this would be interpreted as an attempt to call the `if` subroutine with the result of the comparison `$result == 42`.  But since you most likely do not have a subroutine named `if`, this will result in a compilation error in Raku.
 
 So the proper way to do this in Raku is to make sure there is whitespace between the `if` and the condition:
+
     # Perl and Raku
-    if ($result == 42) {  # note space between “if” and (
-        say “The answer”;
+    if ($result == 42) {  # note space between "if" and (
+        say "The answer";
     }
 
 However, you do not need to use parentheses in many situations in Raku where you *would* need to use them in Perl.  This is one such an example:
 
     # Raku
-    if $result == 42 {    # note absence of parentheses
-        say “The answer”;
+    if $result == 42 {  # note absence of parentheses
+        say "The answer";
     }
 
 Another example are `for` loops:
@@ -125,7 +127,7 @@ Of course, this also implies that if you’re used to having whitespace between 
 
     # Perl
     sub sum_two { my ($a,$b) = @_; $a + $b }
-    
+
     say sum_two (42,666);  # 708
 
 That doesn’t work in Raku like you think it would:
