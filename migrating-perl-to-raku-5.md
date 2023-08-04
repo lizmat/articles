@@ -1,6 +1,6 @@
-# Not So Obvious Semantic Changes (Part 1 of 2)
+# Not So Obvious Semantic Changes (Part 1 of 3)
 
-Apart from the visible changes between Perl and Raku, there are a small number of semantic changes in code that otherwise is identical between Perl and Raku.  The following two blog posts elaborate on these potential gotcha’s.
+Apart from the visible changes between Perl and Raku, there are a small number of semantic changes in code that otherwise is identical between Perl and Raku.  The following three blog posts elaborate on these potential gotcha’s.
 
 ## Everything is Lexical in Raku
 This simple statement is easy to understand, but for the experienced Perl programmer, maybe not all implications are immediately clear.
