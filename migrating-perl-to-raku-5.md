@@ -1,4 +1,4 @@
-# Not So Obvious Semantic Changes (Part 1 of 2)
+# Not So Obvious Semantic Changes (Part 1 of 2)
 
 Apart from the visible changes between Perl and Raku, there are a small number of semantic changes in code that otherwise is identical between Perl and Raku.  The following two blog posts elaborate on these potential gotcha’s.
 
@@ -11,14 +11,15 @@ For instance, if one uses a module in Perl that imports symbols, like `Test::Mor
 {                          # create a scope
     use Test::More;        # use module inside scope
     ok 1, “test passes”;   # ok 1 - test passes
-}  # all of the imported subs are available outside:
+}  
+# all of the imported subs are available outside:
 ok 1, “test also passes”;  # ok 1 - test also passes
 ```
 Now compare this to the situation in Raku:
 ```
 # Raku
 {                          # create a scope
-    use Test;              # use module inside scope
+     use Test;              # use module inside scope
     ok 1, “test passes”;   # ok 1 - test passes
 }
 ```
@@ -26,14 +27,14 @@ Inside the scope, the `ok` sub is known, and can be executed.  However if we wan
 ```
 # Raku
 {                          # create a scope
-    use Test;              # use module inside scope
+     use Test;              # use module inside scope
 }
 ok 1, "This test passes";
 ===SORRY!=== Error while compiling …
 Undeclared routine:
     ok used at line …
 ```
-Now, this in itself could be considered a not so very useful feature.  Because in Perl, it is i**not** possible to have multiple versions of the same module installed at the same time (unless you start playing really nasty tricks with `-I` or `use lib`, which does not improve maintainability or stability).
+Now, this in itself could be considered a not so very useful feature.  Because in Perl, it is **not** possible to have multiple versions of the same module installed at the same time (unless you start playing really nasty tricks with `-I` or `use lib`, which does not improve maintainability or stability).
 
 In Raku however, it *is* possible to have multiple versions of the same module installed.  So suppose you have two versions of module `Foo` installed: version 1.21 and version 2.0.  Each of which exports a subroutine callewd `read`.  You can then provide easy access to either by localising the `use` statements inside separate subroutines:
 ```
@@ -53,13 +54,14 @@ This feature is enormously powerful tool for version management of data.  And it
 Both Perl and Raku have a [`my`](https://docs.raku.org/routine/my) statement to define lexical variables.  Both Perl and Raku have [`our`](https://docs.raku.org/syntax/our) to define variables in a namespace that should be accessible from outside of that namespace.
 
 So this works in Perl and Raku:
+```
 # Raku and Perl
 package A {
     our $a = 42;
 }
 say $A::a;  # 42
 ```
-However, global variables in a threaded environment such as Raku, are generally a bad idea.  Therefore, Raku has an intermediate for of variables that can be lexically defined, but which have global accessibility / discoverability: they are called "dynamic variables".
+However, global variables in a threaded environment such as Raku, are generally a bad idea.  Therefore, Raku has an intermediate form of variables that can be lexically defined, but which have global accessibility / discoverability: they are called "dynamic variables".
 
 Dynamic variables can be recognised by the [`*`](https://docs.raku.org/language/variables#The_*_twigil) twigil (secondary sigil).  For instance, where Perl has `STDOUT` for the IO handle for standard output, Raku has `$*OUT`.
 
@@ -82,7 +84,7 @@ In Raku, one defines a lexical with the same name and gives it a value:
 # Raku
 say "goodbye";               # goodbye
 {
-     my $*OUT = open("out",:w);  # STDOUT writes to file "out" from here
+    my $*OUT = open("out",:w);  # STDOUT writes to file "out"
      say "cruel";                # written to file
 }
 say "world";                 # world
@@ -92,18 +94,18 @@ Note that `say` command inside the scope sees the alternate version of `$*OUT`: 
 
 Almost all system variables in Raku are dynamic variables.  Let’s compare a few between Perl and Raku:
 ```
-    description                  Perl            Raku
-    ---------------------------------------------------
-    standard input               STDIN           $*IN
-    standard output              STDOUT          $*OUT
-    standard error output        STDERR          $*ERR
-    environment variable         %ENV            $*ENV
-    raw command line arguments   @ARGV           @*ARGS
-    current directory            cwd (use Cwd)   $*CWD
-    current process ID           $$              $*PID
-    module loading management    @INC            $*REPO
-    name of executing program    $0              $*PROGRAM-NAME
-    ---------------------------------------------------
+   description                  Perl            Raku
+   -----------------------------------------------------------
+   standard input               STDIN           $*IN
+   standard output              STDOUT          $*OUT
+   standard error output        STDERR          $*ERR
+   environment variable         %ENV            $*ENV
+   raw command line arguments   @ARGV           @*ARGS
+   current directory            cwd (use Cwd)   $*CWD
+   current process ID           $$              $*PID
+   module loading management    @INC            $*REPO
+   name of executing program    $0              $*PROGRAM-NAME
+   -----------------------------------------------------------
 ```
 Note that the dynamic variable of Raku are generally more descriptive (and longer) than the Perl equivalents.
 
