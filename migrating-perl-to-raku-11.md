@@ -38,7 +38,9 @@ my $bar = Array.new(1,2,3);  # alternately: [1,2,3]
 .say for @foo;  # 1␤2␤3␤
 .say for $bar;  # [1 2 3]
 ```
-Note that the latter case does only one iteration vs. three in the former case. You can indicate whether you want something to iterate or not by prefixing the appropriate sigil:
+Note that the latter case does only one iteration vs. three in the former case.
+
+You can indicate whether you want something to iterate or not by prefixing the appropriate sigil:
 ```
 # Raku
 .say for $@foo;  # [1 2 3] : consider the array as an item
@@ -52,13 +54,15 @@ But maybe this brings us too far into line-noise land. Fortunately, there are al
 ```
 
 # * (Typeglobs)
-As you may have noticed, Raku does not have a `*` sigil nor the concept of "typeglobs". If you don't know what typeglobs are, you don't have to worry about this. You can get by very well without having to know the intricacies of symbol tables in Perl (and you can skip the next paragraph).
+As you may have noticed, Raku does **not** have a `*` sigil nor the concept of "typeglobs". If you don't know what typeglobs are, you don't have to worry about this. You can get by very well without having to know the intricacies of symbol tables in Perl (and you can skip the next paragraph).
 
-In Raku, the sigil is part of the name stored in a symbol table, whereas in Perl the name is stored without the sigil. For example, in Perl, if you reference `$foo` in your program, the compiler will look up "foo" (without sigil), then fetch the associated information (which is an array), and look up what it needs at the index for the `$` sigil.
+In Raku, the sigil is part of the name stored in a symbol table, whereas in Perl the name is stored *without* the sigil.
+
+For example, in Perl, if you reference `$foo` in your program, the compiler will look up "foo" (without sigil), then fetch the associated information (which is an array), and look up what it needs at the index for the `$` sigil.
 
 In Raku, if you reference `$foo`, the compiler will look up "$foo" and directly use the information associated with that key.
 
-Please do not confuse the `*` used to indicate slurpiness of parameters in Raku with the typeglob sigil in Perl — they have nothing to do with each other.
+Please do not confuse the `*` used to indicate slurpiness of parameters in Raku with the typeglob sigil in Perl — they have **nothing** to do with each other.
 
 # Sigilless variables
 Perl does not support variables without sigil out of the box (apart from maybe left-value subroutines, but that would be very clunky indeed).
@@ -76,7 +80,8 @@ use constant the_answer => 42;
 say the_answer;  # 42
 ```
 ```
-# Raku my constant the-answer = 42;
+# Raku 
+my constant the-answer = 42;
 say the-answer;  # 42
 ```
 It's more interesting if the right-hand side of a definition is something else. Something like a container! This allows for the following syntactic trick to get sigilless variables:

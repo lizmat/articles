@@ -67,7 +67,7 @@ my $the-answer = 42;  # syntax error
 Versus in Raku:
 ```
 # Raku
- my $the-answer = 42:  # just fine
+ my $the-answer = 42;  # just fine
 ```
 Using hyphens in identifiers, is sometimes referred to as using "kebab-case".
 
