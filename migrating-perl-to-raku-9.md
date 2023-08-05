@@ -228,7 +228,7 @@ If you want to catch any (other) named arguments, you can use a so-called "slurp
 sub slurp-nameds (*%nameds) {
     say "Received: " ~ join ", ", sort keys %nameds;
 }
-slurp-nameds(foo => 42, bar => 666); # Received: bar, foo
+slurp-nameds(foo => 42, bar => 666);# Received: bar, foo
 ```
 As with the slurpy array, there can be only *one* slurpy hash in a signature, and it must be specified *after* any other named parameters.
 

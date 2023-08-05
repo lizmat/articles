@@ -80,7 +80,7 @@ use constant the_answer => 42;
 say the_answer;  # 42
 ```
 ```
-# Raku 
+# Raku
 my constant the-answer = 42;
 say the-answer;  # 42
 ```
@@ -108,7 +108,7 @@ say "The answer is {the-answer}.";  # The answer is 42.
 The equivalent is more cumbersome in most versions of Perl:
 ```
 # Perl
-say "The answer is @{[the_answer]}.”; # The answer is 42.
+say "The answer is @{[the_answer]}.”;# The answer is 42.
 ```
 
 # Summary

@@ -43,11 +43,12 @@ But not so in Raku. Because the `BEGIN` phaser is executed only once, when pre-c
 An easy workaround would be to inhibit pre-compilation of a module in Raku:
 ```
 # Raku
-no precompilation; # this compilation unit should not be pre-compiled
+# this compilation unit should not be pre-compiled
+no precompilation;
 ```
 However, pre-compilation has several advantages that you don't want to dismiss easily:
 - Data structure setup has to be done just once. If you have data structures that must be set up each time a module is loaded, you can do it once when a module is pre-compiled. This may be a huge time- and CPU saver if the module is loaded often.
-- It can load modules much faster. Because it doesn't need to parse any source code, a pre-compiled module loads much faster than one that's compiled over and over again. A prime example is the core setting of Rakudo — the part that is written in Raku. This consists of a 68 KLOC/2.3MB source files (generated from many separate source files for maintainability). It takes about a minute to compile this source file during Rakudo installation. It takes about 125 milliseconds to load this pre-compiled code at Rakudo startup. This is almost a 500x speed boost!
+- It can load modules much faster. Because it doesn't need to parse any source code, a pre-compiled module loads much faster than one that's compiled over and over again. A prime example is the core setting of Rakudo — the part that is written in Raku. This consists of a 68 KLOC/2.3MB source files (generated from many separate source files for maintainability). It takes about a minute to compile this source file during Rakudo installation. It takes about 125 milliseconds to load this pre-compiled code at Rakudo startup. This is almost a **500x** speed boost!
 
 Some other features of Perl and Raku that implicitly use `BEGIN` functionality have the same caveat. Take this example where we want a constant `DEBUG` to have either the value of the environment variable `DEBUG` or, if that is not available, the value 0:
 ```
@@ -61,7 +62,8 @@ my constant DEBUG = %*ENV<DEBUG> // 0;
 The best equivalent in Raku is to use an `INIT` phaser:
 ```
 # Raku
-INIT my \DEBUG = %*ENV<DEBUG> // 0; # sigilless variable bound to value
+# sigilless variable bound to value
+INIT my \DEBUG = %*ENV<DEBUG> // 0;
 ```
 As in Perl, the `INIT` phaser is run just before execution starts.
 
@@ -82,7 +84,7 @@ There is **no** equivalent in Raku of the Perl `CHECK` special block. The main r
 ## INIT
 The functionality of the `INIT` phaser in Raku is the same as the `INIT` special block in Perl. It specifies a piece of code to be executed just before the code in the compilation unit is executed.
 
-In pre-compiled modules in Raku, the `INIT` phaser can serve as an alternative to the ``BEGIN` phaser.
+In pre-compiled modules in Raku, the `INIT` phaser can serve as an alternative to the `BEGIN` phaser.
 
 ## END
 The `END` phaser's functionality in Raku is the same as the `END` special block's in Perl. It specifies a piece of code to be executed *after* all the code in the compilation unit has been executed or when the code decides to exit (either intended or unintended because an exception is thrown).
@@ -106,15 +108,15 @@ And the same in Raku:
 ```
 # Raku
 say "running in Raku";
-END   { say "END"   }
-INIT  { say "INIT"  }
-CHECK { say "CHECK" }
-BEGIN { say "BEGIN" }
-# BEGIN
-# CHECK
-# INIT
+END   { say "ran END"   }
+INIT  { say "ran INIT"  }
+CHECK { say "ran CHECK" }
+BEGIN { say "ran BEGIN" }
+# ran BEGIN
+# ran CHECK
+# ran INIT
 # running in Raku
-# END
+# ran END
 ```
 
 ## Summary

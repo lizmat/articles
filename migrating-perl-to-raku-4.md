@@ -72,8 +72,8 @@ There is no `foreach` in Raku: please use `for` instead.  Trying so, will give y
 # Raku
 foreach 1,2,3 { .say }
 ===SORRY!=== Error while compiling …
-Unsupported use of 'foreach'; in Raku please use 'for' at
--e:1 ------> foreach⏏ 1,2,3 { .say }
+Unsupported use of 'foreach'; in Raku please use 'for'at
+-e:1------> foreach⏏ 1,2,3 { .say }
 ```
 Note that Raku takes extra care to give useful error messages.  If an error message does not clearly indicate the problem, then the error message is considered LTA (Less Than Awesome) and is worthy of making an issue for.
 
@@ -88,7 +88,7 @@ my @squares = map { $_ * $_ } @numbers;  # note absence of comma!
 But since (almost) nothing is special in Raku, that same code requires a comma, because `map` is a subroutine like any other, and thus needs its arguments separated by commas:
 ```
 # Raku                       ↓
-my @squares = map { $_ * $_ }, @numbers;  # note required comma 
+my @squares = map { $_ * $_ }, @numbers;  # note required comma
 ```
 
 ## Iterating Over Hashes

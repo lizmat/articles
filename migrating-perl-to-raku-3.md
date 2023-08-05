@@ -24,12 +24,12 @@ If your regular expression in Perl is simple enough, there’s a good chance it 
 In Perl, positional captures start with `$1`:
 ```
 # Perl
-"foo" =~ /(\w)/; say $1;   # f
+"foo" =~ /(\w)/;say $1;   # f
 ```
 In Raku, positional captures start at `$0`.  This makes sense if you realize that `$0` is syntactic sugar for `$/[0]`, in which the `Match` variable `$/` is used as an array.  And indices of arrays start at `0`.
 ```
 # Raku
-"foo" ~~ /(\w)/; say $0;   # ｢f｣
+"foo" ~~ /(\w)/;say $0;   # ｢f｣
 ```
 Also note that in Raku, any capture is a full `Match` object, that stringifies with the `｢｣` special quotation marks.
 
@@ -98,7 +98,7 @@ This may however catch you off-guard in some situations.  Suppose you have an in
 ```
 # Raku
 my $result = %hash{$key}  # assumes semi-colon, so end of line
-  + 42;                    # a bare expression, will be flagged
+ + 42;                    # a bare expression, will be flagged
 ```
 The only way to work around this is to either **not** do that:
 ```

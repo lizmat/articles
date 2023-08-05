@@ -16,17 +16,17 @@ Compare to Raku:
 ```
 # Raku
 $a = 42;
- say $a;
+say $a;
 # ===SORRY!=== Error while compiling …
 # Variable '$a' is not declared
-# at -e: … # ———> <BOL>⏏$a = 42
+# at -e: …# ———> <BOL>⏏$a = 42
 ```
 If you really want to be lax in Raku like in Perl, then you can actually remove the strictness with `no strict`:
 ```
 # Raku
- no strict;
- $a = 42;
- say $a;  # 42
+no strict;
+$a = 42;
+say $a;  # 42
 ```
 But this is usually a bad idea.
 
@@ -35,26 +35,26 @@ In Raku, the equivalent of `use warnings` is always active, which in Perl is no
 ```
 # Perl
 use warnings;  # must activate warnings
- my $a;
+my $a;
 say $a + 1;
- # Use of uninitialized value $a in addition (+) at …
- # 1
+# Use of uninitialized value $a in addition (+) at …
+# 1
 ```
 Versus in Raku:
 ```
 # Raku
- my $a;
- say $a + 1;
- # Use of uninitialized value of type Any in numeric context
- #   in … at … line …
- # 1
+my $a;
+say $a + 1;
+# Use of uninitialized value of type Any in numeric context
+#   in … at … line …
+# 1
 ```
 Disabling warnings in a section is achieved by using a [`quietly`](https://docs.raku.org/syntax/quietly%20%28statement%20prefix%29) statement prefix:
 ```
 # Raku
- my $a;
- quietly say $a + 1;  # silence any warnings for this statement
- # 1
+my $a;
+quietly say $a + 1;  # silence any warnings for this statement
+# 1
 ```
 More on this in the blog post about phasers.
 
@@ -67,7 +67,7 @@ my $the-answer = 42;  # syntax error
 Versus in Raku:
 ```
 # Raku
- my $the-answer = 42;  # just fine
+my $the-answer = 42;  # just fine
 ```
 Using hyphens in identifiers, is sometimes referred to as using "kebab-case".
 
@@ -95,8 +95,8 @@ Calling a method on an object in Raku is indicated with a period, followed by th
 ```
 #      ↓↓
 $object->frobnicate;  # Perl
- $object.frobnicate;   # Raku
- #      ↑
+$object.frobnicate;   # Raku
+#      ↑
 ```
 
 ## (Lack Of) Whitespace
@@ -145,7 +145,7 @@ That doesn’t work in Raku like you think it would:
 sub sum-two ($a, $b) { $a + $b }
 
 say sum-two(42,666);   # 708
-say sum-two (42,666);   # Too few positionals passed; expected 2 arguments but got 1
+say sum-two (42,666);  # Too few positionals passed; expected 2 arguments but got 1
 ```
 What happens here is that in Raku `(42,666)` is a list with two values.  But it acts as a single argument in the call to the subroutine because of the whitespace between the name of the sub and the arguments.  So **always** keep the parenthesis open cuddled to the name of the subroutine / method in Raku.
 

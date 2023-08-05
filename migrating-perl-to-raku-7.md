@@ -101,7 +101,7 @@ Fortunately, if that subroutine does not exist in that lexical scope, there will
 # Raku
 %hash{a} = 42;
 # ===SORRY!=== Error while compiling …
-Undeclared routine:     a
+Undeclared routine:    a
 used at line …
 ```
 For all other normal code uses (`if`, `for`, `while`, etc.), the curly braces act the same in Perl and Raku.

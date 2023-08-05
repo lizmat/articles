@@ -120,7 +120,7 @@ Note that even though the variable has the `&` sigil, you do not need to use it 
 In fact, if you ran the code in a `BEGIN` block, there would be no difference compared to an ordinary sub declaration:
 ```
 # Raku
-BEGIN my &foo = sub ($a,$b) { $a + $b } # same as sub foo()
+BEGIN my &foo = sub ($a,$b) { $a + $b }# same as sub foo()
 ```
 In contrast to Perl, in Raku a `BEGIN` block can be a single statement without a block.  This allows it to share its lexical scope with the outside scope. But more on that later.
 

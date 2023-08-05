@@ -11,7 +11,7 @@ For instance, if one uses a module in Perl that imports symbols, like `Test::Mor
 {                          # create a scope
     use Test::More;        # use module inside scope
     ok 1, “test passes”;   # ok 1 - test passes
-}  
+}
 # all of the imported subs are available outside:
 ok 1, “test also passes”;  # ok 1 - test also passes
 ```
@@ -19,7 +19,7 @@ Now compare this to the situation in Raku:
 ```
 # Raku
 {                          # create a scope
-     use Test;              # use module inside scope
+    use Test;              # use module inside scope
     ok 1, “test passes”;   # ok 1 - test passes
 }
 ```
@@ -27,7 +27,7 @@ Inside the scope, the `ok` sub is known, and can be executed.  However if we wan
 ```
 # Raku
 {                          # create a scope
-     use Test;              # use module inside scope
+    use Test;              # use module inside scope
 }
 ok 1, "This test passes";
 ===SORRY!=== Error while compiling …
@@ -85,7 +85,7 @@ In Raku, one defines a lexical with the same name and gives it a value:
 say "goodbye";               # goodbye
 {
     my $*OUT = open("out",:w);  # STDOUT writes to file "out"
-     say "cruel";                # written to file
+    say "cruel";                # written to file
 }
 say "world";                 # world
 say "out".IO.slurp;          # cruel
