@@ -1,7 +1,7 @@
 # Not So Obvious Semantic Changes (Part 2 of 3)
 
 ## About $_
-In Perl, `$_` is a global variable, which may be localised for certain scopes, like in a `for` loop.  This means that it is trivial in Perl to make a subroutine that accesses `$_` of the caller's context:
+In Perl, `$_` is a global variable which may be localised for certain scopes, like in a `for` loop.  This means that it is trivial in Perl to make a subroutine that accesses `$_` of the caller's context:
 ```
 # Perl
 sub topic_squared {
