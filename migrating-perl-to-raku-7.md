@@ -5,7 +5,11 @@ In Perl, a subroutine can determine in what context it is being called by using 
 ```
 # Perl
 sub say_context {
-    say wantarray ? "list" : defined(wantarray) ? "scalar" : "void";
+    say wantarray
+      ? "list"
+      : defined(wantarray)
+        ? "scalar"
+        : "void";
 }
 my $a = say_context();  # scalar
 my @b = say_context();  # list
@@ -13,11 +17,11 @@ say_context();          # void
 ```
 In Raku, there is no such thing a caller's context.  A subroutine (well, technically any block) only ever returns a **single** value.  Such a value may well be a [`List`](https://docs.raku.org/type/List), or any other object.
 
-So you can simulate returning multiple values in Raku:
+So you *can* simulate returning multiple values in Raku:
 ```
 # Raku
 sub return-scalar() { 42 }
-sub return-list() { 42,666 }  # note that the comma makes the list
+sub return-list() { 42,666 }  # note the comma makes the list
 
 my $a = return-scalar;
 say $a;    # 42
@@ -31,7 +35,7 @@ Simulating `void` context is possible in a way in Raku, but it requires returnin
 
 ## Just Saying
 In Perl, using the `print` command will stringify the given value and send this to standard output.  The `say` command will add a newline after that.
-```
+
 In Raku, there are basically 3 methods with which an object can be stringified: `Str`, `gist` and `raku`.  The `Str` method is supposed to return a complete stringification of the given expression.  The `gist` method is intended to provide a gist of the stringification of the given expression.  For small objects, this is usually the same as the `Str` method.  For bigger objects, the `gist` method is at liberty to drop information, or to summarise it.
 
 The `raku` method provides basically a built-in `Data::Dumper`: the method is supposed to return a string that can be evaluated to re-create the given object.  This is of course not always 100% possible, but all effort should be taken to make it roundtrip.
@@ -83,12 +87,14 @@ Note that this feature is purely intended to facilitate debugging, and should pr
 In Raku, something between curly braces (`{ }`) is *always* code, no matter where it occurs.  This applies to indexing into a hash, where this differs in semantics from Perl:
 ```
 # Perl
-%hash{a} = 42;  # the bareword "a" interpreted as a string
+%hash{a} = 42;
+# the bareword "a" interpreted as a string
 ```
 Whereas in Raku, everything between curly braces is code, so:
 ```
 # Raku
-%hash{a} = 42;  # bareword "a" interpreted as a call to subroutine "a"
+%hash{a} = 42;
+# bareword "a" interpreted as a call to subroutine "a"
 ```
 Fortunately, if that subroutine does not exist in that lexical scope, there will be a compilation error that will be very clear:
 ```
@@ -115,6 +121,6 @@ my $a = 42;
 my $b = 666;
 say "The sum of $a and $b is @{[ $a + $b ]}";
 # The sum of 42 and 666 is 708
-
+```
 ## Summary
 This blog post elaborated on the absence of context in Raku, the subtle semantic differences between `say` and friends, and the fact that the contents of curlies are *always* code in Raku.
