@@ -1,5 +1,4 @@
 # Phasers (Part 2 of 2)
-
 If you are only interested in learning how Perl special blocks work in Raku, you can skip this blog post.  But you will be missing out on quite a few nice and useful features that are available in Raku.
 
 ## Block and Loop phasers
@@ -97,7 +96,7 @@ An example with `PRE`:
 say "we made it!";  # never makes it here
 # called PRE
 # Precondition '{ say "called PRE"; False }' failed
-
+```
 An example with `PRE` and `POST`:
 ```
 # Raku
@@ -142,7 +141,7 @@ In general, you would use a `POST` phaser only if the necessary checks would be 
 
 ## Loop phasers
 ```
-  Name
+  Name    Description
   ----------------------------------------------------------
   FIRST   Run before the first iteration
   NEXT    Run after each completed iteration, or with "next"
