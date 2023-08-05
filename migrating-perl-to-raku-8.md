@@ -1,7 +1,7 @@
 # Containers Vs References
 In this blog post we'll focus on Perl's references and how they're handled in Raku, and introduce the concepts of binding and containers.
 
-References
+## References
 There are *no* references in the Raku Programming Language, which is surprising to many people used to Perl's semantics. But worry not: because there are no references, you *don't* have to worry about whether something should be de-referenced or not.
 ```
 # Perl
@@ -37,19 +37,20 @@ for @a {
 }              # and incremented
 say @a;        # [1 2 3 4 5 6 7 8 9 10]
 ```
-If you try to iterate over a constant list, then $_ is bound to the literal values, which you can not increment:
+If you try to iterate over a constant list, then `$_` is bound to the literal values, which you can *not* increment:
 ```
 # Raku
 for 0..9 {
     $++;  # error: requires mutable arguments
 }
-
+```
 ## Assignment
 If you compare "create a lexical variable and assign to it" in Perl and Raku, it looks the same on the outside:
 ```
 my $bar = 56;  # both Perl and Raku
 ```
 In Raku, this also creates a key with the name `$bar` in the lexpad. But instead of directly binding the value to that lexpad entry, a container (a [`Scalar`](https://docs.raku.org/type/Scalar) object) is created for you and that is bound to the lexpad entry of `$bar`. Then 56 is stored as the value in that container.
+
 In pseudo-code, you can think of this as:
 ```
 # Pseudocode
