@@ -119,5 +119,40 @@ BEGIN { say "ran BEGIN" }
 # ran END
 ```
 
+## No need for a Block
+Phasers in Raku have additional features that make them much more than just special blocks.
+
+Most phasers in Raku do not have to be a block (i.e., followed by code between curly braces). They can **also** consist of a single statement without any curly braces.
+
+This means that if you've written this in Perl:
+```
+# Perl
+# need to define lexical outside of BEGIN scope
+my $foo;
+# otherwise it won't be known in the rest of the code
+BEGIN { $foo = %*ENV<FOO> // 42 };
+```
+you can write it in Raku as:
+```
+# Raku
+# share scope with surrounding code
+BEGIN my $foo = %*ENV<FOO> // 42;
+```
+
+## May return a value
+All program execution phasers (except `END` obviously) return the last value of their code so that you can use them in an expression. The earlier example using `BEGIN` can also be written as:
+```
+# Raku
+my $foo = BEGIN %*ENV<FOO> // 42;
+```
+When used like that with a `BEGIN` phaser, you are creating a nameless constant and assigning it at runtime.
+
+Because of module pre-compilation, if you want this type of initialisation in a module, you would probably be better of using the `INIT` phaser:
+```
+# Raku
+my $foo = INIT %*ENV<FOO> // 42;
+```
+This ensures that the value will be determined when the module is loaded rather than when it is pre-compiled (which typically happens once during the module's installation).
+
 ## Summary
 All of the special blocks still in use in Perl, have a counterpart in the Raku Programming Language.  However, due to module pre-compilation, the semantics of the `BEGIN` phaser is slightly different.  In some cases it is then better to use the `INIT` phaser instead.
