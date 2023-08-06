@@ -33,7 +33,7 @@ my $foo = try { 42 / $something };  # Nil if $something is 0
 and it doesn't even have to be a block:
 ```
 # Raku
-my $foo = try 42 / $something;  # Nil if $something is 0
+my $foo = try 42 / $something; # Nil if $something is 0
 ```
 In Perl, if you need finer control over what to do when an exception occurs, you can use special signal handlers `$SIG{__DIE__}` and `$SIG{__WARN__}`.
 
@@ -94,7 +94,7 @@ The [`when`](https://docs.raku.org/language/control#when) statement makes it eas
 {
     CATCH {
         when X::NYI {  # Not Yet Implemented exception thrown
-            say "aw, too early in history";
+           say "aw, too early in history";
             .resume;
         }
         default {
@@ -123,12 +123,12 @@ use warnings;     # need to enable warnings explicitly
     say $foo;     # no visible warning
 }
 my $bar;
-print $bar;  # Use of uninitialized value $bar in print...
+print $bar; # Use of uninitialized value $bar in print...
 ```
 In Raku, you can use a `quietly` block:
 ```
 # Raku
-                # warnings are enabled by default 
+                # warnings are enabled by default
 quietly {
     my $foo;
     say $foo;   # no visible warning
@@ -162,7 +162,7 @@ This example will not show warnings for using uninitialised values in expression
 {
     CONTROL {
         when CX::Warn {  # Control eXception type for Warnings
-            note .message
+           note .message
               unless .message.starts-with('Use of uninitialized');
         }
     }

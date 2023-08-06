@@ -54,7 +54,7 @@ sub alas {
     die "Goodbye cruel world";
     say "this will not be shown";
 }
-alas;   # Goodbye cruel world at …
+alas;  # Goodbye cruel world at …
 ```
 In Raku, the `die` subroutine provides a shortcut to creating an [`X::AdHoc`](https://docs.raku.org/type/X/AdHoc) exception and throwing it:
 ```
@@ -64,7 +64,7 @@ sub alas {
     say "this will not be shown";
 }
 # Goodbye cruel world
-#   in sub alas at … #   in …
+#   in sub alas at …#   in …
 ```
 There are some subtle differences with regards to `die` between Perl and Raku, but semantically they are the same: they immediately stop execution.
 
@@ -121,7 +121,7 @@ fail "Not what was expected";
 ```
 # Raku
 # semantically the same
-return Failure.new("Not what was expected"); 
+return Failure.new("Not what was expected");
 ```
 
 ## Creating your own exceptions

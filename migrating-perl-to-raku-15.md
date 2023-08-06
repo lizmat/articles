@@ -18,7 +18,7 @@ which can be shortened to:
 # Perl
 …
 # access elements in @_ directly
-sub set_x { $_[0]->{x} = $_[1] } 
+sub set_x { $_[0]->{x} = $_[1] }
 ```
 so you could use it as:
 ```
@@ -130,7 +130,7 @@ class Answer {
     }
 }
 class Fake is Answer {   # subclassing is done with "is" trait
-     method x() { 666 }   # override the accessor in Answer
+    method x() { 666 }   # override the accessor in Answer
 }
 say Answer.new.message;  # The answer is 42
 say Fake.new.message;    # The answer is 666

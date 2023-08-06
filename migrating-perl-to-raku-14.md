@@ -87,7 +87,7 @@ package Point {
     sub new {
         my ( $class, %args ) = @_;
         bless \%args, $class if are_valid(\%args,'x','y');
-    }
+   }
     sub x { shift->{x} }
     sub y { shift->{y} }
 }
