@@ -1,5 +1,4 @@
-#On Subs And Typing
-
+# On Subs And Typing
 This blog post examines the subtle differences in visibility of subroutines between Perl and Raku and the (gradual) typing core feature of the Raku Programming Language.  It assumes you're familiar with signatures — if you're not, read the "Subroutine Signatures" blog post before you continue.
 
 ## Visibility of subroutines
@@ -9,7 +8,7 @@ In Perl, a named subroutine will by default be visible within the scope of the p
 {
     sub foo { "bar" }       # visible outside of this scope
 }
-say foo();# bar
+say foo(); # bar
 ```
 In Raku, a named subroutine is visible only within the lexical scope in which it is defined:
 ```
@@ -22,7 +21,7 @@ say foo();
 # Undeclared routine:
 #     foo used at line …
 ```
-Note that "SORRY!" in the Raku error message means that the subroutine `foo` can **not** be found at compile time. This is a very useful feature that helps prevent typos in subroutine names when writing invocations of the subroutine.
+Note that "SORRY!" in the Raku error message means that the subroutine `foo` can't be found at **compile** time. This is a very useful feature that helps prevent typos in subroutine names when writing invocations of the subroutine.
 
 You could consider subroutine definitions in Raku to always have a `my` in front, similar to defining lexical variables.  Perl also has a (previously experimental) lexical subroutine feature, which has to be specifically activated in versions lower than Perl 5.26:
 ```
@@ -38,6 +37,7 @@ say foo();
 It is possible in both Perl and Raku to prefix the subroutine definition with an [`our`](https://docs.raku.org/language/variables#The_our_declarator) scope indicator, but the result is subtly different.
 
 In Perl, this makes the subroutine visible outside the scope, but this isn't the case in Raku.
+
 In Raku, lookups of subroutines are **always** lexical: the use of `our` on subroutine declarations (regardless of scope) allows the subroutine to be called from outside the namespace in which it is defined:
 ```
 # Raku
@@ -71,7 +71,7 @@ say foo(42);          # try calling it with one argument
 # ===SORRY!=== Error while compiling …
 # Calling foo(Int) will never work with declared signature ()
 ```
-Note that the error message mentions the type of value (`Int`) being passed as an argument. In this case, calling the subroutine will fail because the subroutine doesn't accept any argument being passed to it ("declared signature ()").
+Note that the error message mentions the type of value (*Int*) being passed as an argument. In this case, calling the subroutine will fail because the subroutine doesn't accept any argument being passed to it (*declared signature ()*).
 
 # Other signature features
 Apart from specifying positional and named parameters in a signature, you can also specify what type these parameters should be.  If the parameter type doesn't smartmatch with the argument type, it will be rejected.
@@ -165,6 +165,7 @@ say defined($foo) ?? "defined" !! "NOT defined";
 # NOT defined
 ```
 The value inside such a variable is still not defined, as in Perl.
+
 However, if you just want to show the contents of such a variable, it is **not** "undef", as it would be in Perl:
 ```
 # Raku
@@ -203,8 +204,9 @@ So what happens if you pass an undefined value to such a subroutine?
 sub foo (Int:D $bar) { ... }
 # call with a type object
 foo(Int);
-# Parameter '$bar' of routine 'foo' must be an object instance of
-# type 'Int', not a type object of type 'Int'.#   Did you forget a '.new'?
+# Parameter '$bar' of routine 'foo' must be an object
+# instance of type 'Int', not a type object of type 'Int'.
+# Did you forget a '.new'?
 ```
 Careful readers may realise that this should create a compile-time error. But alas, it hasn't (yet). Although error messages are known to be pretty awesome in Raku, there is still a lot of work to make them even better (and more timely, in this case).
 
@@ -213,7 +215,8 @@ You can also use the `:D` type smiley on variable definitions to ensure that you
 # Raku
 my Int:D $foo;  # missing initialisation
 # ===SORRY!=== Error while compiling …
-# Variable definition of type Int:D requires an initializer
+# Variable definition of type Int:D
+# requires an initializer
 ```
 Other type smileys are `:U` (for undefined) and `:_` (for don't care, which is the default):
 ```
@@ -223,8 +226,9 @@ sub foo (Int:U $bar) { ... }
 # call with an instance of Int
 foo(42);
 # Parameter '$bar' of routine 'foo' must be
-#  a type object of type 'Int',
-#  not an object instance of type 'Int'.  Did you forget a 'multi'?
+# a type object of type 'Int',
+# not an object instance of type 'Int'.
+# Did you forget a 'multi'?
 ```
 Hmmm… what's this `multi` that seems to be forgotten?  Please check the next blog post for more info on that!
 
