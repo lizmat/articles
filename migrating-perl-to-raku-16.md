@@ -2,7 +2,9 @@
 In this blog post we’ll get into how garbage collection in Raku differs from Perl.
 
 ## No timely destruction
-There is **no** timely destruction of objects in Raku. This revelation usually comes as quite a shock to people used to the semantics of object destruction in Perl. But worry not, there are other ways in Raku to get the same behaviour, albeit requiring a little more thought by the developer. Let’s first examine a little background on the situation in Perl.
+There is **no** timely destruction of objects in Raku.
+
+This revelation usually comes as quite a shock to people used to the semantics of object destruction in Perl. But worry not, there are other ways in Raku to get the same behaviour, albeit requiring a little more thought by the developer. Let’s first examine a little background on the situation in Perl.
 
 ## Reference counting
 In Perl, timely destruction of objects "going out of scope" is achieved by [reference counting](https://en.wikipedia.org/wiki/Reference_counting). When something is created in Perl, it has a reference count of 1 or more, which keeps it alive. In its simplest case it looks like this:
@@ -22,7 +24,9 @@ In Perl, if the value is an object (aka blessed), the `DESTROY` method will be c
 }
 # $a->DESTROY called
 ```
-If no external resources are involved, timely destruction is just another way of managing memory used by a program. And you, as a programmer, shouldn’t need to care about how and when things get recycled. Having said that, timely destruction is a very nice feature to have if you need to deal with external resources, such as database handles (of which there are generally only a limited number provided by the database server). And reference counting can provide that.
+If no external resources are involved, timely destruction is just another way of managing memory used by a program. And you, as a programmer, shouldn’t need to care about how and when things get recycled.
+
+Having said that, timely destruction is a very nice feature to have if you need to deal with external resources, such as database handles (of which there are generally only a limited number provided by the database server). And reference counting can provide that.
 
 However, reference counting has several drawbacks. It has taken Perl core developers many years to get reference counting working correctly. And if you’re working in XS, you always need to be aware of reference counting to prevent memory leakage or premature destruction.
 
@@ -72,7 +76,7 @@ if DBIish.connect(…) -> $dbh {
 }
 else {
     say “Could not do stuff that needed to be done”;
-}   
+}
 ```
 Whenever the scope of the `if` is left, any `LEAVE` phaser in that scope will be executed. Thus the database resource will be freed whenever the code has run in that scope.  Even if it caused an execution error!
 
