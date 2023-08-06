@@ -4,7 +4,7 @@ The following 2 blogs posts look at how to create classes (objects) in Raku and 
 ## On Moose
 Perl has a very basic form of object orientation, which you could argue has been bolted on as an afterthought. Several attempts have been made to improve that situation, most notably `Moose`, which "is based in large part on the Raku object system, as well as drawing on the best ideas from CLOS, Smalltalk, and many other languages." And, in turn, the Raku object creation logic has taken a few lessons from Moose.
 
-Moose has inspired a number of other modern object systems in Perl, most notably `Moo` and Mouse`. Before you start a new project in Perl, it is recommend to read `Modern Perl` book; among other things, it describes how to use Moose to create classes/objects.
+Moose has inspired a number of other modern object systems in Perl, most notably `Moo` and `Mouse`. Before you start a new project in Perl, it is recommend to read `Modern Perl` book; among other things, it describes how to use Moose to create classes/objects.
 
 For simplicity, this chapter will describe the general differences between basic Perl and basic Raku object creation.
 
@@ -32,7 +32,7 @@ class Point {
     has $.y;
 }
 ```
-As you can see, the Raku syntax is much more declarative; there is no need to write code to have a new method, nor is code needed to create the accessors for "x" and "y". Also note that instead of `package, you need to specify `class` in Raku.
+As you can see, the Raku syntax is much more declarative; there is no need to write code to have a new method, nor is code needed to create the accessors for "x" and "y". Also note that instead of `package`, you need to specify `class` in Raku.
 
 After this, creating a Point object is remarkably similar in Perl and Raku:
 ```
@@ -66,7 +66,7 @@ package Point {
 ```
 Pardon the `/^-?\d+\z/` line noise. This is a regular expression checking for an optional (`?`) hyphen (`-`) at the start of a string (`^`) consisting of one or more decimal digits (`\d+`) until the end of the string (`\z`).
 
-That's quite a bit of extra boilerplate. Of course, you can abstract that into an "is_valid" subroutine, like this:
+That's quite a bit of extra boilerplate. Of course, you can abstract that into an "are_valid" subroutine, like this:
 ```
 # Perl
 sub are_valid {
@@ -95,7 +95,8 @@ Point->new( x => 42, y => 666 );     # ok
 Point->new( x => 42 );               # 'y' missing
 Point->new( x => "foo", y => 666 );  # 'x' is not an int
 ```
-If you use Moose, your code would look something like this:
+If you use `Moose`, your code would look something like this:
+```
 # Perl
 package Point;
 use Moose;
@@ -109,7 +110,7 @@ Point->new( x => "foo", y => 666 );  # 'x' is not an int
 ```
 Note that with an object system like Moose, you do not need to create a `new` subroutine, just like in Raku where you do not need to create a `new` method.
 
-In Raku this is all is built-in. The `is required` attribute trait indicates that an attribute must be specified. And specifying a type (e.g., `Int`) automatically throws a type-check exception if the provided value is not an acceptable type:
+In Raku this is *all* is built-in. The `is required` attribute trait indicates that an attribute **must** be specified. And specifying a type (e.g., `Int`) automatically throws a type-check exception if the provided value is not an acceptable type:
 ```
 # Raku
 class Point {
