@@ -1,5 +1,5 @@
 # Failure Is An Option
-This blog post explains how you can create your own exceptions and how failure is an option in Raku.
+This blog post explains how failure is an option in the Raku Programming Language, how you can create your own exceptions, and how this all differs from Perl.
 
 ## Introducing Failure
 In Perl, you need to prepare for a possible exception by using `eval` or some version of `try` when using a CPAN module. In Raku, you can do the same with `try` (as seen before).
@@ -11,13 +11,14 @@ Here is a simple example:
 # Raku
 my $handle = open "non-existing file";
 say "we tried to open the file";
-say $handle.get;  # unanticipated use of $handle, throws exception
+say $handle.get;  # unanticipated use of $handle, throws
 say "this will never be shown";
-# Failed to open file non-existing file: No such file or directory
+# Failed to open file non-existing file:
+#   No such file or directory
 ```
 The [`open`](https://docs.raku.org/type/independent-routines#sub_open) function in Raku returns an [`IO::Handle`](https://docs.raku.org/type/IO/Handle) object if it successfully opens the requested file. If it fails, it returns a `Failure`.
 
-This, however, is not what throws the exception — if we actually try to use the `Failure` in an unanticipated way, only **then** the encapsulated exception will be thrown.
+This, however, is not what throws the exception — if we actually try to use the `Failure` in an unanticipated way, only **then** the encapsulated exception will be thrown.  In the above example, it's calling the `get` method on the `Failure`.
 
 There are only two ways of preventing the exception inside a `Failure` to be thrown (i.e., anticipating a potential failure):
 - Call the [`defined`](https://docs.raku.org/type/Failure#method_defined) method on the Failure
@@ -32,7 +33,7 @@ However, it does seem like a lot of work. Fortunately, you do **not** have to ex
 # Raku
 my $handle = open "non-existing file";
 say "tried to open the file";
-if $handle {                 # "if" calls .Bool, True on an IO::Handle
+if $handle {                 # "if" calls .Bool
     say "we opened the file";
     .say for $handle.lines;  # read/show all lines one by one
 }
@@ -53,7 +54,7 @@ sub alas {
     die "Goodbye cruel world";
     say "this will not be shown";
 }
-alas; # Goodbye cruel world at …
+alas;   # Goodbye cruel world at …
 ```
 In Raku, the `die` subroutine provides a shortcut to creating an [`X::AdHoc`](https://docs.raku.org/type/X/AdHoc) exception and throwing it:
 ```
@@ -119,11 +120,12 @@ fail "Not what was expected";
 ```
 ```
 # Raku
-return Failure.new("Not what was expected"); # semantically the same
+# semantically the same
+return Failure.new("Not what was expected"); 
 ```
 
 ## Creating your own exceptions
-Raku makes it very easy to create your own (typed) exception classes. You just need to inherit from the `Exception` class and provide a “ message " method. It is customary to make custom classes in the `X::` namespace.
+Raku makes it very easy to create your own (typed) exception classes. You just need to inherit from the `Exception` class and provide a “message" method. It is customary to make custom classes in the `X::` namespace.
 
 For example:
 ```
