@@ -17,7 +17,8 @@ which can be shortened to:
 ```
 # Perl
 …
-sub set_x { $_[0]->{x} = $_[1] } # access elements in @_ directly
+# access elements in @_ directly
+sub set_x { $_[0]->{x} = $_[1] } 
 ```
 so you could use it as:
 ```
@@ -46,13 +47,16 @@ so you could use it as:
 my $point = Point->new( x => 42, y => 666 );
 $point->x(137);
 ```
-Here is a way this is used a lot in Perl, but it depends on the details with which objects are implemented. Since an object in Perl is usually just a hash reference with benefits, you can use the object as a hash reference and directly access keys in the underlying hash.
+Here is a way this is used a lot in Perl, but it depends on the details with which objects are implemented.
 
-But this breaks the object's encapsulation and bypasses any additional checks that a mutator might do:
+Since an object in Perl is usually just a hash reference with benefits, you can use the object as a hash reference and directly access keys in the underlying hash.
+
+But this **breaks** the object's encapsulation and bypasses any additional checks that a mutator might do:
 ```
 # Perl
 my $point = Point->new( x => 42, y => 666 );
-$point->{x} = 137;  # change x to 137 unconditionally: dirty but fast
+# change x to 137 unconditionally: dirty but much faster
+$point->{x} = 137;
 ```
 An "official" way of creating accessors that can also be used as mutators uses "lvalue subroutines", but this isn't used often in Perl for various reasons.
 
@@ -100,6 +104,7 @@ The `!` indicates the *real* name of the attribute in the class; it gives direct
 A `!` in a declaration of an attribute like `$!x` designates that the attribute is *private*. This means you can't access that attribute from the outside unless the class' developer has provided a means to do so. This also means that it can not be initialised with a call to the `new` method.
 
 A method for accessing the private attribute value can be very simple:
+```
 # Raku
 class Point {
     has $!x;            # ! indicates a private attribute
@@ -107,6 +112,7 @@ class Point {
     method x() { $!x }  # return private attribute value
     method y() { $!y }
 }
+```
 This is, in fact, pretty much what happens automatically if you declare the attribute with the `.` twigil:
 
 ## The '.' twigil
@@ -123,11 +129,12 @@ class Answer {
         "The answer is $.x”;  # use accessor in message
     }
 }
-class Fake is Answer {    # subclassing is done with "is" trait
+class Fake is Answer {   # subclassing is done with "is" trait
      method x() { 666 }   # override the accessor in Answer
 }
 say Answer.new.message;  # The answer is 42
-say Fake.new.message;    # The answer is 666 (even though $!x is 42)
+say Fake.new.message;    # The answer is 666
+                         # (even though $!x is 42)
 ```
 
 ## Tweaking object creation
@@ -146,7 +153,6 @@ class Answer {
 If a class has a `TWEAK` method, it will be called after all arguments have been processed and assigned to attributes, as appropriate (including assigning any default values and any processing of traits such as `is rw` and `is required`).  Inside the method, you can do whatever you want to the attributes in the object.
 
 Note that the `TWEAK` method is best implemented as a so-called [`submethod`](https://docs.raku.org/language/objects#Submethods).  A `submethod` is a special type of method that can be executed only on the class itself and not on any subclass. In other words, this method has the visibility of a subroutine.
-```
 
 ## Positional parameters
 Finally, sometimes an interface to an object is so clear that you do not need named parameters at all. Instead, you want to use positional parameters.
