@@ -1,5 +1,5 @@
 # Exceptions
-This blog post looks at the differences in creating and handling exceptions between Perl and Raku.
+This blog post looks at the differences in creating and handling exceptions between Perl and the Raku Programming Language.
 
 ## Exception-handling phasers
 In Perl, you can use `eval` to catch exceptions in a piece of code:
@@ -37,7 +37,7 @@ my $foo = try 42 / $something;  # Nil if $something is 0
 ```
 In Perl, if you need finer control over what to do when an exception occurs, you can use special signal handlers `$SIG{__DIE__}` and `$SIG{__WARN__}`.
 
-In Raku, these are replaced by two exception-handling phasers, which due to their scoping behaviour must always be specified with curly braces. These exception-handling phasers (in the following table) are applicable only to the surrounding block, and you can have only one of each type in a block.
+In Raku, these are replaced by two exception-handling phasers, which due to their scoping behaviour must always be specified with curly braces. These exception-handling phasers (in the following table) are applicable only to the surrounding block, and you can have only **one** of each type in a block.
 ```
   Name      Description
   -----------------------------------------------
@@ -47,7 +47,6 @@ In Raku, these are replaced by two exception-handling phasers, which due to thei
 ```
 
 ## Catching exceptions
-```
 The `$SIG{__DIE__}` pseudo-signal handler in Perl is no longer recommended.
 
 There are several competing CPAN modules that provide try/catch mechanisms (such as: `Try::Tiny` and `Syntax::Keyword::Try`). Even though these modules differ completely in implementation, they provide very similar syntax with only very minor semantic differences, so they're a good way to compare Raku and Perl features.
@@ -55,12 +54,12 @@ There are several competing CPAN modules that provide try/catch mechanisms (such
 In Perl, you can catch an exception only in conjunction with a `try` block:
 ```
 # Perl
-use Try::Tiny;                # or Syntax::Keyword::Try
+use Try::Tiny;               # or Syntax::Keyword::Try
 try {
     die "foo";
 }
 catch {
-    warn "caught error: $_”;  # $@ when using Syntax::Keyword::Try
+    warn "caught error: $_”; # $@ when using Syntax::Keyword::Try
 }
 ```
 Raku does **not** require a try block.
@@ -103,9 +102,9 @@ The [`when`](https://docs.raku.org/language/control#when) statement makes it eas
             .rethrow;  # throw the exception in $_ again
         }
     }
-    X::NYI.new(feature => “Frobnicator").throw;  # caught, resumed
-    now / 0;                                     # caught, rethrown
-    say "back to the future”;                    # never gets here
+    X::NYI.new(feature => “Frobnicator").throw; # resumed
+    now / 0;                                    # rethrown
+    say "back to the future”;                   # never gets here
 }
 # aw, too early in history
 # WAT?
@@ -124,13 +123,13 @@ use warnings;     # need to enable warnings explicitly
     say $foo;     # no visible warning
 }
 my $bar;
-print $bar; # Use of uninitialized value $bar in print...
+print $bar;  # Use of uninitialized value $bar in print...
 ```
 In Raku, you can use a `quietly` block:
 ```
 # Raku
-                # warnings are enabled by default quietly
-{
+                # warnings are enabled by default 
+quietly {
     my $foo;
     say $foo;   # no visible warning
 }
