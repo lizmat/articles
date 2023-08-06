@@ -83,8 +83,8 @@ dd $a;          # Int $a = 42
 ```
 Note that this feature is purely intended to facilitate debugging, and should probably not be used in any code running in production.
 
-## Always Code between Curlies
-In Raku, something between curly braces (`{ }`) is *always* code, no matter where it occurs.  This applies to indexing into a hash, where this differs in semantics from Perl:
+## Always Expression between Curlies
+In Raku, something between curly braces (`{ }`) is *always* an expression, no matter where it occurs.  This applies to indexing into a hash, where this differs in semantics from Perl:
 ```
 # Perl
 %hash{a} = 42;
