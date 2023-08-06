@@ -1,5 +1,4 @@
 # Multi-Dispatch
-
 This blog post introduces a Raku feature that is central to the Raku philosophy: ["Multiple Dispatch"](https://en.wikipedia.org/wiki/Multiple_dispatch), or short "multi-dispatch".
 
 Perl does not have anything like that in core.  Several attempts have been made in module space, such as `Sub::Multi` and `Logic`, but these appear to have been abandoned long ago.
@@ -54,7 +53,9 @@ module DateFrobnication {
     }
 }
 ```
-And we import that module in our original example:
+Note that the sub has been marked with [`is export`](https://docs.raku.org/routine/is%20export) so that it will be exported whenever the `DateFrobnication` module is loaded.
+
+Import that module in our original example:
 ```
 # Raku
 use DateFrobnication;
@@ -69,7 +70,9 @@ frobnicate(42);          # got integer: 42
 frobnicate(Date.today);  # got date: 2023-08-06
 frobnicate("foo");       # got something: foo
 ```
-Note that the case where the argument was a [`Date`](https://docs.raku.org/type/Date) object, is now handled by the `frobnicate` subroutine that was imported.  This would be impossible in Perl, as that would require altering the contents of the `frobnicate` subroutine at runtime.
+Note that the case where the argument was a [`Date`](https://docs.raku.org/type/Date) object, is now handled by the `frobnicate` subroutine that was imported.
+
+This would be impossible in Perl, as that would require altering the contents of the `frobnicate` subroutine at runtime.
 
 ## Also for Methods
 The `multi` keyword can also be used in `method` definitions:
@@ -86,12 +89,12 @@ class Foo {
 Foo.frobnicate(42);          # got integer: 42
 Foo.frobnicate(Date.today);  # got something: 2023-08-06
 Foo.frobnicate("foo");       # got something: foo
-
+```
 And the definedness of the invocant can also be used in the signature:
 ```
 # Raku
 class Bar {    # note extra colon ↓
-   multi method frobnicate (Bar:U:) {
+    multi method frobnicate (Bar:U:) {
         say “called on type object”;
     }
                # note extra colon ↓
@@ -116,7 +119,11 @@ multi sub print($x) {
 ```
 If you pass an object of type `Str` to `print`, then it will be printed verbatim.
 
-If you pass anything else than a `Str` object, then it will first be converted to a `Str` object (by calling the `Str` method on it), and then passed to the `print` sub.  Note that the latter is not an infinite loop, because it will then be dispatched to the first candidate.
+If you pass anything else than a `Str` object, then it will first be converted to a `Str` object (by calling the `Str` method on it), and then passed to the `print` sub.
+
+Note that the latter is **not** an infinite loop, because it will then be dispatched to the first candidate.
 
 ## Summary
-Multi-dispatch is a very central feature to the Raku Programming Language.  For example, almost all of the operators in Raku are defined in terms of specially named multi subs.  Many methods that you can call on core objects, are also implemented as multi-methods.  Understanding the power of multi-dispatch, therefore adds a very powerful tool to your toolset.
+Multi-dispatch is a very central feature to the Raku Programming Language.
+
+For example, almost all of the operators in Raku are defined in terms of specially named multi subs.  Many methods that you can call on core objects, are also implemented as multi-methods.  Understanding the power of multi-dispatch, therefore adds a very powerful tool to your toolset.
