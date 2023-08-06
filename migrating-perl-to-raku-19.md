@@ -9,7 +9,7 @@ In Perl, a named subroutine will by default be visible within the scope of the p
 {
     sub foo { "bar" }       # visible outside of this scope
 }
-say foo(); # bar
+say foo();# bar
 ```
 In Raku, a named subroutine is visible only within the lexical scope in which it is defined:
 ```
@@ -44,7 +44,7 @@ In Raku, lookups of subroutines are **always** lexical: the use of `our` on subr
 module Foo {
     our sub bar () { "baz" }  # make sub visible outside
 }
-say Foo::bar(); # baz
+say Foo::bar();# baz
 ```
 This would fail without the `our`. In Perl, any subroutine can be called from outside the namespace where it is defined:
 ```
@@ -52,7 +52,7 @@ This would fail without the `our`. In Perl, any subroutine can be called from ou
 package Foo {
     sub bar { "baz" }     # always visible from the outside
 }
-say Foo::bar(); # baz
+say Foo::bar();# baz
 ```
 In Perl, the names of subroutines that are intended to be "private" (i.e., called from within that scope only and not from outside) usually start with an underscore. But that won't stop them from being called from the outside.  In Raku, subroutines that are not intended to be called from the outside are simply invisible.
 
@@ -169,7 +169,7 @@ However, if you just want to show the contents of such a variable, it is **not**
 ```
 # Raku
 my Int $foo;
-say $foo; # (Int)
+say $foo;# (Int)
 ```
 What you see is the string representation of a ["type object"](https://docs.raku.org/language/glossary#Type_objects) in Raku.  Unlike Perl, Raku has a multitude of typed "undef" values.
 
@@ -204,7 +204,7 @@ sub foo (Int:D $bar) { ... }
 # call with a type object
 foo(Int);
 # Parameter '$bar' of routine 'foo' must be an object instance of
-# type 'Int', not a type object of type 'Int'. #   Did you forget a '.new'?
+# type 'Int', not a type object of type 'Int'.#   Did you forget a '.new'?
 ```
 Careful readers may realise that this should create a compile-time error. But alas, it hasn't (yet). Although error messages are known to be pretty awesome in Raku, there is still a lot of work to make them even better (and more timely, in this case).
 
