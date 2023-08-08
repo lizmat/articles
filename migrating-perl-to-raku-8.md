@@ -49,7 +49,7 @@ If you compare "create a lexical variable and assign to it" in Perl and Raku, it
 ```
 my $bar = 56;  # both Perl and Raku
 ```
-In Raku, this also creates a key with the name `$bar` in the lexpad. But instead of directly binding the value to that lexpad entry, a container (a [`Scalar`](https://docs.raku.org/type/Scalar) object) is created for you and that is bound to the lexpad entry of `$bar`. Then 56 is stored as the value in that container.
+In Raku, this also creates a key with the name `$bar` in the lexpad. But instead of directly binding the value to that lexpad entry, a [container](https://docs.raku.org/language/containers) (a [`Scalar`](https://docs.raku.org/type/Scalar) object) is created for you and that is bound to the lexpad entry of `$bar`. Then 56 is stored as the value in that container.
 
 In pseudo-code, you can think of this as:
 ```
