@@ -123,4 +123,4 @@ say "The sum of $a and $b is @{[ $a + $b ]}";
 # The sum of 42 and 666 is 708
 ```
 ## Summary
-This blog post elaborated on the absence of context in Raku, the subtle semantic differences between `say` and friends, and the fact that the contents of curlies are *always* code in Raku.
+This blog post elaborated on the absence of context in Raku, the subtle semantic differences between `say` and friends, and the fact that the contents of curlies are *always* an expression in Raku.
