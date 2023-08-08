@@ -3,7 +3,7 @@ Historically, Perl has been used a lot for small utility scripts that take a num
 
 For more complex argument parsing, the Perl ecosystem provides the `Getopt::Long` module.  Raku supplies similar, but extended features by default in its core.  But for those of you wanting to have exactly the same command line argument parsing, there is also a Raku version of the [`Getopt::Long`](https://raku.land/cpan:LEONT/Getopt::Long) module.
 
-This blog post will focus only on how the standard command line parsing features of Raku compare with the standard command line parsing of Perl.
+This blog post will focus *only* on how the standard command line parsing features of Raku compare with the standard command line parsing of Perl.
 
 # The Barebones Approach
 If you create a command-line script in Perl that takes an integer as a single positional parameter, then the code for that is really very simple:
@@ -23,6 +23,8 @@ The direct equivalent in Raku, is not very different:
 my $dial = shift @*ARGS;  # no magic behaviour of shift
 say "Frobnicator dial is at $dial!";
 ```
+Note that the Raku equivalent of Perl's `@ARGV` is [`@*ARGS`](https://docs.raku.org/language/variables#@*ARGS) in Raku.
+
 However, what if you pass something that is not an integer?  It would just be accepted:
 ```
 $ perl frobnicator.pl foobar
@@ -63,9 +65,14 @@ Usage:   frobnicator.raku <dial>
 ```
 Which should tell you that it is expecting a single positional value as a parameter.
 
-So how is Raku able to do this?  Well, Raku keeps a lot more information about its internal structures around during execution than Perl does, which allows Raku to introspect itself during execution.
+So how is Raku able to do this?
 
-In this particular case, the call to the `MAIN` subroutine could not be made, because its signature (expecting a single positional argument) does **not** match the lack of arguments given on the command line.  It then looks at the signature of the `MAIN` subroutine, and determines that it requires a single positional and creates a feedback message from that information, and prints that on the standard error output.
+## More introspection
+Well, Raku keeps a lot more information about its internal structures around during execution than Perl does, which allows Raku to introspect itself during execution.
+
+In this particular case, the call to the `MAIN` subroutine could not be made, because its signature (expecting a single positional argument) does **not** match the lack of arguments given on the command line.
+
+It then looks at the signature of the `MAIN` subroutine, and determines that it requires a single positional and creates a feedback message from that information, and prints that on the standard error output.
 
 But Raku doesn’t stop here.  You can add inline documentation to your code that will become visible should they be needed:
 ```
@@ -76,7 +83,7 @@ sub MAIN (
     say “Frobnicator dial is at $dial!”;
 }
 ```
-Note that a comments starting with [`#=`](https://docs.raku.org/language/pod#Declarator_blocks) (a hash symbol followed by a pipe symbol) will attach the given documentation to the identifier preceding it (in this case the `$dial` parameter).
+Note that a comments starting with [`#=`](https://docs.raku.org/language/pod#Declarator_blocks) (a hash symbol followed by the equal symbol) will attach the given documentation to the identifier preceding it (in this case the `$dial` parameter).
 
 If you now call this script without parameters, the output becomes:
 ```
@@ -88,8 +95,9 @@ Usage:   frobnicator.raku <dial>
 ```
 Note that it introspected the inline documentation as well, and combined this with the type information that was available (expecting an `Int`).
 
-Named Parameters
+## Named Parameters
 Perl by default, does not really support named parameters on the command line.
+
 Unless you consider this approach named parameters:
 ```
 # Perl
@@ -127,7 +135,7 @@ Frobnicator dial is at !
 This is because named parameters in Raku are *optional* by default.  They can be made mandatory by adding an exclamation mark to the parameter in the signature:
 ```
 # Raku              ↓
-sub MAIN (Int :$dial!) {  # the exclamation mark makes it mandatory
+sub MAIN (Int :$dial!) {  # exclamation mark makes it mandatory
     say “Frobnicator dial is at $dial!”;
 }
 ```
@@ -154,4 +162,6 @@ Usage:   frobnicator.raku —dial=<Int>
 ```
 
 ## Summary
-There is **much** more to be said about the built-in features of creating command-line scripts in the Raku Programming Language.  The ["Creating your own CLI"](https://docs.raku.org/language/create-cli) section in the Raku documentation should be able to help you along with that.
+There is **much** more to be said about the built-in features of creating command-line scripts in the Raku Programming Language.  But this will probably become part of another series of blog posts, focusing on the Raku Programming Language alone.
+
+The ["Creating your own CLI"](https://docs.raku.org/language/create-cli) section in the Raku documentation should be able to help you along with creating your own command-line scripts until then.
