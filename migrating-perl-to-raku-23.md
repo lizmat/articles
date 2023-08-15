@@ -1,5 +1,5 @@
 # Optimisation Considerations
-If you are an experienced Perl programmer, you have (perhaps inadvertently) learned a few tricks to make execution of your Perl program faster.  Some of these idioms work counter-productively in Raku.  This chapter deals with some of them and provides the alternative idioms in Raku.
+If you are an experienced Perl programmer, you have (perhaps inadvertently) learned a few tricks to make execution of your Perl program faster.  Some of these idioms work counter-productively in Raku.  This blog post deals with one of them and provides the alternative idioms in Raku.
 
 ## Hashes vs classes
 Objects in Perl generally consist of blessed hashes.
@@ -91,7 +91,7 @@ say now - INIT now;  # 0.997466791
 ```
 When using native strings:
 ```
-my $a = "";
+my str $a = "";
 for ^10_000_000 {
     $a ~= "x";
 }
@@ -117,6 +117,7 @@ for ^1_000_000 {
 }
 say now - INIT now;  # 0.433718985
 ```
+So in this case using a native `str` variable does **not** help in performance (at least at the moment of this writing).
 
 ## Summary
 As with all benchmarks, these are just a snapshot in time.  They also depend on OS versions, Rakudo versions, hardware and load.  Optimisation work continues to be performed on Raku, which may change the outcome of these tests in the future.
