@@ -5,15 +5,15 @@ I've been programming more or less professionally for a living since 1978.  And 
 
 Having always been interested in computers, these new terminals (512x512 monochrome graphics, touch panel, instantaneous execution of programs) proved irresistible to me. By comparison: to be able to use the University mainframe computer, you had to punch cards and had to hand them over at a counter to an operator. Only to hear 20 minutes later that a period had been forgotten and that the whole job had been abandoned.
 
-The PLATO terminal, hooked up via satellite to a mainframe in Minneapolis, was much more responsive: type in your program, press SHIFT-STOP, and your program would be running. It provided me with a means to channel my creativity that could not find an outlet in Astronomy.
+The PLATO terminal, hooked up via satellite to a mainframe in Minneapolis, was much more responsive: type in your program, press SHIFT-STOP, and your program would be running.  Immediately.  On your screen! It provided me with a means to channel my creativity that could not find an outlet in my study of Astronomy.
 
-Needless to say, a lot of hours were clocked behind the terminal. Soon the first program was born: a parapsychology test using [Zener cards](https://en.wikipedia.org/wiki/Zener_cards).  Needless to say, there were no significant outliers recorded (otherwise it would have been in the news :-).
+Needless to say, a lot of hours were clocked behind the terminal. Soon the first program was born: an online parapsychology test using [Zener cards](https://en.wikipedia.org/wiki/Zener_cards).  That project was successful in that none of the participants recorded any significant outliers (otherwise it would have been in the news :-).
 
 Shortly thereafter my parents told me that they were not going to support my study anymore if I was not going to study enough.  Fortunately, it was possible to get a temporary job working as a programmer on the PLATO Pilot Project of the University of Amsterdam. This lasted until 1980.
 
-Then I left the University to start working for the "Bureau voor Toegepaste Onderwijskunde", a Dutch name meaning "Bureau for applied educational science". Here I continued to do development work on PLATO, until 1983 when PLATO was shut down in Europe.
+Then I left the University to start working for the "Bureau voor Toegepaste Onderwijskunde", a private spinoff of the PLATO project at the university (with the name meaning "Bureau for applied educational science" in Dutch). Here I continued to do development work on PLATO, until 1983 when PLATO was shut down in Europe.
 
-![TenCORE](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/m8gddidfq6qmvahstqxn.png)The "Bureau" with its unspeakable Dutch name, changed its name to "Courseware Europe". And instead of using PLATO for development of CBT, the [TenCORE system](https://web.archive.org/web/20060101003350/http://www.tencore.com/) system was used.
+![TenCORE](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/m8gddidfq6qmvahstqxn.png)The "Bureau" with its unspeakable Dutch name, changed its name to "Courseware Europe". And instead of using PLATO for development of [CBT](https://en.wikipedia.org/wiki/Computer-based_training), the [TenCORE system](https://web.archive.org/web/20060101003350/http://www.tencore.com/) system was used.
 
 Courseware Europe grew to become a part of the multinational company called the Courseware Group. During this period I was involved in the development of courseware, CBT authoring systems and a decision support system, apart from being the person to ask if there was a technical problem of any kind.
 
