@@ -6,7 +6,7 @@ Perl does not have anything like that in core.  Several attempts have been made 
 Even though you can program Raku without using multi-dispatch, you are missing out on a lot of programming ease.  So I think it’s important for someone coming from Perl to understand this feature thoroughly.
 
 ## There can be more than One
-Whereas in Perl there can only be one subroutine with a given name, in Raku there can be more than one, provided you prefix the definition with the `multi` keyword.  But how will the right subroutine be selected then?
+Whereas in Perl there can only be one subroutine with a given name, in Raku there can be more than one, provided you prefix the definition with the `multi` keyword.  But how will the right routine be selected then?
 
 Even though the name of the subroutine may be identical, the signature of the subroutine should be different.  Depending on the arguments given, the right subroutine will then be selected for execution.
 
@@ -40,9 +40,9 @@ sub frobnicate {
 frobnicate(42);     # got integer: 42
 frobnicate("foo");  # got something: foo
 ```
-For this simple case, there is not a lot of difference in logic.  However, the multi-dispatch approach allows one to focus on a single case much easier, then winding up in an `if` / `elsif` / `else` maze of conditionals.
+For this simple case, there is not a lot of difference in logic.  However, the multi-dispatch approach allows one to focus on a single case much easier, than winding up in an `if` / `elsif` / `else` maze of conditionals.
 
-More importantly, having separated the handling of different types of objects (in this case `Int` versus the rest) in separate subroutines, allows additional multi-subroutines to be added by importing them from installed modules (either from the ecosystem, or from your personal project).
+More importantly, if you separate the handling of different types of objects (in this case `Int` versus the rest) in separate routines, then this allows additional multi-subroutines to be added by importing them from installed modules (either from the ecosystem, or from your personal project).
 
 Assume we have a module that handles frobnication of `Date` objects:
 ```
@@ -90,7 +90,7 @@ Foo.frobnicate(42);          # got integer: 42
 Foo.frobnicate(Date.today);  # got something: 2023-08-06
 Foo.frobnicate("foo");       # got something: foo
 ```
-And the definedness of the invocant can also be used in the signature:
+And whether the invocant is an instance (or not) can *also* be used in a signature:
 ```
 # Raku
 class Bar {    # note extra colon ↓
