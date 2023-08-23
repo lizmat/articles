@@ -40,7 +40,7 @@ sub frobnicate {
 frobnicate(42);     # got integer: 42
 frobnicate("foo");  # got something: foo
 ```
-For this simple case, there is not a lot of difference in logic.  However, the multi-dispatch approach allows one to focus on a single case much easier, than winding up in an `if` / `elsif` / `else` maze of conditionals.
+For this simple case, there is not a lot of difference in logic.  However, the multi-dispatch approach allows one to focus on a single case much easier, rather than winding up in an `if` / `elsif` / `else` maze of conditionals.
 
 More importantly, if you separate the handling of different types of objects (in this case `Int` versus the rest) in separate routines, then this allows additional multi-subroutines to be added by importing them from installed modules (either from the ecosystem, or from your personal project).
 
