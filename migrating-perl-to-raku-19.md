@@ -36,13 +36,13 @@ say foo();
 ```
 It is possible in both Perl and Raku to prefix the subroutine definition with an [`our`](https://docs.raku.org/language/variables#The_our_declarator) scope indicator, but the result is subtly different.
 
-In Perl, this makes the subroutine visible outside the scope, but this isn't the case in Raku.
+In Perl, this makes the subroutine visible outside the scope with its short name, but this isn't the case in Raku.
 
-In Raku, lookups of subroutines are **always** lexical: the use of `our` on subroutine declarations (regardless of scope) allows the subroutine to be called from outside the namespace in which it is defined:
+In Raku, lookups of subroutines are **always** lexical: the use of `our` on subroutine declarations (regardless of scope) allows the subroutine to be called from outside the namespace in which it is defined, but **only** if you fully qualify it:
 ```
 # Raku
 module Foo {
-    our sub bar () { "baz" }  # make sub visible outside
+    our sub bar () { "baz" }  # make Foo::Bar visible outside
 }
 say Foo::bar();# baz
 ```
@@ -56,7 +56,7 @@ say Foo::bar();# baz
 ```
 In Perl, the names of subroutines that are intended to be "private" (i.e., called from within that scope only and not from outside) usually start with an underscore. But that won't stop them from being called from the outside.  In Raku, subroutines that are not intended to be called from the outside are simply invisible.
 
-The `our` on a subroutine definition in Raku not only indicates that the subroutine can be called from the outside; it also indicates that it will be exported if it is part of a module being loaded.
+The `our` on a subroutine definition in Raku not only indicates that the subroutine can be called fully qualified from the outside: it *also* indicates that it will be exported if it is part of a module being loaded.
 
 # Calling a subroutine
 When you call a subroutine in a Perl without subroutine signatures enabled, it will call the subroutine if it exists (determined at runtime) and pass the parameters into `@_` inside the subroutine. Whatever happens to the parameters inside the subroutine is entirely up to the subroutine (see the blog post about Subroutine Signatures).
