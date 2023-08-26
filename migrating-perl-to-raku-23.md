@@ -1,5 +1,5 @@
 # Optimisation Considerations
-If you are an experienced Perl programmer, you have (perhaps inadvertently) learned a few tricks to make execution of your Perl program faster.  Some of these idioms work counter-productively in Raku.  This blog post deals with one of them and provides the alternative idioms in Raku.
+If you are an experienced Perl programmer, you have (perhaps inadvertently) learned a few tricks to make execution of your Perl program faster.  Some of these idioms work counter-productively in Raku.  This blog post deals with some of them and provides the alternative idioms in Raku.
 
 ## Hashes vs classes
 Objects in Perl generally consist of blessed hashes.
@@ -16,7 +16,7 @@ say now - INIT now;  # 0.779620151
 ```
 Now, if we use an object with two attributes, this is more than 2.5x as fast:
 ```
-# Raku
+# Raku/
 class A {
     has $.a;
     has $.b;
@@ -61,7 +61,7 @@ In Raku values are always objects by default, meaning that their values are alwa
 
 In the case of integer values, putting them into an object allows for transparent big integer support.  Yes, in Raku integer values are **not** limited to 64 bits.  But this comes at a price of course.
 
-Fortunately, you *can* access [native values in Raku](https://docs.raku.org/language/nativetypes) as well: this is done by defining variables with a *native* type.  There are currently 4 of them: `int`, `uint`, `num` and `str`.
+However, you *can* access [native values in Raku](https://docs.raku.org/language/nativetypes) as well: this is done by defining variables with a *native* type.  There are currently 4 kinds of them: `int`, `uint`, `num` and `str`.
 
 Let's look at an integer increment example:
 ```
@@ -99,7 +99,7 @@ say now - INIT now;  # 0.58488469
 ```
 Note that using native values everywhere may actually (currently) be counterproductive.  This is because there are many situations (although fewer and fewer) where Raku has no option but to upgrade a native value to a Raku object before it can handle it.  This happens for instance when calling a method on a native value.
 
-Fortunately the runtime optimizer in Raku catches more and more of these cases and is then able to simplify these without needing to upgrade the native value every time it is being used.  An example: converting a string to an integer.
+An example: converting a string to an integer.
 ```
 # Raku
 my $a = "42";
@@ -118,6 +118,8 @@ for ^1_000_000 {
 say now - INIT now;  # 0.433718985
 ```
 So in this case using a native `str` variable does **not** help in performance (at least at the moment of this writing).
+
+Fortunately the runtime optimizer in Raku catches more and more of these cases and is then able to simplify these without needing to upgrade the native value every time it is being used.
 
 ## Summary
 As with all benchmarks, these are just a snapshot in time.  They also depend on OS versions, Rakudo versions, hardware and load.  Optimisation work continues to be performed on Raku, which may change the outcome of these tests in the future.
