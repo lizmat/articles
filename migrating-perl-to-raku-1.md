@@ -1,18 +1,19 @@
 # Migrating Perl to Raku
-
 > These blog posts are updated versions of blog posts first published on opensource.com, which were then prepared to be included in a book, and then updated again for these blog posts.
 
-Whether you are a programmer who is taking the first steps to convert Perl code to Raku and encountering some issues. or you're just interested in learning about what might happen if you try to port Perl programs to Raku, this series of blog posts should answer at least some of your questions.
+Whether you are a programmer who is taking the first steps to convert Perl code to Raku and encountering some issues, or you're just interested in learning about what might happen if you try to port Perl programs to Raku, this series of blog posts should answer at least some of your questions.
+
+Although you might not need to work with Perl code yourself, this series of blog posts provides some deep insights into the why, what and how of the Raku Programming Language, which can be helpful for any student and/or user of Raku.
 
 These blog posts assume familiarity with Perl as a programmer / user.   Expect concepts such as "references", "reference counting", and "`DESTROY`" to be discussed.  If these concepts are unknown to you, then these blogs are probably not for you.
 
-The [Raku Programming Language documentation](https://docs.raku.org) already contains most (if not all) the documentation you need to deal with the issues you will confront in [migrating Perl code to Raku](https://docs.raku.org/language/perl2raku-overview).  But, as documentation goes, the focus is on the factual differences.  These blogs will try to go a little more in-depth about specific issues and provide a little more hands-on information based on my experience porting quite a lot of Perl code to Raku.
+The [Raku Programming Language documentation](https://docs.raku.org) already contains most (if not all) the documentation you need to deal with the issues you will confront in [migrating Perl code to Raku](https://docs.raku.org/language/5to6-nutshell).  But, as documentation goes, the focus is on the factual differences.  These blogs will try to go a little more in-depth about specific issues and provide a little more hands-on information based on my experience porting quite a lot of Perl code to Raku.
 
 ## Using Perl features in Raku
 
 Perl code can be seamlessly integrated with Raku using the [Inline::Perl5](https://raku.land/cpan:NINE/Inline::Perl5) module, making all of CPAN available to any Raku program. This could be considered cheating, as it will embed a Perl interpreter and therefore continues to have a dependency on the perl runtime executor.
 
-But it *does* make it easy to get your Raku code running (if you need access to modules that have not yet been ported) simply by adding `:from<Perl5>` to your `use` statement, like:
+But it *does* make it easy to get your Raku code running (if you need access to modules that have not yet been ported) simply by adding `:from<Perl5>` to your `use` statement, like:
 
     use DBI:from<Perl5>;
 
@@ -27,7 +28,7 @@ Since the publication of the CPAN Butterfly Plan, more than [100 built-in Perl f
 More than 90 [Perl CPAN distributions](https://raku.land/tags/cpan5) have also been ported to Raku while adhering to the original Perl API. These include core modules such as [`Scalar::Util`](https://raku.land/zef:lizmat/Scalar::Util) and [`List::Util`](https://raku.land/zef:lizmat/List::Util), but also non-core modules such as [`Text::CSV`](https://raku.land/github:Tux/Text::CSV) and [`Memoize`](https://raku.land/zef:lizmat/Memoize). Distributions that are upstream on the River of CPAN are targeted to have as much effect on the ecosystem as possible.
 
 ## Learning Curve
-It has been pointed out that Raku is perceived to have a steep learning curve, especially coming from Perl.  To an extent, this is true.  During development of Raku, many decisions have been made to make it easier to learn Raku.  Many concepts can be applied much more generally in Raku, then they are in Perl: there are fewer exceptions to the rules.
+It has been pointed out that Raku is perceived to have a steep learning curve, especially coming from Perl.  To an extent, this is true.  During development of Raku, many decisions have been made to make it easier to learn Raku.  Many concepts can be applied much more generally in Raku, than they are in Perl: there are fewer exceptions to the rules.
 
 So this brings these blog posts in a place of the worst of both worlds.  On the one hand, the language can be best learned by people not having any previous experience in Perl.  And this book is intended for people who do have at least some Perl knowledge.  So a lot of Raku concepts are presented in how they differ from Perl, when in many cases it would probably be easier to just start with a blank slate from the underlying Raku concepts.
 

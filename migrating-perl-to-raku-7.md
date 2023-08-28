@@ -1,5 +1,4 @@
 # Not So Obvious Semantic Changes (Part 3 of 3)
-
 ## No Return Context in Raku
 In Perl, a subroutine can determine in what context it is being called by using the `wantarray` function.  Available contexts are `scalar`, `list` and `void`:
 ```
@@ -90,7 +89,7 @@ In Raku, something between curly braces (`{ }`) is *always* an expression, no m
 %hash{a} = 42;
 # the bareword "a" interpreted as a string
 ```
-Whereas in Raku, everything between curly braces is code, so:
+Whereas in Raku, everything between curly braces is an expression, so:
 ```
 # Raku
 %hash{a} = 42;

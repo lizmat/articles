@@ -7,7 +7,7 @@ There are *no* references in the Raku Programming Language, which is surprising 
 # Perl
 my $foo = \@bar;   # must add reference \ to
                    # make $foo a reference to @bar
-say @bar[1];       # no dereference needed
+say $bar[1];       # no dereference needed
 say $foo->[1];     # must add dereference ->
 ```
 ```
@@ -25,7 +25,7 @@ Before we get to assignment, it is important to understand the concept of bindin
 # Raku
 my $foo := 42;  # note: := instead of =
 ```
-Simply put, this creates a key with the name `$foo` in the lexical pad (lexpad) (which you could consider a compile-time hash that contains information about things that are visible in that lexical scope) and makes 42 its literal value. Because this is a literal constant, you can't change it. Trying to do so will cause an exception. So don't do that!
+Simply put, this creates a key with the name `$foo` in the lexical pad (lexpad) (which you could consider a compile-time hash that contains information about things that are visible in that lexical scope) and makes 42 its literal value.  Because this is a literal constant, you can't now write `$foo = 99;` to change it, just like you can't write `42 = 99;`.  Trying to do so will cause an exception.
 
 This binding operation is used under the hood in many situations, for instance when iterating:
 ```
@@ -41,7 +41,7 @@ If you try to iterate over a constant list, then `$_` is bound to the literal va
 ```
 # Raku
 for 0..9 {
-    $++;  # error: requires mutable arguments
+    $_++;  # error: requires mutable arguments
 }
 ```
 ## Assignment
@@ -54,7 +54,7 @@ In Raku, this also creates a key with the name `$bar` in the lexpad. But instead
 In pseudo-code, you can think of this as:
 ```
 # Pseudocode
-my $bar := Scalar.new( value => 56 );
+my $bar := Scalar.new( value => 56, name => '$bar' );
 ```
 Notice that the `Scalar` object is bound, not assigned. The closest thing to this in Perl is a tied scalar. But of course `= 56` is much less to type!
 
@@ -78,7 +78,7 @@ sub frobnicate($this) {
 my $foo = 666;
 frobnicate($foo); # Cannot assign to a readonly variable or a value
 ```
-If you want to allow assigning to the outer value, you can add the `is rw` trait to the variable in the signature. This will bind the variable in the signature to the container of the variable specified, thus allowing assignment:
+If you want to allow assigning to the outer value, you can add the [`is rw`](https://docs.raku.org/language/signatures#Parameter_traits_and_modifiers) trait to the variable in the signature. This will bind the variable in the signature to the container of the variable specified, thus allowing assignment:
 ```
 # Raku
 sub oknicate($this is rw) {
@@ -117,16 +117,16 @@ If you like to specify your own `FETCH` and `STORE` methods on a container, you 
 # Raku
 my $double := do {  # $double now a Proxy,
                     # rather than a Scalar container
-    my $value;  # the actual value
+    my $container;  # the actual container
     Proxy.new(
-      FETCH => method ()     { $value + $value },
-      STORE => method ($new) { $value = $new }
+      FETCH => method ()       { $container + $container },
+      STORE => method ($value) { $container = $value }
     )
 }
 $double = 42;
 say $double;  # 84
 ```
-Note that you will need an extra variable to keep the value stored in such a container.
+Note that you will need an extra variable (in this example: `$container`) to keep the value.
 
 ## Constraints and default
 Apart from the value, a `Scalar` object also contains extra information such as the type constraint and default value. Take this definition:

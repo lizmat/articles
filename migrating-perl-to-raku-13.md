@@ -9,7 +9,7 @@ Note that any `sub` or `method` is also considered a Block with regards to these
   Name    Description
   -----------------------------------------------------
   ENTER   Run every time when entering a block
-  LEAVE   Run every time wjen leaving a block
+  LEAVE   Run every time when leaving a block
   PRE     Check condition before running a block
   POST    Check return value afgter having run a block
   KEEP    Run every time a block is left successfully
@@ -145,7 +145,7 @@ In general, you would use a `POST` phaser only if the necessary checks would be 
   ----------------------------------------------------------
   FIRST   Run before the first iteration
   NEXT    Run after each completed iteration, or with "next"
-  LAST    Run after the last iterayion, or with "last"
+  LAST    Run after the last iteration, or with "last"
   ----------------------------------------------------------
 ```
 Loop phasers are a special type of phaser specific to loop constructs. One is run before the first iteration ([`FIRST`](https://docs.raku.org/language/phasers#FIRST)), one is run after each iteration ([`NEXT`](https://docs.raku.org/language/phasers#FIRST)), and one is run after the last iteration ([`LAST`](https://docs.raku.org/language/phasers#FIRST)).

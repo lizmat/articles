@@ -91,7 +91,7 @@ If you then call that subroutine with arguments using the fat-comma syntax:
 # Perl
 frobnicate( bar => 42 );
 ```
-it will pass two values, "foo" and 42, which will be placed into the `%named` hash as the value 42 associated with key "foo".
+it will pass two values, "bar" and 42, which will be placed into the `%named` hash as the value 42 associated with key "bar".
 
 But the same thing would have happened if you had specified:
 ```
