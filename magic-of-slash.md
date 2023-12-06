@@ -56,15 +56,22 @@ my %b is Bag = "kiddos".IO.lines.race.map: {
 ````
 Santa was really happy that such a little change would fix the issue and allow the program to run as fast as it could on Santa's computer.  But Santa also wanted to know *why* this was necessary!  So Lizzybel explained:
 
-"As you know, matching will set the `$/` variable.  And `$0` is just short for `$/[0]`.  However, you almost never need to define a `$/` yourself, because there's one defined in every `sub`, `method` or mainline automatically for you.  But inside any other block `{ … }`, **no** `$/` will be defined for you.  This allows this common code structure to work:"
+"As you know, matching will set the `$/` variable.  And `$0` is just short for `$/[0]`.  However, you almost never need to define a `$/` yourself, because there's one defined in every `sub`, `method` or mainline automatically for you.  So your code is really:"
+````raku
+#  👇
+my $/;
+my %b is Bag = "kiddos".IO.lines.race.map: {
+    ~$0 if /^ (a | e | i | o | u) /;
+}
+````
+"But inside any other block `{ … }`", Lizzybel rattled on, "**no** `$/` will be defined for you.  This allows this common code structure to work:"
 `````raku
 "foo bar" ~~ / (\w+) /;
 if $0 {
     say $0;  # ｢foo｣
 }
 `````
-Lizzybel continued: "So the `$/` implicitely used with `$0` inside the `if`, refers to the `$/` that is automatically defined in the outer lexical scope (in this case, the main line of the program).  If there would have been a separate `$/` inside the block of the `if` statement, it would mask the outer `$/`, and thus show an undefined value for `$0`, like this:
-
+Lizzybel continued: "So the `$/` implicitely used with `$0` inside the `if`, refers to the `$/` that is automatically defined in the outer lexical scope (in this case, the mainline of the program).  If there would have been a separate `$/` inside the block of the `if` statement, it would mask the outer `$/`, and thus show an undefined value for `$0`, like this:
 `````raku
 "foo bar" ~~ / (\w+) /;
 if $0 {
@@ -76,7 +83,7 @@ Again, Lizzybel continued: "So in Raku it was decided that `$/` would always ref
 
 "But, couldn't this be handled automatically by Raku?  Why would **I** have to add a `my $/` there?  This feels like a bit of a trap!", Santa interjected.
 
-"This can not be fixed very easily", said Lizzybel, and continued: "That's because the `.race` method is just like any other method in Raku, there is nothing special about it.  It produces a `RaceSeq` object which happens to have a [`.map` method](https://docs.raku.org/type/RaceSeq#method_map) that takes a block as a parameter.  What that block actually contains, is completely opaque to the executor.  The result of the `.map` just happens to have an `.iterator` method that serializes the results that are calculated in parallel."
+"This can not be fixed generally, or very easily", said Lizzybel, and continued: "That's because the `.race` method is just like any other method in Raku, there is nothing special about it.  It produces a `RaceSeq` object which happens to have a [`.map` method](https://docs.raku.org/type/RaceSeq#method_map) that takes a block as a parameter.  What that block actually contains, is completely opaque to the executor.  The result of the `.map` just happens to have an `.iterator` method that serializes the results that are calculated in parallel."
 
 "Hmmmm", said Santa, now almost grumbling.
 
