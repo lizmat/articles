@@ -8,7 +8,7 @@ But this harvesting stopped with the [0.0.26 release of Ecosystem::Archive::Upda
 
 This means that any updates to the *651* distributions still in the "p6c" ecosystem, will *not* be noticed anymore in the live Raku ecosystem.  To alert the authors / current maintainers of these distributions, *202* issues were generated, listing the distributions affected.
 
-Now, one week later, many authors responded to the issue they found in one of their repositories.  The reactios were generally positive to this effort.  Some of the authors took this notice as an opportunity to update their distribution to the "fez" ecosystem.  Kudos to these authors:
+Now, one week later, many authors responded to the issue they found in one of their repositories.  The reactions were generally positive to this effort.  Some of the authors took this notice as an opportunity to update their distribution to the "fez" ecosystem.  Kudos to these authors:
 
 - YellowApple for [GLFW](https://raku.land/zef:YellowApple/GLFW)
 - Itsuki Toyota for:
