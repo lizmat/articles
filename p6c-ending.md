@@ -12,3 +12,40 @@ Now, one week later, many authors responded to the issue they found in one of th
 - Itsuki Toyota for:
   - [Algorithm::BinaryIndexedTree](https://raku.land/zef:titsuki/Algorithm::BinaryIndexedTree)
   - [Algorithm::KdTree](https://raku.land/zef:titsuki/Algorithm::KdTree)
+  - [Algorithm::Kruskal](https://raku.land/zef:titsuki/Algorithm::Kruskal)
+  - [Algorithm::TernarySearchTree](https://raku.land/zef:titsuki/Algorithm::TernarySearchTree)
+  - [Algorithm::Treap](https://raku.land/zef:titsuki/Algorithm::Treap)
+  - [Algorithm::ZobristHashing](https://raku.land/zef:titsuki/Algorithm::ZobristHashing)
+- Fernando Correa de Oliveira for:
+  - [SixPM](https://raku.land/zef:FCO/SixPM)
+  - [Heap](https://raku.land/zef:FCO/Heap)
+  - [Injector](https://raku.land/zef:FCO/Injector)
+  - [Protocol](https://raku.land/zef:FCO/Protocol)
+  - [Trie](https://raku.land/zef:FCO/Trie)
+- Brian Duggan for [Slang::Mosdef](https://raku.land/zef:bduggan/Slang::Mosdef)
+- Haytham Elganiny for:
+  - [Grid](https://raku.land/zef:hythm/Grid)
+  - [Retry](https://raku.land/zef:hythm/Retry)
+- Dean Powell for [Locale::Codes::Country](https://raku.land/zef:PowellDean/Locale::Codes::Country)
+
+Other authors responded that they don't want to spend any time on these distributions anymore, but would like to have them transferred to the [Raku Community Module Adoption Center](https://github.com/raku-community-modules/).  Kudos to these authors for spending their time and effort on these distributions so far and making them available for the future users of the Raku Programming Language:
+
+- Yechen Fu for [Redis](https://raku.land/zef:raku-community-modules/Redis)
+- brian d foy for:
+  - [Chemistry::Elements](https://raku.land/zef:raku-community-modules/Chemistry::Elements)
+  - [PrettyDump](https://github.com/raku-community-modules/PrettyDump) (in progress)
+- Yann Büchau for: [Fortran::Grammar](https://raku.land/zef:raku-community-modules/Fortran::Grammar)
+- +merlan #flirora for:
+  - [Math::Random](https://raku.land/zef:raku-community-modules/Math::Random)
+  - [Terminal::WCWidth](https://raku.land/zef:raku-community-modules/Terminal::WCWidth)
+- Carsten Hartenfels for: [Text::Markdown::Discount](https://github.com/raku-community-modules/Text-Markdown-Discount) (in progress)
+- loren for:
+  - [Net::FTP](https://github.com/raku-community-modules/Net-FTP) (in progress)
+  - [Net::FTPlib](https://github.com/raku-community-modules/Net-FTPlib) (in progress)
+  - [App::snippet](https://github.com/raku-community-modules/App-snippet) (in progress)
+- Rob Hoelz for:
+  - [Algorithm::Elo](https://raku.land/zef:raku-community-modules/Algorithm::Elo)
+  - [Algorithm::LCS](https://raku.land/zef:raku-community-modules/Algorithm::LCS)
+  - [Pod::EOD](https://raku.land/zef:raku-community-modules/Pod::EOD)
+
+Note that the distributions marked "in progress" still need some Tender Loving Care before they will be properly integrated into the Raku ecosystem again.  Pull Requests for these distributions are *very* welcome!
