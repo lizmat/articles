@@ -1,4 +1,4 @@
-# The end of p6c
+# The End Of p6c
 
 In the past 2 years, module distributions in the Raku Programming Language that were being published through the original (but deprecated) "p6c" ecosystem, were no longer being harvested by the [default "zef" harvester](https://raku.land/github:ugexe/App::ecogen).  But they were still being harvested by the Raku Ecosystem Archive harvester.  But this also stopped with the [0.0.26 release of Ecosystem::Archive::Update](https://raku.land/zef:lizmat/Ecosystem::Archive::Update/changes?v=0.0.26).  And thus, any updates to these distributions remained visible.
 
@@ -38,7 +38,7 @@ Other authors responded that they don't want to spend any time on these distribu
 - +merlan #flirora for:
   - [Math::Random](https://raku.land/zef:raku-community-modules/Math::Random)
   - [Terminal::WCWidth](https://raku.land/zef:raku-community-modules/Terminal::WCWidth)
-- Carsten Hartenfels for: [Text::Markdown::Discount](https://github.com/raku-community-modules/Text-Markdown-Discount) (in progress)
+- Carsten Hartenfels for: [Text::Markdown::Discount](https ://github.com/raku-community-modules/Text-Markdown-Discount) (in progress)
 - loren for:
   - [Net::FTP](https://github.com/raku-community-modules/Net-FTP) (in progress)
   - [Net::FTPlib](https://github.com/raku-community-modules/Net-FTPlib) (in progress)
@@ -49,3 +49,9 @@ Other authors responded that they don't want to spend any time on these distribu
   - [Pod::EOD](https://raku.land/zef:raku-community-modules/Pod::EOD)
 
 Note that the distributions marked "in progress" still need some Tender Loving Care before they will be properly integrated into the Raku ecosystem again.  Pull Requests for these distributions are *very* welcome!
+
+A number of other authors responded that they thought that (some of) their distributions were not fit to be modernized or transferred to the Raku Module Adoption Center.  Kudos to these authors nonetheless, because of their time and efforts in the past.  Even if that didn't result into something they thought was worth salvaging.  These distributions have been removed from the "p6c" ecosystem, which thusly contains *552* distributions now: a 15% reduction in one week!
+
+> Yours truly will actually look at all of these packages to see whether they warrant a transfer to the Raku Module Adoption Center.  Beauty **is** in the eye of the beholder  :-)
+
+All in all a fruitful week in the Raku Ecosystem world.
