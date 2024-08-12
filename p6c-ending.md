@@ -1,6 +1,8 @@
 # The End Of p6c
 
-In the past 2 years, module distributions in the Raku Programming Language that were being published through the original (but deprecated) "p6c" ecosystem, were no longer being harvested by the [default "zef" harvester](https://raku.land/github:ugexe/App::ecogen).  But they were still being harvested by the Raku Ecosystem Archive harvester.  But this also stopped with the [0.0.26 release of Ecosystem::Archive::Update](https://raku.land/zef:lizmat/Ecosystem::Archive::Update/changes?v=0.0.26).  And thus, any updates to these distributions remained visible.
+In the past 2 years, module distributions in the [https://raku.org](Raku Programming Language) that were being published through the original (but deprecated) "p6c" ecosystem, were no longer being harvested by the [default "zef" harvester](https://raku.land/github:ugexe/App::ecogen).  But they were still being harvested by the Raku Ecosystem Archive harvester.  And thus, any updates to these distributions remained visible.
+
+But this harvesting stopped with the [0.0.26 release of Ecosystem::Archive::Update](https://raku.land/zef:lizmat/Ecosystem::Archive::Update/changes?v=0.0.26).
 
 > The reasoning for no longer supporting the "p6c" ecosystem is explained in the problem solving issue ["Preparing the Raku Ecosystem for the Future"](https://github.com/Raku/problem-solving/issues/316).
 
@@ -55,3 +57,11 @@ A number of other authors responded that they thought that (some of) their distr
 > Yours truly will actually look at all of these packages to see whether they warrant a transfer to the Raku Module Adoption Center.  Beauty **is** in the eye of the beholder  :-)
 
 All in all a fruitful week in the Raku Ecosystem world.
+
+## And now?
+
+Many authors that received an issue notice about this, have not responded yet.  If you are one of them, please respond to the issue and tell us what you would like (us) to do.
+
+Meanwhile the distributions marked "in progress" could use someone looking at the code and/or the tests to see what's stopping inclusion into the Raku ecosystem again.  Many kudos in advance.
+
+And if you're an author who already transferred their modules to the "zef" ecosystem: thank you for you continued practical support of the Raku Programming Language, and the extension of the [https://raku.land](Raku Ecosystem)!
