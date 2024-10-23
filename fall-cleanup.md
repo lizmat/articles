@@ -40,9 +40,9 @@ While testing all of these issues, I always also tested whether they were fixed 
 
 And to my surprise, in many cases they were!  For those cases a [special test file](https://github.com/rakudo/rakudo/blob/main/t/12-rakuast/xx-fixed-in-rakuast.rakutest) is being reserved to which tests are added for issues that have been fixed with the new Raku grammar in RakuAST.
 
-These issues are then marked as being [fixed in RakUAST](https://github.com/rakudo/rakudo/issues?q=is%3Aopen+is%3Aissue+label%3A%22fixed+in+RakuAST%22) but left open, so that people are hopefully prevented from creating duplicate issues for problems that apperently haven't been fixed yet.
+These issues are then marked as being [fixed in RakUAST](https://github.com/rakudo/rakudo/issues?q=is%3Aopen+is%3Aissue+label%3A%22fixed+in+RakuAST%22) but left open, so that people are hopefully prevented from creating duplicate issues for problems that apparently haven't been fixed yet.
 
-> A large percentage of these issues appear fixed because they were essentially static optimizer issues, and the new Raku grammar doesn't have any of these compile-time optimisations yet.  So it's important to be able to check for regressions of this type once optimizations are being added back in.  In turn, these static optimizr issues were often caused by the optimizer not having enough or the correct information for doing optimizations.  Which in turn was one of the reasons to start with RakuAST to begin with.
+> A large percentage of these issues appear fixed because they were essentially static optimizer issues, and the new Raku grammar doesn't have any of these compile-time optimisations yet.  So it's important to be able to check for regressions of this type once optimizations are being added back in.  In turn, these static optimizer issues were often caused by the optimizer not having enough or the correct information for doing optimizations.  Which in turn was one of the reasons to start with RakuAST to begin with.
 
 ## Not fixed
 
