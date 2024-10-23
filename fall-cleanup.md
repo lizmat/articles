@@ -30,7 +30,7 @@ Quite a few number of issues were actually marked as fixed, but were also marked
 
 ## Fixed because of the new dispatch logic
 
-After 18 months of work in 2021 and 2022, the [new dispatch mechanism](https://6guts.wordpress.com/2021/09/29/the-new-moarvm-dispatch-mechanism-is-here/) became default in the 2021.10 release of the Rakudo compiler.  Most of the multi method dispatch related issues that were made *before* that time, appeared fixed.  So it just was a matter of writing the tests (if there weren't any yet) and commit them.
+After 18 months of work in 2020 and 2021, the [new dispatch mechanism](https://6guts.wordpress.com/2021/09/29/the-new-moarvm-dispatch-mechanism-is-here/) became default in the 2021.10 release of the Rakudo compiler.  Most of the multi method dispatch related issues that were made *before* that time, appeared fixed.  So it just was a matter of writing the tests (if there weren't any yet) and commit them.
 
 ## Fixed in RakuAST
 
