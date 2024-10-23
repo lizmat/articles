@@ -2,7 +2,9 @@
 
 About 3 weeks ago I thought it was time to go through the outstanding [Rakudo compiler](https://rakudo.org) issues (an implementation of the [Raku Programming Language](https://raku.org)) to see how many of them would have been fixed by now with the new Raku grammar.
 
-Because we have reached 85+% of test coverage of the new Raku Grammar in [roast, the official Raku test-suite](https://github.com/raku/roast?tab=readme-ov-file#the-official-raku-test-suite) (as defined by the number of test files that completely pass without any test failures),
+Why? Because we have reached 85+% of test coverage of the new Raku Grammar in [roast, the official Raku test-suite](https://github.com/raku/roast?tab=readme-ov-file#the-official-raku-test-suite).
+
+> Success as defined by the number of test files that *completely* pass without any test failures.  Most othertest files also have tests passing, but they're not 100% clean.
 
 At that point there were 1312 open Rakudo issues, with the oldest being from 2017.
 
@@ -28,7 +30,7 @@ Quite a few number of issues were actually marked as fixed, but were also marked
 
 ## Fixed because of the new dispatch logic
 
-After 18 months of work, the [new dispatch mechanism](https://6guts.wordpress.com/2021/09/29/the-new-moarvm-dispatch-mechanism-is-here/) became default in the 2021.10 release of the Rakudo compiler.  Most of the multi method dispatch related issues that were made *before* that time, appeared fixed.  So it just was a matter of writing the tests (if there weren't any yet) and commit them.
+After 18 months of work in 2021 and 2022, the [new dispatch mechanism](https://6guts.wordpress.com/2021/09/29/the-new-moarvm-dispatch-mechanism-is-here/) became default in the 2021.10 release of the Rakudo compiler.  Most of the multi method dispatch related issues that were made *before* that time, appeared fixed.  So it just was a matter of writing the tests (if there weren't any yet) and commit them.
 
 ## Fixed in RakuAST
 
