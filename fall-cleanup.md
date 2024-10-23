@@ -32,7 +32,11 @@ After 18 months of work, the [new dispatch mechanism](https://6guts.wordpress.co
 
 ## Fixed in RakuAST
 
-While testing all of these issues, I always also tested whether they were fixed in the new Raku grammar, based on the [RakuAST project](https://dev.to/lizmat/rakuast-for-early-adopters-576n) (which is why I started doing this bug hunting streak in the first place).  And to my surprise, in many cases they were!  For those cases a [special test file](https://github.com/rakudo/rakudo/blob/main/t/12-rakuast/xx-fixed-in-rakuast.rakutest) is being reserved to which tests are added for issues that have been fixed with the new Raku grammar in RakuAST.
+While testing all of these issues, I always also tested whether they were fixed in the new Raku grammar, based on the [RakuAST project](https://dev.to/lizmat/rakuast-for-early-adopters-576n) (which is why I started doing this bug hunting streak in the first place).
+
+> Running code with the new Raku grammar, is as easy as prefixing `RAKUDO_RAKUAST=1` to your call to `raku`.  For instance `raku -e '{ FIRST say "first" }'` does not output anything with the legacy grammar.  But with `RAKUDO_RAKUAST=1 raku -e '{ FIRST say "first" }'` it will say "first" because the `FIRST` phaser fires for any block when it is first executed with the new Raku grammar.
+
+And to my surprise, in many cases they were!  For those cases a [special test file](https://github.com/rakudo/rakudo/blob/main/t/12-rakuast/xx-fixed-in-rakuast.rakutest) is being reserved to which tests are added for issues that have been fixed with the new Raku grammar in RakuAST.
 
 These issues are then marked as being [fixed in RakUAST](https://github.com/rakudo/rakudo/issues?q=is%3Aopen+is%3Aissue+label%3A%22fixed+in+RakuAST%22) but left open, so that people are hopefully prevented from creating duplicate issues for problems that apperently haven't been fixed yet.
 
@@ -40,7 +44,7 @@ These issues are then marked as being [fixed in RakUAST](https://github.com/raku
 
 ## Not fixed
 
-And then there were the issues that were simply still reporting an existing problem.  Some of them, with the knowledge that I acquiered over the years, looked like easy to fix.  So I put in some effort to fix them.  A non-exhaustive list:
+And then there were the issues that were simply still reporting an existing problem.  Some of them, with the knowledge that I acquired over the years, looked like easy to fix.  So I put in some effort to fix them.  A non-exhaustive list:
 
 - allow `$:F` as placeholder variable with [`use isms`](https://docs.raku.org/language/pragmas#isms)
 - reduce number of [`Failure`](https://docs.raku.org/type/Failure) objects when numerically comparing non-numerical values
@@ -58,7 +62,7 @@ About 50 of the outstanding issues look like they should be fixable without turn
 
 ## Feature requests
 
-Some of the open issues were basically feature requests.  Sometimes I felt that they could be easily implemented (such as several error message improvements), for others I felt a [problem-solving issue](https://github.com/raku/problem-solving/issues) would be needed.  And some I closed, knowing almost 100% they would never be accepted.
+Some of the open issues were basically feature requests.  Sometimes I felt that they could be easily implemented (such as several error message improvements) so I implemented them.  Others I created a Pull Request for.  And for still others I felt a [problem-solving issue](https://github.com/raku/problem-solving/issues) would be needed (which I then created).  And some I closed, knowing almost 100% they would never be accepted.
 
 > If this was one of *your* issues, and you still feel that feature should become part of the Raku Programming Language, please don't be discouraged!  Looking at a 60+ issues for 3 weeks in a row sometimes made me a bit grumpy at the end of the day.  Please make a [new problem solving issue](https://github.com/Raku/problem-solving/issues/new/choose) in that case!
 
@@ -68,6 +72,10 @@ Many issues looked like they would be more easily solvable in the new Raku gramm
 
 ## Conclusion
 
-It was an interesting ride through memory lane the past weeks.  Note that with these numbers of issues, if I had an error rate of only 1%, there are at least 5 issues that were closed when they shouldn't have been closed.  If you feel that an issue has been closed incorrectly, please leave a comment and I'll re-open them if you cannot do that yourself.
+It was an interesting ride through memory lane the past weeks.  With about 200 commits, that's not bad at all!
+
+Note that with these numbers of issues, if I had an error rate of only 1%, there are at least 5 issues that were closed when they shouldn't have been closed.  If you feel that an issue has been closed incorrectly, please leave a comment and I'll re-open them if you cannot do that yourself.
 
 Sadly, because of the additional tests that I wrote, the number of roast test-files passing has now dropped again below the 85% mark.  Still, I do think this is progress, as the errors that they check for would have been encountered during the development of the Raku grammar sooner or later anyway.
+
+Anyway, it was fun being able to close as many issues as I did!  Want to join in the fun?  There are still [778 issues](https://github.com/rakudo/rakudo/issues?q=is%3Aopen+is%3Aissue) open waiting for someone to close them!
