@@ -27,7 +27,7 @@ And if you've found a bug, or missed some functionality, there's now a dedicated
 ## A benchmark
 So how much faster is the module really?
 
-Let's look at a simple benchmark producing all of the odd numbers below 1000.  Because imports in the Raku Programming Language are always lexical, it is possible to test both versions of the infix `...` operator in a single program:
+Let's look at a simple benchmark producing all of the odd numbers below 1000.  Because imports in the [Raku Programming Language](https://raku.org) are always lexical, it is possible to test both versions of the infix `...` operator in a single program:
 ```raku
 # number of time to run code
 my int $times = 10000;
