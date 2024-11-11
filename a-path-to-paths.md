@@ -14,9 +14,9 @@ So how do you use it?
 ```raku
 .say for paths;
 ```
-will produce a list of **all** files from the currenty directory, **except** the ones that reside in a directory that starts with a period (so, e.g. a `.git` directory would be skipped).
+will produce a list of **all** files from the currenty directory (recursively down), **except** the ones that reside in a directory that starts with a period (so, e.g. a `.git` directory would be skipped).
 
-So, what it you would like to get all JSON-files (as defined by their `.json` extension?
+So, what it you would like to get all JSON-files (as defined by their `.json` extension)?
 ```raku
 .say for paths(:file(*.ends-with(".json")));
 ```
@@ -41,16 +41,18 @@ The Raku Programming Language has the concept of an [`IO::Path`](https://docs.ra
 
 Unfortunately, creating such an object is relatively expensive, so `paths` has chosen to just provide absolute paths as strings.  If you want to work with `IO::Path` objects, the only thing that needs to be done, is to call the `.IO` method on the path.
 
-For instance, if you would like to know the names of the files that contain the word "frobnicate", you could do:
+For instance, if you would like to know the name of each file that contains the string "frobnicate", you could do:
 ```raku
 .say for paths.grep: *.IO.slurp.contains("frobnicate");
 ```
-The [`.IO`](https://docs.raku.org/type/Cool#method_IO) turns the path string into an `IO::Path` object, the [`.slurp`](https://docs.raku.org/type/IO/Path#routine_slurp) reads the whole contents of the file into memory as a string assuming UTF-8 encoding, and the [`.contains`](https://docs.raku.org/type/Str#method_contains) returns `True` if the given string was found in its invocant.
+The [`.IO`](https://docs.raku.org/type/Cool#method_IO) method call turns the path string into an `IO::Path` object, the [`.slurp`](https://docs.raku.org/type/IO/Path#routine_slurp) method call reads the whole contents of the file into memory as a string assuming UTF-8 encoding, and the [`.contains`](https://docs.raku.org/type/Str#method_contains) returns `True` if the given string was found in its invocant.
+
+> If you're suprised by the `*.IO...` syntax: that is called [`Whatever priming`](https://docs.raku.org/type/Whatever).  In this case, the syntax is short for `{ .IO.slurp.contains("frobnicate") }`.
 
 Now, if you do that, there's a good chance that this will end in an execution error, something like `Malformed UTF-8 near byte 8b at line 1 col 2`.  That's because there's a good chance that at least one of the files is a binary file.  Which is generally **not** valid UTF-8.
 
 You could just ignore those cases with:
-```
+```raku
 .say for paths.grep: { .contains("frobnicate") with .IO.slurp }
 ```
 The `slurp` method will return a [`Failure`](https://docs.raku.org/type/Failure) if it couldn't complete the reading of the file.  The `with` then will only topicalize the value if it got something defined (and `Failure`s are considered to **not** be defined in this context).  Then the `contains` method is called as before and we get either `True` or `False` from that.
@@ -80,7 +82,7 @@ use PDF::Extract;
 ```
 
 ## Conclusion
-It is always important to really understand the question, and to ask further if you don't understand the question, or the question askers do not understand your reply.
+It is always important to really understand the question, and to ask further if you don't understand the question.  And make sure that the question askers not understand your reply.  And keep repeating that until you and the question asker are on the same page.
 
 In this case, pointing these two Raku developers to the `paths` module, made their project suddenly (almost) a piece of cake.
 
