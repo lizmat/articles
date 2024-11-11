@@ -1,20 +1,20 @@
 # A path to paths
 The other day, not one but two people tried to use my [`rak`](https://raku.land/zef:lizmat/rak) module to create a custom file system search utility.  And had problems getting it to work.
 
-Now, truth be told: they were the first people to use that module other than myself for the [`App::Rak`](https://raku.land/zef:lizmat/App::Rak) command line interface (as described in [It's time to rak!](https://dev.to/lizmat/its-time-to-rak-part-1-30ji).  And apparently, the use of the plumbing of `App::Rak` was less straightforward than I expected, specifically with regards to the way results are returned.
+Now, truth be told: they were the first people to use that module other than myself for the [`App::Rak`](https://raku.land/zef:lizmat/App::Rak) command line interface (as described in [It's time to rak!](https://dev.to/lizmat/its-time-to-rak-part-1-30ji)).  And apparently, the use of the plumbing of `App::Rak` was less straightforward than I expected, specifically with regards to the way results are returned.
 
-It wasn't until a bit later that I realized they were reaching for the wrong tool.  What they really wanted was to apply some search criteria to a list of files, as determined by some simple rules.
+It wasn't until a bit later that I realized they were reaching for the wrong tool.  What they really wanted was to apply some search criteria to a list of files, as determined by some simple rules that weren't covered (yet) by `App::Rak`.
 
 ## paths
-Well, there's a module for that: [`paths`](https://raku.land/zef:lizmat/paths), a fast recursive file / directory finder.  Which is one of the dependencies of `rak`.
+Well, there's a module for that: [`paths`](https://raku.land/zef:lizmat/paths), a fast recursive file / directory finder.  Which is one of the dependencies of `rak`.  And thus of `App::Rak`.
 
-All of the code examples here assume you have also done a `use paths` in your code.  And if the `paths` module is not installed yet, you should install it with `zef install paths` in your shell.
+> All of the code examples here assume you have also added a `use paths;` to your code.  And if the `paths` module is not installed yet, you should install it with `zef install paths` in your shell.
 
 So how do you use it?
 ```raku
 .say for paths;
 ```
-will produce a list of **all** files from the currenty directory (recursively down), **except** the ones that reside in a directory that starts with a period (so, e.g. a `.git` directory would be skipped).
+will produce a list of **all** files from the current directory (recursively down), **except** the ones that reside in a directory that starts with a period (so, e.g. all the files and subdirectories in a `.git` directory would be skipped).
 
 So, what it you would like to get all JSON-files (as defined by their `.json` extension)?
 ```raku
@@ -37,9 +37,9 @@ All of the above examples assumed the current directory as a starting place.  Th
 This may take a while!
 
 ## Paths as strings
-The Raku Programming Language has the concept of an [`IO::Path`](https://docs.raku.org/type/IO/Path) object, which conceptually consists of a volume, a directory, and a basename. It supports both purely textual operations, and operations that access the filesystem, e.g. to resolve a path, or to read all the content of a file.
+The Raku Programming Language has the [`IO::Path`](https://docs.raku.org/type/IO/Path) object, which conceptually consists of a volume, a directory, and a basename. It supports both purely textual operations, and operations that access the filesystem, e.g. to resolve a path, or to read all the content of a file.
 
-Unfortunately, creating such an object is relatively expensive, so `paths` has chosen to just provide absolute paths as strings.  If you want to work with `IO::Path` objects, the only thing that needs to be done, is to call the `.IO` method on the path.
+Unfortunately, creating such an object is relatively expensive, so `paths` has chosen to just provide absolute paths as *strings*.  If you want to work with `IO::Path` objects, the only thing that needs to be done, is to call the `.IO` method on the path.
 
 For instance, if you would like to know the name of each file that contains the string "frobnicate", you could do:
 ```raku
@@ -73,7 +73,7 @@ use path-utils <path-is-pdf>;
 
 .say for paths.grep: { path-is-pdf($_) }
 ```
-but that would only show the files that appear to be PDF files.  To actually search in them, you could e.g. instance use *Steve Roe*'s [`PDF::Extract`](https://raku.land/zef:librasteve/PDF::Extract) module.
+but that would only show the files that appear to be PDF files.  To actually search in them, you could for instance use *Steve Roe*'s [`PDF::Extract`](https://raku.land/zef:librasteve/PDF::Extract) module.
 ```raku
 use path-utils <path-is-pdf>;
 use PDF::Extract;
@@ -82,8 +82,8 @@ use PDF::Extract;
 ```
 
 ## Conclusion
-It is always important to really understand the question, and to ask further if you don't understand the question.  And make sure that the question askers not understand your reply.  And keep repeating that until you and the question asker are on the same page.
+It is always important to really understand the question, and to ask further if you don't understand the question.  And make sure that the question askers understand your reply.  And keep repeating that until you and the question asker are on the same page.
 
 In this case, pointing these two Raku developers to the `paths` module, made their project suddenly (almost) a piece of cake.
 
-And for me, it was a fine reason to highlight these cool modules in the [Raku ecosystem](https://raku.land)!
+And for me, it was a fine reason to highlight these cool modules in the [Raku ecosystem](https://raku.land).
