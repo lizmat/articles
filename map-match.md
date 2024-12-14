@@ -27,7 +27,7 @@ Found 235976 words
 ```
 "Ok, that's a good beginning" said Nanunanu with the color starting to return to their face.
 
-"Yes, it is, but this can be made faster, because a bare `/ foo >> /` is just doing too much work if you just want to see whether it matched.  For that, you can also use [`.contains`](https://docs.raku.org/type/Str#method_contains)":
+"Yes, it is, but this can be made faster, because a bare `/ foo $ /` is just doing too much work if you just want to see whether it matched.  For that, you can also use [`.contains`](https://docs.raku.org/type/Str#method_contains)":
 ```raku
 my %h is Map = "words".IO.lines.map: { $_ => $_ }
 { 
@@ -81,4 +81,6 @@ which showed:
 ```
 "Ooh, that's cool: still 2.5x as fast as the hypered version", Nanunanu shouted out while clapping their hands.  "Yes it is" Lizzybel thought, "that was a nice piece of work I did there.  And it didn't even needed hypering under the hood, just a little NQP cheating".
 
-Nanunanu quickly went back to their team in the knowledge that they might be able to make things up to 7 times faster.  "Thanks Lizzybel", they said while running the corridors of North Pole Grand Central.  And all was well.
+Nanunanu quickly went back to their team in the knowledge that they might be able to make things up to 7 times faster.  "Thanks Lizzybel", they said while running the corridors of North Pole Grand Central.
+
+And all was well.
