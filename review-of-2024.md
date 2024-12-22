@@ -28,6 +28,7 @@ As the source code of `Cro` had always been open source, this was more a questio
 
 Sadly, *Jonathan Worthington* also indicated that they would only remain minimally involved in the further development of [MoarVM](https://github.com/MoarVM/MoarVM), [NQP](https://github.com/raku/NQP) and [Rakudo](https://github.com/rakudo/rakudo/) in the foreseeable future.  As such, all of their modules were moved to the [Raku Community Modules Adoption Center](https://github.com/raku-community-modules), where they were updated and re-released.
 
+It's hard to understate the importance of *Jonathan Worthington*'s work in the development and implementation of the Raku Programming Language.  So on behalf of the current and past Raku Community members: **Thank You!**.
 
 
 ## Issues cleanup
