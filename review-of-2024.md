@@ -24,11 +24,21 @@ The [announcement]( https://web.archive.org/web/20240421151537/https://cro.servi
 
 As the source code of `Cro` had always been open source, this was more a question of handing over responsibilities.  Fortunately the Raku Community reacted: *Patrick Böker* has taken care of making `Cro` a true open source project related to Raku, and the [associated web site https://cro.raku.org](https://cro.raku.org) is now being hosted on the Raku infrasructure.  With many kudos to the Raku Infra Team!
 
+### A huge thanks
+
+Sadly, *Jonathan Worthington* also indicated that they would only remain minimally involved in the further development of [MoarVM](https://github.com/MoarVM/MoarVM), [NQP](https://github.com/raku/NQP) and [Rakudo](https://github.com/rakudo/rakudo/) in the foreseeable future.  As such, all of their modules were moved to the [Raku Community Modules Adoption Center](https://github.com/raku-community-modules), where they were updated and re-released.
 
 
-Rakudo saw about 1700 commits this year, which is about 15% less than 2023.  About one third of these commits were in the development of RakuAST.
 
-Commits: rakudo: 1390, MoarVM: 145, NQP: 289
+## Issues cleanup
+
+At the beginning of October, *Elizabeth Mattijsen* decided to take on the large number of open Rakudo issues at that time: 1300+.  They reported on that work in [Raku Fall Issue Cleanup](https://dev.to/lizmat/raku-fall-issue-cleanup-lkc), which resulted in the closing of more than 500 issues.  Of the about 800 open issues remaining, almost 300 were marked as "fixed in RakuAST", and abou 100 were marked as "Will be addressed in RakuAST".  Which still leaves about 400 open, so there's still plenty of work to be done here.
+
+## RakuDoc v2.0
+
+Rakudo saw about 2000 commits (MoarVM, NQP, Rakudo, doc) this year, which is about the same as in 2023.  About one third of these commits were in the development of RakuAST (down from 75% in 2023).
+
+Commits: rakudo: 1390, MoarVM: 145, NQP: 289, docs: 289
 
 p6c:
 - 658 -> 427 modules
