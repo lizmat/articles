@@ -11,13 +11,13 @@ USAGE: moar [--crash] [--libpath=...] input.moarvm [program args]
   MVM_COVERAGE_LOG  Append (de-duped by default) line-by-line coverage messages to this file
 :
 ```
-Very terse documentation about a very useful feature to have in a virtual machine.
+Very terse documentation about a very useful feature to have in a virtual machine: the creation of a so-called "coverage log", that shows *which* lines of source code have been executed during the run of a process.  Such information can be used to find out whether test-files of a distribution actually test all of the possible code-paths in a distribution.
 
 I guess I sorta decided then and there that it is time for Raku to have an easy way to find out whether the tests of a module actually cover *all* of the possible code paths of that module.  Or at least find out how much was **not** covered by tests.  And if not covered, where the parts of the code are that were not covered by tests.
 
-Sometime after Xmas I started working on that.  And now I'm glad to be able to announce that a more or less viable product is now available: [`Test::Coverage`](https://raku.land/zef:lizmat/Test::Coverage).
+Sometime after Xmas I started working on that.  Every now and then it was *not* a SMOP (Simple Matter Of Programming), but now I'm glad to be able to announce that a more or less viable product is now available: [`Test::Coverage`](https://raku.land/zef:lizmat/Test::Coverage).
 
-In the initial stages of this development, I found out that there actually had been a previous attempt at providing coverage information: [`App::RaCoCo`](https://raku.land/zef:atroxaper/App::RaCoCo) by *Mikhail Khorkov*, which takes the approach of needing an author initiated action (starting the `racoco` application).  I wanted to have something that would be part of testing, and would automatically inhibit release with e.g. [`App::Mi6`](https://raku.land/zef:skaji/App::Mi6) if the coverage woul **not** meet certain prerequisite values.
+In the initial stages of this development, I found out that there actually had been a previous attempt at processing coverage information and processing that in a sensible way: [`App::RaCoCo`](https://raku.land/zef:atroxaper/App::RaCoCo) by *Mikhail Khorkov*.  `App::RaCoCo` takes the approach of needing an author initiated action (starting the `racoco` application).  I wanted to have something that would be part of testing, and would automatically inhibit release with e.g. [`App::Mi6`](https://raku.land/zef:skaji/App::Mi6) if the coverage would **not** meet certain prerequisite values.
 
 ## Test::Coverage
 So now there's [`Test::Coverage`](https://raku.land/zef:lizmat/Test::Coverage).  And using it is as easy as:
@@ -46,7 +46,7 @@ not ok 2 - Uncovered 22 <= 10 lines
 ```
 Well, that's not really informative now is it?  Fortunately, there are also options to make this produce more information, provided by the `Test::Coverage` module.
 
-The first is the `report` subroutine, that will produce a more verbose report, much like this (for the [`Text::Mathematical`](https://raku.land/zef:lizmat/Text::MathematicalCase) case module.  So, adding that to the script, we get:
+The first is the `report` subroutine, that will produce a more verbose report, much like this case (for the [`Text::Mathematical`](https://raku.land/zef:lizmat/Text::MathematicalCase) module).  So, adding `report;` to the script, we get:
 ```
 Welcome to Rakudo™ v2024.12.
 Implementing the Raku® Programming Language v6.d.
@@ -60,10 +60,12 @@ Text::MathematicalCase (55.10%):
 
 Produced by Test::Coverage (0.0.5)
 ```
-As you can see, it shows some system information, the name of the module and the percentage of lines that were covered by the test-files.  But more importantly, it shows the line numbers of the lines that were **not** covered by the tests.  Useful information, but maybe not useful enough yet for someone who'd be willing to improve tests.
+As you can see, it shows some system information, the name of the module (`Text::MathematicalCase`), the percentage of lines that were covered by the test-files (`55.10%`), the number of lines that were deemed to be coverable (`49`) and the number of lines that were **not** covered (`22`).
+
+But more importantly, it shows the **line numbers** of the lines that were not covered by the tests.  Useful information, but maybe not useful enough yet for someone who'd be willing to improve tests.
 
 ## Raku coverage files
-Fortunately, there is a subroutine that you can add to the `coverage.rakutest` test script that will produce more information: `source-with-coverage`.  Adding that to your script will not show anything different from before, **but** it will create a `coverage` directory as a sibling to the `t` directory, and create a source-file in there at the same relative location as in `lib`, but with the `.rakucov` extension.  So in this case a `coverage/Text/MathematicalCase.rakucov` file.
+Fortunately, there is a subroutine that is also provided by `Test::Coverage` that you can add to the `coverage.rakutest` test script that will produce more information: `source-with-coverage`.  Adding that to your script will not show anything different from before, **but** it will create a `coverage` directory as a sibling to the `t` directory, and create a source-file in there at the same relative location as in `lib`, but with the `.rakucov` extension.  So in this case a `coverage/Text/MathematicalCase.rakucov` file.
 
 > Since you probably do **not** want to put these files into git, it is probably wise to add `*.rakucov` to your `.gitignore` file.
 
