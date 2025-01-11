@@ -37,6 +37,8 @@ At the beginning of October, *Elizabeth Mattijsen* decided to take on the large 
 
 ## RakuDoc v2.0
 
+The RakuDoc v2.0 specification got a renderer as well, as *Richard Hainsworth* describes in
+
 Rakudo saw about 2000 commits (MoarVM, NQP, Rakudo, doc) this year, which is about the same as in 2023.  About one third of these commits were in the development of RakuAST (down from 75% in 2023).
 
 Commits: rakudo: 1390, MoarVM: 145, NQP: 289, docs: 289
@@ -53,22 +55,32 @@ make test: 110/151 (73%) -> 140 / 156 (90%)
 make spectest: 980/1356 (72%) -> 1155 / 1359 (85%)
 
 Rakudo:
-- dispatcher logic simplified by introducing nqp::shortcuts
-- MOP in Rakudo / NQP streamlined
-- add "is item" dispatch disambiguation trait
+XXX - dispatcher logic simplified by introducing nqp::shortcuts
+XXX - MOP in Rakudo / NQP streamlined
+XXX - add "is item" dispatch disambiguation trait
 - sub form of "trans" + complete overhaul (5% -> 3x as fast)
-- add "is-revision-gated" trait
-- additions: Parameter.of, Allomorph.narrow, Any.are(type),
-  Parameter.new(:invocant), .flat(:hammer), .min/.max/.minmax(:by)
-  .roles on enums, VM.remote-debugging
-- additions 6.e: Cool.nomark, Date.DateTime timezone aware,
-  .contains/.starts-with/.ends-with/.index/.rindex/.substr-eq
-  now have :smartcase, IO::Path.stem, any junction regex
-  interpolation, vulgar fractions in val()
-- CI testing usable again (no more false positives)
-- Up to 2x as fast on JVM backend
-- disabled Expression JIT by default (5% faster on Intel)
-- add @a[**], %h{**} for :hammer ing behaviour
+XXX - add "is-revision-gated" trait
+- additions:
+  Parameter.of,
+  Allomorph.narrow,
+XXX  Any.are(type),
+  Parameter.new(:invocant),
+XXX  .flat(:hammer),
+XXX  .min/.max/.minmax(:by)
+XXX  .roles on enums,
+XXX  VM.remote-debugging
+- additions 6.e:
+XXX Cool.nomark,
+Date.DateTime timezone aware,
+XXX  .contains/.starts-with/.ends-with/.index/.rindex/.substr-eq
+XXX  now have :smartcase,
+XXX  IO::Path.stem,
+  any junction regex interpolation,
+  vulgar fractions in val()
+XXX - CI testing usable again (no more false positives)
+XXX - Up to 2x as fast on JVM backend
+XXX - disabled Expression JIT by default (5% faster on Intel)
+XXX - add @a[**], %h{**} for :hammer ing behaviour
 
 RakuAST:
 - RakuDoc v2.0
@@ -80,7 +92,7 @@ Important fixes:
 - make sure LAST phaser in .map always fires
 - no unnecessary Failures on numeric ops
 - Make "AAS" .. "ABS" use standard .succ semantics
-- stop infiniloops on stringification of self-referencing
+# - stop infiniloops on stringification of self-referencing
   (Quant)Hashes
 - Failures in slices will always throw, instead of silently
   shortcutting lazy slices
