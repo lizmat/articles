@@ -93,6 +93,8 @@ Produced by Test::Coverage (0.0.5)
 ```
 As you can see, it shows some system information, the name of the module (`Text::MathematicalCase`), the percentage of lines that were covered by the test-files (`55.10%`), the number of lines that were deemed to be coverable (`49`) and the number of lines that were **not** covered (`22`).
 
+> Finding out which lines in a source file are deemed "coverable", turned out to be a bit more involved as expected.  Obviously, comment lines and empty lines cannot be covered, but could e.g. an empty `}` on a line be covered or not?  A follow-up blog post will go into this process in more depth.
+
 But more importantly, it shows the **line numbers** of the lines that were not covered by the tests.  Useful information, but maybe not handy enough yet for someone who'd be willing to improve tests.
 
 ## Raku coverage files
