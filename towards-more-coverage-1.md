@@ -144,7 +144,7 @@ x               ~ @args.grep( { !$imports{$_} } ).join(', ')
 ```
 So apparently the case of garbage input into `use Text::MathematicalCase` is not being tested yet, because of the `x`'s in front of this error checking.
 
-if you're lazy, you can change the `coverage.rakutest` test file to values that appear more acceptable at this point in time.  This will allow the test-file to pass and not inhibit any ecosystem uploads with e.g. `App::Mi6` (as these also run the test-files in the `xt` directory).
+If you're lazy, you can change the values in the `coverage.rakutest` test file to values that appear more acceptable at this point in time.  This will allow the test-file to pass and not inhibit any ecosystem uploads with e.g. `App::Mi6` (as these also run the test-files in the `xt` directory).
 
 So let's do that: change the `80` to `55`, and the `1` to `22`, and remove the `report`, and we get:
 ```
@@ -153,7 +153,7 @@ $ raku -I. xt/coverage.rakutest
 ok 1 - Coverage 55.10% >= 55%
 ok 2 - Uncovered 22 <= 22 lines
 ```
-Alternately, you can add `todo` statements to mark the failing test as one that will need fixing.  This is possible because the `Test::Coverage` module also exports all of `Test`'s subroutines as well, so you don't need to do an addition `use Test` for that.
+Alternately, you can add `todo` statements to mark the failing test as one that will need fixing.  This is possible because the `Test::Coverage` module also exports all of `Test`'s subroutines as well, so you don't need to do an additional `use Test` for that.
 ```raku
 use Test::Coverage;
 
