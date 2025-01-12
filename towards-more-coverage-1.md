@@ -13,11 +13,34 @@ USAGE: moar [--crash] [--libpath=...] input.moarvm [program args]
 ```
 Very terse documentation about a very useful feature to have in a virtual machine: the creation of a so-called "coverage log", that shows *which* lines of source code have been executed during the run of a process.  Such information can be used to find out whether test-files of a distribution actually test all of the possible code-paths in a distribution.
 
-I guess I sorta decided then and there that it is time for Raku to have an easy way to find out whether the tests of a module actually cover *all* of the possible code paths of that module.  Or at least find out how much was **not** covered by tests.  And if not covered, where the parts of the code are that were not covered by tests.
+So how does such a coverage log look like?  Well, it's very easy to create one:
+```
+$ MVM_COVERAGE_LOG=log raku -e ''
+```
+That's it.  The above will create a file named "log" of about 500K bytes, with 9600+ lines.  It looks like this:
+```
+HIT  src/vm/moar/ModuleLoader.nqp  1
+HIT  src/vm/moar/ModuleLoader.nqp  1
+HIT  src/vm/moar/ModuleLoader.nqp  105
+HIT  src/vm/moar/ModuleLoader.nqp  181
+HIT  src/vm/moar/ModuleLoader.nqp  253
+*
+* many more lines
+*
+HIT  SETTING::src/core.c/Rakudo/Internals.rakumod  1803
+HIT  SETTING::src/core.c/Rakudo/Internals.rakumod  1805
+HIT  SETTING::src/core.c/Rakudo/Internals.rakumod  1786
+HIT  SETTING::src/core.c/Rakudo/Internals.rakumod  1784
+HIT  src/main.nqp  85
+```
+As you can see, that's a **lot** of lines for what is essentially a null-program.  But it tells you (almost) exactly what happened inside the machine.
 
+I guess I sorta decided then and there that it is time for Raku to have an easy way to find out whether the tests of a module actually cover *all* of the possible code paths of that module.  Or at least find out how much was **not** covered by tests.  And if not covered, where the parts of the code are that were not covered by tests.  But to turn that into useful information, should not be that difficult.
+
+## Post XMas
 Sometime after Xmas I started working on that.  Every now and then it was *not* a SMOP (Simple Matter Of Programming), but now I'm glad to be able to announce that a more or less viable product is now available: [`Test::Coverage`](https://raku.land/zef:lizmat/Test::Coverage).
 
-In the initial stages of this development, I found out that there actually had been a previous attempt at processing coverage information and processing that in a sensible way: [`App::RaCoCo`](https://raku.land/zef:atroxaper/App::RaCoCo) by *Mikhail Khorkov*.  `App::RaCoCo` takes the approach of needing an author initiated action (starting the `racoco` application).  I wanted to have something that would be part of testing, and would automatically inhibit release with e.g. [`App::Mi6`](https://raku.land/zef:skaji/App::Mi6) if the coverage would **not** meet certain prerequisite values.
+>In the initial stages of this development, I found out that there actually had been a previous attempt at processing coverage information and processing that in a sensible way: [`App::RaCoCo`](https://raku.land/zef:atroxaper/App::RaCoCo) by *Mikhail Khorkov*.  `App::RaCoCo` takes the approach of needing an author initiated action (starting the `racoco` application).  I wanted to have something that would be part of testing, and would automatically inhibit release with e.g. [`App::Mi6`](https://raku.land/zef:skaji/App::Mi6) if the coverage would **not** meet certain prerequisite values.
 
 ## Test::Coverage
 So now there's [`Test::Coverage`](https://raku.land/zef:lizmat/Test::Coverage).  And using it is as easy as:
@@ -34,7 +57,7 @@ coverage-at-least 80;
 
 uncovered-at-most 10;
 ```
-and then run the `xt/coverage.rakutest` file.  This will execute **all** of the test files that could be found in coverage mode, process that information, and then probably output something like this:
+and then run `raku -I. xt/coverage.rakutest`.  This will execute **all** of the test files of a distribution that could be found in coverage mode, process that information, and then output something like this:
 ```
 $ raku -I. xt/coverage.rakutest
 1..2
@@ -46,6 +69,7 @@ not ok 2 - Uncovered 22 <= 10 lines
 ```
 Well, that's not really informative now is it?  Fortunately, there are also options to make this produce more information, provided by the `Test::Coverage` module.
 
+### report
 The first is the `report` subroutine, that will produce a more verbose report, much like this case (for the [`Text::Mathematical`](https://raku.land/zef:lizmat/Text::MathematicalCase) module).  So, adding `report;` to the script, we get:
 ```
 Welcome to Rakudo™ v2024.12.
@@ -113,7 +137,7 @@ x               ~ @args.grep( { !$imports{$_} } ).join(', ')
 ```
 So apparently the case of garbage input into `use Text::MathematicalCase` is not being tested yet, because of the `x`'s in front of this error checking.
 
-Since we're lazy, we change the `coverage.rakutest` test file to values that appear more acceptable at this point in time.  This will allow the test-file to pass and not inhibit any ecosystem uploads with e.g. `App::Mi6` (as these also run the test-files in the `xt` directory).
+if you're lazy, you change the `coverage.rakutest` test file to values that appear more acceptable at this point in time.  This will allow the test-file to pass and not inhibit any ecosystem uploads with e.g. `App::Mi6` (as these also run the test-files in the `xt` directory).
 
 So let's do that: change the `80` to `55`, and the `1` to `22`, and remove the `report`, and we get:
 ```
@@ -122,8 +146,9 @@ $ raku -I. xt/coverage.rakutest
 ok 1 - Coverage 55.10% >= 55%
 ok 2 - Uncovered 22 <= 22 lines
 ```
+Alternately, you can add `todo` statements to mark the failing test as one that will need fixing.  This is possible because the `Test::Coverage` module also exports all of `Test`'s subroutines as well, so you don't need to do an addition `use Test` for that.
 
 ## Conclusion
-With the `Test::Coverage` module, every Raku module developer should be able to add coverage testing to their distributions.  And this would not need to affect anything in the normal workflow of the developer: the `Test::Coverage` module need only be installed on the author's computer.
+With the `Test::Coverage` module, every Raku module developer is able to add coverage testing to their distributions in a very simple manner.  And this does not need to affect anything in the normal workflow of the developer: the `Test::Coverage` module need only be installed on the author's computer.
 
 This is the first post of a series: follow-up posts will get more into the development process, and possible future developments of this new module.  Stay tuned!
