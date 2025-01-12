@@ -12,7 +12,7 @@ USAGE: moar [--crash] [--libpath=...] input.moarvm [program args]
 ```
 Very terse documentation about a very useful feature to have in a virtual machine: the creation of a so-called "coverage log", that shows *which* lines of source code have been executed during the run of a process.  Such information can be used to find out whether test-files of a distribution actually test all of the possible code-paths in a distribution.
 
-So how does such a coverage log look like?  Well, it's very easy to create one:
+So how does such a coverage log look like?  Well, it's very easy to create one from the command line:
 ```
 $ MVM_COVERAGE_LOG=log raku -e ''
 ```
@@ -34,7 +34,11 @@ HIT  src/main.nqp  85
 ```
 As you can see, that's a **lot** of lines for what is essentially a null-program.  But it tells you (almost) exactly what happened inside the machine.
 
-I guess I sorta decided then and there that it is time for Raku to have an easy way to find out whether the tests of a module actually cover *all* of the possible code paths of that module.  Or at least find out how much was **not** covered by tests.  And if not covered, where the parts of the code are that were not covered by tests.  But to turn that into useful information, should not be that difficult.
+That moment I decided to have an easy way to find out whether the tests of a module actually cover *all* of the possible code paths of that module.  Or at least find out how much was **not** covered by tests.  And if not covered, where the parts of the code are that were not covered by tests.
+
+> The fact that I have [200+ modules](https://raku.land/zef:lizmat) in the Raku ecosystem, also has to do with that desire.
+
+I hoped that it would not be very difficult to turn that into useful information.
 
 ## Post XMas
 Sometime after Xmas I started working on that.  Every now and then it was *not* a SMOP (Simple Matter Of Programming), but now I'm glad to be able to announce that a more or less viable product is now available: [`Test::Coverage`](https://raku.land/zef:lizmat/Test::Coverage).
