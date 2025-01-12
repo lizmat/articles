@@ -93,12 +93,12 @@ Produced by Test::Coverage (0.0.5)
 ```
 As you can see, it shows some system information, the name of the module (`Text::MathematicalCase`), the percentage of lines that were covered by the test-files (`55.10%`), the number of lines that were deemed to be coverable (`49`) and the number of lines that were **not** covered (`22`).
 
-> Finding out which lines in a source file are deemed "coverable", turned out to be a bit more involved as expected.  Obviously, comment lines and empty lines cannot be covered, but could e.g. an empty `}` on a line be covered or not?  A follow-up blog post will go into this process in more depth.
+> Finding out which lines in a source file are deemed "coverable", turned out to be a bit more involved than expected.  Obviously, comment lines and empty lines cannot be covered, but could e.g. an empty `}` on a line be covered or not?  A follow-up blog post will go into this process in more depth.
 
 But more importantly, it shows the **line numbers** of the lines that were not covered by the tests.  Useful information, but maybe not handy enough yet for someone who'd be willing to improve tests.
 
 ## Raku coverage files
-Fortunately, there is a subroutine that is also provided by `Test::Coverage` that you can add to the `coverage.rakutest` test script that will produce more information: `source-with-coverage`.
+`Test::Coverage` provides a subroutine `source-with-coverage` that you can add to the `coverage.rakutest` test script that will produce more information.
 
 Adding that to your script will not show anything different from before, **but** it will create a `coverage` directory as a sibling to the `t` directory, and create a source-file in there at the same relative location as in `lib`, but with the `.rakucov` extension.  So in this case a `coverage/Text/MathematicalCase.rakucov` file.
 
