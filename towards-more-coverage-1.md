@@ -1,15 +1,14 @@
 # Towards more coverage
 
-It was sometime in November (or was it December?) last year that my attention was drawn again to a feature of [`MoarVM`](https://moarvm.org) that is sadly under-documented and really only visible if you run `moar` without any arguments:
+It was sometime in November (or was it December?) last year that my attention was drawn again to a feature of [`MoarVM`](https://moarvm.org) that is sadly under-documented and its existence is really only visible if you run `moar` without any arguments:
 ```
-% moar
+$ moar
 ERROR: Missing input file.
 
 USAGE: moar [--crash] [--libpath=...] input.moarvm [program args]
-: 
-:
+# more lines
   MVM_COVERAGE_LOG  Append (de-duped by default) line-by-line coverage messages to this file
-:
+# still more lines
 ```
 Very terse documentation about a very useful feature to have in a virtual machine: the creation of a so-called "coverage log", that shows *which* lines of source code have been executed during the run of a process.  Such information can be used to find out whether test-files of a distribution actually test all of the possible code-paths in a distribution.
 
@@ -45,7 +44,7 @@ Sometime after Xmas I started working on that.  Every now and then it was *not* 
 ## Test::Coverage
 So now there's [`Test::Coverage`](https://raku.land/zef:lizmat/Test::Coverage).  And using it is as easy as:
 - `$ zef install Test::Coverage`
-- adding a `coverage.rakutest` file in a (possibly new) `xt` directory
+- add a `coverage.rakutest` file in a (possibly new) `xt` directory.
 
 And then add these lines to it:
 ```raku
@@ -53,11 +52,15 @@ use Test::Coverage;
 
 plan 2;
 
-coverage-at-least 80;
+coverage-at-least 80; # percent
 
-uncovered-at-most 10;
+uncovered-at-most 10; # lines
 ```
-and then run `raku -I. xt/coverage.rakutest`.  This will execute **all** of the test files of a distribution that could be found in coverage mode, process that information, and then output something like this:
+and then run `raku -I. xt/coverage.rakutest`.
+
+> Note that the values *80* and *10* are just arbitrary values that feel like a good start: at least 80% coverage, with a maximum of 10 lines not getting covered.
+
+The `coverage.rakutest` script will execute **all** of the test files of a distribution that could be found in coverage mode, process that information, and then output something like this:
 ```
 $ raku -I. xt/coverage.rakutest
 1..2
@@ -86,10 +89,12 @@ Produced by Test::Coverage (0.0.5)
 ```
 As you can see, it shows some system information, the name of the module (`Text::MathematicalCase`), the percentage of lines that were covered by the test-files (`55.10%`), the number of lines that were deemed to be coverable (`49`) and the number of lines that were **not** covered (`22`).
 
-But more importantly, it shows the **line numbers** of the lines that were not covered by the tests.  Useful information, but maybe not useful enough yet for someone who'd be willing to improve tests.
+But more importantly, it shows the **line numbers** of the lines that were not covered by the tests.  Useful information, but maybe not handy enough yet for someone who'd be willing to improve tests.
 
 ## Raku coverage files
-Fortunately, there is a subroutine that is also provided by `Test::Coverage` that you can add to the `coverage.rakutest` test script that will produce more information: `source-with-coverage`.  Adding that to your script will not show anything different from before, **but** it will create a `coverage` directory as a sibling to the `t` directory, and create a source-file in there at the same relative location as in `lib`, but with the `.rakucov` extension.  So in this case a `coverage/Text/MathematicalCase.rakucov` file.
+Fortunately, there is a subroutine that is also provided by `Test::Coverage` that you can add to the `coverage.rakutest` test script that will produce more information: `source-with-coverage`.
+
+Adding that to your script will not show anything different from before, **but** it will create a `coverage` directory as a sibling to the `t` directory, and create a source-file in there at the same relative location as in `lib`, but with the `.rakucov` extension.  So in this case a `coverage/Text/MathematicalCase.rakucov` file.
 
 > Since you probably do **not** want to put these files into git, it is probably wise to add `*.rakucov` to your `.gitignore` file.
 
@@ -119,6 +124,8 @@ So an example of a well tested subroutine from this source file would be:
 *     Uni.new(@result).Str;
   }
 ```
+No `x`es, so all that could be covered, *was* covered.
+
 An example of incomplete coverage from the same file:
 ```raku
 * sub EXPORT(*@args, *%_) {
@@ -137,7 +144,7 @@ x               ~ @args.grep( { !$imports{$_} } ).join(', ')
 ```
 So apparently the case of garbage input into `use Text::MathematicalCase` is not being tested yet, because of the `x`'s in front of this error checking.
 
-if you're lazy, you change the `coverage.rakutest` test file to values that appear more acceptable at this point in time.  This will allow the test-file to pass and not inhibit any ecosystem uploads with e.g. `App::Mi6` (as these also run the test-files in the `xt` directory).
+if you're lazy, you can change the `coverage.rakutest` test file to values that appear more acceptable at this point in time.  This will allow the test-file to pass and not inhibit any ecosystem uploads with e.g. `App::Mi6` (as these also run the test-files in the `xt` directory).
 
 So let's do that: change the `80` to `55`, and the `1` to `22`, and remove the `report`, and we get:
 ```
