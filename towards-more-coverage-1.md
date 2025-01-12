@@ -148,7 +148,7 @@ x               ~ @args.grep( { !$imports{$_} } ).join(', ')
       }
   }
 ```
-So apparently the case of garbage input into `use Text::MathematicalCase` is not being tested yet, because of the `x`'s in front of this error checking.
+The lines that start with `x` indicate lines that were **not** executed.  So apparently the case of garbage input into `use Text::MathematicalCase` (the `if` condition being true) is not being tested yet, shown by the `x`'s in front of the `die` statement.
 
 If you're lazy, you can change the values in the `coverage.rakutest` test file to values that appear more acceptable at this point in time.  This will allow the test-file to pass and not inhibit any ecosystem uploads with e.g. `App::Mi6` (as these also run the test-files in the `xt` directory).
 
