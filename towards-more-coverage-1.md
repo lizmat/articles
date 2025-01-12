@@ -42,9 +42,9 @@ Sometime after Xmas I started working on that.  Every now and then it was *not* 
 >In the initial stages of this development, I found out that there actually had been a previous attempt at processing coverage information and processing that in a sensible way: [`App::RaCoCo`](https://raku.land/zef:atroxaper/App::RaCoCo) by *Mikhail Khorkov*.  `App::RaCoCo` takes the approach of needing an author initiated action (starting the `racoco` application).  I wanted to have something that would be part of testing, and would automatically inhibit release with e.g. [`App::Mi6`](https://raku.land/zef:skaji/App::Mi6) if the coverage would **not** meet certain prerequisite values.
 
 ## Test::Coverage
-So now there's [`Test::Coverage`](https://raku.land/zef:lizmat/Test::Coverage).  And using it is as easy as:
-- `$ zef install Test::Coverage`
-- add a `coverage.rakutest` file in a (possibly new) `xt` directory.
+So now there's [`Test::Coverage`](https://raku.land/zef:lizmat/Test::Coverage).  You can install that with zef: `zef install Test::Coverage`.
+
+And using it as a module developer in the root directory of a distribution, is as easy as adding a `coverage.rakutest` file in a (possibly new) `xt` directory.
 
 And then add these lines to it:
 ```raku
@@ -60,7 +60,7 @@ and then run `raku -I. xt/coverage.rakutest`.
 
 > Note that the values *80* and *10* are just arbitrary values that feel like a good start: at least 80% coverage, with a maximum of 10 lines not getting covered.
 
-The `coverage.rakutest` script will execute **all** of the test files of a distribution that could be found in coverage mode, process that information, and then output something like this:
+Your `coverage.rakutest` script will now execute **all** of the test files of a distribution that could be found in coverage mode, process that information, and then output something like this:
 ```
 $ raku -I. xt/coverage.rakutest
 1..2
