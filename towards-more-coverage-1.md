@@ -154,6 +154,18 @@ ok 1 - Coverage 55.10% >= 55%
 ok 2 - Uncovered 22 <= 22 lines
 ```
 Alternately, you can add `todo` statements to mark the failing test as one that will need fixing.  This is possible because the `Test::Coverage` module also exports all of `Test`'s subroutines as well, so you don't need to do an addition `use Test` for that.
+```raku
+use Test::Coverage;
+
+plan 2;
+
+todo "needs more tests";
+coverage-at-least 80; # percent
+
+todo "needs more tests";
+uncovered-at-most 10; # lines
+```
+This will make sure that the lack of coverage will still make it possible to do a release with `App::Mi6`.
 
 ## Conclusion
 With the `Test::Coverage` module, every Raku module developer is able to add coverage testing to their distributions in a very simple manner.  And this does not need to affect anything in the normal workflow of the developer: the `Test::Coverage` module need only be installed on the author's computer.
