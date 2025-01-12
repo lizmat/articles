@@ -48,7 +48,7 @@ Sometime after Xmas I started working on that.  Every now and then it was *not* 
 ## Test::Coverage
 So now there's [`Test::Coverage`](https://raku.land/zef:lizmat/Test::Coverage).  You can install that with zef: `zef install Test::Coverage`.
 
-And using it as a module developer in the root directory of a distribution, is as easy as adding a `coverage.rakutest` file in a (possibly new) `xt` directory.
+Use this as a module developer by adding a `coverage.rakutest` file in a (possibly new) `xt` directory in the root directory of a distribution.
 
 And then add these lines to it:
 ```raku
@@ -60,7 +60,7 @@ coverage-at-least 80; # percent
 
 uncovered-at-most 10; # lines
 ```
-and then run `raku -I. xt/coverage.rakutest`.
+and then run `raku -I. xt/coverage.rakutest` from the command line.
 
 > Note that the values *80* and *10* are just arbitrary values that feel like a good start: at least 80% coverage, with a maximum of 10 lines not getting covered.
 
@@ -77,7 +77,7 @@ not ok 2 - Uncovered 22 <= 10 lines
 Well, that's not really informative now is it?  Fortunately, there are also options to make this produce more information, provided by the `Test::Coverage` module.
 
 ### report
-The first is the `report` subroutine, that will produce a more verbose report, much like this case (for the [`Text::Mathematical`](https://raku.land/zef:lizmat/Text::MathematicalCase) module).  So, adding `report;` to the script, we get:
+The first is the `report` subroutine that will produce a more verbose report, much like this case (for the [`Text::Mathematical`](https://raku.land/zef:lizmat/Text::MathematicalCase) module).  So, adding `report;` to the script, we get:
 ```
 Welcome to Rakudo™ v2024.12.
 Implementing the Raku® Programming Language v6.d.
