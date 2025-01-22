@@ -53,10 +53,10 @@ It is always nice to know the line numbers of code that didn't get covered.  But
 
 To make that process easier, the `Code::Coverage` object has an `annotated` method that will produce the source code of a `use` target, and prefix each line of source with one of these four possibilities:
 
-- "* " - line was coverable, and covered
-- "✱ " - line was **not** coverable, but covered anyway
-- "x " - line was coverable and **not** covered
-- "  " - line was not coverable
+- "`* `" - line was coverable, and covered
+- "`✱ `" - line was **not** coverable, but covered anyway
+- "`x `" - line was coverable and **not** covered
+- "`  `" - line was not coverable
 
 Sounds familiar?  It should be if you've read the first post of this blog series.  Yes, that's indeed the logic that `Test::Coverage` uses to create the `.rakucov` files.
 
