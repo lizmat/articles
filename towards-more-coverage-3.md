@@ -58,14 +58,16 @@ To make that process easier, the `Code::Coverage` object has an `annotated` meth
 - "`x `" - line was coverable and **not** covered
 - "`  `" - line was not coverable
 
-Sounds familiar?  It should be if you've read the first post of this blog series.  Yes, that's indeed the logic that `Test::Coverage` uses to create the `.rakucov` files.
+Looks familiar?  It should be if you've read the first post of this blog series!  Yes, that's indeed the logic that `Test::Coverage` uses to create the `.rakucov` files.
 
 ## More control
 
 The [`new`](https://raku.land/zef:lizmat/Code::Coverage#new) method allows for more customization / configuration of the coverage process, such as an option to specify where (temporary) coverage files are to be stored, and whether they should be removed or not after processing.
 
+It also allows you to inspect the output that the scripts produced in each call to the `run` method (both STDOUT and STDERR), if you would like to find out what the scripts actually did.
+
 ## Conclusion
 
-As you may have gathered: the `Code::Coverable` and `Code::Coverage` modules are the workhorses of the `Test::Coverage` module, which is basically a thin layer around these modules.  I find that to be a good design principle: have a "backend" (computer) and a "frontend" (human interaction) functionality.  Or in "git" terms: separted in "plumbing" and "porcelain".
+As you may have gathered: the `Code::Coverable` and `Code::Coverage` modules are the workhorses of the `Test::Coverage` module, which is basically a thin layer around these modules.  I find that to be a good design principle: have a "backend" (computer) and a "frontend" (human interaction) functionality.  Or in "git" terms: separated in "plumbing" and "porcelain".
 
 *If you like what I'm doing, committing to a [small sponsorship](https://github.com/sponsors/lizmat/) would mean a great deal to me!*
