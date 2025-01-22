@@ -177,3 +177,5 @@ This will make sure that the lack of coverage will still make it possible to do 
 With the `Test::Coverage` module, every Raku module developer is able to add coverage testing to their distributions in a very simple manner.  And this does not need to affect anything in the normal workflow of the developer: the `Test::Coverage` module need only be installed on the author's computer.
 
 This is the first post of a series: follow-up posts will get more into the development process, and possible future developments of this new module.  Stay tuned!
+
+*If you like what I'm doing, committing to a [small sponsorship](https://github.com/sponsors/lizmat/) would mean a great deal to me!*

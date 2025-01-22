@@ -1,6 +1,6 @@
 # Finding the coverables
 
-> This is part 2 in the ["Towards more coverage"](https://dev.to/lizmat/towards-more-coverage-fne) blog series.
+> This is part 2 in the ["Towards more coverage"](https://dev.to/lizmat/series/30086) blog series.
 
 The first blog described how to get a (big) file with all of the source locations that a particular Raku program executed.  But that log does **not** tell yet which lines *could* be executed, but *weren't*.  This blog post describes the development process of the logic to find out which lines of source-code *can* be executed, so that it's possible to report which lines were *missed*.
 
@@ -88,3 +88,5 @@ Finally, I decided to wrap it all up in a [`coverables`](https://raku.land/zef:l
 
 ## Conclusion
 This was by far the most difficult part of getting test coverage for Raku modules into a viable product.  It involved a lot of yak shaving and detours, but in the end created a nice set of capabilities in the [`Identity::Utils`](https://raku.land/zef:lizmat/Identity::Utils) and [`MoarVM::Bytecode`](https://raku.land/zef:lizmat/MoarVM::Bytecode) modules.  And the new [`Code::Coverable`](https://raku.land/zef:lizmat/Code::Coverable) module, of course :-).
+
+*If you like what I'm doing, committing to a [small sponsorship](https://github.com/sponsors/lizmat/) would mean a great deal to me!*
