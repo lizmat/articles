@@ -7,7 +7,7 @@ The first blog introduced the new [`Test::Coverage`](https://raku.land/zef:lizma
 ## Code::Coverage
 With the `Code::Coverable` module now being operational, it was time to package this up in a module that would actually create coverage information.
 
-And that became [`Code::Coverage`](https://raku.land/zef:lizmat/Code::Coverage) module.  And in its simplest use, it looks like this:
+And that became the [`Code::Coverage`](https://raku.land/zef:lizmat/Code::Coverage) module.  And in its simplest use, it looks like this:
 ```raku
 use Code::Coverage;
 
@@ -26,7 +26,7 @@ At object instantiation, provide two named arguments.  The first one is called `
 
 The second one is called `runners`, and it should contain the path(s) of the scripts that should be executed to create coverage information.
 
-> In the `Test::Coverage` that would be set up with all the `.t` and `.rakutest` files in the `t` and `xt` directories of the distribution.
+> In the `Test::Coverage` case that would be set up with all the `.t` and `.rakutest` files in the `t` and `xt` directories of the distribution.
 
 Then, call the `run` method on the `Code::Coverage` object to execute the scripts and create the coverage information, scan and process it.
 
