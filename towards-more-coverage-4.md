@@ -48,7 +48,7 @@ my $b = $a eq "foo"
 ```
 But that also feels a bit icky: adapting your coding style just to satisfy any coverage testing.
 
-It's probably better to realize that 100% coverage testing is still **no** guarantee that all possible code paths are tested.  And that you should always remain vigilant with regards to testing your code: find new ways to break it, and make test to spot such breakage!
+It's probably better to realize that 100% coverage testing is still **no** guarantee that all possible code paths are tested.  And that you should always remain vigilant with regards to testing your code: find new ways to break it, and make tests to spot such breakage!
 
 ## Status update
 
@@ -85,8 +85,10 @@ The call to `must-be-complete` will then see that all is ok, and mark the test i
 
 Coverage testing will help you determine which parts of the code in a distribution are not tested yet.  But is **no** guarantee that really all possible code path have been tested.
 
-Adding coverage testing at a later stage, is a lot of work.  Make sure that you add it during development of a distribution, as you would with any other tests.
+Adding coverage testing at a later stage is a lot of work.  Make sure that you add it during development of a distribution, as you would with any other tests.
 
 The `Test::Coverage` distribution allows for further flexibility in a lot of corner cases as well, not just for the simple, straightforward testing cases.
+
+This concludes this series of blog posts for now.  New episodes may be added at a later stage: never say never!
 
 *If you like what I'm doing, committing to a [small sponsorship](https://github.com/sponsors/lizmat/) would mean a great deal to me!*
