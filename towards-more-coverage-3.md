@@ -11,7 +11,7 @@ And that became the [`Code::Coverage`](https://raku.land/zef:lizmat/Code::Covera
 ```raku
 use Code::Coverage;
 
-my $coverage := Code::Coverage.new(
+my $coverage = Code::Coverage.new(
   targets => @targets,
   runners => @test-scripts
 );
@@ -20,7 +20,9 @@ $coverage.run;
 
 say .key ~ ": " ~ .value for $coverage.missed;
 ```
-At object instantiation, provide two named arguments.  The first one is called `targets` and should contain the `use` targets for which to provide coverage information.  These use targets are usually the `key` of the `Code::Coverable` object returned by the `coverables` subroutine of the `Code::Coverable` distribution.
+At object instantiation, provide two named arguments.
+
+The first one is called `targets` and should contain the `use` targets for which to provide coverage information.  These use targets are usually the `key` of the `Code::Coverable` object returned by the `coverables` subroutine of the `Code::Coverable` distribution.
 
 > In the `Test::Coverage` case, this would be obtained from the "provides" section from the `META6.json` file of a distribution.
 
