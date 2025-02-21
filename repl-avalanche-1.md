@@ -12,8 +12,8 @@ The `REPL` distribution provides the same features as the standard Raku REPL, bu
 - REPL specific commands start with "=" to distinguish them from code
 - command shortcuts ("=q" being short for "=quit" to exit the REPL)
 - help sections for beginners (=introduction, =completions)
-- context-sensitive completions
-- special purpose completions (123 -> ¹²³ -> ₁₂₃, foo -> FOO -> Foo)
+- context-sensitive TAB completions
+- special purpose TAB completions (\^123 → ¹²³ → ₁₂₃, foo! → FOO → Foo, \heart → 🫀 → 💓 → ...)
 - show stack trace if called with "repl" sub (=stack)
 - save code entered so far (=write)
 - reload code that was saved before (=read)
@@ -54,9 +54,9 @@ The same applies for the `--symbols` argument.  This argument specifies what the
 - ready to start new expression (in this example: 🦋, default ">")
 - in the middle of a multi-line expression (in this example: 🔥, default "*").
 
-If the `--the-prompt` part does not contain a `:symbol:` placeholder, it will be automatically added at the end.
+Note that the different states are separated by a comma in the specification.
 
-So the above example could also be written as:
+If the `--the-prompt` part does not contain a `:symbol:` placeholder, it will be automatically added at the end.  So the above example could also be written as:
 ```
 $ repl --the-prompt='[:index'] %R' --symbols=':butterfly:,:fire:'
 ```
