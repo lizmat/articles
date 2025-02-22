@@ -24,29 +24,32 @@ And then you can enter Raku code and have it immediately executed.  For example:
 a = 42
 [1] > say $*0
 42
-[1] >
+[1] > exit
+$
 ```
-Note that the number between the square brackets went from `0` to `1` after the first line entered.  But **not** after the second line entered.  This is because the first line did **not** cause any output.  In that case, the REPL will show the value of the expression and keep it for future reference.
+The number between square brackets indicates the number of expression values that have been saved.  It is also the index at which the next expression value will be saved.
+
+Note that that number went from `0` to `1` after the first line entered.  But **not** after the second line entered.  This is because the first line did **not** cause any output.  In that case, the REPL will show the value of the expression and keep it for future reference.
 
 The second line entered *did* cause some output, so the value was **not** saved, and the index was **not** incremented.
 
 Finally, the third line shows how you can refer to the originally saved value, by accessing the dynamic variable `$*0` (with the number corresponding to the index at which the value was saved).
 
-> There is no help available in the standard REPL: it doesn't even have any commands!  The way to exit the REPL is to type "exit".  Which is in fact a Raku function that exits the current process.
+> There is no help available in the standard REPL: it doesn't even have any commands!  The way to exit the REPL is to type "exit".  Which is in fact calling the Raku [`exit`](https://docs.raku.org/routine/exit) function that exits the current process.
 
 ## Three months on
 Three months on since November 2024, the [`REPL`](https://raku.land/zef:lizmat/REPL) distribution provides a REPL that is ready for production (so to speak, as the use of this tool in production would be limited).
 
 > `zef install REPL` is enough to install this distribution and all of its dependencies.
 
-The `REPL` distribution provides the same features as the standard Raku REPL, but also:
+The `REPL` distribution provides the same features as the standard Raku REPL, but also provides:
 - configurable prompt through command line arguments and environment variables
-- REPL specific commands start with "=" to distinguish them from code
+- REPL specific commands that can be entered by starting the line with "=" to distinguish them from Raku code
 - command shortcuts ("=q" being short for "=quit" to exit the REPL)
 - help sections for beginners (=introduction, =completions)
 - context-sensitive TAB completions
-- special purpose TAB completions (\\^123 → ¹²³ → ₁₂₃, foo → FOO → Foo, \heart → 🫀 → 💓 → ...)
-- show stack trace if called with "repl" sub (=stack)
+- special purpose TAB completions (\\123 → ¹²³ → ₁₂₃, foo → FOO → Foo, \heart → 🫀 → 💓 → ...)
+- show stack trace (=stack), only makes sense if called when in the `repl` sub
 - save code entered so far (=write)
 - reload code that was saved before (=read)
 - edit file inside the repl or code saved (=edit)
