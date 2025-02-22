@@ -110,4 +110,12 @@ Although it was my original intent that the `REPL` module would be incorporated 
 
 This is the first part of a series of blog posts about the `REPL` distribution.  Future installments will look at the available commands, the completions logic, and how the `repl` subroutine can be used in debugging your code.
 
+If you're curious as to which new distributions that were created to supporte the `REPL` distribution, and can't wait, here they are (in alphabetical order):
+- [`CodeUnit`](https://raku.land/zef:lizmat/CodeUnit) - provide a unit for execution of code
+- [`Commands`](https://raku.land/zef:lizmat/Commands) - handle interactive user commands
+- [`DateTime::strftime`](https://raku.land/zef:lizmat/DateTime::strftime) -  provide strftime() formatting for `DateTime` objects
+- [`Prompt`](https://raku.land/zef:lizmat/Prompt) - a smarter prompt for user interaction
+- [`Prompt::Expand`](https://raku.land/zef:lizmat/Prompt::Expand) - provide prompt expansion logic
+- [`Text::Emoji`](https://raku.land/zef:lizmat/Text::Emoji) - provide :text: to emoji translation
+
 *If you like what I'm doing, committing to a [small sponsorship](https://github.com/sponsors/lizmat/) would mean a great deal to me!*
