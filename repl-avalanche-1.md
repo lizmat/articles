@@ -93,7 +93,7 @@ If the `--the-prompt` part does not contain a `:symbol:` placeholder, it will be
 $ repl --the-prompt='[:index'] %R' --symbols=':butterfly:,:fire:'
 ```
 
-"That's all nice, but I really don't want to enter all of those arguments every time", you might think, or even say out loud.  Fear not, there are also environment variables that you can set.  The above example could also be written as:
+"That's all nice, but I really don't want to enter all of those arguments every time", you might think, or even say out loud.  Fear not, there are also environment variables that you can set to achieve the same result.  The above example could also be written as:
 ```
 $ export RAKUDO_REPL_PROMPT='[:index:] :HHMM:'
 $ export RAKUDO_REPL_SYMBOLS=':butterfly:,:fire:'
@@ -103,6 +103,8 @@ $ repl
 If you want, you can put those environment variables in your startup script, so that these settings always apply by default.
 
 > A word of caution: yours truly has spent a lot of time playing with the prompt settings.  It can be a serious time-sink.
+
+And of course, if you're only interested in removing the `[0]` part from the prompt (as was the original reason for the Problem Solving Issue), you can just export an empty `RAKUDO_REPL_PROMPT`: `export RAKUDO_REPL_PROMPT=`.
 
 ## Conclusion
 
