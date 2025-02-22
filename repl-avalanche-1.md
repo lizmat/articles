@@ -57,7 +57,7 @@ The `REPL` distribution provides the same features as the standard Raku REPL, bu
 - installs a command-line script `repl` for direct access
 - provides a `REPL` role to facilitate further customization
 
-Over the coming months, a number of additional features will probably be added as well, depending on demand.  But first, let's have a look at all of the features.
+Over the coming months, a number of additional features will probably be added as well, depending on demand.  But first, let's have a look at one of the features.
 
 ## Configuring the prompt
 
@@ -109,9 +109,11 @@ If you want, you can put those environment variables in your startup script, so 
 
 And of course, if you're only interested in removing the `[0]` part from the prompt (as was the original reason for the Problem Solving Issue), you can just export an empty `RAKUDO_REPL_PROMPT`: `export RAKUDO_REPL_PROMPT=`.
 
-## Conclusion
+## Still in core?
 
 Although it was my original intent that the `REPL` module would be incorporated into the core, it now feels like it has gotten so many features (and dependencies) that it has probably become too big to be incorporated in the Raku core.  Which leads to the question whether a subset of the functionality should be incorporated in core, or that maybe the REPL should be removed from core altogether.  And include the `REPL` distribution and its dependencies in all derived packaging, such as Rakudo Star.
+
+## Conclusion
 
 This is the first part of a series of blog posts about the `REPL` distribution.  Future installments will look at the available commands, the completions logic, and how the `repl` subroutine can be used in debugging your code.
 
@@ -122,5 +124,7 @@ If you're curious as to which new distributions that were created to supporte th
 - [`Prompt`](https://raku.land/zef:lizmat/Prompt) - a smarter prompt for user interaction
 - [`Prompt::Expand`](https://raku.land/zef:lizmat/Prompt::Expand) - provide prompt expansion logic
 - [`Text::Emoji`](https://raku.land/zef:lizmat/Text::Emoji) - provide :text: to emoji translation
+
+Image courtesy of *Salve J. Nilsen*.
 
 *If you like what I'm doing, committing to a [small sponsorship](https://github.com/sponsors/lizmat/) would mean a great deal to me!*
