@@ -48,7 +48,7 @@ The `REPL` distribution provides the same features as the standard Raku REPL, bu
 - command shortcuts ("=q" being short for "=quit" to exit the REPL)
 - help sections for beginners (=introduction, =completions)
 - context-sensitive TAB completions
-- special purpose TAB completions (\\123 → ¹²³ → ₁₂₃, foo → FOO → Foo, \heart → 🫀 → 💓 → ...)
+- special purpose TAB completions (\\123 → ¹²³ → ₁₂₃, foo! → FOO → Foo, \heart → 🫀 → 💓 → ...)
 - show stack trace (=stack), only makes sense if called when in the `repl` sub
 - save code entered so far (=write)
 - reload code that was saved before (=read)
