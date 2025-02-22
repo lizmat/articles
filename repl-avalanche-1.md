@@ -2,8 +2,38 @@
 
 Sometime in early November, I decided to have a look at re-imagining the REPL (Read, Eval, Print, Loop) that is provided by default by the [Raku Programming Language](https://raku.org).  Little did I know that that work would in the end result in *six* new distributions.  Each providing some useful sub-functionality of the REPL, but also providing useful functionality outside of the REPL context.
 
+> Parallel to this effort, a [Problem Solving Issue](https://github.com/raku/problem-solving/issues/459) was created about the lack of configurability of the standard REPL, and a proof of concept [Pull Request](https://github.com/Raku/problem-solving/pull/460) was made by *Will Coleda*, which proved to be both inspirational.
+
+## The standard REPL
+
+But first, for the uninitiated, a small introduction.  The Raku standard REPL can be invoked by calling `raku` from the command line without any arguments:
+```
+$ raku
+Welcome to Rakudo™ v2025.01.
+Implementing the Raku® Programming Language v6.d.
+Built on MoarVM version 2025.01.
+
+To exit type 'exit' or '^D'
+[0] >
+```
+And then you can enter Raku code and have it immediately executed.  For example:
+```
+[0] > my $a = 42
+42
+[1] > say "a = $a"
+a = 42
+[1] > say $*0
+42
+[1] >
+```
+Note that the number between the square brackets went from `0` to `1` after the first line entered.  But not after the second line entered.  This is because the first line did **not** cause any output.  In that case, the REPL will show the value of the expression and keep it for future reference.
+
+The second line entered *did* cause some output, so the value was **not** saved, and the index was **not** incremented.  Finally, the third line shows how you can refer to the originally saved value, by accessing the dynamic variable `$*0` (with the number corresponding to the index at which the value was saved).
+
+> There is no help available in the standard REPL: it doesn't even have any commands!  The way to exit the REPL is to type "exit".  Which is in fact a Raku function that exits the current process.
+
 ## Three months on
-Three months on since November, the [`REPL`](https://raku.land/zef:lizmat/REPL) distribution provides a REPL that is ready for production (so to speak, as the use of this tool in production would be limited).
+Three months on since November 2024, the [`REPL`](https://raku.land/zef:lizmat/REPL) distribution provides a REPL that is ready for production (so to speak, as the use of this tool in production would be limited).
 
 > `zef install REPL` is enough to install this distribution and all of its dependencies.
 
@@ -74,6 +104,8 @@ If you want, you can put those environment variables in your startup script, so 
 
 ## Conclusion
 
-This is the first part of a series of blog posts about the `REPL` distribution.  Future installments will look at the avavailable commands, the completions logic, and how the `repl` subroutine can be used in debugging your code.
+Although it was my original intent that the `REPL` module would be incorporated into the core, it now feels like it has gotten so many features (and depencies) that it has probably become too big to be incorporated in the Raku core.  Which leads to the question whether a subset of the functionality should be incorporated in core, or that maybe the REPL should be removed from core altogether.  And include the `REPL` distribution and its dependencies in all derived packaging, such as Rakudo Star.
+
+This is the first part of a series of blog posts about the `REPL` distribution.  Future installments will look at the available commands, the completions logic, and how the `repl` subroutine can be used in debugging your code.
 
 *If you like what I'm doing, committing to a [small sponsorship](https://github.com/sponsors/lizmat/) would mean a great deal to me!*
