@@ -39,7 +39,9 @@ Apart from being hacky, the `EVAL` approach added quite a bit of *runtime* overh
 
 ## RakuAST
 
-Fastforward to today: there is now an alternative way of building code to be executed: [`RakuAST`](https://docs.raku.org/type/RakuAST).  The [RakuAST project](https://news.perlfoundation.org/post/gp_rakuast) was started by *Jonathan Worthington*.  From the grant proposal:
+Fastforward to today.  There is now an alternative way of building code that is to be executed: [`RakuAST`](https://docs.raku.org/type/RakuAST).
+
+The [RakuAST project](https://news.perlfoundation.org/post/gp_rakuast) was started by *Jonathan Worthington*.  From the grant proposal:
 
 > The goal of RakuAST is to provide an [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) that is part of the Raku language specification, and thus can be relied upon by the language user. Such an AST is a prerequisite for a useful implementation of macros that actually solve practical problems, but also offers further powerful opportunities for the module developer.
 
@@ -148,7 +150,7 @@ On the other hand, please keep in perspective that these benchmarks were run for
 
 ## Conclusion
 
-The RakuAST project has reached such a maturity that it could be used to re-imagine the currying / priming / partial applocation logic of the Raku Programming Language.  And that this re-imagination has made that functionality a order of magnitude faster, while still not being fully optimized yet.
+The RakuAST project has reached such a maturity that it could be used to re-imagine the currying / priming / partial applocation logic of the Raku Programming Language.  And that this re-imagination has made that functionality an order of magnitude faster, while still not being fully optimized yet.
 
 Thanks to the [Raku Foundation](https://raku.foundation) for supporting this work on `.assuming`.
 
