@@ -19,8 +19,8 @@ This is a simple example in which one positional parameter is replaced.  Replaci
 Let's take the [`max`](https://docs.raku.org/routine/max#(Operators)\_infix_max) subroutine that returns the maximum of the given values.  In this case we make sure that the maximum value of any number of values given, is at least 0.  By making sure that the value `0` is always added to any list of values specified.  Which also handles the case if called without any arguments.
 ```
 my &max0 = &max.assuming(0);  # always add 0 as a value to be checked
-say max  -1, -2, -3;  # -1
-say max0 -1, -2, -3;  # 0, because 0 is greater than -1;
+say max  -1, -2, -3;          # -1
+say max0 -1, -2, -3;          # 0, because 0 is greater than -1;
 
 say max;   # -Inf, smallest possible numeric value
 say max0;  # 0, because max(0) is 0
@@ -32,7 +32,7 @@ The original implementation of `.assuming` was done by *Brian S. Julin* in July 
 
 > This currently uses EVAL to construct the closure, which is LTA, but it gives us something functional/testable to work forward from.
 
-In the close to 10 years since then, only small tweaks and fixes have been applied by a group of Rakudo core developers.  But the essentially hacky approach of building a string with Raku code, and then [`EVAL`](https://docs.raku.org/routine/EVAL) it, did not change.  Simply because there were not any alternative solutions.
+In the close to 10 years since then, only small tweaks and fixes have been applied by a group of Rakudo core developers.  But the essentially hacky approach of building a string with Raku code, and then [`EVAL`](https://docs.raku.org/routine/EVAL) it, did not change.  Simply because there were no alternative solutions.
 
 Apart from being hacky, the `EVAL` approach added quite a bit of *runtime* overhead.  Not only would it take time to create the string with Raku code to be evaluated, and run the evaluation itself (which could potentially happen at compile time, so not a real worry for modules).  It would also process arguments at runtime.  That runtime overhead also caused an issue to be made in early 2019: [.assuming is painfully slow](https://github.com/rakudo/rakudo/issues/2599).  But since there was no alternative approach available, the issue remained dormant for more than 6 years.
 
@@ -84,38 +84,38 @@ To give you an idea how this looks like:
 use RakuAST::Utils;
 sub foo(Int $a, Int(Str) $b --> Str:D) { "foo" }
 say SignatureAST(&foo.signature);
+# RakuAST::Signature.new(
+#   parameters => (
+#     RakuAST::Parameter.new(
+#       type   => RakuAST::Type::Simple.new(
+#         RakuAST::Name.from-identifier("Int")
+#       ),
+#       target => RakuAST::ParameterTarget::Var.new(
+#         name => "\$a"
+#       )
+#     ),
+#     RakuAST::Parameter.new(
+#       type   => RakuAST::Type::Coercion.new(
+#         base-type  => RakuAST::Type::Simple.new(
+#           RakuAST::Name.from-identifier("Int")
+#         ),
+#         constraint => RakuAST::Type::Simple.new(
+#           RakuAST::Name.from-identifier("Str")
+#         )
+#       ),
+#       target => RakuAST::ParameterTarget::Var.new(
+#         name => "\$b"
+#       )
+#     ),
+#   ),
+#   returns    => RakuAST::Type::Definedness.new(
+#     base-type => RakuAST::Type::Simple.new(
+#       RakuAST::Name.from-identifier("Str")
+#     ),
+#     definite  => True
+#   )
+# )
 ```
-    RakuAST::Signature.new(
-      parameters => (
-        RakuAST::Parameter.new(
-          type   => RakuAST::Type::Simple.new(
-            RakuAST::Name.from-identifier("Int")
-          ),
-          target => RakuAST::ParameterTarget::Var.new(
-            name => "\$a"
-          )
-        ),
-        RakuAST::Parameter.new(
-          type   => RakuAST::Type::Coercion.new(
-            base-type  => RakuAST::Type::Simple.new(
-              RakuAST::Name.from-identifier("Int")
-            ),
-            constraint => RakuAST::Type::Simple.new(
-              RakuAST::Name.from-identifier("Str")
-            )
-          ),
-          target => RakuAST::ParameterTarget::Var.new(
-            name => "\$b"
-          )
-        ),
-      ),
-      returns    => RakuAST::Type::Definedness.new(
-        base-type => RakuAST::Type::Simple.new(
-          RakuAST::Name.from-identifier("Str")
-        ),
-        definite  => True
-      )
-    )
 
 The functionality offered by this distribution could possibly become core at some point, but the interface / API should mature a bit before that.  Also, the RakuAST interface itself isn't fully stable yet, so this module can provide a more stable interface as a central place to handle any RakuAST interface changes.
 
