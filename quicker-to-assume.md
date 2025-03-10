@@ -18,11 +18,11 @@ This is a simple example in which one positional parameter is replaced.  Replaci
 
 Let's take the [`max`](https://docs.raku.org/routine/max#(Operators)\_infix_max) subroutine that returns the maximum of the given values.  In this case we make sure that the maximum value of any number of values given, is at least 0.  By making sure that the value `0` is always added to any list of values specified.  Which also handles the case if called without any arguments.
 ```
-my &max0 = &max.assuming(0);
+my &max0 = &max.assuming(0);  # always add 0 as a value to be checked
 say max  -1, -2, -3;  # -1
 say max0 -1, -2, -3;  # 0, because 0 is greater than -1;
 
-say max;   # -Inf
+say max;   # -Inf, smallest possible numeric value
 say max0;  # 0, because max(0) is 0
 ```
 
