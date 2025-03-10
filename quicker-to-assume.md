@@ -14,18 +14,17 @@ hello "Joe", "Smith";   # Hello, Joe Smith
 my &hi-smith = &hello.assuming(*, 'Smith');  # fill in 2nd positional
 hi-smith("Joe");  # Hello, Joe Smith
 ```
-This is a simple example in which one positional parameter is replaced.
+This is a simple example in which one positional parameter is replaced.  Replacing named arguments is also possible, and adding values to slurpy arrays as well.
 
-Replacing named arguments is also possible, and adding values to slurpy arrays as well:
+Let's take the [`max`](https://docs.raku.org/routine/max#(Operators)\_infix_max) subroutine that returns the maximum of the given values.  In this case we make sure that the maximum value of any number of values given, is at least 0.  By making sure that the value `0` is always added to any list of values specified.  Which also handles the case if called without any arguments.
 ```
 my &max0 = &max.assuming(0);
 say max  -1, -2, -3;  # -1
-say max0 -1, -2, -3;  # 0;
+say max0 -1, -2, -3;  # 0, because 0 is greater than -1;
 
 say max;   # -Inf
-say max0;  # 0
+say max0;  # 0, because max(0) is 0
 ```
-In this case we make sure that the maximum value of any number of values given, is at least 0.  By making sure that the value `0` is always added to any list of values specified.  Which also handles the case if called without any arguments.
 
 ## Original implementation
 
