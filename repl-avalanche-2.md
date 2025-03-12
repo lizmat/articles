@@ -2,7 +2,9 @@
 
 > This is part 2 in the [REPL Avalanche](https://dev.to/lizmat/repl-avalanche-45hh) blog series.
 
-The [`REPL`](https://raku.land/zef:lizmat/REPL) distribution, also offers a `repl` subroutine, apart from a command-line interface (CLI).  For the purpose of fun and taste, I will be calling such a (temporary) placement of a call to the `repl` sub a ["**sprinkle**"](https://en.wikipedia.org/wiki/Sprinkles)..  
+The [`REPL`](https://raku.land/zef:lizmat/REPL) distribution also offers a `repl` subroutine apart from a command-line interface (CLI).  A call to this subroutine can be placed in source code during development of a code-base, and then allows for some ad-hoc interactive debugging features.
+
+For the purpose of fun and taste, I will be calling such a (temporary) placement of a call to the `repl` sub a ["**sprinkle**"](https://en.wikipedia.org/wiki/Sprinkles)..  
 
 > All of the examples in this blog post assume that the `REPL` distribution has been installed, and has been loaded either explicitely with a `use REPL` command in your code, or by setting the `RAKUDO_OPT` environment variable to include `-MREPL`.
 
@@ -10,7 +12,8 @@ The [`REPL`](https://raku.land/zef:lizmat/REPL) distribution, also offers a `rep
 One of the ways you can use the [`REPL`](https://raku.land/zef:lizmat/REPL) distribution, is as a debugging tool.  Instead of sprinkling `print` statements in your code, you can sprinkle `repl` statements in your code.  And then interactively check out the situation when that `repl` statement is executed.  A very contrived and simplified example:
 ```
 #line 666 foo.raku
-if 42 -> $answer {
+my $answer = 42;
+if $answer == 42 {
     repl
 }
 ```
@@ -38,6 +41,16 @@ Once in the `repl`: if you would like to know the value of the variable `$answer
 [1] >
 ```
 Because the `repl` subroutine knows about the runtime context it is being called, it can look up any variable that could be referenced in the location of the code where the `repl` subroutine was called.
+
+Not only can you look up values in variables, you can also change them!  Continiuing the above sprinkle:
+```
+[1] > $answer = 137
+137
+[2] > $answer
+137
+[3] >
+```
+This allows one to explore "what-if" scenarios, and the like.  Of course, changes are only allowed on things that are changeable, just like they would be in normal execution of code.
 
 ## Conditional sprinkles
 If you would only like to open a REPL if something unexpected happens, you can of course do that as well.  Again, a contrived example:
