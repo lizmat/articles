@@ -22,7 +22,7 @@ would open the REPL with:
 block at foo.raku line 666
 [0] >
 ```
-Note that it does **not** show the standard REPL header:
+Note that it does **not** show the standard REPL header, which would look like this:
 ```
 Welcome to Rakudo™ v2025.02.
 Implementing the Raku® Programming Language v6.d.
@@ -62,7 +62,7 @@ if 42 -> $answer {
 would only open up a REPL if the answer was wrong.  In this example, that will of course be never.  But I hope you get the picture!
 
 ## Identifying sprinkles
-Sometimes you're not so much interested in the exact location in the code, but are more interested in a logical step in your code.  To allow easy identification of the sprinkle, you can pass a string in the call to the `repl` subroutine:
+Sometimes you are not so much interested in the exact location in the code, but are more interested in a logical step in your code.  To allow easy identification of the sprinkle, you can pass a string in the call to the `repl` subroutine:
 ```
 if 42 -> $answer {
     repl "What did Deep Thought say?";
@@ -117,7 +117,7 @@ That's why the REPL gets in a special mode when called as a sprinkle.  The "empt
 
 By using sprinkles in your code, you can both interactively look up values in your code, as well as immediately see any values / expressions that you would be interested in for a specific sprinkle.
 
-This is the second part of a series of blog posts about the `REPL` distribution.  Future installments will look at the available commands, and the completions logic.
+This is the second part of a series of blog posts about the [`REPL`](https://raku.land/zef:lizmat/REPL) distribution.  Future installments will look at the available commands, and the completions logic.
 
 Image courtesy of *Salve J. Nilsen*.
 
