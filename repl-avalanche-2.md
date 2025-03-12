@@ -106,7 +106,9 @@ time: 15:10
 ```
 which not only would give you the value of the "$answer" variable immediately so you wouldn't have to ask for the answer every time you enter that sprinkle.
 
-And you'd know the time: if the value of a primed expression in the call to `repl` is a string, it will allow for all the expansions that are possible in the prompt as well.  In this example ":HHMM:" expands to the current hour and minute (see [`DateTime::strftime`](https://raku.land/zef:lizmat/DateTime::strftime) for inspiration).
+And you'd know the time: if the value of a primed expression in the call to `repl` is a string, it will allow for all the expansions that are possible in the prompt as well.  In this example ":HHMM:" expands to the current hour and minute.
+
+> Check the [`DateTime::strftime`](https://raku.land/zef:lizmat/DateTime::strftime) documentation for more inspiration.
 
 ## Fast consumption of sprinkles
 Generally, once you're done with a specific sprinkle, you'd like to continue executing your code.  So you'd need to leave the REPL with "=quit" (or its shortening: "=q").  That also can get annoying after a while.
