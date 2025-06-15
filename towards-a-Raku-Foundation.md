@@ -4,15 +4,15 @@ The Raku Programming Language was originally started as the next version of the 
 
 When in late 2015 the initial release of what was then called "Perl6" came out, the rift only deepened: not wanting to relinquish the "Perl" nomer was felt by many in the Perl community as name squatting.  In late 2019 the name squatting issue was resolved by changing the name of "Perl6" to the "Raku Programming Language".
 
-# Project Representation
+## Project Representation
 
-Open source projects that exist beyond the scope of the original developer need to have a way to be represented, and usually also a way to finance vital project infrastructure: technical infrastructure (such as providing websites and testing services), as well as organisational infrastructure (such as regular user events, Code of Conduct online and at events, project course decisions) and developmental support (such as grants).
+Open source projects that exist beyond the scope of the original developer need to have a way to be represented, and usually also a way to finance vital project infrastructure: technical infrastructure (such as providing websites and testing services), as well as organisational infrastructure (such as regular user events, Code of Conduct -both online and at events-, and project course decisions) and developmental support (such as grants).
 
 Because of Raku's historical roots, this has been taken care of (or sponsored by) Yet Another Society (or YAS, to most better known as "TPF" or "The Perl Foundation").  After the name change of the language, YAS acquired a new alias: The Perl and Raku Foundation (or short: TPRF).  But it has always felt like a remnant of historical connection that Raku had with Perl, rather than something that was a natural result of the developing situation.
 
 Keeping an Open Source foundation running requires volunteers willing to spend a sizeable amount of their free time on foundation matters.  And it requires a source of funds to keep the foundation in working order.
 
-# Towards a Raku Foundation
+## Towards a Raku Foundation
 
 Historically YAS has received funding from many sources.  Initially to support just Perl, later this was separated into support for Perl 5 and what was to be Perl 6.  Over the years it has become more difficult for YAS to obtain funding.  And has not received much funding for what is now Raku: there are probably many reasons for that, one of them being that Raku as a separate target for funding is not very visible on the foundation's website.
 
@@ -26,7 +26,7 @@ Founding a non-profit foundation that is supported by donations, is a bit of a c
 
 ## Bylaws and Regulations
 
-A foundation needs to have bylaws, which need to be approved by a notary public.  The regulations of a foundation can be changed by the board, provided they are not in conflict with the bylaws.  It is therefore customary to keep the bylaws simple and general.  And have the board adjust the regulations as necessary.  Taking this approach would make it possible to use the defunct, but still legally existing YAPC Europe Foundation to take a "doing business as" name "Raku Foundation".  Provided the current board would agree to this, and this was felt as a good solution by the Raku Community, of course!
+A foundation needs to have bylaws, which need to be approved by a notary public.  The regulations of a foundation can be changed by the board, provided they are not in conflict with the bylaws.  It is therefore customary to keep the bylaws simple and general.  And have the board adjust the regulations as necessary.  Taking this approach would make it possible to use the defunct, but still legally existing YAPC Europe Foundation to take a "doing business as" name "Raku Foundation".  Provided the current board would agree to this. Also, provided this is felt as a good solution by the Raku Community.
 
 ## Finding Board members
 
