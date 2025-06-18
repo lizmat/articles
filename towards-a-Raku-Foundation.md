@@ -1,7 +1,7 @@
 ## Drifting Apart: Some History
 The Raku Programming Language was originally started as the next version of the Perl Programming Language (then at version 5.6.0, now at 5.40.2).  Unfortunately the implementation of this next version took *much* longer than expected.  In the eyes of many Perl users the new version also changed the character of the language, which caused a rift in the Perl community.
 
-When in late 2015 the initial release of what was then called "Perl6" came out, the rift only deepened: not wanting to relinquish the "Perl" nomer was felt by many in the Perl community as name squatting.  In late 2019 the name squatting issue was resolved by changing the name of "Perl6" to the "Raku Programming Language".
+When in late 2015 the initial release of what was then called "Perl6" came out, the rift only deepened: not wanting to relinquish the "Perl6" nomer was felt by many in the Perl community as name squatting.  In late 2019 the name squatting issue was resolved by changing the name of "Perl6" to the "Raku Programming Language".
 
 ## Project Representation
 Open source projects that exist beyond the scope of their original developer need to have a way to be represented, and usually also a way to finance vital project infrastructure: technical infrastructure (such as providing websites and testing services), as well as organisational infrastructure (such as regular user events, Code of Conduct -both online and at events-, and project course decisions) and developmental support (such as grants).
@@ -13,7 +13,7 @@ Keeping an Open Source foundation running requires volunteers willing to spend a
 ## Towards a Raku Foundation
 Historically YAS has received funding from many sources.  Initially to support just Perl, later this was separated into support for Perl 5 and what was to be Perl 6.  Over the years it has become more difficult for YAS to obtain funding.  And has not received much funding for what is now Raku: there are probably many reasons for that, one of them being that Raku as a separate target for funding is not very visible on the foundation's website.
 
-Now, more than five years after the name change, it feels like a good time for the Raku community to be standing on its own feet, without support by YAS.  After several weeks of discussing this with several people involved in YAS and the Raku Community, I hereby announce the intent to set up a completely separate Raku Foundation, based in Europe but global in reach.
+Now, more than five years after the name change, it feels like a good time for the Raku community to be standing on its own feet, without support by YAS.  After several weeks of discussing this with several people involved in YAS and the Raku Community, I hereby announce the intent to set up a completely separate Raku Foundation, based in Europe, but global in reach.
 
 This would allow YAS to be fully focussing on the one programming language that instigated the creation of the foundation: Perl.  And it would allow the Raku Community to be served by a foundation that is solely dedicated to the Raku Programming Language.
 
