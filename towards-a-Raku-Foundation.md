@@ -17,7 +17,7 @@ Now, more than five years after the name change, it feels like a good time for t
 
 This would allow YAS to be fully focussing on the one programming language that instigated the creation of the foundation: Perl.  And it would allow the Raku Community to be served by a foundation that is solely dedicated to the Raku Programming Language.
 
-To gather comments and suggestions about this proposed endeavour, I have opened a [problem solving issue](https://github.com/raku/problem-solving/issues/new) in which hopefully many will let their opinions be known.  If you don't have a Github account, please send an email to foundation@raku.org: I will then include your comments / opinions on the issue.
+To gather comments and suggestions about this proposed endeavour, I have opened a [problem solving issue](https://github.com/raku/problem-solving/issues/477) in which hopefully many will let their opinions be known.  If you don't have a Github account, please send an email to foundation@raku.org: I will then include your comments / opinions on the issue.
 
 ## Initial Funding
 Founding a non-profit foundation that is supported by donations, is a bit of a chicken / egg situation: one needs to pay some instances (such as a notary public, and possibly some other regulatory instances).  I volunteer to be advancing these costs to make this process easier.  As soon as the foundation is set up, a bank account can be opened, and a website can be set up with a donate button linked to the foundation's bank account.
@@ -37,4 +37,4 @@ The copyright of the Raku Programming Language currently lies with YAS.  Whether
 One of the big challenges coming up for Open Source communities, is the upcoming enforcement of the [Cyber Resilience Act](https://en.wikipedia.org/wiki/Cyber_Resilience_Act) in 2027.  I believe a strong Raku Foundation will be able to take advantage of the opportunities this act brings to Open Source communities by being an Open Source Steward for the Raku Community.
 
 ## Conclusion
-Please check out the [problem solving issue](https://github.com/raku/problem-solving/issues/new) and let us know your thoughts!
+Please check out the [problem solving issue](https://github.com/raku/problem-solving/issues/477) and let us know your thoughts!
