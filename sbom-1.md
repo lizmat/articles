@@ -12,7 +12,7 @@ The crux for programming languages in general, and thus for Raku, lies in the "c
 
 ## SBOMs
 
-Fortunately the concept of [Software Bill Of Materials](https://en.wikipedia.org/wiki/Software_supply_chain) was introduced in the 2010s. And a it has become a requirement that every trustworthy software producer should provide. And that includes the Raku Programming Language.
+Fortunately the concept of [Software Bill Of Materials](https://en.wikipedia.org/wiki/Software_supply_chain) was introduced in the 2010s. And it has become a requirement that every trustworthy software producer should provide. And that includes the Raku Programming Language.
 
 As with any great ideas for standardization, there is more than one standard: there are basically two flavours of SBOMs in use these days: the [System Package Data eXchange (SPDX)](https://spdx.dev) and [CycloneDX, based on ECMA-424](https://cyclonedx.org). The latter appears to be more suited for open source projects such as the Raku Programming Language.
 
