@@ -1,6 +1,6 @@
 # Towards more accountability of Raku programs
 
-Shortly after the [Second Raku Core Summit](https://dev.to/lizmat/the-second-raku-core-summit-f99) in June, it became clear to me that there had been one elephant in the room that wasn't discussed enough: the gradual enforcement of the [Cyber Resilience Act](https://en.wikipedia.org/wiki/Cyber_Resilience_Act) in Europe. And how that would affect Open Source, and the [Raku Programming Language](htts://raku.org) specifically.
+Shortly after the [Second Raku Core Summit](https://dev.to/lizmat/the-second-raku-core-summit-f99) in June, it became clear to me that there had been one elephant in the room that hadn't been discussed enough: the gradual enforcement of the [Cyber Resilience Act](https://en.wikipedia.org/wiki/Cyber_Resilience_Act) in Europe. And how that would affect Open Source, and the [Raku Programming Language](htts://raku.org) specifically.
 
 ## CRA effects
 
