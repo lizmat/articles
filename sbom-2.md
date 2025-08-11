@@ -1,14 +1,14 @@
 # CRA and Open Source
 
-> This is part 2 in the [SBOM](https://dev.to/lizmat/series/32933)
+> This is part 2 in the [SBOM](https://dev.to/lizmat/series/32933) series of blog posts
 
 To start with giving credit where credit is due: *Salve J. Nilsen* has been instrumental in making me aware of the oncoming [Cyber Resilience Act](https://en.wikipedia.org/wiki/Cyber_Resilience_Act) effects.  Many presentations at various open source events have been given by him in the past years, and the videos and the slides and the chats have helped me a lot in trying to get a grip on the subject matter.  A large part of this blog post has been derived from these presentations.  I hope we'll be able to work together on this in the future!
 
 ## Some aspects of the CRA
 
 To give an idea of the timescale of the CRA:
-- Into effect: 10 December 2024
-- Reporting obligations: 11 September 2026
+- Into effect: *10 December 2024*
+- Reporting obligations: **11 September 2026**
 - Main obligations: 11 December 2027
 
 So yes, the law is actually in effect already!
@@ -27,7 +27,7 @@ Which means there's **just over a year's time** before companies using Open Sour
 
 ## Does the CRA directly affect open source developers
 
-No.  Well, almost no.  As a person working on, or contributing to an Open Source project, you do not *have* to worry about the CRA, as long as:
+No.  Well, almost no.  As a person working on, or contributing to an Open Source project, you do not *have* to worry about the CRA, as long as any of these is true:
 - you contribute code to projects you are not responsible for
 - are **not** monetising the product
 - make a product that is ultimately not intended for commercial activities
@@ -36,7 +36,7 @@ That does not mean you can continue to be blissfully unaware of the CRA, at leas
 
 ## Open Source Steward
 
-The CRA introduced a new concept of an organization in the world: the Open Source Steward.  An Open Source Steward is a legal entity that:
+The CRA introduced a new concept of an organization in the world: the [Open Source Steward](https://www.developer-tech.com/news/open-source-wins-concessions-new-eu-cyber-law/).  An Open Source Steward is a legal entity that:
 - provides sustained support for Open Source products that are ultimately intended for commercial activities
 - plays a major role in ensuring viability of these
 - faciliates due diligence obligations and cooperates with market surveillance authorities
