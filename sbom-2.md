@@ -2,7 +2,7 @@
 
 > This is part 2 in the [SBOM](https://dev.to/lizmat/series/32933) series of blog posts
 
-To start with giving credit where credit is due: *Salve J. Nilsen* has been instrumental in making me aware of the oncoming [Cyber Resilience Act](https://en.wikipedia.org/wiki/Cyber_Resilience_Act) effects.  Many presentations at various open source events have been given by him in the past years, and the videos and the slides and the chats have helped me a lot in trying to get a grip on the subject matter.  A large part of this blog post has been derived from these presentations.  I hope we'll be able to work together on this in the future!
+To start with giving credit where credit is due: *Salve J. Nilsen* has been instrumental in making me aware of the oncoming [Cyber Resilience Act](https://en.wikipedia.org/wiki/Cyber_Resilience_Act) effects.  Many presentations on this subject at various open source events have been given by him in the past years, and the videos and the slides and the chats have helped me a lot in trying to get a grip on the subject matter.  A large part of this blog post has been derived from those presentations.  I hope we'll be able to work together more on this in the future!
 
 ## Some aspects of the CRA
 
@@ -13,21 +13,21 @@ To give an idea of the timescale of the CRA:
 
 So yes, the law is actually in effect already!
 
-The [slides of a presentation](https://security.metacpan.org/presentations/gpw2025-cpan-security-sustainability/#/2) that Salve gave in Germany earlier this year, are very enlighting.  Some of the points in that presentation:
+The [slides of a presentation](https://security.metacpan.org/presentations/gpw2025-cpan-security-sustainability/#/2) that Salve gave in Germany earlier this year are very enlighting.  Some of the points in that presentation:
 
-- Supplying incorrect, incomplete or misleading information may be fined up to 5M EUR or 1% of global turnover
-- Applies to products with digital elements
+- Supplying incorrect, incomplete, and/or misleading information may be fined up to 5M EUR or 1% of global turnover
+- The CRA applies to all products with digital elements
   - Connected devices
   - Non-tangible digital products
   - […their] remote data processing solutions
   - […and] related systems and services needed for operation
 - Produce SBOMs upon request by regulators certifying no known vulnerabilities
 
-Which means there's **just over a year's time** before companies using Open Source will need to be able to assert that the Open Source components that they use, are safe.
+Which means there's **just over a year's time** before companies using Open Source will need to be able to assert, that the Open Source components that they use, are safe.
 
 ## Does the CRA directly affect open source developers
 
-No.  Well, almost no.  As a person working on, or contributing to an Open Source project, you do not *have* to worry about the CRA, as long as any of these is true:
+No.  Well, almost no.  As a person working on, or contributing to an Open Source project, you do not *have* to worry about the CRA, as long as any of these statements are true:
 - you contribute code to projects you are not responsible for
 - are **not** monetising the product
 - make a product that is ultimately not intended for commercial activities
