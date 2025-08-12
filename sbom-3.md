@@ -16,7 +16,7 @@ Indeed it is.  But in order to be a valid SBOM, all sorts of restrictions apply 
 
 So what easier way would there be in Raku to have these constraints automatically checked for by `enum`, `subset`, and `class` constraints?
 
-Also, it is nigh impossible to add custom functionality to specific parts of a hash.  And some custom functionality would be needed, and also: would allow much more flexibility with the creation of introspection tools.
+Also, it is nigh impossible to add custom functionality to specific parts of a hash.  And some custom functionality would be needed, and would allow much more flexibility with the creation of introspection tools.
 
 So I opted for the creation of a class for each part of the CycloneDX 1.6 standard that was **not** a simple numerical or string value.  This also allowed for more internal re-use, as some classes are actually attributes of more than one other class.
 
@@ -67,4 +67,6 @@ Which gives you a nice overview of all direct (*and indirect*) dependencies of t
 But what is a Package URL you say?   Well, that's for the next instalment of this series of blog posts!
 
 ## Conclusion
-It was quite a lot of work to create a distribution that can handle the full extent of the [CycloneDX 1.6](https://cyclonedx.org/docs/1.6/json/) specification.  I'm quite sure bugs will be found, and it appears a 1.7 release of the CycloneDX is just around the corner.  But at least the groundwork has been laid to be able to handle SBOMs in the [Raku Programming Language](https://raku.org)..
+It was quite a lot of work to create a distribution that can handle the full extent of the [CycloneDX 1.6](https://cyclonedx.org/docs/1.6/json/) specification.  I'm quite sure bugs will be found, and it appears a 1.7 release of the CycloneDX specifiation is just around the corner (which would imply work to be done again on `SBOM::CycloneDX`.
+
+But at least the groundwork has been laid to be able to handle SBOMs in the [Raku Programming Language](https://raku.org).
