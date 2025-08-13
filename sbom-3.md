@@ -39,6 +39,21 @@ say "$_:\n$_.WHY()" with Phase<pre-build>;
 # may contain source files and development artifacts and manifests.
 # The inventory may need to be resolved and retrieved prior to use.
 ```
+And to make life easier on myself (and future maintainers) I've put all of the enum strings and descriptions as text files in the "resources" section of the distribution.  For instance, the `Phase` enum texts live in "resources/enums/Phase":
+```
+$ cat resources/enums/Phase
+design
+BOM produced early in the development lifecycle containing an inventory
+of components and services that are proposed or planned to be used. The
+inventory may need to be procured, retrieved, or resourced prior to use.
+
+pre-build
+BOM consisting of information obtained prior to a build process and
+may contain source files and development artifacts and manifests.
+The inventory may need to be resolved and retrieved prior to use.
+...
+```
+A really simple format: first line is the name of the enum, and all lines until an empty line are the description.  All read in at compile time of the module, and then integrated into the `Phase` class.
 
 ## Scripts
 
@@ -51,6 +66,7 @@ For example, if you would like to see the list of Package URLs used by the [SBOM
 $ cyclonedx --purls SBOM-Raku/.META/SOURCE.cdx.json
 pkg:raku/cpan:TIMOTIMO/JSON::Fast@0.19
 pkg:raku/zef:demayl/Email::Valid@1.0.7
+pkg:raku/zef:leont/YAMLish@0.1.2
 pkg:raku/zef:lizmat/Identity::Utils@0.0.28
 pkg:raku/zef:lizmat/PURL@0.0.14
 pkg:raku/zef:lizmat/Rakudo::CORE::META@0.0.11
@@ -67,6 +83,6 @@ Which gives you a nice overview of all direct (*and indirect*) dependencies of t
 But what is a Package URL you say?   Well, that's for the next instalment of this series of blog posts!
 
 ## Conclusion
-It was quite a lot of work to create a distribution that can handle the full extent of the [CycloneDX 1.6](https://cyclonedx.org/docs/1.6/json/) specification.  I'm quite sure bugs will be found, and it appears a 1.7 release of the CycloneDX specifiation is just around the corner (which would imply work to be done again on `SBOM::CycloneDX`.
+It was quite a lot of work to create a distribution that can handle the full extent of the [CycloneDX 1.6](https://cyclonedx.org/docs/1.6/json/) specification.  I'm quite sure bugs will be found, and it appears a 1.7 release of the CycloneDX specifiation is just around the corner (which would imply work to be done again on `SBOM::CycloneDX`).
 
 But at least the groundwork has been laid to be able to handle SBOMs in the [Raku Programming Language](https://raku.org).
