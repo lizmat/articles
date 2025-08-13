@@ -8,8 +8,9 @@ To start with giving credit where credit is due: *Salve J. Nilsen* has been inst
 
 To give an idea of the timescale of the CRA:
 - Into effect: *10 December 2024*
-- Reporting obligations: **11 September 2026**
-- Main obligations: 11 December 2027
+- Severe issue reporting obligation: *11 June 2026*
+- Other reporting obligations: *11 September 2026*
+- Main obligations: **11 December 2027**
 
 So yes, the law is actually in effect already!
 
@@ -21,9 +22,9 @@ The [slides of a presentation](https://security.metacpan.org/presentations/gpw20
   - Non-tangible digital products
   - […their] remote data processing solutions
   - […and] related systems and services needed for operation
-- Produce SBOMs upon request by regulators certifying no known vulnerabilities
+- Produce proof upon request by regulators certifying no known vulnerabilities
 
-Which means there's **just over a year's time** before companies using Open Source will need to be able to assert, that the Open Source components that they use, are safe.
+Which means businesses will soon need to take steps to become compliant in time for the deadline!
 
 ## Does the CRA directly affect open source developers
 
@@ -32,13 +33,15 @@ No.  Well, almost no.  As a person working on, or contributing to an Open Source
 - are **not** monetising the product
 - make a product that is ultimately not intended for commercial activities
 
-That does not mean you can continue to be blissfully unaware of the CRA, at least not if you want your project taken seriously.  For instance, you could help making the job of SBOMs easier by enriching the [META information](https://github.com/Raku/problem-solving/issues/491) of a project.
+The option developers and maintainers of Raku module distributions ought to consider, is what kind of information they can provide to make it easier for manufacturers to become compliant - eg. by enriching the [META information](https://github.com/Raku/problem-solving/issues/491) of a project.
+
+A maintainer will need to decide whether under what conditions they would want to take part in the security regime that the CRA envisions (such as promises to respond in a timely manner to security issues).  That *could* be a "no".  Or a "no, unless...".
 
 ## Open Source Steward
 
 The CRA introduced a new concept of an organization in the world: the [Open Source Steward](https://www.developer-tech.com/news/open-source-wins-concessions-new-eu-cyber-law/).  An Open Source Steward is a legal entity that:
 - provides sustained support for Open Source products that are ultimately intended for commercial activities
-- plays a major role in ensuring viability of these
+- plays a main role in ensuring viability of these
 - faciliates due diligence obligations and cooperates with market surveillance authorities
 - notifies on security incidents and vulnerabilities
 
@@ -46,9 +49,7 @@ Should all of these functions be done by volunteers?  Possibly, but that would j
 
 But with the CRA this changes: rather than giving to Open Source communities basically for products already delivered (and the hope for continuation), companies will now need timely and accurate replies to their assertion queries.
 
-The concept of an Open Source Steward entity is that it would be financed by users of the Open Source software or other entities that would benefit from the services the Open Source Steward for a given community could offer.  And instead of depending on grants, this should probably work better on a subscription basis.
-
-A financially healthy Open Source Steward would then be able to facilitate further development of projects through financial and organisational means.  Which might make it possible for some Open Source developers to reach their dream: working on Open Source **and** be able to make a living.
+A properly financed Open Source Steward could play a role in this.  Such a financially healthy Open Source Steward would then be able to facilitate further development of projects through financial and organisational means.  Which might make it possible for some Open Source developers to reach their dream: working on Open Source **and** be able to make a living.
 
 ## Conclusion
 
