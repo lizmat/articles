@@ -35,6 +35,8 @@ No.  Well, almost no.  As a person working on, or contributing to an Open Source
 
 Yes, that last one is vague.  And probably intentionally so: the future will tell what that means exactly in practice.
 
+But the goal of the CRA is clear: to increase the level of security of software in general.  Which is a *really* good goal.  So while it may not affect maintainers directly, it **will** affect maintainers indirectly.
+
 The option developers and maintainers of Raku module distributions ought to consider, is what kind of information they can provide to make it easier for manufacturers to become compliant - eg. by enriching the [META information](https://github.com/Raku/problem-solving/issues/491) of a project.
 
 A maintainer will need to decide whether under what conditions they would want to take part in the security regime that the CRA envisions (such as promises to respond in a timely manner to security issues).  That *could* be a "no" (the module was presented as is).  Or a "no, unless..." (fixes provided can be applied and/or developed with some kind of support).
@@ -47,7 +49,9 @@ The CRA introduced a new concept of an organization in the world: the [Open Sour
 - faciliates due diligence obligations and cooperates with market surveillance authorities
 - notifies on security incidents and vulnerabilities
 
-Should all of these functions be done by volunteers?  Possibly, but that would just decrease the amount of fun one can have in Open Source projects.  And why should they?  If an Open Source component is used by a company for profit, it should give back to the community in one shape or form.  Historically, this has been done by giving grants to some organizational body of an Open Source community.
+Should all of these functions be done by volunteers?  Possibly, but that would just decrease the amount of fun one can have in Open Source projects.  And why should they?  If an Open Source component is used by a company for profit, that company should give back to the community in one shape or form.  In the case of open source communities such as the Raku community, this has been done by donations and sponsoring some organizational body.  Which in turn would give grants to developers and maintainers.
+
+> A small rant: the disadvantage of this approach is that it is voluntary.  It's fundraising from a position of weakness, rather than strength.
 
 But with the CRA this changes: rather than giving to Open Source communities basically for products already delivered (and the hope for continuation), companies will now need timely and accurate replies to their assertion queries.
 
