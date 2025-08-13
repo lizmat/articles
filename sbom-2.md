@@ -17,7 +17,7 @@ So yes, the law is actually in effect already!
 The [slides of a presentation](https://security.metacpan.org/presentations/gpw2025-cpan-security-sustainability/#/2) that Salve gave in Germany earlier this year are very enlighting.  Some of the points in that presentation:
 
 - Supplying incorrect, incomplete, and/or misleading information may be fined up to 5M EUR or 1% of global turnover
-- The CRA applies to all products with digital elements
+- The CRA applies to all products with digital elements, including:
   - Connected devices
   - Non-tangible digital products
   - […their] remote data processing solutions
@@ -33,9 +33,11 @@ No.  Well, almost no.  As a person working on, or contributing to an Open Source
 - are **not** monetising the product
 - make a product that is ultimately not intended for commercial activities
 
+Yes, that last one is vague.  And probably intentionally so: the future will tell what that means exactly in practice.
+
 The option developers and maintainers of Raku module distributions ought to consider, is what kind of information they can provide to make it easier for manufacturers to become compliant - eg. by enriching the [META information](https://github.com/Raku/problem-solving/issues/491) of a project.
 
-A maintainer will need to decide whether under what conditions they would want to take part in the security regime that the CRA envisions (such as promises to respond in a timely manner to security issues).  That *could* be a "no".  Or a "no, unless...".
+A maintainer will need to decide whether under what conditions they would want to take part in the security regime that the CRA envisions (such as promises to respond in a timely manner to security issues).  That *could* be a "no" (the module was presented as is).  Or a "no, unless..." (fixes provided can be applied and/or developed with some kind of support).
 
 ## Open Source Steward
 
