@@ -59,4 +59,6 @@ A properly financed Open Source Steward could play a role in this.  Such a finan
 
 ## Conclusion
 
-The CRA should become a reason for companies to use **more** Open Source, not less!  If we as Open Source enthusiasts can make it easier (and cheaper) for companies to use Open Source, while at the same time making Open Source more sustainable through Open Source Stewards being supported by companies, we have created a win-win situation for all involved.
+The CRA should become a reason for companies to use **more** Open Source, not less!  If we as Open Source enthusiasts can make it easier (and in the future, cheaper) for companies to use Open Source, while at the same time making Open Source more sustainable through Open Source Stewards being supported by companies, we have created a win-win situation for all involved.
+
+So now is the time to make management of companies clear what their options are with regards to their use of Open Source components. And help them make the right choice!
