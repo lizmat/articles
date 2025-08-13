@@ -57,7 +57,7 @@ A really simple format: first line is the name of the enum, and all lines until 
 
 ## Scripts
 
-The `SBOM::CycloneDX` installs a [`cyclonedx` script](https://raku.land/zef:lizmat/SBOM::CycloneDX#cyclonedx) that allows one to check the validity of an SBOM file, and/or do certain selections on them, and/or show the SBOM in normalized JSON, YAML or Raku code.  It probably will get more arguments, as people will find more uses for it.
+The `SBOM::CycloneDX` distribution installs a [`cyclonedx` script](https://raku.land/zef:lizmat/SBOM::CycloneDX#cyclonedx) that allows one to check the validity of an SBOM file, and/or do certain selections on them, and/or show the SBOM in normalized JSON, YAML or Raku code.  It probably will get more arguments, as people will find more uses for it.
 
 > Actually, I'm hoping to be able to integrate SBOM capabilities into [App::Rak](https://raku.land/zef:lizmat/App::Rak) at some point in the not too distant future.
 
