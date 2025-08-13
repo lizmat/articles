@@ -74,6 +74,7 @@ pkg:raku/zef:lizmat/SBOM::CycloneDX@0.0.13
 pkg:raku/zef:lizmat/SBOM::Raku@0.0.10
 pkg:raku/zef:lizmat/String::Utils@0.0.36
 pkg:raku/zef:lizmat/VERS@0.0.2
+pkg:raku/zef:raku-community-modules/MIME::Base64@1.2.4
 pkg:raku/zef:raku-community-modules/OpenSSL@0.2.5
 pkg:raku/zef:raku-community-modules/URI::Encode@1.0
 pkg:raku/zef:rbt/Net::DNS@1.4
