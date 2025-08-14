@@ -62,7 +62,7 @@ use PURL;
 say PURL.from-identity("String::Utils:ver<0.0.35+>:auth<zef:lizmat>");
 # pkg:raku/zef:lizmat/String::Utils?vers=vers:raku/%3E=0.0.35
 ```
-That doesn't look at all like "pkg:raku/zef:lizmat/String::Utils@0.0.35+"!  That's because PURLs use a more generic way to indicate version ranges, using the [**VE*rsion **R**ange **S**pecifier standard](https://github.com/package-url/vers-spec/blob/main/VERSION-RANGE-SPEC.rst#version-range-specifier).
+That doesn't look at all like "pkg:raku/zef:lizmat/String::Utils@0.0.35+"!  That's because PURLs use a more generic way to indicate version ranges, using the [**VE**rsion **R**ange **S**pecifier standard](https://github.com/package-url/vers-spec/blob/main/VERSION-RANGE-SPEC.rst#version-range-specifier).
 
 Yet another rabbit hole to dive into.  But more about that in the next blog in this series.
 
