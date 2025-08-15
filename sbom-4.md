@@ -1,4 +1,4 @@
-# CycloneDX Support
+# PURL Support
 
 > This is part 4 in the [SBOM](https://dev.to/lizmat/series/32933) series of blog posts
 

@@ -22,7 +22,19 @@ So I opted for the creation of a class for each part of the CycloneDX 1.6 standa
 
 I also wanted good error reporting on invalid SBOMs.  So instead of a single error in a part of the SBOM hash aborting the validation process, I wanted such errors to be collected and produced at the end (very much like [compile time worries](https://docs.raku.org/language/pragmas#worries) in the Raku Programming Language).
 
-And as a bonus, this way I was able to put documentation of fields in the SBOM as [declarator docs](https://docs.raku.org/language/pod#index-entry-#=) in the source code, and generate the major part of the documentation from that. And that's how you wind up with 5000+ lines of code and inline documentation.
+And as a bonus, this way I was able to put documentation of fields in the SBOM as [declarator docs](https://docs.raku.org/language/pod#index-entry-#=) in the source code, and generate the major part of the documentation from that.  For example:
+```
+#| Provides additional information about a BOM.
+class SBOM::Metadata does SBOM {
+
+#| The date and time (timestamp) when the BOM was created.
+    has DateTime $.timestamp;
+
+#| The product lifecycle(s) that this BOM represents.
+    has SBOM::Lifecycle @.lifecycles;
+...
+```
+And that's how you wind up with 5000+ lines of code and inline documentation.
 
 Although any Raku distribution will most likely only use a small subset of the functionality offered by the CycloneDX 1.6 standard, I decided to implement all of it, so that I wouldn't have to start adding stuff later.  And it will allow this module (and thus Raku) be used for **any** SBOM application outside of the Raku echo chamber.  Which would increase the chance of more people installing Raku, just to be able to used such an application.  That does not mean they need to know how to use Raku, or to program in the [Raku Programming Language](https://raku.org).
 
