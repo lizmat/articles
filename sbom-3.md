@@ -34,7 +34,7 @@ class SBOM::Metadata does SBOM {
     has SBOM::Lifecycle @.lifecycles;
 ...
 ```
-The `#|` indicates a special type of comment (a "declarator block") that attaches to the next declarand, in this example: a `class` and two attributes (`has`).  The "timestamp" attribute only accepts [`DateTime`](https://docs.raku.org/type/DateTime) types, and the "lifecycles" attribute only accepts [`SBOM::Lifecycle`](https://raku.land/zef:lizmat/SBOM::CycloneDX#sbomlifecycle) types.
+The `#|` indicates a special type of comment (the "declarator block") that attaches to the next declarand. In this example: a `class` and two attributes (`has`).  The "timestamp" attribute only accepts [`DateTime`](https://docs.raku.org/type/DateTime) types, and the "lifecycles" attribute only accepts [`SBOM::Lifecycle`](https://raku.land/zef:lizmat/SBOM::CycloneDX#sbomlifecycle) types.
 
 And that's how you wind up with 5000+ lines of code and inline documentation.
 
@@ -42,7 +42,10 @@ Although any Raku distribution will most likely only use a small subset of the f
 
 ## enums
 
-The "enum"-like values, as specified in the CycloneDX specification, posed an interesting problem.  The standard not only defines the strings, but also has some descriptions associated with them.  Descriptions I obviously wanted to keep around for documentation purposes.  And although we *can* specify declarator docs for an `enum`, it's (currently) impossible to specify a declarator doc for each of the possible values (and it would probably be impractical as well).
+The "enum"-like values, as specified in the CycloneDX specification, posed an interesting problem.
+
+The standard not only defines the strings, but also has some descriptions associated with them.  Descriptions I obviously wanted to keep around for documentation purposes.  And although we *can* specify declarator blocks for an `enum`, it's (currently) impossible to specify a declarator blocks for each of the possible values (and it would probably be impractical as well).
+
 So I opted for the creation of a dedicated `Enumify` role that could be used on a class, thereby mimicking an actual `enum`, but which allows calling `.WHY` on the enum class, **and** on its instances (see [ENUMS API](https://raku.land/zef:lizmat/SBOM::CycloneDX#enums-api) for more information).  Which allows one to do:
 ```
 use SBOM::enums <Phase>;
