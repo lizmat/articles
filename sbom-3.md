@@ -38,7 +38,7 @@ The `#|` indicates a special type of comment (the "declarator block") that attac
 
 And that's how you wind up with 5000+ lines of code and inline documentation.
 
-Although any Raku distribution will most likely only use a small subset of the functionality offered by the CycloneDX 1.6 standard, I decided to implement all of it, so that I wouldn't have to start adding stuff later.  And it will allow this module (and thus Raku) be used for **any** SBOM application outside of the Raku echo chamber.  Which would increase the chance of more people installing Raku, just to be able to used such an application.  That does not mean they need to know how to use Raku, or to program in the [Raku Programming Language](https://raku.org).
+Although any Raku distribution will most likely only use a small subset of the functionality offered by the CycloneDX 1.6 standard, I decided to implement all of it, so that I wouldn't have to start adding stuff later.  And it will allow this module (and thus Raku) be used for **any** SBOM application outside of the Raku echo chamber.  Which would increase the chance of more people installing Raku, just to be able to use such an application.
 
 ## enums
 
