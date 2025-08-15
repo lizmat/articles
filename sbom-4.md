@@ -16,6 +16,16 @@ And the [list of adopters](https://github.com/package-url/purl-spec/blob/main/AD
 
 But, as there was no support for `PURL`s in Raku yet, it also meant support for it had to be created.  And as was the case with `SBOM::CycloneDX`, I decided to add support for the entire specification.  Which was also quite extensive, but not nearly as extensive as with `SBOM::CycloneDX`.
 
+## A PURL module
+
+Since I wanted to [SBOM::CycloneDX](https://raku.land/zef:lizmat/SBOM::CycloneDX) to be able to support the entire functionality of the CycloneDX 1.6 definition, I had no choice but to implement the whole of the PURL specification (and its supported types) as well.  Life can be hard when you're having fun!
+
+At the moment of this writing, the PURL specification recognizes 31 types, each with their rules for handling and interpreting their native package specification into a Package URL.
+
+Fortunately a pretty large test-set was provided for all registered types.  Which changed in format halfway through implementation, but that's what you get when you're at the bleeding edge of developments.
+
+So there it was: [PURL support for Raku](https://raku.land/zef:lizmat/PURL).  Which allowed the [`purl` subset](https://raku.land/zef:lizmat/SBOM::CycloneDX#purl) of `SBOM::CycloneDx` to get validation.  For whatever SBOM thrown at it.
+
 ## Adding support for Raku module distributions
 
 But implementing all of this, was not really of use for Raku module distributions itself.  Because there was **no** support for Raku defined in the PURL specification itself yet.
@@ -26,17 +36,15 @@ I decided to wing it.  Which was pretty easy, at first:
 - name: that would be the name of the distribution, e.g. "MIME::Base64"
 - version: that would be the version, e.g. "1.2.4"
 
-So the PURL of the identity "MIME::Base64:ver<1.2.4>:auth<zef:raku-community-modules>" would be "pkg:raku/zef:raku-community-modules/MIME::Base6@1.2.4".  Easy enough, right?
-
-## A PURL module
-
-Since I wanted to [SBOM::CycloneDX](https://raku.land/zef:lizmat/SBOM::CycloneDX) to be able to support the entire functionality of the CycloneDX 1.6 definition, I had no choice but to implement the whole of the PURL specification (and its supported types) as well.  Life can be hard when you're having fun!
-
-At the moment of this writing, the PURL specification recognizes 31 types, each with their rules for handling and interpreting their native package specification into a Package URL.
-
-Fortunately a pretty large test-set was provided for all registered types.  Which changed in format halfway through implementation, but that's what you get when you're at the bleeding edge of developments.
-
-So there it was: [PURL support for Raku](https://raku.land/zef:lizmat/PURL).  Which allowed the [`purl` subset](https://raku.land/zef:lizmat/SBOM::CycloneDX#purl) of `SBOM::CycloneDx` to get validation.  For whatever SBOM thrown at it.
+So the Package URL (PURL) of the identity
+```
+MIME::Base64:ver<1.2.4>:auth<zef:raku-community-modules>
+```
+would be
+```
+pkg:raku/zef:raku-community-modules/MIME::Base6@1.2.4
+```
+Easy enough, right?
 
 ## Adding "raku" to the Package URL standard
 
