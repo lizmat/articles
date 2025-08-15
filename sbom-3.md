@@ -14,7 +14,7 @@ But why so many classes?  Is an SBOM just not really a hash of scalars, arrays a
 
 Indeed it is.  But in order to be a valid SBOM, all sorts of restrictions apply to most fields, like an integer value higher than 0.  Or between 0 and 6. Or a numeric value between 0 and 1. And that's just numeric values.  It gets much more complicated for strings.
 
-So what easier way would there be in Raku to have these constraints automatically checked for by `enum`, `subset`, and `class` constraints?
+So what easier way would there be in Raku to have these constraints automatically checked for by [`enum`](https://docs.raku.org/language/enumeration), [`subset`](https://docs.raku.org/language/typesystem#subset), and [`class`](https://docs.raku.org/language/objects#Classes) constraints?
 
 Also, it is nigh impossible to add custom functionality to specific parts of a hash.  And some custom functionality would be needed, and would allow much more flexibility with the creation of introspection tools.
 
@@ -34,6 +34,8 @@ class SBOM::Metadata does SBOM {
     has SBOM::Lifecycle @.lifecycles;
 ...
 ```
+The `#|` indicates a special type of comment (a "declarator doc") that attaches to the next declarand, in this example: a `class` and two attributes (`has`).  The "timestamp" attribute only accepts [`DateTime`](https://docs.raku.org/type/DateTime) types, and the "lifecycles" attribute only accepts [`SBOM::Lifecycle`](https://raku.land/zef:lizmat/SBOM::CycloneDX#sbomlifecycle) types.
+
 And that's how you wind up with 5000+ lines of code and inline documentation.
 
 Although any Raku distribution will most likely only use a small subset of the functionality offered by the CycloneDX 1.6 standard, I decided to implement all of it, so that I wouldn't have to start adding stuff later.  And it will allow this module (and thus Raku) be used for **any** SBOM application outside of the Raku echo chamber.  Which would increase the chance of more people installing Raku, just to be able to used such an application.  That does not mean they need to know how to use Raku, or to program in the [Raku Programming Language](https://raku.org).
@@ -41,7 +43,6 @@ Although any Raku distribution will most likely only use a small subset of the f
 ## enums
 
 The "enum"-like values, as specified in the CycloneDX specification, posed an interesting problem.  The standard not only defines the strings, but also has some descriptions associated with them.  Descriptions I obviously wanted to keep around for documentation purposes.  And although we *can* specify declarator docs for an `enum`, it's (currently) impossible to specify a declarator doc for each of the possible values (and it would probably be impractical as well).
-
 So I opted for the creation of a dedicated `Enumify` role that could be used on a class, thereby mimicking an actual `enum`, but which allows calling `.WHY` on the enum class, **and** on its instances (see [ENUMS API](https://raku.land/zef:lizmat/SBOM::CycloneDX#enums-api) for more information).  Which allows one to do:
 ```
 use SBOM::enums <Phase>;
