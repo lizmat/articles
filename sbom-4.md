@@ -14,11 +14,11 @@ From the [README](https://github.com/package-url/purl-spec?tab=readme-ov-file#co
 
 And the [list of adopters](https://github.com/package-url/purl-spec/blob/main/ADOPTERS.md) is already pretty impressive.
 
-But, as there was no support for `PURL`s in Raku yet, it also meant support for it had to be created.  I decided to write the support it, which was also quite extensive, but not nearly as extensive as with `SBOM::CycloneDX`!
+But, as there was no support for `PURL`s in Raku yet, it also meant support for it had to be created.  I decided to write the support it, which was also quite a task.
 
 ## A PURL module
 
-Since I wanted to [SBOM::CycloneDX](https://raku.land/zef:lizmat/SBOM::CycloneDX) to be able to support the entire functionality of the CycloneDX 1.6 definition, I had no choice but to implement the whole of the PURL specification (and its supported types) as well.  Life can be hard when you're having fun!
+Since I wanted [SBOM::CycloneDX](https://raku.land/zef:lizmat/SBOM::CycloneDX) to be able to support the entire functionality of the CycloneDX 1.6 definition, I had no choice but to implement the whole of the PURL specification (and its supported types) as well.  Life can be hard when you're having fun!
 
 At the moment of this writing, the PURL specification recognizes 31 types, each with their rules for handling and interpreting their native package specification into a Package URL.
 
@@ -28,7 +28,7 @@ So there it was: [PURL support for Raku](https://raku.land/zef:lizmat/PURL).  Wh
 
 ## Adding support for Raku module distributions
 
-But implementing all of this, was not really of use for Raku module distributions itself.  Because there was **no** support for Raku defined in the PURL specification itself yet.
+But implementing all of this was not really of use for Raku module distributions itself.  Because there was **no** support for Raku defined in the PURL specification itself yet.
 
 I decided to wing it.  Which was pretty easy, at first:
 - type: "raku" (that was easy)
@@ -48,7 +48,7 @@ as a Package URL.  Easy enough, right?
 
 ## Adding "raku" to the Package URL standard
 
-But this was not enough of course: to make "raku" acceptable as a Package URL type, some work needed to be done.  And that work has been done in the ["Add Raku Programming Language as a purl-spec type](https://github.com/package-url/purl-spec/pull/550).  And there's hoping that this PR (with specification, documentation and tests) will be merged soon.
+But this was not enough of course: to make "raku" acceptable as a Package URL type, some work needed to be done.  And that work has been done in the ["Add Raku Programming Language as a purl-spec type"](https://github.com/package-url/purl-spec/pull/550).  And there's hoping that my Pull Request (with specification, documentation and tests) to the Package-URL project will be merged soon.
 
 ## Requirements versus Dependencies
 
