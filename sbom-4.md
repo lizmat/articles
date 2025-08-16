@@ -14,7 +14,7 @@ From the [README](https://github.com/package-url/purl-spec?tab=readme-ov-file#co
 
 And the [list of adopters](https://github.com/package-url/purl-spec/blob/main/ADOPTERS.md) is already pretty impressive.
 
-But, as there was no support for `PURL`s in Raku yet, it also meant support for it had to be created.  And as was the case with `SBOM::CycloneDX`, I decided to add support for the entire specification.  Which was also quite extensive, but not nearly as extensive as with `SBOM::CycloneDX`.
+But, as there was no support for `PURL`s in Raku yet, it also meant support for it had to be created.  I decided to write the support it, which was also quite extensive, but not nearly as extensive as with `SBOM::CycloneDX`!
 
 ## A PURL module
 
