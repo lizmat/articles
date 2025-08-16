@@ -44,7 +44,7 @@ would be
 ```
 pkg:raku/zef:raku-community-modules/MIME::Base6@1.2.4
 ```
-Easy enough, right?
+as a Package URL.  Easy enough, right?
 
 ## Adding "raku" to the Package URL standard
 
