@@ -52,7 +52,7 @@ But this was not enough of course: to make "raku" acceptable as a Package URL ty
 
 ## Requirements versus Dependencies
 
-But of course, there's always a catch.  If you look at the `META6.json` file of a Raku module distribution that needs other modules to be installed, you're generally looking at a "requirement". For instance, looking at the `META6.json` of [`Identity::Utils`](https://raku.land/zef:lizmat/Identity::Utils):
+Of course, there's always a catch.  If you look at the `META6.json` file of a Raku module distribution that needs other modules to be installed, you're generally looking at a "requirement". For instance, looking at the `META6.json` of [`Identity::Utils`](https://raku.land/zef:lizmat/Identity::Utils):
 ```
 "depends": {
   "runtime": {
