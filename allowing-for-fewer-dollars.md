@@ -36,7 +36,7 @@ To make this possible, she remembered that she had actually sneaked in a special
 
 ## Nogil
 
-Turns out there had been a Raku slang for sigilless variables [already](https://github.com/tinmarino/nogil?tab=readme-ov-file#slangnogil) by *Martin Tourneboeuf*.  But sadly that had bitrotted.  "Why not use that namespace?", Lizzybel thought to herself.
+Turns out there had been a Raku slang for sigilless variables [already](https://github.com/tinmarino/nogil?tab=readme-ov-file#slangnogil) by *Martin Tourneboeuf*.  But sadly that had bitrotted.  "Why not use that namespace?", *Lizzybel* thought to herself.  Indeed, why not?
 
 The initial iteration of transmogrifying the `Slang::Emoji` module into `Slang::Nogil` looked simple enough.  Just replace `<.:So>` with `<.ident>+`, and add a check that we're actually in a definition (`$*IN_SPEC`), and voila: [Slang::Nogil 1.1](https://raku.land/zef:lizmat/Slang::Nogil/changes?v=1.1).
 ```
@@ -44,8 +44,38 @@ use Slang::Nogil;
 my answer = 42;
 say answer;  # 42
 ```
-But then some issues started to become clear(er).
+And fortunately, *Martin Tourneboeuf* was [happy with the result](https://github.com/tinmarino/nogil/issues/3#issuecomment-3534404648).
+
+All was good, but then some issues started to become clear(er).
 
 ## Nogil vs Emoji
 
-Because both `Slang::Emoji` and `Slang::Nogil` mix in a new version of the "sigilless-variable" `token`, one module was trampling on the other.
+Because both `Slang::Emoji` and `Slang::Nogil` mix in a new version of the "sigilless-variable" `token`, one module was trampling on the other.  *Lizzybel* realized that a solution in which a mixed-in `token` would just re-dispatch to the original `token`, would be the best solution.  But alas, after about two days of hacking, it turned out to be still impossible do so in a transparent manner.
+
+So the next best thing was to integrate the `Slang::Emoji` functionality into `Slang::Nogil`: an emoji could be considered to be a sigilless identifier after all, could it not?
+
+The result was [Slang::Nogil 1.2](https://raku.land/zef:lizmat/Slang::Nogil/changes?v=1.2).
+
+## Not enough testing: more trouble
+
+*Lizzybel* had only tested the most simple cases.  But not something like `my Int answer = 42`.  Which fails with a "Two terms in a row" error.  Or something even worse, that would affect a lot of code in the wild: `my sub a() { }`, which **also** would fail in the same way.
+
+Clearly the "sigilless-variable" approach would either require a more general approach in the Raku grammar, or would involve some serious ad-hoc workaround hacking in the `Slang::Nogil` modue.
+
+Because it was nearly Xmas, **Lizzybel** opted for the ad-hoc workaround hacking approach for now.  "At least people would be able to play around with the use of sigilless variables in Raku, which some people would consider a nice Xmas present" was *Lizzybel*'s line of thought.
+
+And after some [hacking](https://github.com/lizmat/Slang-Nogil/commit/5eddcd4f5ba89a23efc89929701d9ffad33be59a#diff-44f047142f328d6f26a7d8d328c36f65423b817b3a2e29b4b8d38b9953352a57), [Slang::Nogil 1.3](https://raku.land/zef:lizmat/Slang::Nogil/changes?v=1.3) saw the light of day.
+
+## Not always available, or?
+
+*Nanunanu* found out about the latest update of `Slang::Nogil` and enthusiastically send a private message to *Lizzybel* on IRC: "Very nice, I always wanted to be able to not have to use sigils for variables with limited scopes.  And now I can!  But I would still always would need to load the `Slang::Nogil` module in my code, no?".
+
+*Lizzybel* answered: "Yes, at the moment you would have to.  But fortunately, you can automate that as well with the [`RAKUDO_OPT`](https://docs.raku.org/programs/03-environment-variables#index-entry-RAKUDO__OPT) environment variable.  Just put `RAKUDO_OPT=-MSlang::Nogil` in your environment, and you don't need to think about it anymore!".  It was silent on the other end.  But that was just because *Nanunanu* was also busy with something else.
+
+After a few minutes *Nanunanu* answered: "That's pretty cool, didn't know you could do that  :-).  But of course it would be nicer still if it was just part of Raku, wouldn't it?".
+
+## A good question
+
+"Should this be part of Raku, perhaps in the next language level?", wondered *Lizzybel*.  "And should this only apply to variable definitions?  Or also to signatures, so you would be able to do something like `for <a b c d> -> letter { say letter }`.  Or would that affect error reporting on common errors too much?  Or would we be able to change the grammar and error reporting in such a way that sigilless identifiers in signatures would not be a problem after all?".
+
+"Perhaps it is time for a [language problem solving issue](https://github.com/Raku/problem-solving/issues/new?template=issue-template-language.md).  And an associated [Rakudo Pull Request](https://github.com/rakudo/rakudo/pulls)", thought *Lizzybel*.  "But not now, as I'm still recharging my batteries".
