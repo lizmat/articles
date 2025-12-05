@@ -4,7 +4,7 @@
 
 While doing a small visit to the corridors, she ran into *Nanunanu*, one of the IT elves.  *Nanunanu* was a bit worried, because they had not seen *Lizzybel* for a while.  "Don't worry", said *Lizzybel*.  "I'm just recharching my batteries a bit while doing some other stuff that has been neglected by me for a while.  But I have been following developments from a distance, to stay at least a bit in the loop", *Lizzybel* said with a bit of a grin.  "Ah, ok", said Nanunanu, "anything particular that caught your eye?".
 
-"Now that you mention it: it looks like quite a few of potential users of the [https://raku.org](Raku Programming Language) are put off by the use of sigils in variable declarations, specifically the `$`", said *Lizzybel* while taking out her phone and showing a [HackerNews comment](https://news.ycombinator.com/item?id=45856851) to *Nanunanu*.
+"Now that you mention it: it looks like quite a few of potential users of the [Raku Programming Language](https://raku.org) are put off by the use of sigils in variable declarations, specifically the `$`", said *Lizzybel* while taking out her phone and showing a [HackerNews comment](https://news.ycombinator.com/item?id=45856851) to *Nanunanu*.
 
 "What a silly reason to not want to look deeper into Raku".  *Nanunanu* agreed and went on their way because busy, busy, busy!
 
@@ -12,11 +12,11 @@ While going home, *Lizzybel* was thinking: "On the other hand, it was clear that
 
 ## A constant
 
-But the Raku Programming Language is no stranger to sigilless constants:
+When back home, *Lizzybel* thought: "But the Raku Programming Language is no stranger to sigilless constants"
 ```raku
 my constant answer = 42;
 ```
-"is but an example", Lizzybel was thinking to herself.  "And with a little trick, you could even make sigilless variables", she was mumbling to herself:
+"is but an example".  "And with a little trick, you could even make sigilless variables", she was mumbling to herself:
 ```raku
 my \answer = my $;
 answer = 42;
@@ -36,7 +36,7 @@ To make this possible, she remembered that she had actually sneaked in a special
 
 ## Nogil
 
-Turns out there had been a Raku slang for sigilless variables [already](https://github.com/tinmarino/nogil?tab=readme-ov-file#slangnogil) by *Martin Tourneboeuf*.  But sadly that had bitrotted.  "Why not use that namespace?", *Lizzybel* thought to herself.  Indeed, why not?
+Turns out there had been a Raku slang for sigilless variables [already](https://github.com/tinmarino/nogil?tab=readme-ov-file#slangnogil) by *Martin Tourneboeuf*.  But sadly that had bitrotted.  "Why not use that namespace?", *Lizzybel* thought to herself.  "Indeed, why not?".
 
 The initial iteration of transmogrifying the `Slang::Emoji` module into `Slang::Nogil` looked simple enough.  Just replace `<.:So>` with `<.ident>+`, and add a check that we're actually in a definition (`$*IN_SPEC`), and voila: [Slang::Nogil 1.1](https://raku.land/zef:lizmat/Slang::Nogil/changes?v=1.1).
 ```
