@@ -50,7 +50,7 @@ All was good, but then some issues started to become clear(er).
 
 ## Nogil vs Emoji
 
-Because both `Slang::Emoji` and `Slang::Nogil` mix in a new version of the "sigilless-variable" `token`, one module was trampling on the other.  *Lizzybel* realized that a solution in which a mixed-in `token` would just re-dispatch to the original `token`, would be the best solution.  But alas, after about two days of hacking, it turned out to be still impossible do so in a transparent manner.
+Because both `Slang::Emoji` and `Slang::Nogil` mix in a new version of the "sigilless-variable" `token`, one module was trampling on the other.  *Lizzybel* realized that a solution, in which a mixed-in `token` would just re-dispatch to the original `token`, would be the best.  But alas, after about two days of hacking, it turned out to be still impossible do so in a transparent manner.
 
 So the next best thing was to integrate the `Slang::Emoji` functionality into `Slang::Nogil`: an emoji could be considered to be a sigilless identifier after all, could it not?
 
