@@ -10,15 +10,15 @@ Since then **456** issues have been opened.  Some of them have had a massive inf
 
 Another one that created a lot of work, but preserved all of the issue history in the development of the Raku Programming Language, was ["rt.perl.org is shutting down"](https://github.com/raku/problem-solving/issues/49).
 
-But over the past years, a backlog has formed itself in the problem solving repository, with currently *266* open issues, with the oldest being of **2017**.
+But over the past years, a backlog has formed itself in the problem solving repository, with currently **266** open issues, with the oldest being of **2017**.
 
 ## Reducing the backlog
 
-It is one of the functions of the Raku Steering Council to provide tie-breaking on these issues if the community cannot come to a resolution.  But it's just hard to find the time and the focus to make these types of decisopms.  Yet it's really time to start handling these issues!
+It is one of the functions of the Raku Steering Council to provide tie-breaking on these issues if the community cannot come to a resolution.  But it's just hard to find the time and the focus to make these types of decisions.  Yet it's clearly really time to start reducing this backlog!
 
 In the [last meeting](https://github.com/Raku-Steering-Council/Papers/commit/b9129a0102) of the Raku Steering Council, the idea to hold an online meeting about a set of problem solving issues was formed.  Such a meeting would allow members of the community to comment on the issues at hand, and the RSC would then (ideally) be able to get to a tie-breaking decision.
 
-To start off with some of the (hopefully) simpler issues, have this meeting be about the problem solving issues marked ["documentation"](https://github.com/Raku/problem-solving/issues?q=is%3Aissue%20state%3Aopen%20label%3Adocumentation), which currently are (in reverse chronological order):
+To start off with some of the (hopefully) simpler issues, it was decided to have the first meeting be about the problem solving issues marked ["documentation"](https://github.com/Raku/problem-solving/issues?q=is%3Aissue%20state%3Aopen%20label%3Adocumentation).  Which currently are (in reverse chronological order):
 
 - [Specify documentation URLs](https://github.com/Raku/problem-solving/issues/93)
 - [Generic name for FALLBACK and CALL-ME](https://github.com/Raku/problem-solving/issues/119)
@@ -31,11 +31,11 @@ To start off with some of the (hopefully) simpler issues, have this meeting be a
 
 ## When and where
 
-The *when* has been decided for the first meeting: Saturday 17 January 2026 at 19:00 UTC (20:00 CET, 14:00 EST, 11:00 PST, 04:00 JST (18 Jan)), and to take one hour maximum.  If not all issues have been resolved, they will be moved to a future meeting.
+The *when* has been decided for the first meeting: Saturday 17 January 2026 at 19:00 UTC (20:00 CET, 14:00 EST, 11:00 PST, 04:00 JST (18 Jan)), and to take one hour maximum.  If not all of these issues have been resolved, they will be moved to a future meeting.
 
 Selecting a time is always difficult in these situations.  The reason this time was selected, was that it would be 1 hour before the next Raku Steering Council meeting, so at least the Raku Steering Council members would be more or less available already.  And also because that time turned out to be the least problematic for them, and thus possibly also for other Raku Community members.
 
-The where is, at least for now, on Jitsi: [https://meet.jit.si/SpecificRosesEstablishAllegedly](https://meet.jit.si/SpecificRosesEstablishAllegedly).  The reason Jitsi was selected, is that it has proven to be working with minimal hassle for at least the Raku Steering Council meetings (as the only thing you need to be able to attend, is a modern browser, and no further installation.
+The where is, at least for now, on Jitsi: [https://meet.jit.si/SpecificRosesEstablishAllegedly](https://meet.jit.si/SpecificRosesEstablishAllegedly).  The reason Jitsi was selected, is that it has proven to be working with minimal hassle for at least the Raku Steering Council meetings (as the only thing you need to be able to attend, is a modern browser, a camera, a microphone, no further installation required).
 
 ## Preparation
 
@@ -45,6 +45,8 @@ The original contributors to these issues will also be notified (unless they mut
 
 ## Small steps
 
-Whether this format of problem solving issue resolution will work, all depends on Raku Community members letting themselves attending and contributing.  The Raku Steering Council hopes very much that it will!
+Whether this format of problem solving issue resolution will work, all depends on Raku Community members attending and contributing.  The Raku Steering Council hopes very much that this format will work!
 
 So if you consider yourself a Raku Community member, please try to attend!  If anything, it will allow you to put faces to the names that you may be familiar with.
+
+Hope to see you there!
