@@ -35,11 +35,13 @@ The *when* has been decided for the first meeting: Saturday 17 January 2026 at 1
 
 Selecting a time is always difficult in these situations.  The reason this time was selected, was that it would be 1 hour before the next Raku Steering Council meeting, so at least the Raku Steering Council members would be more or less available already.  And also because that time turned out to be the least problematic for them, and thus possibly also for other Raku Community members.
 
-The where is, at least for now, on Jitsi: [https://meet.jit.si/SpecificRosesEstablishAllegedly](https://meet.jit.si/SpecificRosesEstablishAllegedly).  The reason Jitsi was selected, is that it has proven to be working with minimal hassle for at least the Raku Steering Council meetings (as the only thing you need to be able to attend, is a modern browser, a camera, a microphone, no further installation required).
+The where is, at least for now, on Jitsi: [https://meet.jit.si/SpecificRosesEstablishAllegedly](https://meet.jit.si/SpecificRosesEstablishAllegedly).  The reason Jitsi was selected, is that it has proven to be working with minimal hassle for at least the Raku Steering Council meetings.  As the only thing you need to be able to attend, is a modern browser, a camera, and a microphone.  No further installation required.
 
 ## Preparation
 
-Any Raku Community member is welcome to this meeting (and hopefully many others).  But please make sure you have looked at the issues that will be discussed **before** attending the meeting.  And if you already have any comments to make on these issues, make them with the issue beforehand.
+Any Raku Community member is welcome to this meeting.  Do you consider yourself a Raku Community member?  You're welcome.  It's as simple as that.
+
+But please make sure you have looked at the issues that will be discussed **before** attending the meeting.  And if you already have any comments to make on these issues, make them with the issue beforehand.
 
 The original contributors to these issues will also be notified (unless they muted themselves from these issues).  We hope that they also will be able to attend.
 
