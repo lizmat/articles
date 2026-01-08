@@ -1,12 +1,12 @@
-# Resolutions
+# Raku Resolutions
 
-It's a new year and New Year's Resolutions abound.  The Raku Steering Council is not impervious to that, and has come up with one of their own: **Reduce the backlog of open Problem Solving Issues**.
+It's a new year and New Year's Resolutions abound.  The Raku Steering Council is not impervious to that, and has come up with one of their own: "**Reduce the backlog of open Problem Solving Issues**".
 
 ## A Little History
 
-But first a little bit of history.  In 2017 when it became clear that *Larry Wall* would not be around much more to decide on matters related to what is now the [https://raku.org](Raku Programming Language), a [problem solving repository](https://github.com/Raku/problem-solving?tab=readme-ov-file#-problem-solving) was created.
+But first a little bit of history.  In 2017 when it became clear that *Larry Wall* would not be around much more to decide on matters related to what is now the [Raku Programming Language](https://raku.org), a [problem solving repository](https://github.com/Raku/problem-solving?tab=readme-ov-file#-problem-solving) was created.
 
-Since then **456** issues have been opened.  Some of them have had a massive influence, such as ["Perl" in the name "Perl 6" is confusing and irritating"(https://github.com/raku/problem-solving/issues/81), which was instrumental in changing the name to the Raku Programming Language.
+Since then **456** issues have been opened.  Some of them have had a massive influence, such as ["Perl" in the name "Perl 6" is confusing and irritating"](https://github.com/raku/problem-solving/issues/81), which was instrumental in changing the name to the Raku Programming Language.
 
 Another one that created a lot of work, but preserved all of the issue history in the development of the Raku Programming Language, was ["rt.perl.org is shutting down"](https://github.com/raku/problem-solving/issues/49).
 
