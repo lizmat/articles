@@ -4,17 +4,17 @@
 
 The first meeting was had on the suggested time and date: 17 January 2026 at 19:00 UTC.  Apart from 4 Raku Steering Council members, up to 8 other people attended: thank you for your attendance and your feedback.
 
-In the end, **4** issues were discussed within the allotted time (1 hour) and one was explicitely moved to a next meeting at the request of the issuer.
+In the end, **4** issues were discussed within the allotted time (1 hour) and one other was explicitely moved to a next meeting at the request of the issuer.
 
 ## [Specify documentation URLs](https://github.com/Raku/problem-solving/issues/93)
 
-*Richard Hainsworth* explained some of the background of the issue.  At one point in the creation of the Raku documentation, it was decided that the documentation of methods with the same name, should be grouped in pages automatically generated from the original source documentation (for instance, documentation of the [`print` method](https://docs.raku.org/routine/print).
+*Richard Hainsworth* explained some of the background of the issue.  At one point in the creation of the Raku documentation, it was decided that the documentation of methods with the same name should be grouped in pages automatically generated from the original source documentation (for instance, documentation of the [`print` method](https://docs.raku.org/routine/print)).
 
 Over the years, these pre-generated pages got incoming links from other parts of the Raku documentation.  But the URLs of the pre-generated pages could shift (and have) over time, thus making the links dead.
 
 In the new Raku Documentation rendering (based on RakuDoc) this issue will need / is being handled in a more programmatic manner, but this will also require some cleanup.
 
-It was therefore decided to close this issue for now, with an [explanation as to why](https://github.com/Raku/problem-solving/issues/93#issuecomment-3764321909) and an option to create a new issue once that makes sense.
+It was therefore decided to close this issue for now, with an [explanation as to why](https://github.com/Raku/problem-solving/issues/93#issuecomment-3764321909) and an option to create a new *documentation* issue once that makes sense.
 
 ## [Generic name for `FALLBACK` and `CALL-ME`](https://github.com/Raku/problem-solving/issues/119)
 
@@ -32,9 +32,9 @@ Everybody agreed that this has become a non-issue in the 6 years after this issu
 
 ## [`Seq` vs. `List` - `Iterable`, instead?](https://github.com/Raku/problem-solving/issues/499)
 
-This had a lot of discussion.  It became clear that both has documentation, as well as spec testing (roast) fallout.  Since changes to roast indicate language changes, it will probably require a language level bump for the new return types to be actually more leniently tested.
+This had a lot of discussion.  It became clear that this both has documentation, as well as spec testing (roast) fallout.  Since changes to roast indicate language changes, it will probably require a language level bump for the new return types to be actually more leniently tested.
 
-For example, code in the ecosystem might depend on e.g. an `Array` being returned by a core method: changing it to a more lenient `Iterable` return type would allow the implementation to return a more memory efficient `List` instead.  By putting this change in a language level, would allow the code in the ecosystem to opt out of this by requiring the language level where that method was guaranteed to return an `Array`.
+For example, code in the ecosystem might depend on e.g. a mutable `Array` being returned by a core method: changing it to a more lenient `Iterable` return type would allow the implementation to return a more memory efficient immutable `List` instead.  By putting this change in a language level would allow the code in the  ecosystem to opt out of this, by requiring the language level (where that method was) guaranteed to return an `Array`.
 
 So it was decided that the documentation would start using `Iterable`, but the actual changes in the spec tests (roast) would need to be guarded by a language level bump.  And so it was [noted](https://github.com/Raku/problem-solving/issues/499#issuecomment-3764294232).
 
