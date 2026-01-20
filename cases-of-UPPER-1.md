@@ -60,8 +60,18 @@ The [`CHECK` phaser](https://docs.raku.org/syntax/CHECK) gets executed once the 
 
 In the next language level of Raku, this will allow you to actually modify the AST before it is being turned into bytecode.  But we're not there yet.
 
-It is of little use currently.  One could for instance use it to prevent actual execution (but only after compilation, by doing `CHECK exit if $phase-of-the-moon`).
+It is of little use currently.  One could for instance use it to prevent actual execution, but only after compilation:
+```raku
+CHECK exit if $phase-of-the-moon;
+```
+If you really want to prevent execution of your program or module, you can use the `INIT` phaser:
+```raku
+INIT exit if $phase-of-the-moon;
+```
+More on that in the next episode!
 
 ## Conclusion
+
+There are about 50 language elements in the Raku Programming Language that consist of only UPPERCASE characters.  The `BEGIN` and `CHECK` phaser apply to the compilation stage of a Raku program.
 
 This concludes the first episode of cases of UPPER language elements in the Raku Programming Language.  Stay tuned for more!
