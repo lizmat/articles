@@ -12,9 +12,19 @@ Nonetheless it may be a good idea to start with (maybe yet another) overview of 
 
 In the Raku Programming Language there are basically two stages of execution (that matter for you as a developer): "compile time" and "runtime".
 
-The compile time stage takes care of parsing the Raku code into executable bytecode.  However, it is **also** possible to actually **execute** code during compilation.  One of the ways to do that, is with the `BEGIN` phaser.
+The compile time stage takes care of parsing the Raku code into an AST (which is short for [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree).  When the compilation is complete, then that AST is converted into bytecode.
 
-As with most phasers, the `BEGIN` phaser can either take a `Block` or a so-called `thunk` (a piece of code that shares its scope with the surrounding scope, and that will **not** be executed immediately).
+And the runtime stage is when that bytecode is actually being executed by the virtual machine (in case of Rakudo, that is most commonly [`MoarVM`](https://moarvm.org/features.html).
+
+### Compile time
+
+When a Raku program is being compiled, it is **also** possible to actually **execute** code during this compilation.  One of the ways to do that, is with the `BEGIN` phaser.
+
+#### BEGIN
+
+As with most phasers, the `BEGIN` phaser can either take a `Block` (`{ ... }`) or a so-called `thunk`.
+
+> A "thunk" is a piece of code that has no scope of its own (and thus shares it scope with the surrounding scope).
 ```raku
 say "after";
 BEGIN say "before";
@@ -24,7 +34,7 @@ will display:
 before
 after
 ```
-because the `say "before"` is executed at compile time, and the `say "after"` at runtime.
+because the `say "before"` is executed at compile time, and the `say "after"` at runtime.  Even though you might think otherwise when you look at the order in which they occur in the code.
 
 Note that these `say`s occurred in "thunk"s because of the lack of `{ }` indicating a scope.  If you have multiple lines of code you need to execute at compile time, you can do that in such a scope:
 ```raku
@@ -40,4 +50,16 @@ The `BEGIN` phaser also returns the last value seen in it.  And you can store th
 my $compiled-at = BEGIN DateTime.now;
 say "This code was compiled at: $compiled-at";
 ```
+> Another way to create constant values at compile time, is to use the [`constant`](https://docs.raku.org/language/terms#Constants) directive.  For instance `my constant $answer = 42`.  The thunk on the right-hand side of the `=` is evaluated at compile time.
 
+So what makes more sense to use?  The `BEGIN` phaser, or the `constant` directive?  For a part that depends on your coding style, and another part on the complexity of the code that you want to execute at compile time.  And sometimes you [use them side-by-side](https://github.com/lizmat/Text-Emoji/blob/main/lib/Text/Emoji.rakumod#L4-L15).
+
+#### CHECK
+
+The [`CHECK` phaser](https://docs.raku.org/syntax/CHECK) gets executed once the entire source code has been compiled into an AST.  It comes both in `Block` and `thunk` flavours.
+
+In the next language level of Raku, this will allow you to actually modify the AST before it is being turned into bytecode.  But we're not there yet.
+
+It is of little use currently.  One could for instance use it to prevent actual execution (but only after compilation, by doing `CHECK exit if $phase-of-the-moon`.
+
+This concludes the first episode of cases of UPPER in the Raku Programming Language.  Stay tuned for more!
