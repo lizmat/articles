@@ -18,7 +18,7 @@ And the runtime stage is when that bytecode is actually being executed by the vi
 
 ### Compile time
 
-When a Raku program is being compiled, it is **also** possible to actually **execute** code during this compilation.  One of the ways to do that, is with the `BEGIN` phaser.
+When a Raku program is being compiled, it is **also** possible to actually **execute** code during this compilation.  One of the ways to do that, is with the [`BEGIN` phaser](https://docs.raku.org/syntax/BEGIN).
 
 #### BEGIN
 
