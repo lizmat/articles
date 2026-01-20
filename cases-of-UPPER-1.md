@@ -66,11 +66,11 @@ It is of little use currently.  One could for instance use it to prevent actual 
 ```raku
 CHECK exit if $phase-of-the-moon;
 ```
-If you really want to prevent execution of your program or module, you can use the `INIT` phaser:
+If you really want to *always* prevent execution of your program or module depending on the phase of the moon, you can use the `INIT` phaser:
 ```raku
 INIT exit if $phase-of-the-moon;
 ```
-More on that in the next episode!
+More on the `INIT` phaser in the next episode!
 
 ## Conclusion
 
