@@ -54,6 +54,8 @@ say "This code was compiled at: $compiled-at";
 
 So what makes more sense to use?  The `BEGIN` phaser, or the `constant` directive?  For a part that depends on your coding style, and another part on the complexity of the code that you want to execute at compile time.  And sometimes you [use them side-by-side](https://github.com/lizmat/Text-Emoji/blob/main/lib/Text/Emoji.rakumod#L4-L15).
 
+> Note that the [`use` statement](https://docs.raku.org/syntax/use) also may execute code at compile time if the module used has *not* been pre-compiled yet, or has [pre-compilation disabled](https://docs.raku.org/syntax/precompilation).
+
 #### CHECK
 
 The [`CHECK` phaser](https://docs.raku.org/syntax/CHECK) gets executed once the entire source code has been compiled into an AST.  It comes both in `Block` and `thunk` flavours.
