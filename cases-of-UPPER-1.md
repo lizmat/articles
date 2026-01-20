@@ -1,14 +1,14 @@
 # Cases of UPPER
 
-The [Raku Programming Language](https://raku.org) provides quite a few ways of modifying the behaviour of code execution, and interfaces to classes and objects, by means of syntax elements in UPPERCASE.
+The [Raku Programming Language](https://raku.org) contains some **50** syntax elements that are completely in UPPERCASE.  These syntax elements provide quite a few ways of modifying the behaviour of code execution,  and interfaces to classes and objects.
 
-This series of blog posts intends to provide an overview of these syntax elements, and how they can be used to your benefit.
+This series of blog posts intends to provide an overview of these syntax elements (which can loosely be grouped into "Phasers", "Methods" and "Macros"), and how they can be used to your benefit.
 
 Why not read the documentation?  Well, in some cases there is ample documentation.  For instance in the case of [phasers](https://docs.raku.org/language/phasers).  But in other cases the documentation is less clear.  Especially if it is about when to use a given feature to provide a certain capability to your code.
 
 Nonetheless it may be a good idea to start with (maybe yet another) overview of phasers, their flavours and how you can use them.
 
-## By execution stage
+## Phasers, by execution stage
 
 In the Raku Programming Language there are basically two stages of execution (that matter for you as a developer): "compile time" and "runtime".
 
@@ -60,6 +60,8 @@ The [`CHECK` phaser](https://docs.raku.org/syntax/CHECK) gets executed once the 
 
 In the next language level of Raku, this will allow you to actually modify the AST before it is being turned into bytecode.  But we're not there yet.
 
-It is of little use currently.  One could for instance use it to prevent actual execution (but only after compilation, by doing `CHECK exit if $phase-of-the-moon`.
+It is of little use currently.  One could for instance use it to prevent actual execution (but only after compilation, by doing `CHECK exit if $phase-of-the-moon`).
 
-This concludes the first episode of cases of UPPER in the Raku Programming Language.  Stay tuned for more!
+## Conclusion
+
+This concludes the first episode of cases of UPPER language elements in the Raku Programming Language.  Stay tuned for more!
