@@ -58,24 +58,58 @@ So what makes more sense to use?  The `BEGIN` phaser, or the `constant` directiv
 
 > Note that the [`use` statement](https://docs.raku.org/syntax/use) also may execute code at compile time if the module used has *not* been pre-compiled yet, or has [pre-compilation disabled](https://docs.raku.org/syntax/precompilation).
 
+Finally: the `BEGIN` phaser is special in that it is executed the moment it has been compiled.  Almost all other phasers keep a queue of code to be executed at a given time.
+
 #### CHECK
 
 The [`CHECK` phaser](https://docs.raku.org/syntax/CHECK) gets executed once the entire source code has been compiled into an AST.  It comes both in `Block` and `thunk` flavours.
 
 In the next language level of Raku, this will allow you to actually modify the AST before it is being turned into bytecode.  But we're not there yet.
 
-It is of little use currently.  One could for instance use it to prevent actual execution, but only if the code was being compiled (which may *not* be the case if a module was already pre-compiled).
-```raku
-CHECK exit if $phase-of-the-moon;
+You could for instance use the `CHECK` phaser to show the documentation of the code in question:
 ```
+=begin pod
+This is documentation
+=end pod
+
+CHECK {
+    use Pod::To::Text;
+    say pod2text($=pod);
+}
+```
+Which would show:
+```
+This is documentation
+```
+> Which is actually how the `--doc` command line argument works.
+
+Otherwise it is of little use currently.  One could for instance use it to prevent actual execution, but only if the code was being compiled (which may *not* be the case if a module was already pre-compiled).
+```raku
+CHECK exit;
+```
+> Which is actually what the `-c` command line argument does.
+
 If you really want to *always* prevent execution of your program or module depending on the phase of the moon, you can use the `INIT` phaser:
 ```raku
 INIT exit if $phase-of-the-moon;
 ```
 More on the `INIT` phaser in the next episode!
 
+In any case, `CHECK` phasers are executed in the reverse order they are specified:
+```raku
+CHECK say "first";
+CHECK say "second";
+```
+will show:
+```
+second
+first
+```
+
 ## Conclusion
 
-There are about 50 language elements in the Raku Programming Language that consist of only UPPERCASE characters.  The `BEGIN` and `CHECK` phaser apply to the compilation stage of a Raku program.
+There are more than 50 language elements in the Raku Programming Language that consist of only UPPERCASE characters.  They are written in uppercase because they are intended to stand out in code, because they indicate "Something Very Strange" going on.
+
+The `BEGIN` and `CHECK` phaser apply to the compilation stage of a Raku program.
 
 This concludes the first episode of cases of UPPER language elements in the Raku Programming Language.  Stay tuned for more!
