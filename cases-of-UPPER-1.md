@@ -14,7 +14,7 @@ Nonetheless it may be a good idea to start with (maybe yet another) overview of 
 
 In the Raku Programming Language there are basically two stages of execution (that matter for you as a developer): "compile time" and "runtime".
 
-The compile time stage takes care of parsing the Raku code into an AST (which is short for [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree).  When the compilation is complete, then that AST is converted into bytecode.
+The compile time stage takes care of parsing the Raku code into an AST (which is short for [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree)).  When the compilation is complete, then that AST is converted into bytecode.
 
 And the runtime stage is when that bytecode is actually being executed by the virtual machine (in case of Rakudo, that is most commonly [`MoarVM`](https://moarvm.org/features.html)).
 
@@ -47,7 +47,7 @@ BEGIN {
     say $now;
 }
 ```
-will show when the code is being compiled.
+The above will show when the code is being compiled.
 
 The `BEGIN` phaser also returns the last value seen in it.  And you can store that in a variable that will be set at compile time:
 ```raku
