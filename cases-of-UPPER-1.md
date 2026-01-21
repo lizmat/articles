@@ -16,7 +16,9 @@ In the Raku Programming Language there are basically two stages of execution (th
 
 The compile time stage takes care of parsing the Raku code into an AST (which is short for [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree).  When the compilation is complete, then that AST is converted into bytecode.
 
-And the runtime stage is when that bytecode is actually being executed by the virtual machine (in case of Rakudo, that is most commonly [`MoarVM`](https://moarvm.org/features.html).
+And the runtime stage is when that bytecode is actually being executed by the virtual machine (in case of Rakudo, that is most commonly [`MoarVM`](https://moarvm.org/features.html)).
+
+> In practice this distinction is a lot more vague because quite a large part of the Rakudo implementation is actually written in Raku itself.
 
 ### Compile time
 
