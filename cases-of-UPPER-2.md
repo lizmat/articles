@@ -58,19 +58,19 @@ END .disconnect with $dbh;
 ```
 This will disconnect the database connected to in `$dbh` *if* a connection was actually made.  The reason this is guarded by a [`with`](https://docs.raku.org/syntax/with%20orwith%20without), because an error *can* have occurred in an earler `INIT` phaser, so that `$dbh` was never initialized.  Otherwise you would get an execution error in the `END` phaser, which would be annoying.
 
-Another use of an `END` phaser, is to report statistics about the execution of a program.  A very simple example would be:
+Another use of an `END` phaser, is to report statistics about the execution of a program.  A very basic example would be:
 ```raku
-END say "$*PROGRAM-NAME ran for { now - INIT now } seconds";
+END say now - INIT now;
 ```
-which would show the number of seconds the program actually ran (and its name).
+which would show the number of seconds the program actually ran.
 
-Or to keep a log of when programs were executed:
+Or to keep a log of when programs were executed a slightly more complicated `END` phaser:
 ```raku
 END "log".IO.spurt(:append,
   DateTime.now ~ ": $*PROGRAM-NAME ran for { now - INIT now } seconds\n"
 );
 ```
-which would add a line (hence the `:append`) for every program run to a "log" file with the date/time of the run ended, the program name, and how many seconds it ran.
+which would add a line (hence the `:append`) for every program run to a "log" file with the date and time of when the run ended, the program name, and how many seconds it ran.
 
 ## Conclusion
 
