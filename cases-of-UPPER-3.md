@@ -70,7 +70,7 @@ Frobnicated for 0.503981515 seconds.
 
 The [`PRE`](https://docs.raku.org/syntax/PRE) and [`POST`](https://docs.raku.org/syntax/PRE) phasers are special cases of the `ENTER` and `LEAVE` phasers.  The code in the `PRE` and `POST` phasers are supposed to produce a `True` or `False` value.  If they produce a `False` value, then an execution error will occur stating the condition.
 
-Maybe a (again contrived) example is easier to grasp:
+Maybe an (again contrived) example is easier to grasp:
 ```raku
 sub process($io) {
     PRE $io ~~ IO && $io.defined;
@@ -94,13 +94,13 @@ say process("foo".IO);  # Postcondition '$io.e' failed
 ```
 Note again that the first invocation ran ok, and the second one failed because the argment given was did not refer to an existing path (presumably, unless you had a file "foo" in the current directory).
 
-> Looking at the usage of `PRE` and `POST` phasers in the ecosystem, it does look like there's not a lot use made of this feature.  Implementation of these phasers predated multi-dispatch and signature checking.  So maybe these phasers are not very useful anymore.  But are still kept for backward compatibility. 
+> Looking at the usage of `PRE` and `POST` phasers in the ecosystem, it does look like there's not a lot use made of this feature.  Implementation of these phasers predated multi-dispatch and signature checking.  So maybe these phasers are not very useful anymore.  But they are still kept for backward compatibility. 
 
 ## Commit and Rollback
 
-No, the Raku Programming Language does not have [Software Transactional Memory](https://en.wikipedia.org/wiki/Software_transactional_memory) as such.  But it has two phasers that would allow one to get pretty close: [`KEEP`](https://docs.raku.org/syntax/KEEP) and [`UNDO`](https://docs.raku.org/syntax/UNDO).
+No, the Raku Programming Language does not have [Software Transactional Memory](https://en.wikipedia.org/wiki/Software_transactional_memory) as such.  But it has two phasers that would allow one to get pretty close: [`KEEP`](https://docs.raku.org/syntax/KEEP) and [`UNDO`](https://docs.raku.org/syntax/UNDO) (which are special cases of `LEAVE` phasers).
 
-If a block as a `KEEP` or `UNDO` phaser specified, one or the other will be executed depending on wheter leaving the block was considered successful.  Two criteria are applied:
+If a block has a `KEEP` or `UNDO` phaser specified, one or the other will be executed depending on whether leaving the block was considered successful.  Two criteria are applied:
 - was the block exited normally (without a raised exception)?
 - does [`.defined`](https://docs.raku.org/routine/defined) produce `True` or `False` on the return value of the block?
 
@@ -133,6 +133,6 @@ The `KEEP` and `UNDO` phasers are executed depending on whether the scope in whi
 
 The `PRE` and `POST` phaser provide gate-keeping functions for scopes, but have lost a lot of their usefulness because of other ways of gate-keeping scopes using signatures.
 
-It doesn't matter where the phasers are specified: they will be executed at the expected moment and with the scope in which they are specified.
+It doesn't matter where the phasers are specified in the code they belong to: they will be executed at the expected moment and with the scope in which they are specified.
 
 This concludes the third episode of cases of UPPER language elements in the Raku Programming Language.  Stay tuned for more!
