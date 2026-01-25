@@ -9,7 +9,7 @@ This part will discuss the phasers related to scopes (aka, the code between curl
 ## Scope counterparts
 
 The `ENTER` and `LEAVE` phasers are the "scope" counterparts of the `INIT` and `END` phasers.  A simple but contrived example:
-```raku
+```perl
 if 42 {
     LEAVE say "goodbye";
     ENTER say "hello";
@@ -54,7 +54,7 @@ $ raku -e 'LEAVE say 1; LEAVE say 2'
 Although it must be said that rarely does one need to have multiple `ENTER` or `LEAVE` phasers in the same scope.
 
 As with the `INIT` phaser, the `ENTER` phaser returns the value last seen.  So you can also use this for timing spent in a scope:
-```raku
+```perl
 sub frobnicate() {
     LEAVE say "Frobnicated for { now - ENTER now } seconds.";
     sleep .5;  # mimic activity
@@ -71,7 +71,7 @@ Frobnicated for 0.503981515 seconds.
 The [`PRE`](https://docs.raku.org/syntax/PRE) and [`POST`](https://docs.raku.org/syntax/PRE) phasers are special cases of the `ENTER` and `LEAVE` phasers.  The code in the `PRE` and `POST` phasers are supposed to produce a `True` or `False` value.  If they produce a `False` value, then an execution error will occur stating the condition.
 
 Maybe an (again contrived) example is easier to grasp:
-```raku
+```perl
 sub process($io) {
     PRE $io ~~ IO && $io.defined;
     42
@@ -84,7 +84,7 @@ Note that the first invocation of `process` ran ok (because it referred to the c
 > Note that a more idiomatic way would have been an `IO:D` constraint on the `$io` parameter.
 
 Similarly with `POST`:
-```raku
+```perl
 sub process(IO:D $io) {
     POST $io.e;
     42
@@ -94,7 +94,7 @@ say process("foo".IO);  # Postcondition '$io.e' failed
 ```
 Note again that the first invocation ran ok, and the second one failed because the argment given did not refer to an existing path (presumably, unless you had a file "foo" in the current directory).
 
-> Looking at the usage of `PRE` and `POST` phasers in the ecosystem, it doesn't look like there is a lot use made of this feature.  Implementation of these phasers predated multi-dispatch and signature checking.  So maybe these phasers are not very useful anymore.  But they are still kept for backward compatibility. 
+> Looking at the usage of `PRE` and `POST` phasers in the ecosystem, it doesn't look like there is a lot use made of this feature.  Implementation of these phasers predated multi-dispatch and signature checking.  So maybe these phasers are not very useful anymore.  But they are still kept for backward compatibility.
 
 ## Commit and Rollback
 
@@ -105,7 +105,7 @@ If a block has a `KEEP` or `UNDO` phaser specified, one or the other will be exe
 - does [`.defined`](https://docs.raku.org/routine/defined) produce `True` or `False` on the return value of the block?
 
 If both criteria are `True`, then any `KEEP` phaser will be executed.  If either was `False`, then the `UNDO` phaser will be executed.  This feature could e.g. be used to `commit` or `rollback` a database statement.
-```
+```perl
 sub frobnicate() {
     KEEP say "commit database transaction";
     UNDO say "rollback database transaction";
