@@ -1,6 +1,6 @@
 # Hello Goodbye
 
-> This is part three in the ["Cases of UPPER"](https://dev.to/lizmat/series/35190) series of blog posts.
+> This is part three in the ["Cases of UPPER"](https://dev.to/lizmat/series/35190) series of blog posts, describing the Raku syntax elements that are completely in UPPERCASE.
 
 The first two parts discussed the four phasers linked to execution stages of the [Raku Programming Language](https://raku.org): [`BEGIN`](https://docs.raku.org/syntax/BEGIN), [`CHECK`](https://docs.raku.org/syntax/CHECK), [`INIT`](https://docs.raku.org/syntax/INIT) and [`END`](https://docs.raku.org/syntax/END).
 
@@ -92,9 +92,9 @@ sub process(IO:D $io) {
 say process(".".IO);    # 42
 say process("foo".IO);  # Postcondition '$io.e' failed
 ```
-Note again that the first invocation ran ok, and the second one failed because the argment given was did not refer to an existing path (presumably, unless you had a file "foo" in the current directory).
+Note again that the first invocation ran ok, and the second one failed because the argment given did not refer to an existing path (presumably, unless you had a file "foo" in the current directory).
 
-> Looking at the usage of `PRE` and `POST` phasers in the ecosystem, it does look like there's not a lot use made of this feature.  Implementation of these phasers predated multi-dispatch and signature checking.  So maybe these phasers are not very useful anymore.  But they are still kept for backward compatibility. 
+> Looking at the usage of `PRE` and `POST` phasers in the ecosystem, it doesn't look like there is a lot use made of this feature.  Implementation of these phasers predated multi-dispatch and signature checking.  So maybe these phasers are not very useful anymore.  But they are still kept for backward compatibility. 
 
 ## Commit and Rollback
 
@@ -104,7 +104,7 @@ If a block has a `KEEP` or `UNDO` phaser specified, one or the other will be exe
 - was the block exited normally (without a raised exception)?
 - does [`.defined`](https://docs.raku.org/routine/defined) produce `True` or `False` on the return value of the block?
 
-If both criteria are `True`, then any `KEEP` phaser will be executed.  If either was `False`, then the `UNDO` phaser will be executed.  This feature could e.g. be used to `commit` or `rollback` a database statement.  Or do something else entirely.
+If both criteria are `True`, then any `KEEP` phaser will be executed.  If either was `False`, then the `UNDO` phaser will be executed.  This feature could e.g. be used to `commit` or `rollback` a database statement.
 ```
 sub frobnicate() {
     KEEP say "commit database transaction";
@@ -115,7 +115,7 @@ sub frobnicate() {
 frobnicate();  # commit database transaction
 frobnicate();  # rollback database transaction
 ```
-It's hard to come up with short examples that aren't contrived.
+Or do something else entirely.  It's hard to come up with short examples that aren't contrived.
 
 > The `KEEP` and `UNDO` phasers are used by some very prominent modules in the [Raku Ecosystem](https://raku.land), such as [`zef`](https://raku.land/zef:ugexe/zef), [`Red`](https://raku.land/zef:FCO/Red) and [`Net::BGP`](https://raku.land/zef:jmaslak/Net::BGP).  So they have definitely proven their worth!
 
@@ -129,7 +129,7 @@ The `FIRST`, `NEXT` and `LAST` phasers will be discussed in the next episode.
 
 The `ENTER` and `LEAVE` phasers apply to the scope in which they occur, and can be used for resource management and performance logging.  Just like `INIT` and `END`, but with a finer scope.
 
-The `KEEP` and `UNDO` phasers are executed depending on whether the scope in which they occur is left successfully (`KEEP`) or unsuccessfully (`UNDO`).
+The `KEEP` and `UNDO` phasers are a special case of a `LEAVE` phaser  executed depending on whether the scope in which they occur is left successfully (`KEEP`) or unsuccessfully (`UNDO`).
 
 The `PRE` and `POST` phaser provide gate-keeping functions for scopes, but have lost a lot of their usefulness because of other ways of gate-keeping scopes using signatures.
 

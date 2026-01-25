@@ -1,6 +1,6 @@
 # INIT to an END
 
-> This is part two in the ["Cases of UPPER"](https://dev.to/lizmat/series/35190) series of blog posts.
+> This is part two in the ["Cases of UPPER"](https://dev.to/lizmat/series/35190) series of blog posts, describing the Raku syntax elements that are completely in UPPERCASE.
 
 The first part of this series discussed the two [phasers](https://docs.raku.org/language/phasers) in the [Raku Programming Language](https://raku.org) of which the code is executed at compile time: `BEGIN` and `CHECK`.
 
