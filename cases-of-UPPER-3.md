@@ -68,7 +68,7 @@ Frobnicated for 0.503981515 seconds.
 
 ## Pre and Post Conditions
 
-The [`PRE`](https://docs.raku.org/syntax/PRE) and [`POST`] phasers are special cases of the `ENTER` and `LEAVE` phasers.  The code in the `PRE` and `POST` phasers are supposed to produce a `True` or `False` value.  If they produce a `False` value, then an execution error will occur stating the condition.
+The [`PRE`](https://docs.raku.org/syntax/PRE) and [`POST`](https://docs.raku.org/syntax/PRE) phasers are special cases of the `ENTER` and `LEAVE` phasers.  The code in the `PRE` and `POST` phasers are supposed to produce a `True` or `False` value.  If they produce a `False` value, then an execution error will occur stating the condition.
 
 Maybe a (again contrived) example is easier to grasp:
 ```raku
@@ -79,7 +79,7 @@ sub process($io) {
 say process("foo".IO);  # 42
 say process(666);       # Precondition '$io ~~ IO && $io.defined' failed
 ```
-Note that the first invocation of `process` ran ok, and the second one failed because the argument given was not an object doing the `IO` role.
+Note that the first invocation of `process` ran ok (because it referred to the current directory, and that is **always** there).  The second one invocation failed because the argument given was **not** an object doing the [`IO`](https://docs.raku.org/type/IO) role.
 
 > Note that a more idiomatic way would have been an `IO:D` constraint on the `$io` parameter.
 
@@ -96,11 +96,11 @@ Note again that the first invocation ran ok, and the second one failed because t
 
 > Looking at the usage of `PRE` and `POST` phasers in the ecosystem, it does look like there's not a lot use made of this feature.  Implementation of these phasers predated multi-dispatch and signature checking.  So maybe these phasers are not very useful anymore.  But are still kept for backward compatibility. 
 
-## Commit and rollback
+## Commit and Rollback
 
 No, the Raku Programming Language does not have [Software Transactional Memory](https://en.wikipedia.org/wiki/Software_transactional_memory) as such.  But it has two phasers that would allow one to get pretty close: [`KEEP`](https://docs.raku.org/syntax/KEEP) and [`UNDO`](https://docs.raku.org/syntax/UNDO).
 
-If a block as a `KEEP` or `UNDO` phaser specified, one or the other will be executed depending on wheter the return from the block was considered successful.  Two criteria are applied:
+If a block as a `KEEP` or `UNDO` phaser specified, one or the other will be executed depending on wheter leaving the block was considered successful.  Two criteria are applied:
 - was the block exited normally (without a raised exception)?
 - does [`.defined`](https://docs.raku.org/routine/defined) produce `True` or `False` on the return value of the block?
 
