@@ -66,12 +66,10 @@ sub frobnicate() {
   state $times += 1;
   END say "Frobnicated $times times";
 }
-await (^100).map: {
-  start {
-    sleep rand;  # create some chaos
-    frobnicate;
-  }
-}
+await start {  # wait for jobs to finish
+  sleep rand;  # create some chaos
+  frobnicate;
+} xx 100;      # start 100 async jobs
 ```
 will show fewer than 100 frobnications.
 
