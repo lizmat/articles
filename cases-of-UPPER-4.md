@@ -79,9 +79,9 @@ It's important to recognize this behaviour of `state` variables, before they are
 
 ## Loop-di-loop
 
-All loop structures in the [Raku Programming Language](https://raku.org) ([`for`](https://docs.raku.org/syntax/for), [`while` / `until`](https://docs.raku.org/syntax/while%20until) and [`loop`](https://docs.raku.org/syntax/loop) allow for the specification of an additional 3 types of phaser: [`FIRST`](https://docs.raku.org/syntax/FIRST), [`NEXT`](https://docs.raku.org/syntax/NEXT) and [`LAST`](https://docs.raku.org/syntax/FIRST).
+All loop structures in the [Raku Programming Language](https://raku.org) ([`for`](https://docs.raku.org/syntax/for), [`while` / `until`](https://docs.raku.org/syntax/while%20until) and [`loop`](https://docs.raku.org/syntax/loop)) allow for the specification of an additional 3 types of phaser: [`FIRST`](https://docs.raku.org/syntax/FIRST), [`NEXT`](https://docs.raku.org/syntax/NEXT) and [`LAST`](https://docs.raku.org/syntax/FIRST).
 
-The names of these phasers are pretty explanatory:
+The names of these phasers are pretty self-explanatory:
 - FIRST - runs the first time a loop structure is entered
 - NEXT - runs each time after an iteration is done
 - LAST - runs after the last iteration is done
@@ -115,6 +115,8 @@ Using the `FIRST` and `LAST` phaser allows one to easily add a header and a foot
 The `NEXT` phaser runs when an iteration is ended normally, or is started with a [`next`](https://docs.raku.org/syntax/next) command.  The `LAST` phaser is run after the last iteration is done, or when leaving the scope is initiated with a [`last`](https://docs.raku.org/syntax/last) command.
 
 The `FIRST` phaser uses an invisible `state` variable under the hood, so depends on the peculiarities of its implementation.
+
+It is possible to use the other `Block` oriented phasers in loop structures as well.  But generally only the `LEAVE` phaser makes sense in that case: it effectively can be used if you want the same code to be executed in both the `NEXT` and the `LAST` case.
 
 ## FIRST in the future
 
