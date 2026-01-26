@@ -2,11 +2,11 @@
 
 > This is part four in the ["Cases of UPPER"](https://dev.to/lizmat/series/35190) series of blog posts, describing the Raku syntax elements that are completely in UPPERCASE.
 
-This part will discuss the phasers related to loop structures (the code between curly braces that is being repeatedly called): [`FIRST`](https://docs.raku.org/syntax/FIRST), [`NEXT`](https://docs.raku.org/syntax/NEXT) and [`LAST`](https://docs.raku.org/syntax/LAST).
+This part will discuss the phasers related to loop structures (the code between curly braces that is being repeatedly called)
 
 ## But first, a statement
 
-The [second](https://dev.to/lizmat/init-to-an-end-30hc) episode already saw the use of the [`state`](https://docs.raku.org/syntax/state) scope identifier in one of the examples, without going into it much.  Since `state` is affecting some aspects handled in this blog post, it felt important to first circle back to it before going on.
+The [second](https://dev.to/lizmat/init-to-an-end-30hc) episode already saw the use of the [`state`](https://docs.raku.org/syntax/state) declarator in one of the examples, without going into it much.  Since `state` is affecting some aspects handled in this blog post, it felt important to first circle back to it before going on.
 
 In short, a `state` variable is a lexically scoped variable that will keep its value between invocations of the scope in which it is defined.  For example:
 ```raku
@@ -56,11 +56,11 @@ sub frobnicate() {
 }
 frobnicate for ^5;
 ```
-And since the `END` phaser occurs only once in the code, it will only see the value of `$times` from the last time that "frobnicate" had been called.
+As you can see in this case each invocation of "frobnicate" will get a fresh `my $times`.  And since the `END` phaser occurs only once in the code, it will only see the value of `$times` from the last time that "frobnicate" had been called.
 
 > The way initialization of `state` variables is organized is slightly more complex than described above.  In most cases the above explanation is correct, and when it is not you're probably getting into DIHWIDT (Doctor, It Hurts When I Do This: "so don't do that") territory.
 
-Finally it should be noted that `state` variables, like any other non-atomic variables, are **not** thread-safe.
+Finally it should be noted that `state` variables, like any other non-[atomic](https://docs.raku.org/type/atomicint) variables, are **not** thread-safe.
 ```raku
 sub frobnicate() {
   state $times += 1;
@@ -90,9 +90,11 @@ The names of these phasers are pretty explanatory:
 
 A simple example:
 ```raku
+my $left;
+my $right;
 for ^5 -> $id {
-  state $left  += $id;
-  state $right += $id + 2;
+  $left  += $id;
+  $right += $id + 2;
   FIRST say "ID | +2\n===+===";
   NEXT say " $id |  { $id + 2 }";
   LAST say "===+=== +\n$left | $right";
@@ -123,7 +125,6 @@ In the next language level of Raku, the `FIRST` phaser will become active for **
 $ RAKUDO_RAKUAST=1 raku -e '{ say now - FIRST now }'
 0.000048209
 ```
-
 This functionality is similar to what is provided by [`once`](https://docs.raku.org/syntax/once).  But that looks phaser-like?  Why isn't `once` a phaser and thus in all uppercase?
 
 There have been a lot of discussions about that, but in the end it was decided that it is not a phaser because it runs in-line like other statement prefixes ([decision from 2013](https://irclogs.raku.org/perl6/2013-05-30.html#04:04)).  So:
