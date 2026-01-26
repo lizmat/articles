@@ -109,7 +109,7 @@ If both criteria are `True`, then any `KEEP` phaser will be executed.  If either
 sub frobnicate() {
     KEEP say "commit database transaction";
     UNDO say "rollback database transaction";
-    Bool.roll  # randomly succeed / fail
+    Bool.roll ?? 42 !! Nil  # randomly succeed / fail
 }
 
 frobnicate();  # commit database transaction
