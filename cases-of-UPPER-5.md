@@ -20,7 +20,7 @@ In fact, there are [three asynchronous phasers](https://docs.raku.org/language/p
 
 Let's start with an example with `LAST` and `CLOSE`.  We create a `supply` that will produce 5 values, and a `react` block with a single `whenever` that will handle the values produced by the `supply`.
 
-> This example is completely synchronous because the `supply` keyword creates an "on-demand" supply, which isn't really "event" processing.  However, any other supply (e.g. a live supply created by the [`signal`](https://docs.raku.org/type/Supply#sub_signal) would be handled in the same way (and that *would* be event processing).
+> This example is completely synchronous because the `supply` keyword creates an "on-demand" supply, which isn't really "event" processing.  However, any other supply (e.g. a "live" supply created by the [`signal`](https://docs.raku.org/type/Supply#sub_signal) would be handled in the same way (and that *would* be event processing).
 ```raku
 my $supply = supply {
     CLOSE say "Supply was closed.";
@@ -101,7 +101,7 @@ Died because of the exception:
 ```
 Note that in that case, execution will **not** continue after the `react` block because the execution error was not disarmed (because it was not an `X::AdHoc`).
 
-> Yes, the use of `42[1]` may be weird, but it is one of the quickest way to create an execution error that is not an `X::AdHoc`.  The reason this is an error, is because any value in Raku can be considered a one-element list.  So `foo[0]` will return `foo`, but `foo[1]` will cause an out-of-bounds error.
+> Yes, the use of `42[1]` may be weird, but it is one of the quickest ways to create an execution error that is not an `X::AdHoc`.  This is an error because any value in Raku can be considered a one-element list.  So `foo[0]` will return `foo`, but `foo[1]` will cause an out-of-bounds error.
 
 ## Under the hood
 
@@ -116,6 +116,8 @@ This results in the (possibly unexpected) situation that you are allowed to spec
 ```
 will just show `inside block`, simply because the `CLOSE` phaser only makes sense inside an concurrent / async structure such as a `supply`.
 
+> One could argue that the above example should be a compilation error, as the `CLOSE` phaser will never be called.  However, it is pretty difficult to be 100% sure at compile time how a block will actually be used in the code, and what phasers could be called.  And from a performance point of view, checking for not-applicable phasers at runtime would incur a significant performance penalty.  So it was decided to not do that and consider this way of improperly using of phasers a case of DIHWIDT (aka Doctor, It Hurts When I Do This.  "so don't do that then").
+
 However, it *is* possible to introspect `Block` objects in Raku, because everything in Raku is an object (or can be thought of as one).  Consider this example:
 ```raku
 my $block = {
@@ -129,7 +131,7 @@ Note that by adding `()` after the variable, you're telling Raku to *execute* th
 
 The `Block.phasers` method takes the name of a block-oriented phaser and returns a `List` of `Block` objects representing each phaser seen by that name (usually one, but there can be more than one).
 
-Now, from a performance point of view it might not be a good idea to do a lookup in the `Block` information for a phaser by a given name if there are no phasers associated with the block at all.  Fortunately, the `Block` object also has a `has-phasers` method that provides an efficient way to check that.
+Now, from a performance point of view it might not be a good idea to do a lookup in the `Block` information for a phaser by a given name if there are no phasers associated with the block at all.  Fortunately the `Block` object also has a `has-phasers` method that provides an efficient way to check that.
 ```raku
 my $block = {
     CLOSE say "closed";
