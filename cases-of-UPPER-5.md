@@ -20,7 +20,7 @@ In fact, there are [three asynchronous phasers](https://docs.raku.org/language/p
 
 Let's start with an example with `LAST` and `CLOSE`.  We create a `supply` that will produce 5 values, and a `react` block with a single `whenever` that will handle the values produced by the `supply`.
 
-> This example is completely synchronous because the `supply` keyword creates an "on-demand" supply, which isn't really "event" processing.  However, any other supply (e.g. a "live" supply created by the [`signal`](https://docs.raku.org/type/Supply#sub_signal) would be handled in the same way (and that *would* be event processing).
+> This example is completely synchronous because the `supply` keyword creates an "on-demand" supply, which isn't really "event" processing.  However, any other supply (e.g. a "live" supply created by the [`signal`](https://docs.raku.org/type/Supply#sub_signal) would be handled in the same way and that *would* be event processing).
 ```raku
 my $supply = supply {
     CLOSE say "Supply was closed.";
@@ -131,7 +131,7 @@ Note that by adding `()` after the variable, you're telling Raku to *execute* th
 
 The `Block.phasers` method takes the name of a block-oriented phaser and returns a `List` of `Block` objects representing each phaser seen by that name (usually one, but there can be more than one).
 
-Now, from a performance point of view it might not be a good idea to do a lookup in the `Block` information for a phaser by a given name if there are no phasers associated with the block at all.  Fortunately the `Block` object also has a `has-phasers` method that provides an efficient way to check that.
+Now, from a performance point of view it might not be a good idea to do a lookup in the `Block` information for a phaser by a given name if there are no phasers associated with the block at all.  **Each time** the block is executed.  Fortunately the `Block` object also has a `has-phasers` method that provides an efficient way to check that.
 ```raku
 my $block = {
     CLOSE say "closed";
