@@ -6,7 +6,7 @@ This part will discuss the phasers related to concurrent and async structures, a
 
 ## Concurrency and async
 
-If you're unaware of the concurrency and async features of the [Raku Programming Language](https://raku.org) (especially the about [`supply` / `emit`](https://docs.raku.org/language/control#supply/emit) and `react` / `whenever`), it might be a good idea to read up on the [Supplies section](https://docs.raku.org/language/concurrency#Supplies) of the Raku documentation on [Concurrency](https://docs.raku.org/language/concurrency).
+If you're unaware of the concurrency and async features of the [Raku Programming Language](https://raku.org) (especially about what [`supply` / `emit`](https://docs.raku.org/language/control#supply/emit) and `react` / `whenever` do), it might be a good idea to read up on the [Supplies section](https://docs.raku.org/language/concurrency#Supplies) of the Raku documentation on [Concurrency](https://docs.raku.org/language/concurrency).
 
 ## LAST and CLOSE
 
@@ -20,7 +20,7 @@ In fact, there are [three asynchronous phasers](https://docs.raku.org/language/p
 
 Let's start with an example with `LAST` and `CLOSE`.  We create a `supply` that will produce 5 values, and a `react` block with a single `whenever` that will handle the values produced by the `supply`.
 
-> This example is completely synchronous because the `supply` keyword creates an "on-demand" supply, which isn't really "event" processing.  Any other supply (e.g. a live supply created by the [`signal`](https://docs.raku.org/type/Supply#sub_signal) would be handled in the same way (and that *would* be event processing).
+> This example is completely synchronous because the `supply` keyword creates an "on-demand" supply, which isn't really "event" processing.  However, any other supply (e.g. a live supply created by the [`signal`](https://docs.raku.org/type/Supply#sub_signal) would be handled in the same way (and that *would* be event processing).
 ```raku
 my $supply = supply {
     CLOSE say "Supply was closed.";
