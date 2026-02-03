@@ -36,9 +36,9 @@ alive still
 ```
 Note that having the exception in `$_` smart-matching with [`when`](https://docs.raku.org/syntax/when) effectively disables the exception so it won't be re-thrown on scope exit.  Because of that, the `say "alive still"` will be executed.  Any other type of error would **not** be disabled, although you could if you wanted do that with a [`default`](https://docs.raku.org/syntax/default%20when) block.
 
-The careful reader will have noticed that the `say "after"` was **not** executed.  That's because the current scope was left as if a `return Nil` where executed in the scope where the `CATCH` block is located.
+The careful reader will have noticed that the `say "after"` was **not** executed.  That's because the current scope was left as if a `return Nil` was executed in the scope where the `CATCH` block is located.
 
-If you feel like the exception in question is benign, you can execute the [`.resume`](https://docs.raku.org/type/Exception#method_resume) method on the exception object.  Then execution will resume in the statement following the one that caused the exception.
+If you feel like the exception in question is benign, you can make execution continue in the statement following the one that caused the exception.  You can do this by calling the [`.resume`](https://docs.raku.org/type/Exception#method_resume) method on the exception object.
 
 So let's assume all errors we get in that block are benign, and we want to just continue after each exception:
 ```raku
