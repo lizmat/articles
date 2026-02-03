@@ -212,8 +212,10 @@ Exception handling in Raku is built on [delimited continuations](https://en.wiki
 
 ## Conclusion
 
-The `CATCH` catches exceptions that are supposed to be fatal.  The `CONTROL` phasers caches exceptions for all sorts of "normal" functionality, such as `next`, `last`, `warn`, etc.
+The `CATCH` phaser catches exceptions that are supposed to be fatal.  The `CONTROL` phasers catches exceptions for all sorts of "normal" functionality, such as `next`, `last`, `warn`, etc.
 
 You can build your own control exceptions, but the utility of these remains unclear as of yet.
+
+Exceptions are built on top of so-called "delimited continuations".
 
 This concludes the sixth episode of cases of UPPER language elements in the Raku Programming Language.  Stay tuned for more!
