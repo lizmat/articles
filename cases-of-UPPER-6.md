@@ -34,18 +34,16 @@ Running the above code will show:
 naughty: urgh
 alive still
 ```
-Note that having the exception in `$_` smart-match with [`when`](https://docs.raku.org/syntax/when) effectively disables the exception so it won't be re-thrown on scope exit.  Because of that, the `say "alive still"` will be executed.  Any other type of error would **not** be disabled, although you could if you wanted that with a [`default`](https://docs.raku.org/syntax/default%20when) block.
+Note that having the exception in `$_` smart-matching with [`when`](https://docs.raku.org/syntax/when) effectively disables the exception so it won't be re-thrown on scope exit.  Because of that, the `say "alive still"` will be executed.  Any other type of error would **not** be disabled, although you could if you wanted do that with a [`default`](https://docs.raku.org/syntax/default%20when) block.
 
-The careful reader will have noticed that the `say "after"` was **not** executed.  That's because even though the exception was disabled by the `when`, there was still an exception thrown.  And thatmeant that the current scope would be left pretty much as if a `return Nil` where executed.
+The careful reader will have noticed that the `say "after"` was **not** executed.  That's because even though the exception was disabled by the `when`, there was still an exception thrown.  And that meant that the current scope would be left pretty much as if a `return Nil` where executed in the scope where the `CATCH` block is located.
 
-If you feel like the exception in question is benign, you can execute the [`.resume`](https://docs.raku.org/type/Exception#method_resume) method on the exception object.  So let's assume all errors we get in that block are benign, and we want to just continue after each exception:
+If you feel like the exception in question is benign, you can execute the [`.resume`](https://docs.raku.org/type/Exception#method_resume) method on the exception object.  Then execution will resume in the statement following the one that caused the exception.
+
+So let's assume all errors we get in that block are benign, and we want to just continue after each exception:
 ```raku
 { 
-    CATCH {
-        default {
-            .resume
-        }
-    }
+    CATCH { .resume }
     die "urgh";
     say "after";
 }
@@ -56,7 +54,16 @@ would show:
 after
 alive still
 ```
-However, not all exceptions are resumable!  So your program may stop nonetheless if the exception can not be actually resumed.
+However, not all exceptions are resumable!  So your program may stop nonetheless if the exception can not be actually resumed.  For instance, division by 0 errors are not resumable:
+```raku
+CATCH { .resume }
+say 1/0;
+```
+would show:
+```
+This exception is not resumable
+  in block foo at bar line 42
+```
 
 ### Trying code
 
@@ -92,7 +99,7 @@ Apart from runtime exceptions, many other types of exceptions are used in Raku. 
 - [`take`](https://docs.raku.org/routine/take) - pass item to `gather`
 - [`warn`](https://docs.raku.org/routine/warn) - warn with given message
 
-Just as runtime exceptions they all perform the work they are expected to do without needing any specific action from a user.  However, you can **not** catch these exceptions with a `CATCH` block, you need a [`CONTROL` block](https://docs.raku.org/syntax/CONTROL) for that.
+Just as runtime exceptions they all perform the work they are expected to do without needing any specific action from a user.  However, you can **not** catch these exceptions with a `CATCH` phaser, you need a [`CONTROL` phaser](https://docs.raku.org/syntax/CONTROL) for that.
 
 ### Handling control exceptions yourself
 
@@ -107,13 +114,16 @@ Methods .^name, .raku, .gist, or .say can be used to stringify it to something m
   in block foo at bar line 42
 foo
 ```
-You could do that using a `CONTROL` block like this:
+Since warnings are control exceptions, you can "catch" them in a a `CONTROL` phaser like this:
+
 ```raku
 CONTROL {
     when CX::Warn { .resume }
 }
 say $_ ~ "foo";
 ```
+> The class names for these control exceptions can be determined from titlecasing the name of the feature, and then prefixing with `CX::`.  So "warn" throws an instance of the `CX::Warn` class.
+
 which would just show:
 ```
 foo
