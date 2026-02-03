@@ -122,7 +122,7 @@ CONTROL {
 }
 say $_ ~ "foo";
 ```
-> The class names for these control exceptions can be determined from titlecasing the name of the feature, and then prefixing with `CX::`.  So "warn" throws an instance of the `CX::Warn` class.
+> The class names for these control exceptions can be determined from [title casing](https://en.wikipedia.org/wiki/Title_case) the name of the feature, and then prefixing with `CX::`.  So "warn" throws an instance of the `CX::Warn` class.
 
 which would just show:
 ```
