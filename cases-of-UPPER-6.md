@@ -6,7 +6,7 @@ This part will discuss the phasers that catch exceptions of various kinds.
 
 ## CATCH
 
-Many programming languages have a `try` / `catch` mechanism.  Although it is true that the [Raku Programming Language](https://raku.org) does have a [`try` statement prefix](https://docs.raku.org/syntax/try%20%28statement%20prefix%29), and it does have a [`CATCH` phaser](https://docs.raku.org/syntax/CATCH#Resuming_of_exceptions) you should generally **not** use both at the same time.
+Many programming languages have a `try` / `catch` mechanism.  Although it is true that the [Raku Programming Language](https://raku.org) *does* have a [`try` statement prefix](https://docs.raku.org/syntax/try%20%28statement%20prefix%29), and it *does* have a [`CATCH` phaser](https://docs.raku.org/syntax/CATCH#Resuming_of_exceptions), you should generally **not** use both at the same time.
 
 In Raku **any** scope can have a **single** `CATCH` block.  The code within it will be executed as soon as any runtime exception occurs in that scope, with the exception that was thrown topicalized in [`$_`](https://docs.raku.org/syntax/%24_).
 
@@ -24,7 +24,7 @@ Let's start again with a contrived example:
             say "naughty: $_.message()";
         }
     }
-    die "urgh";
+    die "urgh";  # throws an X::AdHoc exception
     say "after";
 }
 say "alive still";
@@ -36,7 +36,7 @@ alive still
 ```
 Note that having the exception in `$_` smart-matching with [`when`](https://docs.raku.org/syntax/when) effectively disables the exception so it won't be re-thrown on scope exit.  Because of that, the `say "alive still"` will be executed.  Any other type of error would **not** be disabled, although you could if you wanted do that with a [`default`](https://docs.raku.org/syntax/default%20when) block.
 
-The careful reader will have noticed that the `say "after"` was **not** executed.  That's because even though the exception was disabled by the `when`, there was still an exception thrown.  And that meant that the current scope would be left pretty much as if a `return Nil` where executed in the scope where the `CATCH` block is located.
+The careful reader will have noticed that the `say "after"` was **not** executed.  That's because the current scope was left as if a `return Nil` where executed in the scope where the `CATCH` block is located.
 
 If you feel like the exception in question is benign, you can execute the [`.resume`](https://docs.raku.org/type/Exception#method_resume) method on the exception object.  Then execution will resume in the statement following the one that caused the exception.
 
