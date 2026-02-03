@@ -6,17 +6,17 @@ This part will discuss the phasers that catch exceptions of various kinds.
 
 ## CATCH
 
-Many programming languages have a `try` / `catch` mechanism.  Although it is true that the [Raku Programming Language](https://raku.org) does have a [`try` statement prefix](https://docs.raku.org/syntax/try%20%28statement%20prefix%29), and it does have a [`CATCH`](https://docs.raku.org/syntax/CATCH#Resuming_of_exceptions) you should generally **not** use both.
+Many programming languages have a `try` / `catch` mechanism.  Although it is true that the [Raku Programming Language](https://raku.org) does have a [`try` statement prefix](https://docs.raku.org/syntax/try%20%28statement%20prefix%29), and it does have a [`CATCH` phaser](https://docs.raku.org/syntax/CATCH#Resuming_of_exceptions) you should generally **not** use both at the same time.
 
 In Raku **any** scope can have a **single** `CATCH` block.  The code within it will be executed as soon as any runtime exception occurs in that scope, with the exception that was thrown topicalized in [`$_`](https://docs.raku.org/syntax/%24_).
 
 > This is the reason you cannot have a `CATCH` thunk: it needs to have a scope to be able to set `$_` in there, without affecting anything outside of that scope.
 
-It doesn't matter where in a scope you put the `CATCH` block.  But it is recommended for clarity's sake to put a `CATCH` block as early in the scope as possible (rather than "hiding" it somewhere near the end of a scope).
+It does **not** matter *where* in a scope you put the `CATCH` block.  But it is recommended for clarity's sake to put a `CATCH` block as early in the scope as possible (rather than "hiding" it somewhere near the end of a scope): when reading the code, you will almost immediately see that there is something special going on with regards to exceptions.
 
 ### Handling exceptions
 
-Let's go again for a contrived example:
+Let's start again with a contrived example:
 ```raku
 { 
     CATCH {
