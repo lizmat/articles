@@ -12,7 +12,7 @@ In Raku **any** scope can have a **single** `CATCH` block.  The code within it w
 
 > This is the reason you cannot have a `CATCH` thunk: it needs to have a scope to be able to set `$_` in there, without affecting anything outside of that scope.
 
-It does **not** matter *where* in a scope you put the `CATCH` block.  But it is recommended for clarity's sake to put a `CATCH` block as early in the scope as possible (rather than "hiding" it somewhere near the end of a scope): when reading the code, you will almost immediately see that there is something special going on with regards to exceptions.
+It does **not** matter *where* in a scope you put the `CATCH` block.  But it is recommended for clarity's sake to put a `CATCH` block as *early* in the scope as possible (rather than "hiding" it somewhere near the end of a scope): when reading the code, you will almost immediately see that there is something special going on with regards to exceptions.
 
 ### Handling exceptions
 
@@ -54,7 +54,7 @@ would show:
 after
 alive still
 ```
-However, not all exceptions are resumable!  So your program may stop nonetheless if the exception can not be actually resumed.  For instance, division by 0 errors are not resumable:
+However, not all exceptions are resumable!  So your program may stop nonetheless if the exception can not be actually resumed.  For instance, division by `0` errors are not resumable:
 ```raku
 CATCH { .resume }
 say 1/0;
@@ -114,7 +114,7 @@ Methods .^name, .raku, .gist, or .say can be used to stringify it to something m
   in block foo at bar line 42
 foo
 ```
-Since warnings are control exceptions, you can "catch" them in a a `CONTROL` phaser like this:
+Since warnings are control exceptions, you can "catch" them in a `CONTROL` phaser like this:
 
 ```raku
 CONTROL {
@@ -147,10 +147,10 @@ would show:
 ```
 Use of uninitialized value element of type Any in string context.
 Methods .^name, .raku, .gist, or .say can be used to stringify it to something meaningful.
-  in hsub warn at SETTING::src/core.c/control.rakumod line 267
+  in sub warn at SETTING::src/core.c/control.rakumod line 267
   in method Str at SETTING::src/core.c/Mu.rakumod line 817
   in method join at SETTING::src/core.c/List.rakumod line 1200
-  inw sub infix:<~> at SETTING::src/core.c/Str.rakumod line 3995
+  in sub infix:<~> at SETTING::src/core.c/Str.rakumod line 3995
   in block foo at bar line 42
 ```
 Or if you would like to turn any warning into a runtime exception:
@@ -208,7 +208,7 @@ after
 
 Even though the `CATCH` and `CONTROL` phasers are scope based, you can **not** introspect a given `Block` to see whether it has `CATCH` or `CONTROL` phasers.  This is because you can only have one of them in a scope, and handling exceptions in these phasers actually needs to be built into the bytecode generated for a block.  So from a runtime point of view, there was no need to put them as attributes into the `Block` object.
 
-Exception handling in Raku is built on {delimited continuations](https://en.wikipedia.org/wiki/Delimited_continuation).  If you really want to get into the nitty gritty of this feature, you might be interested in reading ["Continuations in NQP"](https://github.com/Raku/nqp/blob/main/docs/continuations.pod#continuations-in-nqp).
+Exception handling in Raku is built on [delimited continuations](https://en.wikipedia.org/wiki/Delimited_continuation).  If you really want to get into the nitty gritty of this feature, you might be interested in reading ["Continuations in NQP"](https://github.com/Raku/nqp/blob/main/docs/continuations.pod#continuations-in-nqp).
 
 ## Conclusion
 
