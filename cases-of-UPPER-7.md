@@ -105,4 +105,4 @@ The `TEMP` phaser was never implemented, but the `temp` and `let` prefix operato
 
 The `COMPOSE` phaser was never implemented, because the mainline of a `role` is executed when a `role` is consumed in a class, effectively providing exactly the functionality promised by that phaser.
 
-This concludes the seventh episode of cases of UPPER language elements in the Raku Programming Language.  Stay tuned for more!
+This concludes the seventh episode of cases of UPPER language elements in the Raku Programming Language.  This also concludes all phasers in Raku.  Next up wil uppercase methods that you, as a user f the Raku Programming Language, can provide in your code to tweak behaviour.  Stay tuned!
