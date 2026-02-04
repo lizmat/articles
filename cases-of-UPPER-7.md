@@ -24,6 +24,8 @@ Note that the `Pod::To::Text` module is  installed as part of the rakudo distrib
 
 Other renderers such as [`Pod::To::HTML`](https://raku.land/zef:raku-community-modules/Pod::To::HTML), [`Pod::To::PDF`](https://raku.land/zef:dwarring/Pod::To::PDF) and [`Pod::To::Markdown`](https://raku.land/zef:raku-community-modules/Pod::To::Markdown) would have to be installed first from the ecosystem (e.g. `zef install Pod::To::Markdown`).
 
+With that under our belt, we can start discussion the `DOC` phaser.
+
 ## DOC
 
 There is no single [`DOC`](https://docs.raku.org/syntax/DOC) phaser, there are actually three of them:
@@ -31,7 +33,7 @@ There is no single [`DOC`](https://docs.raku.org/syntax/DOC) phaser, there are a
 - `DOC CHECK` - `CHECK` phaser if --doc is set
 - `DOC INIT` - `INIT` phaser if --doc is set
 
-Another why of thinking about this, is that the `DOC` phaser could be thought of as a sort of statement prefix that will conditionally add the phaser.  In pseudo-code, for `DOC BEGIN`:
+Another way of thinking about this, is that the `DOC` phaser could be thought of as a sort of statement prefix that will add the phaser only if `--doc` was specified on the command line.  In pseudo-code, for `DOC BEGIN`:
 ```
 if --doc is set {
     BEGIN ...;
@@ -61,18 +63,20 @@ at -e:1
 
 So what use are they?  Looking at the ecosystem, there actually only appears to be **one** type of use that makes sense.  And that is functionality offered by the [`POD::EOD` module](https://raku.land/zef:raku-community-modules/Pod::EOD), which places [declarator documentation](https://docs.raku.org/language/pod#Declarator_blocks) at the end of the documentation, rather than where they occur in the source code.  Which works because it directly modifies the content of the `$=pod` variable.
 
+Yours truly has not been able to find any other (correct) usage.
+
 ## TEMP
 
 The `TEMP` phaser is a bit of a mirage.  In the [old design documents](https://github.com/Raku/old-design-docs/tree/master?tab=readme-ov-file#perl6-design-documents) it was mentioned in [S06 - Temporization](https://github.com/Raku/old-design-docs/blob/master/S06-routines.pod#temporization).
 
-However it looks like sometime in May 2012 [`let`](https://docs.raku.org/routine/let) and [`temp`](https://docs.raku.org/routine/temp) were implemented.  But the described `TEMP` phaser never was in all of the years since then.  Probably because the functionality of `temp` and `let` covered almost all use cases, combined with the [`KEEP`](https://docs.raku.org/syntax/KEEP) and [`UNDO`](https://docs.raku.org/syntax/UNDO) phasers, so nobody felt the need to actually implement support for it.
+However it looks like sometime in May 2012 [`let`](https://docs.raku.org/routine/let) and [`temp`](https://docs.raku.org/routine/temp) were implemented.  But the described `TEMP` phaser never was implemented in all of the years since then.  Probably because the functionality of `temp` and `let` covered almost all use cases, combined with the [`KEEP`](https://docs.raku.org/syntax/KEEP) and [`UNDO`](https://docs.raku.org/syntax/UNDO) phasers, so nobody felt the need to actually implement support for it.
 
 Oddly enough the syntax for the `TEMP` phaser *does* exist.
 ```
 $ raku -e 'TEMP say "temp"; say "alive";
 alive
 ```
-But it just doesn't do anything.  And after this blog post, chances are that the support for the syntax will be removed (see [problem solvin issue](https://github.com/Raku/problem-solving/issues/511)).
+But it just doesn't do anything.  And after this blog post, chances are that the support for the syntax will be removed (see [problem solving issue](https://github.com/Raku/problem-solving/issues/511)).
 
 ## COMPOSE
 
@@ -95,14 +99,14 @@ composing B
 composing C
 begin
 ```
-Note that the [`$?CLASS`](https://docs.raku.org/language/variables#index-entry-$%3FCLASS) compile time variable contains the type object of the class being composed.  And in August 2020 it basically became clear that a [`COMPOSE` phaser would not be needed](https://irclogs.raku.org/raku/2020-08-12.html#15:28).
+Note that the [`$?CLASS`](https://docs.raku.org/language/variables#index-entry-$%3FCLASS) compile time variable contains the type object of the class being composed.  And in August 2020 it basically became clear that a [`COMPOSE` phaser would not be needed](https://irclogs.raku.org/raku/2020-08-12.html#15:28).  Well, at least not until someone can show that a `COMPOSE` phaser offers more functionality than the current way of executing the mainlin of the `role` is offering.
 
 ## Conclusion
 
 The `DOC` set of phasers is activated with the `--doc` command line argument: without that having been specified, all `DOC` phasers are no-ops but need to be syntactically correct.  Their use appears to be limited.
 
-The `TEMP` phaser was never implemented, but the `temp` and `let` prefix operators provide the functionality promised by that phaser.
+The `TEMP` phaser was never implemented, but the `temp` and `let` prefix operators, as well as the `KEEP` and `UNDO` phasers provide the functionality promised by `TEMP` phaser.
 
-The `COMPOSE` phaser was never implemented, because the mainline of a `role` is executed when a `role` is consumed in a class, effectively providing exactly the functionality promised by that phaser.
+The `COMPOSE` phaser was never implemented, because the mainline of a `role` is executed when a `role` is consumed in a class, effectively providing exactly the functionality promised by that phaser.  At least so far.
 
 This concludes the seventh episode of cases of UPPER language elements in the Raku Programming Language.  This also concludes all phasers in Raku.  Next up wil uppercase methods that you, as a user f the Raku Programming Language, can provide in your code to tweak behaviour.  Stay tuned!
