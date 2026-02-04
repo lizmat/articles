@@ -20,18 +20,18 @@ INIT {
     exit;
 }
 ```
-Note that the `Pod::To::Text` module is  installed as part of the rakudo distribution (whether it should be considered part of the Raku Programming Language specificatio is yet unclear).
+Note that the `Pod::To::Text` module is  installed as part of the rakudo distribution (whether it should be considered part of the Raku Programming Language specification is yet unclear).
 
 Other renderers such as [`Pod::To::HTML`](https://raku.land/zef:raku-community-modules/Pod::To::HTML), [`Pod::To::PDF`](https://raku.land/zef:dwarring/Pod::To::PDF) and [`Pod::To::Markdown`](https://raku.land/zef:raku-community-modules/Pod::To::Markdown) would have to be installed first from the ecosystem (e.g. `zef install Pod::To::Markdown`).
 
-With that under our belt, we can start discussion the `DOC` phaser.
+With that under our belt, we can start discussing the `DOC` phaser.
 
 ## DOC
 
-There is no single [`DOC`](https://docs.raku.org/syntax/DOC) phaser, there are actually three of them:
-- `DOC BEGIN` - `BEGIN` phaser if --doc is set
-- `DOC CHECK` - `CHECK` phaser if --doc is set
-- `DOC INIT` - `INIT` phaser if --doc is set
+There is not one single [`DOC`](https://docs.raku.org/syntax/DOC) phaser, there are actually three of them:
+- `DOC BEGIN` - add `BEGIN` phaser but only if --doc is set
+- `DOC CHECK` - add `CHECK` phaser but only if --doc is set
+- `DOC INIT` - add `INIT` phaser but only if --doc is set
 
 Another way of thinking about this, is that the `DOC` phaser could be thought of as a sort of statement prefix that will add the phaser only if `--doc` was specified on the command line.  In pseudo-code, for `DOC BEGIN`:
 ```
@@ -99,14 +99,14 @@ composing B
 composing C
 begin
 ```
-Note that the [`$?CLASS`](https://docs.raku.org/language/variables#index-entry-$%3FCLASS) compile time variable contains the type object of the class being composed.  And in August 2020 it basically became clear that a [`COMPOSE` phaser would not be needed](https://irclogs.raku.org/raku/2020-08-12.html#15:28).  Well, at least not until someone can show that a `COMPOSE` phaser offers more functionality than the current way of executing the mainlin of the `role` is offering.
+Note that the [`$?CLASS`](https://docs.raku.org/language/variables#index-entry-$%3FCLASS) compile time variable contains the type object of the class being composed.  And in August 2020 it basically became clear that a [`COMPOSE` phaser would not be needed](https://irclogs.raku.org/raku/2020-08-12.html#15:28).  Well, at least not until someone can show that a `COMPOSE` phaser offers more functionality than the current way of executing the mainline of the `role` is offering.
 
 ## Conclusion
 
 The `DOC` set of phasers is activated with the `--doc` command line argument: without that having been specified, all `DOC` phasers are no-ops but need to be syntactically correct.  Their use appears to be limited.
 
-The `TEMP` phaser was never implemented, but the `temp` and `let` prefix operators, as well as the `KEEP` and `UNDO` phasers provide the functionality promised by `TEMP` phaser.
+The `TEMP` phaser was never implemented, but the `temp` and `let` prefix operators, as well as the `KEEP` and `UNDO` phasers, provide the functionality promised by `TEMP` phaser.
 
 The `COMPOSE` phaser was never implemented, because the mainline of a `role` is executed when a `role` is consumed in a class, effectively providing exactly the functionality promised by that phaser.  At least so far.
 
-This concludes the seventh episode of cases of UPPER language elements in the Raku Programming Language.  This also concludes all phasers in Raku.  Next up wil uppercase methods that you, as a user f the Raku Programming Language, can provide in your code to tweak behaviour.  Stay tuned!
+This concludes the seventh episode of cases of UPPER language elements in the Raku Programming Language.  This also concludes all phasers in Raku.  Next up wil uppercase methods that you, as a user of the Raku Programming Language, can provide in your code to tweak behaviour.  Stay tuned!
