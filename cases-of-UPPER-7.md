@@ -14,7 +14,7 @@ The `--doc` command line argument to `raku` is described as:
 So what that basically does, is process the source of the program to be executed as documentation, and render that documentation in various forms.
 
 Internally this is achieved by loading the `Pod::To::xxx` module (with "xxx" defaulting to "Text" in case of `--doc` without arguments).  It then installs an `INIT` phaser that basically does:
-```raku
+```perl
 INIT {
     say Pod::To::xxx.render($=pod);
     exit;
@@ -54,7 +54,7 @@ init
 
 There's only one "but": even though the `DOC` phasers are only added if `--doc` is specified, they *must* contain valid Raku code to prevent errors:
 ```
-$ raku -e 'DOC BEGIN +-+'            
+$ raku -e 'DOC BEGIN +-+'
 ===SORRY!=== Error while compiling -e
 Prefix + requires an argument, but no valid term found.
 Did you mean + to be an opening bracket for a declarator block?
@@ -80,12 +80,12 @@ But it just doesn't do anything.  And after this blog post, chances are that the
 
 ## COMPOSE
 
-The [`COMPOSE` phaser](https://docs.raku.org/syntax/COMPOSE) is even more of a mirage, as it is *not even partly implemented*.  It's only mention is in the [S04 - Phasers](https://github.com/Raku/old-design-docs/blob/master/S04-control.pod#phasers) section of the old design documentation.
+The [`COMPOSE` phaser](https://docs.raku.org/syntax/COMPOSE) is even more of a mirage, as it is *not even partly implemented*.  Its only mention is in the [S04 - Phasers](https://github.com/Raku/old-design-docs/blob/master/S04-control.pod#phasers) section of the old design documentation.
 
 However developers wanting to use [roles](https://docs.raku.org/language/glossary#Roles) when composing another [role](https://docs.raku.org/language/objects#index-entry-role_declaration-role) or [class](https://docs.raku.org/language/classtut#Class) often refer to the [lack of its existence](https://irclogs.raku.org/raku/gist.html?2019-12-09Z12:36,2019-12-19Z21:06,2022-08-12Z20:20,2025-05-24Z03:45-0002).
 
 The thing is that most of the functionality of the mythical `COMPOSE` phaser is already available: any code that exists in the mainline of a `role`, will be executed *every time* the role is consumed by a `class` at *compile time*.  A small contrived example:
-```raku
+```perl
 role A {
     say "composing $?CLASS.^name()";
 }
@@ -109,4 +109,4 @@ The `TEMP` phaser was never implemented, but the `temp` and `let` prefix operato
 
 The `COMPOSE` phaser was never implemented, because the mainline of a `role` is executed when a `role` is consumed in a class, effectively providing exactly the functionality promised by that phaser.  At least so far.
 
-This concludes the seventh episode of cases of UPPER language elements in the Raku Programming Language.  This also concludes all phasers in Raku.  Next up wil uppercase methods that you, as a user of the Raku Programming Language, can provide in your code to tweak behaviour.  Stay tuned!
+This concludes the seventh episode of cases of UPPER language elements in the Raku Programming Language.  This also concludes all phasers in Raku.  Next up will describe the uppercase methods that you, as a user of the Raku Programming Language, can provide in your code to tweak behaviour.  Stay tuned!
