@@ -1,18 +1,18 @@
 # The second second
 
 > This is a second follow-up on [Raku Resolutions](https://dev.to/lizmat/series/34948) series.
-s
+
 The second meeting was held on 7 February 2026 at 19:00 UTC.  Apart from 4 Raku Steering Council members, up to 5 other people attended with a true worldwide spread: local times spanning from UTC-8 to UTC+11!  Thank you all for your attendance and your feedback!
 
 In the end, **2** issues were discussed within the allotted time (1 hour).  Both had extensive discussions, but no immediate resoluton.
 
 ## [Raku Classification System](https://github.com/Raku/problem-solving/issues/489)
 
-This discussion took most of the time, as it is indeed could be a very big project.  It was felt that this was a project worth pursuing, and that having more meta-data on Raku and its uses would be very valuable.  *Tim Nelson* [replied after the meeting](https://github.com/Raku/problem-solving/issues/489#issuecomment-3865236200).  To be continued (but probably inline, and not at these meetings).
+This discussion took most of the time, as it is indeed could be a very big project.  It was felt that this was a project worth pursuing, and that having more meta-data on Raku and its uses would be very valuable.  *Tim Nelson* [replied after the meeting](https://github.com/Raku/problem-solving/issues/489#issuecomment-3865236200).  To be continued (but probably through the issue, and not merely at these meetings).
 
 ## [Function return types should also tell about the used assignment/container](https://github.com/Raku/problem-solving/issues/337)
 
-It became clear that this is not just a documentation issue, but in a way a language design (and implementation) issue as well.  The argument was made that when some functionality is made that returns a mutable entity, it should be clearly visible (for instance [`substr`](https://docs.raku.org/type/Str#routine_substr) versus [`substr-rw`](https://docs.raku.org/type/Str#method_substr-rw).  *Martin Polgar* summarized [the result](https://github.com/Raku/problem-solving/issues/337#issuecomment-3867569693).
+It became clear that this is not just a documentation issue, but in a way a language design (and implementation) issue as well.  The argument was made that when some functionality is made that returns a mutable entity, it should be clearly visible (for instance [`substr`](https://docs.raku.org/type/Str#routine_substr) versus [`substr-rw`](https://docs.raku.org/type/Str#method_substr-rw)).  *Martin Polgar* summarized [the result](https://github.com/Raku/problem-solving/issues/337#issuecomment-3867569693).
 
 ## The next meeting
 
