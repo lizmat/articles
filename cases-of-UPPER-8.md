@@ -101,7 +101,7 @@ Here are some examples of outdated idioms:
 
 ### Making a named argument required
 
-The `BUILD` can make a named argument mandatory by making it a required named argument by adding a `!` in the signature of `BUILD`:
+The `BUILD` method can make a named argument for the creation of the object mandatory by making it a required named argument of `BUILD` (by adding a `!` in the signature):
 ```raku
 class Foo {
     has $.bar;
@@ -189,6 +189,8 @@ because class "B" inherited the `TWEAK` method from "A".  And at object initiali
 
 ## Conclusion
 
-This concludes the eight episode of cases of UPPER language elements in the Raku Programming Language, the first discussion interface methods.  In this episode the `TWEAK` and `BUILD` methods, with a supporting role for the BUILDPLAN module.
+This concludes the eight episode of cases of UPPER language elements in the Raku Programming Language, the first discussion interface methods.
+
+In this episode the `TWEAK` and `BUILD` methods were described, with a supporting role for the BUILDPLAN module.  In short: don't use `BUILD` if you can use `TWEAK`.  Don't use `TWEAK` if you can describe the same logic in the attribute specifications.
 
 Stay tuned for the next episode!
