@@ -8,25 +8,25 @@ This part will discuss the interface methods that one can provide to tweak the c
 
 If you are unfamiliar as to how Raku allows one to create classes, describe attributes and methods, it is recommended to first have a look at [Classes and objects - A tutorial about creating and using classes in Raku](https://docs.raku.org/language/classtut).
 
-In short: by default objects are created with the [`.new`](https://docs.raku.org/syntax/new%20%28method%29#(Object_orientation)_new_(method)_new_(method)) (which is provided by the [`Mu` base class](https://docs.raku.org/type/Mu)).  This `.new` method takes named arguments and tries to match these with attribute names that are supposed to be set with `.new`.  Any unmatched named arguments are silently ignored. 
+In short: by default, objects are created with the [`.new`](https://docs.raku.org/syntax/new%20%28method%29#(Object_orientation)_new_(method)_new_(method)) method (which is provided by the [`Mu` base class](https://docs.raku.org/type/Mu)).  This `.new` method takes named arguments and tries to match these with attribute names that are supposed to be set with `.new`.  Any unmatched named arguments are silently ignored. 
 
 Attributes that are settable with `.new` that are **not** specified will have any default value applied to them.  A small example:
 ```raku
 class Foo {
     has $.bar = 42;  # attribute + accessor
 }
-say Foo.new.bar;             # 42
-say Foo.new(:bar(666)).bar;  # 666
+say Foo.new.bar;               # 42
+say Foo.new( :bar(666) ).bar;  # 666
 ```
 Well, actually that is a little white lie.  But it *is* true in most cases.
 
-The thing is that you can also specify your own `.new` method in your class, and **still** have all of the attribute initialization work done for you.  The reason for this is that it's not really the `.new` method that is doing the work, but the [`.bless`](https://docs.raku.org/routine/bless) that is also provided by the `Mu` class.
+The thing is that you can also specify your own `.new` method in your class, and **still** have all of the attribute initialization work done for you.  The reason for this is that it's not really the `.new` method that is doing the work, but the [`.bless`](https://docs.raku.org/routine/bless) method that is also provided by the `Mu` class.
 
 Functionally the `.new` method supplied by `Mu` is:
 ```raku
 method new() { self.bless(|%_) }
 ```
-although in reality it's a little bit complex more allowing for some optimizations.  As object creation occurs a **lot** when you're executing a Raku program, so it makes sense to try to optimize that!
+although in reality it's a little bit more complex more allowing for some optimizations.  Object creation occurs a **lot** when you're executing a Raku program, so it makes sense to try to optimize that!
 
 > Note that methods in Raku always have a `*%_` (aka a ["slurpy hash"](https://docs.raku.org/language/signatures#index-entry-slurpy_argument)) added to their signature, unless there is already a slurpy hash in the signature.
 
@@ -38,9 +38,9 @@ class Foo {
         self.bless(:$bar, |%_)
     }
 }
-say Foo.new.bar;             # 42
-say Foo.new(:bar(666)).bar;  # 666
-say Foo.new(137).bar;        # 137
+say Foo.new.bar;               # 42
+say Foo.new( :bar(666) ).bar;  # 666
+say Foo.new( 137 ).bar;        # 137
 ```
 The reason that this *also* allows the named argument way, is because of the [`multi`](https://docs.raku.org/syntax/multi).  This **adds** a candidate to the existing dispatch table for the `.new` method, so the `Mu.new` candidate can still be dispatched to.  Without the `multi` there would only be the one `.new` method in the dispatch table for `class Foo`.
 
@@ -105,7 +105,7 @@ The `BUILD` method can make a named argument for the creation of the object mand
 ```raku
 class Foo {
     has $.bar;
-    submethod BUILD(:$bar!) { $!bar = $bar }
+    submethod BUILD( :$bar! ) { $!bar = $bar }
 }
 ```
 The better way is to use the [`is required`](https://docs.raku.org/syntax/is%20required) trait on attributes.
@@ -117,11 +117,11 @@ class Foo {
 
 ### Allowing a named argument without automatic accessor
 
-By allowing a named argument in the `BUILD` signature and assigning that to the attribute in the body, you're effectively mimicing the `.` twigil in the attribute definition without havin an accessor made automatically.
+By allowing a named argument in the `BUILD` signature and assigning that to the attribute in the body, you're effectively mimicing the `.` twigil in the attribute definition without having an accessor made automatically.
 ```raku
 class Foo {
     has $!bar;
-    submethod BUILD(:$bar) { $!bar = $bar }
+    submethod BUILD( :$bar ) { $!bar = $bar }
 }
 ```
 The better way is to use the [`is built`](https://docs.raku.org/syntax/is%20built) attribute trait:
@@ -137,7 +137,7 @@ Sometimes one wants to make an attribute immutable.  This can be done in the `BU
 ```raku
 class Foo {
     has $.bar;
-    submethod BUILD(:$bar) { $!bar := $bar }
+    submethod BUILD( :$bar ) { $!bar := $bar }
 }c
 ```
 The better way is to use the [`is built`](https://docs.raku.org/syntax/is%20built) attribute trait with the `:bind` modifier:
@@ -149,7 +149,7 @@ class Foo {
 
 ## When to use TWEAK
 
-Looking at the modules in the ecosystem, the `TWEAK` method is being used for:
+Looking at the modules in the ecosystem, the `TWEAK` method is oftentimes being used for:
 
 - throwing an error if some complicate condition is not met
 - throwing an error if conflicting arguments have been specified
@@ -172,7 +172,7 @@ If you're more comfortable with using a `TWEAK` method, then please do.  There's
 
 ## submethod vs method
 
-A [`submethod`](https://docs.raku.org/syntax/Submethods) is a special type of public method, but which is **not** inherited by subclasses.  `TWEAK` and `BUILD` methods should be made `submethod`s, because otherwise they will get can get executed more than once if they are in a base class and the inheriting class does **not** specify its own `TWEAK` or `BUILD` method.
+A [`submethod`](https://docs.raku.org/syntax/Submethods) is a special type of public method, but which is **not** inherited by subclasses.  `TWEAK` and `BUILD` methods should be made `submethod`s, because otherwise they will get can get executed more than once if they are in a base class, and the inheriting class does **not** specify its own `TWEAK` or `BUILD` method.
 ```raku
 class A {
     method TWEAK() { say "A" }
