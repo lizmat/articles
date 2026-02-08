@@ -50,9 +50,9 @@ Also note the `|%_` in the `self.bless` call: this makes sure that any additiona
 
 Any class in Raku can have a [`BUILD`](https://docs.raku.org/syntax/BUILD) and/or a [`TWEAK`](https://docs.raku.org/syntax/TWEAK) method specified.  Both are called by the object building logic, but only if it is possible to call them.  Both methods receive the same arguments as having been (indirectly) passed to `.bless`.  The return value of these methods will be ignored.
 
-The `BUILD` method is called **instead** of attribute initializations from the named arguments.  Specifying the `BUILD` method means needing to mimic **all** named argument setting in it.
+The `BUILD` method is called **instead** of attribute initializations from the named arguments.  Specifying the `BUILD` method means needing to mimic **all** named argument setting in that `BUILD` method..
 
-Any default values for attributes are assigned if the attribute did not receive a value yet (either from attribute initializations from the named arguments, or having been set in the `BUILD` method).
+Any default values for attributes are assigned if the attribute did not receive a value yet (either from attribute initializations from the named arguments, or having been initialized in the `BUILD` method).
 
 The `TWEAK` method is called as the **last stage** of object instantiation.  Nowadays it is the recommended way of altering the named argument -> attribute initialization logic for a class (after all initializations and default setting has been done).
 
@@ -71,6 +71,10 @@ class Foo BUILDPLAN:
  0 nqp::getattr(obj,Foo,'$!bar') = :$bar if possible
  1 nqp::getattr(obj,Foo,'$!bar') = 42 if not set
 ```
+Note that there are two steps:
+- assign value of named argument "bar" to the attribute "$!bar" if specified
+- assign value `42` to $!bar if it has not been set yet
+
 Now, if we add a `BUILD` method to it:
 ```raku
 class Foo {
@@ -85,9 +89,9 @@ class Foo BUILDPLAN:
  0 call obj.Foo::BUILD
  1 nqp::getattr(obj,Foo,'$!bar') = 42 if not set
 ```
-Note that step 0 changed from "nqp::getattr(obj,Foo,'$!bar') = :$bar if possible" to "call obj.Foo::BUILD".
+Note that the first step changed from "nqp::getattr(obj,Foo,'$!bar') = :$bar if possible" to "call obj.Foo::BUILD".  So instead of looking for a named argument "bar", it is now just calling the "BUILD" method.
 
-Also note that step 1 stayed the same: so if the `BUILD` method doesn't assign anything to the `$!bar` attribute, the default value will *still* be set.
+Also note that second step stayed the same: so if the `BUILD` method doesn't assign anything to the `$!bar` attribute, the default value will *still* be set.
 
 ## Tricks and Tips
 
