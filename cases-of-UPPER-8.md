@@ -30,7 +30,7 @@ although in reality it's a little bit complex more allowing for some optimizatio
 
 > Note that methods in Raku always have a `*%_` (aka a ["slurpy hash"](https://docs.raku.org/language/signatures#index-entry-slurpy_argument)) added to their signature, unless there is already a slurpy hash in the signature.
 
-An example of a custom `.new` method that *also* takes a single positional argument:
+An example of a custom `.new` method that takes a single positional argument:
 ```raku
 class Foo {
     has $.bar = 42;
@@ -42,7 +42,7 @@ say Foo.new.bar;             # 42
 say Foo.new(:bar(666)).bar;  # 666
 say Foo.new(137).bar;        # 137
 ```
-The reason that this *also* allows the named argument way, is because of the [`multi`](https://docs.raku.org/syntax/multi).  This **adds** a candidate to the existing dispatch table for the `.new` method, so the `Mu.new` candidate can still be dispatched to.
+The reason that this *also* allows the named argument way, is because of the [`multi`](https://docs.raku.org/syntax/multi).  This **adds** a candidate to the existing dispatch table for the `.new` method, so the `Mu.new` candidate can still be dispatched to.  Without the `multi` there would only be the one `.new` method in the dispatch table for `class Foo`.
 
 Also note the `|%_` in the `self.bless` call: this makes sure that any additional named argments are also passed to `.bless` if you specify a positional argument.
 
@@ -58,7 +58,7 @@ The `TWEAK` method is called as the **last stage** of object instantiation.  Now
 
 ## BUILDPLAN
 
-The [Rakudo](https:://rakud.org) distribution comes with a handy introspection module that shows what steps are taken in the creation of an instance of a class: `BUILDPLAN`.  It's use is pretty simple: `use BUILDPLAN class`.
+The [Rakudo](https:://rakud.org) distribution comes with a handy introspection module that shows what steps are taken (in pseudo-code) in the creation of an instance of a class: `BUILDPLAN`.  It's use is pretty simple: `use BUILDPLAN class`.
 ```raku
 class Foo {
     has $.bar = 42;
@@ -73,7 +73,7 @@ class Foo BUILDPLAN:
 ```
 Note that there are two steps:
 - assign value of named argument "bar" to the attribute "$!bar" if specified
-- assign value `42` to $!bar if it has not been set yet
+- assign value `42` to the "$!bar" attribute if it has not been set yet
 
 Now, if we add a `BUILD` method to it:
 ```raku
@@ -97,9 +97,11 @@ Also note that second step stayed the same: so if the `BUILD` method doesn't ass
 
 Historically the `BUILD` method was one of the first things actually implemented in Raku, and thus a lot of (older) code in the wild uses the `BUILD` method.  Since then many features have been added to the way one can specify attributes, obsoleting some of the common `BUILD` uses.
 
+Here are some examples of outdated idioms:
+
 ### Making a named argument required
 
-The `BUILD` can make a named argument rquired by making it a required named argument in the signature of `BUILD`:
+The `BUILD` can make a named argument mandatory by making it a required named argument by adding a `!` in the signature of `BUILD`:
 ```raku
 class Foo {
     has $.bar;
@@ -158,7 +160,7 @@ Looking at the modules in the ecosystem, the `TWEAK` method is being used for:
 - inform a logger when an object has been created
 
 You typically should **not** use a `TWEAK` method if you can achieve the same effect with an extensive specification of the attributes.  First of all the declarative manner in which these are specified is easier to comprehend.  Secondly, the processing of the named arguments and their specificaton is highly optimized.  Compare:
-```e
+```
 $ raku -e 'class A { has $.a = 42 }; A.new for ^1000000; say now - ENTER now'
 0.080668357
 $ raku -e 'class A { has $.a; method TWEAK(:$a) { $!a = $a // 42 }; A.new for ^1000000; say now - ENTER now'
@@ -173,9 +175,7 @@ If you're more comfortable with using a `TWEAK` method, then please do.  There's
 A [`submethod`](https://docs.raku.org/syntax/Submethods) is a special type of public method, but which is **not** inherited by subclasses.  `TWEAK` and `BUILD` methods should be made `submethod`s, because otherwise they will get can get executed more than once if they are in a base class and the inheriting class does **not** specify its own `TWEAK` or `BUILD` method.
 ```raku
 class A {
-    method TWEAK {
-        say "A";
-    }
+    method TWEAK() { say "A" }
 }
 class B is A { }
 B.new;
