@@ -8,10 +8,10 @@ This part will discuss the interface methods that one can provide to tweak the c
 
 If you are unfamiliar as to how Raku allows one to create classes, describe attributes and methods, it is recommended to first have a look at [Classes and objects - A tutorial about creating and using classes in Raku](https://docs.raku.org/language/classtut).
 
-In short: by default, objects are created with the [`.new`](https://docs.raku.org/syntax/new%20%28method%29#(Object_orientation)_new_(method)_new_(method)) method (which is provided by the [`Mu` base class](https://docs.raku.org/type/Mu)).  This `.new` method takes named arguments and tries to match these with attribute names that are supposed to be set with `.new`.  Any unmatched named arguments are silently ignored. 
+In short: by default, objects are created with the [`.new`](https://docs.raku.org/syntax/new%20%28method%29#(Object_orientation)_new_(method)_new_(method)) method (which is provided by the [`Mu` base class](https://docs.raku.org/type/Mu)).  This `.new` method takes named arguments and tries to match these with attribute names that are supposed to be set with `.new`.  Any unmatched named arguments are silently ignored.
 
 Attributes that are settable with `.new` that are **not** specified will have any default value applied to them.  A small example:
-```raku
+```perl
 class Foo {
     has $.bar = 42;  # attribute + accessor
 }
@@ -23,7 +23,7 @@ Well, actually that is a little white lie.  But it *is* true in most cases.
 The thing is that you can also specify your own `.new` method in your class, and **still** have all of the attribute initialization work done for you.  The reason for this is that it's not really the `.new` method that is doing the work, but the [`.bless`](https://docs.raku.org/routine/bless) method that is also provided by the `Mu` class.
 
 Functionally the `.new` method supplied by `Mu` is:
-```raku
+```perl
 method new() { self.bless(|%_) }
 ```
 although in reality it's a little bit more complex more allowing for some optimizations.  Object creation occurs a **lot** when you're executing a Raku program, so it makes sense to try to optimize that!
@@ -31,7 +31,7 @@ although in reality it's a little bit more complex more allowing for some optimi
 > Note that methods in Raku always have a `*%_` (aka a ["slurpy hash"](https://docs.raku.org/language/signatures#index-entry-slurpy_argument)) added to their signature, unless there is already a slurpy hash in the signature.
 
 An example of a custom `.new` method that takes a single positional argument:
-```raku
+```perl
 class Foo {
     has $.bar = 42;
     multi method new($bar) {
@@ -59,7 +59,7 @@ The `TWEAK` method is called as the **last stage** of object instantiation.  Now
 ## BUILDPLAN
 
 The [Rakudo](https:://rakud.org) distribution comes with a handy introspection module that shows what steps are taken (in pseudo-code) in the creation of an instance of a class: `BUILDPLAN`.  It's use is pretty simple: `use BUILDPLAN class`.
-```raku
+```perl
 class Foo {
     has $.bar = 42;
 }
@@ -76,7 +76,7 @@ Note that there are two steps:
 - assign value `42` to the "$!bar" attribute if it has not been set yet
 
 Now, if we add a `BUILD` method to it:
-```raku
+```perl
 class Foo {
     has $.bar = 42;
 }
@@ -102,14 +102,14 @@ Here are some examples of outdated idioms:
 ### Making a named argument required
 
 The `BUILD` method can make a named argument for the creation of the object mandatory by making it a required named argument of `BUILD` (by adding a `!` in the signature):
-```raku
+```perl
 class Foo {
     has $.bar;
     submethod BUILD( :$bar! ) { $!bar = $bar }
 }
 ```
 The better way is to use the [`is required`](https://docs.raku.org/syntax/is%20required) trait on attributes.
-```raku
+```perl
 class Foo {
     has $.bar is required;
 }
@@ -118,32 +118,16 @@ class Foo {
 ### Allowing a named argument without automatic accessor
 
 By allowing a named argument in the `BUILD` signature and assigning that to the attribute in the body, you're effectively mimicing the `.` twigil in the attribute definition without having an accessor made automatically.
-```raku
+```perl
 class Foo {
     has $!bar;
     submethod BUILD( :$bar ) { $!bar = $bar }
 }
 ```
 The better way is to use the [`is built`](https://docs.raku.org/syntax/is%20built) attribute trait:
-```raku
+```perl
 class Foo {
     has $!bar is built;
-}
-```
-
-### Making an attribute immutable
-
-Sometimes one wants to make an attribute immutable.  This can be done in the `BUILD` method by using the binding operator [`:=`](https://docs.raku.org/routine/%3A%3D) instead of the assignment operator [`=`](https://docs.raku.org/routine/%3D%20%28item%20assignment%29):
-```raku
-class Foo {
-    has $.bar;
-    submethod BUILD( :$bar ) { $!bar := $bar }
-}c
-```
-The better way is to use the [`is built`](https://docs.raku.org/syntax/is%20built) attribute trait with the `:bind` modifier:
-```raaku
-class Foo {
-    has $.bar is built(:bind);
 }
 ```
 
@@ -172,8 +156,8 @@ If you're more comfortable with using a `TWEAK` method, then please do.  There's
 
 ## submethod vs method
 
-A [`submethod`](https://docs.raku.org/syntax/Submethods) is a special type of public method, but which is **not** inherited by subclasses.  `TWEAK` and `BUILD` methods should be made `submethod`s, because otherwise they will get can get executed more than once if they are in a base class, and the inheriting class does **not** specify its own `TWEAK` or `BUILD` method.
-```raku
+A [`submethod`](https://docs.raku.org/syntax/Submethods) is a special type of public method, but which is **not** inherited by subclasses.  `TWEAK` and `BUILD` methods should be made `submethod`s, because otherwise they can get executed more than once if they are in a base class, and the inheriting class does **not** specify its own `TWEAK` or `BUILD` method.
+```perl
 class A {
     method TWEAK() { say "A" }
 }
@@ -191,6 +175,6 @@ because class "B" inherited the `TWEAK` method from "A".  And at object initiali
 
 This concludes the eight episode of cases of UPPER language elements in the Raku Programming Language, the first discussion interface methods.
 
-In this episode the `TWEAK` and `BUILD` methods were described, with a supporting role for the BUILDPLAN module.  In short: don't use `BUILD` if you can use `TWEAK`.  Don't use `TWEAK` if you can describe the same logic in the attribute specifications.
+In this episode the `TWEAK` and `BUILD` methods were described, with a supporting role for the `BUILDPLAN` module.  In short: don't use `BUILD` if you can use `TWEAK`.  Don't use `TWEAK` if you can describe the same logic in the attribute specifications.
 
 Stay tuned for the next episode!
