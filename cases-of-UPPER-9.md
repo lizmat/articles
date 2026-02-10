@@ -2,16 +2,16 @@
 
 > This is part nine in the ["Cases of UPPER"](https://dev.to/lizmat/series/35190) series of blog posts, describing the Raku syntax elements that are completely in UPPERCASE.
 
-This part will discuss the interface methods that one can implement to provide a custom [`Positional`](https://docs.raku.org/type/Positional) interface in the [Raku Programming Language](https://raku.org): [postcircumfix [ ]](https://docs.raku.org/language/operators#postcircumfix_[_]), the universal interface for positional access (aka the "array indexing operator").
+This part will discuss the interface methods that one can implement to provide a custom [`Positional`](https://docs.raku.org/type/Positional) interface in the [Raku Programming Language](https://raku.org).  Positional access is indicated by the [postcircumfix [ ] operator](https://docs.raku.org/language/operators#postcircumfix_[_]) (aka the "array indexing operator").
 
 ## Some background
 
-The `Positional` role is really just a marker.  It does **not** enforce any methods to be provided by the consuming class.  So why use it?  Because it is the constraint that is being checked for any variable with a `@` [sigil](https://docs.raku.org/language/glossary#Sigil).  An example:
+The `Positional` role is really just a marker.  It does **not** enforce any methods to be provided by the consuming class.  So why use it?  Because it is *that* constraint that is being checked for any variable with a `@` [sigil](https://docs.raku.org/language/glossary#Sigil).  An example:
 ```raku
 class Foo { }
 my @a := Foo;
 ```
-will show:
+will show an error:
 ```
 Type check failed in binding; expected Positional but got Foo (Foo)
 ```
@@ -22,6 +22,8 @@ my @a := Foo;
 say @a[0];  # (Foo)
 ```
 and it is even possible to call the postcircumfix `[ ]` operator on it!
+
+> Note that the binding operator `:=` was used: otherwise the array `@a` would just be initialized with the `Foo` type object as its first element.
 
 So why is that possible?  That's really possible because each item in Raku can be considered as a single element list.  And thus the first element (aka `[0]`) will **always** provide the invocant.
 ```raku
@@ -40,11 +42,11 @@ is actually doing:
 ```raku
 say 42.AT-POS(0);
 ```
-under the hood.  So these interface methods are the ones that actually know how to work on an [`Array`](https://docs.raku.org/type/Array), a [`List`](https://docs.raku.org/type/List) or a [`Blob`](https://docs.raku.org/type/Blob).
+under the hood.  So these interface methods are the ones that actually know how to work on an [`Array`](https://docs.raku.org/type/Array), a [`List`](https://docs.raku.org/type/List) or a [`Blob`](https://docs.raku.org/type/Blob), or any other class that does the `Positional` role.
 
 ## The Interface Methods
 
-Let's introduce the cast of this show:
+Let's introduce the cast of this show (the interface methods associated with the `Positional` role):
 
 - [`AT-POS`](https://docs.raku.org/language/subscripts#method_AT-POS)
 - [`EXISTS-POS`](https://docs.raku.org/language/subscripts#method_EXISTS-POS)
@@ -60,11 +62,11 @@ The `AT-POS` method is the most important method of the interface methods: it is
 
 ### EXISTS-POS
 
-The `EXISTS-POS` method is expected to take the integer index of an element, and return a [`Bool`](https://docs.raku.org/type/Bool) value indicating whether that element is considered to be existing or not.  This is what is being called when the [`:exists`](https://docs.raku.org/language/subscripts#:exists) adverb is specified.
+The `EXISTS-POS` method is expected to take the integer index of an element, and return a [`Bool`](https://docs.raku.org/type/Bool) value indicating whether that element is considered to be existing or not.  This is what is being called when the [`:exists`](https://docs.raku.org/language/subscripts#:exists) adverb is specified (such as in `@a[42]:exists`).
 
 ### DELETE-POS
 
-The `DELETE-POS` method is supposed to act very much like the `AT-POS` method.  But is also expected to remove the element so that the `EXISTS-POS` method will return `False` for that element in the future.  This is what is being called when the [`:delete`](https://docs.raku.org/language/subscripts#:delete) adverb is specified.
+The `DELETE-POS` method is supposed to act very much like the `AT-POS` method.  But is also expected to remove the element so that the `EXISTS-POS` method will return `False` for that element in the future.  This is what is being called when the [`:delete`](https://docs.raku.org/language/subscripts#:delete) adverb is specified (such as in `@a[42]:delete`).
 
 ### ASSIGN-POS
 
@@ -72,11 +74,11 @@ The `ASSIGN-POS` method is a convenience method that *may* be called when assign
 
 ### BIND-POS
 
-The `BIND-POS` method is a method that will be called when binding (`:=`) a value to an element.  It takes 2 arguments: the index and the value.  If not implemented, binding will always fail with an execution error.
+The `BIND-POS` method is a method that will be called when binding (`:=`) a value to an element.  It takes 2 arguments: the index and the value.  If not implemented binding will always fail with an execution error.
 
 ### STORE
 
-The `STORE` method is an optional method that must implemented if the `my @a is Foo = 1,2,3` and `@a = 1,2,3` syntax is to be supported by the class.  Should accept the values to be (re-)initializing with.
+The `STORE` method is an optional method that must implemented if the `my @a is Foo = 1,2,3` and `@a = 1,2,3` syntax is to be supported by the class.  Should accept the values to be (re-)initializing with **and** return the invocant ([`self`](https://docs.raku.org/syntax/self))
 
 The `:INITIALIZE` named argument will be passed with a `True` value if this is the first time the values are to be set.  This is important if your data structure is supposed to be immutable: if that argument is `False` or not specified, it means a re-initialization is being attempted.
 
@@ -102,7 +104,7 @@ will show:
 ```
 Note that in this case the [`callsame`](https://docs.raku.org/syntax/callsame) function is called to get the actual value from the array.
 
-Another contrived example where the customization initializes the array with given values in random order (using [`.pick`](https://docs.raku.org/type/List#routine_pick):
+Another contrived example where the customization initializes the array with given values in random order (using [`.pick`](https://docs.raku.org/type/List#routine_pick)):
 ```raku
 class Array::Confused is Array {
     method STORE(\values) { self.Array::STORE(values.pick(*)) }
@@ -130,7 +132,7 @@ The [`Array::Agnostic`](https://raku.land/zef:lizmat/Array::Agnostic) distributi
 
 ### List::Agnostic
 
-The [`List::Agnostic`](https://raku.land/zef:lizmat/List::Agnostic) distribution provides a role with all of the necessary logic for making your object act as a `List`.  The only thing you *must* provide, are the `AT-POS` and `elems` methods.  As with `Array::Agnostic`, Your class *may* provide more methods for functionality or performance reasons.
+The [`List::Agnostic`](https://raku.land/zef:lizmat/List::Agnostic) distribution provides a role with all of the necessary logic for making your object act as a `List`.  The only thing you *must* provide, are the `AT-POS` and `elems` methods.  As with `Array::Agnostic`, your class *may* provide more methods for functionality or performance reasons.
 
 ### Example class
 
@@ -160,7 +162,7 @@ which would show:
 ```
 Note that the `STORE` method had to be provided by the class to allow for the `is Date::Indexed` syntax to work.
 
-> If you're wondering what's happening with `try (*.year, *.month, *.day)[$index]($!date)`: that's a list built of 3 [`WhateverCode`s](https://docs.raku.org/type/WhateverCode) with the specified index selecting the appropriate entry and executing that with the `$!date` attribute as the invocant.  If that would fail (probably because the index was out or range), then the [`try`](https://docs.raku.org/syntax/try%20%28statement%20prefix%29) will make sure that that is caught and a `Nil` is returned.
+> If you're wondering what's happening with `try (*.year, *.month, *.day)[$index]($!date)`: that's a list built of 3 [`WhateverCode`](https://docs.raku.org/type/WhateverCode)s with the specified index selecting the appropriate entry and executing that with the `$!date` attribute as the invocant.  If that would fail (probably because the index was out of range), then the [`try`](https://docs.raku.org/syntax/try%20%28statement%20prefix%29) will make sure that the error is caught and a `Nil` is returned.
 
 ## Conclusion
 
