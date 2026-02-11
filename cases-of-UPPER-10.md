@@ -8,7 +8,7 @@ This part will discuss the interface methods that one can implement to provide a
 
 ## Some background
 
-The `Associative` role is really just a marker, just as the `Positional` role that was described in the [previous post](https://dev.to/lizmat/positional-methods-439i).  It does **not** enforce any methods to be provided by the consuming class.  So why use it?  Because it is *that* constraint that is being checked for any variable with a `%` [sigil](https://docs.raku.org/language/glossary#Sigil).  An example:
+The `Associative` role is really just a marker, just as the `Positional` role.  It does **not** enforce any methods to be provided by the consuming class.  So why use it?  Because it is *that* constraint that is being checked for any variable with a `%` [sigil](https://docs.raku.org/language/glossary#Sigil).  An example:
 ```raku
 class Foo { }
 my %h := Foo;
@@ -49,20 +49,24 @@ Let's introduce the cast of *this* show (the interface methods associated with t
 - [`ASSIGN-KEY`](https://docs.raku.org/language/subscripts#method_ASSIGN-KEY)
 - [`BIND-KEY`](https://docs.raku.org/language/subscripts#method_BIND-KEY)
 - [`STORE`](https://docs.raku.org/type/Associative#method_STORE)
-- [`elems`](https://docs.raku.org/routine/elems#(Subscripts)_method_elems)
+- [`keys`](https://docs.raku.org/type/Map#method_keys)
 
 ### AT-KEY
 
-The `AT-KEY` method is the most important method of the interface methods of the `Associative` role: it is expected to take the argument as a key, and return the value associated with that key.  It should return a container if that is appropriate, which is usually the case.  Which means you probably should specify [`is raw`](https://docs.raku.org/routine/is%20raw) on the `AT-KEY` method if you're implementing that yourself.
+The `AT-KEY` method is the most important method of the interface methods of the `Associative` role: it is expected to take the argument as a key, and return the value associated with that key.
+
+> Note that the key does **not** need to be a string, it could be any object.  It's just that the implenentation of `Hash` and `Map` will coerce the key to a string.
+
+The `AT-KEY` method should return a container if that is appropriate, which is usually the case.  Which means you probably should specify [`is raw`](https://docs.raku.org/routine/is%20raw) on the `AT-KEY` method if you're implementing that yourself.
 ```raku
 say %h<bar>;  # same as %h.AT-KEY("bar")
 ```
 
 ### EXISTS-KEY
 
-The `EXISTS-KEY` method is expected to take the argument as a key, and return a [`Bool`](https://docs.raku.org/type/Bool) value indicating whether that key is considered to be existing or not.  This is what is being called when the [`:exists`](https://docs.raku.org/type/Hash#:exists) adverb is specified (such as in `@a[42]:exists`).
+The `EXISTS-KEY` method is expected to take the argument as a key, and return a [`Bool`](https://docs.raku.org/type/Bool) value indicating whether that key is considered to be existing or not.  This is what is being called when the [`:exists`](https://docs.raku.org/type/Hash#:exists) adverb is specified.
 ```raku
-say @a[$index]:exists;  # same as @a.EXISTS-POS("bar")
+say %h<bar>:exists;  # same as %h.EXISTS-KEY("bar")
 ```
 
 ### DELETE-KEY
@@ -88,7 +92,7 @@ say %h<bar> := 42;  # same as %h.BIND-KEY("bar", 42)
 
 ### STORE
 
-The `STORE` method is an optional method that must implemented if the `my %h is Foo = a => 42, b => 666` and `%h = c => 137` syntax is to be supported by the class.  Should accept the values to be (re-)initializing with **and** return the invocant ([`self`](https://docs.raku.org/syntax/self))
+The `STORE` method is an optional method that must implemented if the `my %h is Foo = a => 42, b => 666` and `%h = c => 137` syntax are to be supported by the class.  Should accept the values to be (re-)initializing with **and** return the invocant ([`self`](https://docs.raku.org/syntax/self)).
 
 The `:INITIALIZE` named argument will be passed with a `True` value if this is the first time the values are to be set.  This is important if your data structure is supposed to be immutable: if that argument is `False` or not specified, it means a re-initialization is being attempted.
 ```raku
