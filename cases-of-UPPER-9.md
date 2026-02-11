@@ -60,35 +60,35 @@ Let's introduce the cast of this show (the interface methods associated with the
 
 The `AT-POS` method is the most important method of the interface methods: it is expected to take the integer index of the element to be returned, and return that.  It should return a container if that is appropriate, which is usually the case.  Which means you probably should specify [`is raw`](https://docs.raku.org/routine/is%20raw) on the `AT-POS` method if you're implementing that yourself.
 ```raku
-say @a[$index];  # @a.AT-POS($index)
+say @a[$index];  # same as @a.AT-POS($index)
 ```
 
 ### EXISTS-POS
 
 The `EXISTS-POS` method is expected to take the integer index of an element, and return a [`Bool`](https://docs.raku.org/type/Bool) value indicating whether that element is considered to be existing or not.  This is what is being called when the [`:exists`](https://docs.raku.org/language/subscripts#:exists) adverb is specified (such as in `@a[42]:exists`).
 ```raku
-say @a[$index]:exists;  # @a.EXISTS-POS($index)
+say @a[$index]:exists;  # same as @a.EXISTS-POS($index)
 ```
 
 ### DELETE-POS
 
 The `DELETE-POS` method is supposed to act very much like the `AT-POS` method.  But is also expected to remove the element so that the `EXISTS-POS` method will return `False` for that element in the future.  This is what is being called when the [`:delete`](https://docs.raku.org/language/subscripts#:delete) adverb is specified (such as in `@a[42]:delete`).
 ```raku
-say @a[$index]:delete;  # @a.DELETE-POS($index)
+say @a[$index]:delete;  # same as @a.DELETE-POS($index)
 ```
 
 ### ASSIGN-POS
 
 The `ASSIGN-POS` method is a convenience method that *may* be called when assigning (`=`) a value to an element.  It takes 2 arguments: the index and the value.  It functionally defaults to `object.AT-POS(index) = value`.  A typical reason for implementing this method is performance.
 ```raku
-say @a[$index] = 42;  # @a.ASSIGN-POS($index, 42)
+say @a[$index] = 42;  # same as @a.ASSIGN-POS($index, 42)
 ```
 
 ### BIND-POS
 
 The `BIND-POS` method is a method that will be called when binding (`:=`) a value to an element.  It takes 2 arguments: the index and the value.  If not implemented, binding will always fail with an execution error.
 ```raku
-say @a[$index] := 42;  # @a.BIND-POS($index, 42)
+say @a[$index] := 42;  # same as @a.BIND-POS($index, 42)
 ```
 
 ### STORE
@@ -97,7 +97,7 @@ The `STORE` method is an optional method that must implemented if the `my @a is 
 
 The `:INITIALIZE` named argument will be passed with a `True` value if this is the first time the values are to be set.  This is important if your data structure is supposed to be immutable: if that argument is `False` or not specified, it means a re-initialization is being attempted.
 ```raku
-say @a = 42, 666, 137;  # @a.STORE( (42, 666, 137) )
+say @a = 42, 666, 137;  # same as @a.STORE( (42, 666, 137) )
 ```
 
 ### elems
