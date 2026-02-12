@@ -71,7 +71,7 @@ say %h<bar>:exists;  # same as %h.EXISTS-KEY("bar")
 
 ### DELETE-KEY
 
-The `DELETE-KEY` method is supposed to act very much like the `AT-KEY` method.  But is also expected to remove the key so that the `EXISTS-KEY` method will return `False` for that key in the future.  This is what is being called when the [`:delete`](https://docs.raku.org/type/Hash#:delete) adverb is specified.
+The `DELETE-KEY` method is supposed to act very much like the `AT-KEY` method.  But it is also expected to remove the key so that the `EXISTS-KEY` method will return `False` for that key in the future.  This is what is being called when the [`:delete`](https://docs.raku.org/type/Hash#:delete) adverb is specified.
 ```raku
 say %h<bar>:delete;  # same as %h.DELETE-KEY("bar")
 ```
@@ -92,7 +92,7 @@ say %h<bar> := 42;  # same as %h.BIND-KEY("bar", 42)
 
 ### STORE
 
-The `STORE` method is an optional method that must implemented if the `my %h is Foo = a => 42, b => 666` and `%h = c => 137` syntax are to be supported by the class.  Should accept the values to be (re-)initializing with **and** return the invocant ([`self`](https://docs.raku.org/syntax/self)).
+The `STORE` method accepts the values to be (re-)initializing with as an [`Iterable`](https://docs.raku.org/type/Iterable) **and** returns the invocant ([`self`](https://docs.raku.org/syntax/self)).
 
 The `:INITIALIZE` named argument will be passed with a `True` value if this is the first time the values are to be set.  This is important if your data structure is supposed to be immutable: if that argument is `False` or not specified, it means a re-initialization is being attempted.
 ```raku
@@ -102,6 +102,10 @@ say %h = a => 42, b => 666;  # same as %h.STORE( (a => 42, b => 666) )
 ### keys
 
 Although not an uppercase named method, it is an important interface method: the [`keys`](https://docs.raku.org/type/Map#method_keys) method is expected to return the keys in the object.
+```raku
+my %h = a => 42, b => 666;
+say %h.keys;  # (a b)
+```
 
 ## Handling simple customizations
 
@@ -124,7 +128,7 @@ Note that in this case the [`callsame`](https://docs.raku.org/syntax/callsame) f
 
 If you want to be able to do more than just simple modifications, but for instance have an existing data structure on which you want to provide an `Associative` interface, it becomes a bit more complicated and potentially cumbersome.
 
-Fortunately there are a number of modules in the ecosystem that will help you creating a consistent `Associative` interface for your class.
+Fortunately there are a number of modules in the ecosystem that will help you to create a consistent `Associative` interface for your class.
 
 ### Hash::Agnostic
 
@@ -170,7 +174,7 @@ Hash::Int.new(42 => "a",137 => "c",666 => "b")
 ```
 Again, note that the `STORE` method had to be provided by the class to allow for the `is Hash::Int` syntax to work.
 
-> If you're wondering what's happening with `Map.CREATE.STORE(values, :INITIALIZE)`: the initialization logic of hashes and maps allows for both separate key,value initialization, as well as key=>value initialization.  And any mix of them.  So this is just a quick way to use that rather specialized logic of `Map.new` to create a consistent [`Seq`](https://docs.raku.org/type/Seq) of [`Pair`](https://docs.raku.org/type/Pair)s to initialize the underlying array with.
+> If you're wondering what's happening with `Map.CREATE.STORE(values, :INITIALIZE)`: the initialization logic of hashes and maps allows for both separate key,value initialization, as well as key=>value initialization.  And any mix of them.  So this is just a quick way to use that rather specialized logic of `Map.new` to create a consistent [`Seq`](https://docs.raku.org/type/Seq) of [`Pair`](https://docs.raku.org/type/Pair)s with which to initialize the underlying array.
 
 > Raku actually has a syntax for creating a `Hash` that only takes `Int` values as keys: `my %h{Int}`.  This creates a so-called ["object hash"](https://docs.raku.org/language/hashmap#Non-string_keys_(object_hash)) with different performance characteristics to the approach taken with `Hash::Int`.
 
