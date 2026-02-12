@@ -92,7 +92,7 @@ say %h<bar> := 42;  # same as %h.BIND-KEY("bar", 42)
 
 ### STORE
 
-The `STORE` method accepts the values to (re-)initialize (as an [`Iterable`](https://docs.raku.org/type/Iterable)), **and** returns the invocant ([`self`](https://docs.raku.org/syntax/self)).
+The `STORE` method accepts the values (as an [`Iterable`](https://docs.raku.org/type/Iterable)) to (re-)initialize the hash with, **and** returns the invocant ([`self`](https://docs.raku.org/syntax/self)).
 
 The `:INITIALIZE` named argument will be passed with a `True` value if this is the first time the values are to be set.  This is important if your data structure is supposed to be immutable: if that argument is `False` or not specified, it means a re-initialization is being attempted.
 ```raku
