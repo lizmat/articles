@@ -34,7 +34,7 @@ Which in turn is why the `Positional` role does not enforce any methods.  Becaus
 
 ## Postcircumfix [ ]
 
-The `postcircumfix [ ]` operator performs all of the work of slicing and dicing objects that perform the `Positional`, and handling all of the adverbs: `:exists`, `:delete`, `:p`, `:kv`, `:k`, and `:v`.  But it is completely agnostic about how this is actually done, because all it does is calling the interface methods that are (implicitely) provided by the object.  For instance:
+The `postcircumfix [ ]` operator performs all of the work of slicing and dicing objects that perform the `Positional` role, and handling all of the adverbs: `:exists`, `:delete`, `:p`, `:kv`, `:k`, and `:v`.  But it is completely agnostic about how this is actually done, because all it does is calling the interface methods that are (implicitely) provided by the object.  For instance:
 ```perl
 say 42[0];  # 42
 ```
@@ -65,14 +65,14 @@ say @a[$index];  # same as @a.AT-POS($index)
 
 ### EXISTS-POS
 
-The `EXISTS-POS` method is expected to take the integer index of an element, and return a [`Bool`](https://docs.raku.org/type/Bool) value indicating whether that element is considered to be existing or not.  This is what is being called when the [`:exists`](https://docs.raku.org/language/subscripts#:exists) adverb is specified (such as in `@a[42]:exists`).
+The `EXISTS-POS` method is expected to take the integer index of an element, and return a [`Bool`](https://docs.raku.org/type/Bool) value indicating whether that element is considered to be existing or not.  This is what is being called when the [`:exists`](https://docs.raku.org/language/subscripts#:exists) adverb is specified.
 ```raku
 say @a[$index]:exists;  # same as @a.EXISTS-POS($index)
 ```
 
 ### DELETE-POS
 
-The `DELETE-POS` method is supposed to act very much like the `AT-POS` method.  But is also expected to remove the element so that the `EXISTS-POS` method will return `False` for that element in the future.  This is what is being called when the [`:delete`](https://docs.raku.org/language/subscripts#:delete) adverb is specified (such as in `@a[42]:delete`).
+The `DELETE-POS` method is supposed to act very much like the `AT-POS` method.  But is also expected to remove the element so that the `EXISTS-POS` method will return `False` for that element in the future.  This is what is being called when the [`:delete`](https://docs.raku.org/language/subscripts#:delete) adverb is specified.
 ```perl
 say @a[$index]:delete;  # same as @a.DELETE-POS($index)
 ```
@@ -93,7 +93,7 @@ say @a[$index] := 42;  # same as @a.BIND-POS($index, 42)
 
 ### STORE
 
-The `STORE` method is an optional method that must implemented if the `my @a is Foo = 1,2,3` and `@a = 1,2,3` syntax is to be supported by the class.  Should accept the values to be (re-)initializing with **and** return the invocant ([`self`](https://docs.raku.org/syntax/self))
+The `STORE` method accepts the values to be (re-)initializing with as an [`Iterable`](https://docs.raku.org/type/Iterable) **and** returns the invocant ([`self`](https://docs.raku.org/syntax/self)).
 
 The `:INITIALIZE` named argument will be passed with a `True` value if this is the first time the values are to be set.  This is important if your data structure is supposed to be immutable: if that argument is `False` or not specified, it means a re-initialization is being attempted.
 ```perl
