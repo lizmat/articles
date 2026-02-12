@@ -78,21 +78,21 @@ say %h<bar>:delete;  # same as %h.DELETE-KEY("bar")
 
 ### ASSIGN-KEY
 
-The `ASSIGN-KEY` method is a convenience method that *may* be called when assigning (`=`) a value to a key.  It takes 2 arguments: the key and the value.  It functionally defaults to `object.AT-KEY(key) = value`.  A typical reason for implementing this method is performance.
+The `ASSIGN-KEY` method is a convenience method that *may* be called when assigning (`=`) a value to a key.  It takes 2 arguments: the key and the value, and is expected to return the value.  It functionally defaults to `object.AT-KEY(key) = value`.  A typical reason for implementing this method is performance.
 ```raku
 say %h<bar> = 42;  # same as @a.ASSIGN-KEY("bar", 42)
 ```
 
 ### BIND-KEY
 
-The `BIND-KEY` method is a method that will be called when binding (`:=`) a value to a key.  It takes 2 arguments: the key and the value.  If not implemented, binding will always fail with an execution error.
+The `BIND-KEY` method is a method that will be called when binding (`:=`) a value to a key.  It takes 2 arguments: the key and the value, and is expected to return the value.
 ```raku
 say %h<bar> := 42;  # same as %h.BIND-KEY("bar", 42)
 ```
 
 ### STORE
 
-The `STORE` method accepts the values (as an [`Iterable`](https://docs.raku.org/type/Iterable)) to (re-)initialize the hash with, **and** returns the invocant ([`self`](https://docs.raku.org/syntax/self)).
+The `STORE` method accepts the values (as an [`Iterable`](https://docs.raku.org/type/Iterable)) with which to (re-)initialize the hash, **and** returns the invocant.
 
 The `:INITIALIZE` named argument will be passed with a `True` value if this is the first time the values are to be set.  This is important if your data structure is supposed to be immutable: if that argument is `False` or not specified, it means a re-initialization is being attempted.
 ```raku
