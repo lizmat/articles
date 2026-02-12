@@ -142,7 +142,7 @@ use Hash::Agnostic;
 
 class Hash::Int does Hash::Agnostic {
     has @!values;
-    method AT-KEY(Int() $index) {
+    method AT-KEY(Int:D $index) {
         @!values.AT-POS($index)
     }
     method keys() {
@@ -168,9 +168,11 @@ which would show:
 a
 Hash::Int.new(42 => "a",137 => "c",666 => "b")
 ```
-Note that the `STORE` method had to be provided by the class to allow for the `is Hash::Int` syntax to work.
+Again, note that the `STORE` method had to be provided by the class to allow for the `is Hash::Int` syntax to work.
 
 > If you're wondering what's happening with `Map.CREATE.STORE(values, :INITIALIZE)`: the initialization logic of hashes and maps allows for both separate key,value initialization, as well as key=>value initialization.  And any mix of them.  So this is just a quick way to use that rather specialized logic of `Map.new` to create a consistent [`Seq`](https://docs.raku.org/type/Seq) of [`Pair`](https://docs.raku.org/type/Pair)s to initialize the underlying array with.
+
+> Raku actually has a syntax for creating a `Hash` that only takes `Int` values as keys: `my %h{Int}`.  This creates a so-called ["object hash"](https://docs.raku.org/language/hashmap#Non-string_keys_(object_hash)) with different performance characteristics to the approach taken with `Hash::Int`.
 
 ## Conclusion
 
