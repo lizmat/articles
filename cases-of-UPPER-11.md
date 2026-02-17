@@ -18,7 +18,7 @@ class A { }
 dd A.^find_method("foobar");  # Mu
 dd A.^find_method("gist");    # proto method gist (Mu $:: |) {*}
 ```
-Note that an empty class `A` (which by default inherits from the [`Any` class](https://docs.raku.org/type/Any)) does **not** provide a method "foobar" (indicated by the `Mu` result), but *does* provde a `gist` method (indicated by the `proto method gist (Mu $:: |) {*}` representation).
+Note that an empty class `A` (which by default inherits from the [`Any` class](https://docs.raku.org/type/Any)) does **not** provide a method "foobar" (indicated by the [`Mu` type object](https://docs.raku.org/type/Mu)).  But it *does* provide a `gist` method (indicated by the `proto method gist (Mu $:: |) {*}` representation of a [`Callable`](https://docs.raku.org/type/Callable)) because that is inherited from the `Any` class..
 
 It's this logic that is internally used by the dispatch logic to link a method name to an actual piece of code to be executed.
 
@@ -89,11 +89,11 @@ class E {
 ```
 The "E" class has a method "foo-bar".  And a method "FALLBACK" that takes the name of the method that was not found (and putting any additional arguments in the [`Capture`](https://docs.raku.org/type/Capture) "c").
 
-> Note that the "c" is just an idiom.  It could have any name, but "c" is nice and short.  If you want to use a name that's more clear to you, then please do so.  As long as you use the same name later on.
+> Note that the "c" is just an idiom for the name of a capture.  It could have any name, but "c" is nice and short.  If you want to use a name that's more clear to you, then please do so.  As long as you use the same name later on.
 
 It then converts all occurrences of underscore to hyphen in the name and then tries to find a `Callable` for that name.  If that is successful it will execute the code with any arguments that were given by flattening the [`|c` capture](https://docs.raku.org/language/signatures#Capture_parameters).  Otherwise it throws a "method not found" error.
 
-> The `:no_fallback` argument is needed to prevent the method lookup from producing the "FALLBACK" method if the method was not found.  Otherwise the code would infiniloop.
+> The `:no_fallback` argument is needed to prevent the method lookup from producing the "FALLBACK" method if the method was not found.  Otherwise the code would loop forever.
 
 So now this code will work instead of causing an execution error.
 ```raku
