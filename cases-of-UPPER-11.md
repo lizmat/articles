@@ -65,7 +65,7 @@ say D.bar(42);  # Nil
 
 ## An actual application
 
-The Raku Programming Language allows hyphens in identifier names (usually referred to as ["kebab case"](https://en.wikipedia.org/wiki/Letter_case#Kebab_case).  Many programmers coming from other programming languages are not really used to this: they are more comfortable with using underscores in identifiers (["Snake case"](https://en.wikipedia.org/wiki/Letter_case#Snake_case).
+The Raku Programming Language allows hyphens in identifier names (usually referred to as ["kebab case"](https://en.wikipedia.org/wiki/Letter_case#Kebab_case).  Many programmers coming from other programming languages are not really used to this: they are more comfortable with using underscores in identifiers (["Snake case"](https://en.wikipedia.org/wiki/Letter_case#Snake_case)).
 
 Modern Raku programs usually use kebab case in identifiers.  So it's quite common for programmers to make the mistake of using an underscore where they should have been using a hyphen.  If such an error is made when writing a program, it will be a runtime error.  Which can be annoying.  In such a case, a `FALLBACK` method can be a useful thing to have if it could correct such mistakes.
 
@@ -87,13 +87,13 @@ class E {
     }
 }
 ```
-The "E" class has a method "foo-bar".  And a method "FALLBACK" that takes the name of the method that was not found (and putting any additional arguments in the [`Capture`](https://docs.raku.org/type/Capture) "c".
+The "E" class has a method "foo-bar".  And a method "FALLBACK" that takes the name of the method that was not found (and putting any additional arguments in the [`Capture`](https://docs.raku.org/type/Capture) "c").
 
 > Note that the "c" is just an idiom.  It could have any name, but "c" is nice and short.  If you want to use a name that's more clear to you, then please do so.  As long as you use the same name later on.
 
-It then converts all occurrences of underscore to hyphen in the name and then tries to find a `Callable` for that name.  If that is successful, then executes the code with any arguments that were given by flattening the [`|c` capture](https://docs.raku.org/language/signatures#Capture_parameters).  Otherwise it throws a "method not found" error.
+It then converts all occurrences of underscore to hyphen in the name and then tries to find a `Callable` for that name.  If that is successful it will execute the code with any arguments that were given by flattening the [`|c` capture](https://docs.raku.org/language/signatures#Capture_parameters).  Otherwise it throws a "method not found" error.
 
-> The `:no_fallback` argument is needed to prevent the method lookup from producing the "FALLBACK" method, otherwise the code would infiniloop.
+> The `:no_fallback` argument is needed to prevent the method lookup from producing the "FALLBACK" method if the method was not found.  Otherwise the code would infiniloop.
 
 So now this code will work instead of causing an execution error.
 ```raku
@@ -102,7 +102,7 @@ say E.foo_bar;  # foobar
 ```
 To make this more generally usable this code could be put into a [`role`](https://docs.raku.org/language/objects#Parameterized_roles) and have that live as an installable module.  But that would be extra work, wouldn't it?
 
-Fortunately the writing of this blog post initiated the development of such a role (and associated distribution) called [`Method::Misspelt`]((https://raku.land/zef:lizmat/Method::Misspelt)).  How's that for blog BDD (Blog Driven Development)?
+Fortunately the writing of this blog post initiated the development of such a role (and associated distribution) called [`Method::Misspelt`](https://raku.land/zef:lizmat/Method::Misspelt).  How's that for BDD (Blog Driven Development)?
 
 > Note that the module introduces a few more features and optimizations, while handling keeping track of multiple classes ingesting the same role.  See the [internal documentation](https://github.com/lizmat/Method-Misspelt/blob/main/lib/Method/Misspelt.rakumod) for more information.
 
