@@ -11,14 +11,14 @@ Method dispatch in the [Raku Programming Language](https://raku.org) is quite co
 Internally this is handled by the [`find_method` method](https://docs.raku.org/type/Metamodel/MROBasedMethodDispatch#method_find_method) on the meta-object of the class (which is typically called with the [`.^method` syntax](https://docs.raku.org/language/operators#methodop_%2E^) on the class).
 
 So for example:
-```raku
+```perl
 # an empty class
 class A { }
 
 dd A.^find_method("foobar");  # Mu
 dd A.^find_method("gist");    # proto method gist (Mu $:: |) {*}
 ```
-Note that an empty class `A` (which by default inherits from the [`Any` class](https://docs.raku.org/type/Any)) does **not** provide a method "foobar" (indicated by the [`Mu` type object](https://docs.raku.org/type/Mu)).  But it *does* provide a `gist` method (indicated by the `proto method gist (Mu $:: |) {*}` representation of a [`Callable`](https://docs.raku.org/type/Callable)) because that is inherited from the `Any` class..
+Note that an empty class `A` (which by default inherits from the [`Any` class](https://docs.raku.org/type/Any)) does **not** provide a method "foobar" (indicated by the [`Mu` type object](https://docs.raku.org/type/Mu)).  But it *does* provide a `gist` method (indicated by the `proto method gist (Mu $:: |) {*}` representation of a [`Callable`](https://docs.raku.org/type/Callable)) because that is inherited from the `Any` class.
 
 It's this logic that is internally used by the dispatch logic to link a method name to an actual piece of code to be executed.
 
@@ -30,10 +30,10 @@ But there's a better and easier way to handle method names that could not be fou
 
 ## FALLBACK
 
-If a class provides a [`FALLBACK` method](https://docs.raku.org/language/typesystem#Fallback_method) (either directly in its class, or by one of its base classes, or by ingestion of a role), then that method will be called whenever a method could not be found.  The name of the method will be passed as the first argument, and all other arguments will be passed verbatim.
+If a class provides a [`FALLBACK` method](https://docs.raku.org/language/typesystem#Fallback_method) (either directly in its class, or by one of its base classes, or by ingestion of a role), then that method will be called whenever a method could *not* be found.  The name of the method will be passed as the first argument, and all other arguments will be passed verbatim.
 
 A contrived example in which a non-existing method returns the *name* of the method, but only if there were **no** arguments passed:
-```raku
+```perl
 class B {
     method FALLBACK($name) { $name }
 }
@@ -42,7 +42,7 @@ say B.bar(42);  # Too many positionals passed; expected 2 arguments but got 3
 ```
 
 So is there something special about the `FALLBACK` method?   No, its only specialty is *when* it is being called.  So you can make it a [`multi` method](https://docs.raku.org/syntax/multi-method):
-```raku
+```perl
 class C {
     multi method FALLBACK($name) {
         $name
@@ -55,7 +55,7 @@ say C.foo;      # foo
 say C.bar(42);  # 42 passed to 'bar'
 ```
 On the other hand if you don't care about any arguments at all and just want to return [`Nil`](https://docs.raku.org/type/Nil), you can specify the nameless capture `|` as the signature:
-```raku
+```perl
 class D {
     method FALLBACK(|) { Nil }
 }
@@ -65,12 +65,12 @@ say D.bar(42);  # Nil
 
 ## An actual application
 
-The Raku Programming Language allows hyphens in identifier names (usually referred to as ["kebab case"](https://en.wikipedia.org/wiki/Letter_case#Kebab_case).  Many programmers coming from other programming languages are not really used to this: they are more comfortable with using underscores in identifiers (["Snake case"](https://en.wikipedia.org/wiki/Letter_case#Snake_case)).
+The Raku Programming Language allows hyphens in identifier names (usually referred to as ["kebab case"](https://en.wikipedia.org/wiki/Letter_case#Kebab_case)).  Many programmers coming from other programming languages are not really used to this: they are more comfortable with using underscores in identifiers (["Snake case"](https://en.wikipedia.org/wiki/Letter_case#Snake_case)).
 
 Modern Raku programs usually use kebab case in identifiers.  So it's quite common for programmers to make the mistake of using an underscore where they should have been using a hyphen.  If such an error is made when writing a program, it will be a runtime error.  Which can be annoying.  In such a case, a `FALLBACK` method can be a useful thing to have if it could correct such mistakes.
 
 This could look something like this:
-```raku
+```perl
 class E {
     method foo-bar() { "foobar" }
 
