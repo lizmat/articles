@@ -69,7 +69,7 @@ sub foo() { return-rw $a }
 foo() = 666;
 say $a;  # 666
 ```
-This feature is for instance used if you want to assign to an array element.  In [part 9](https://dev.to/lizmat/positional-methods-439i) of this series it was shown that the `AT-POS` method is what is being called.  Both the postcircumfix `[ ]` operator, as well as the underlying `AT-POS` method  have this trait set (as the `return-rw` statement has slightly more overhead).
+This feature is for instance used if you want to assign to an array element.  In [part 9](https://dev.to/lizmat/positional-methods-439i) of this series it was shown that the `AT-POS` method is what is being called postcircumfix `[ ]`.  In the core, both the postcircumfix `[ ]` operator as well as the underlying `AT-POS` method have this trait set for performance (as the `return-rw` statement has slightly more overhead).
 
 ## Binding to containers
 
@@ -83,7 +83,7 @@ my @a = 1,2,3,4,5;
 $_++ for @a;
 say @a;  # [2 3 4 5 6]
 ```
-Because the topic variable `$_` **binds** to the elements in the array, it represents the actual container at that location and can thus be incremented.
+The topic variable `$_` **binds** to the elements of the array in a `for` loop.  So in each iteration it actually represents the container at that location and can thus be incremented.
 
 > People coming from other languages may think that `$_` is a "reference" (or "pointer") to the actual memory location of the element in the array.  This notion is incorrect in Raku.  The topic variable `$_` is bound to the **container** of each element.  The container object itself is completely agnostic as to where it lives.  It's just a simple object that knows how to `FETCH` and `STORE`.
 
@@ -118,8 +118,9 @@ my @a;
 @a[3] = 42;
 say @a;  # [(Any) (Any) (Any) 42]
 ```
+So there's no container yet for such an element.  Yet it is possible to assign to it!  How does that work?
 
-So there's no container yet for such an element.  Yet it is possible to assign to it!  How does that work?  The secret is really in the "container descriptor".  So let's refine our representation of a Scalar object:
+The secret is really in the "container descriptor".  So let's refine our representation of the `Scalar` class:
 ```raku
 class Scalar {
     has $!descriptor;
@@ -132,15 +133,17 @@ class Scalar {
     }
 }
 ```
-Note that storing a value has now become a little more involved (`$!descriptor.process($value)` rather than just `$!value`).  It's this descriptor object (of which there are many different types in the Raku implementation, all starting with the `ContainerDescriptor::` name) that is responsible the name, the default type, type checking and a default value of a container.  And any additional logic that is needed.
+Note that storing a value has now become a little more involved (`$!descriptor.process($value)` rather than just `$!value`).  It's this descriptor object that is responsible for the name, the default type, type checking and a default value of a container.  And any additional logic that is needed.
 
-For instance, whenever an `AT-POS` is called on a non-existing element in an array, a special type of container descriptor is created that "knows" to which `Array` it belongs, and at which index it should stored.  The same is true for the container returned by `AT-KEY` (as seen in [part 10](https://dev.to/lizmat/associative-methods-2mcl)) which knows in which hash it should store, and what key should be used.
+> There are many different types of container descriptors in the Rakudo implementation, all starting with the `ContainerDescriptor::` name, and all are considered to be implementation detail.
+
+For instance, when an `AT-POS` method is called on a non-existing element in an array, a container with a special type of descriptor is created that "knows" to which `Array` it belongs, and at which index it should stored.  The same is true for the descriptor of the container returned by `AT-KEY` (as seen in [part 10](https://dev.to/lizmat/associative-methods-2mcl)) which knows in which `Hash` it should store when assigned to, and what key should be used.
 
 It's this special behaviour that allows arrays and hashes to really just [DWIM](https://docs.raku.org/syntax/DWIM).
 
 ## Action at a distance
 
-These special containers for arrays and hashes also introduce an action-at-a-distance feature that you may or may not like.
+These special descriptors of containers for arrays and hashes also introduce an action-at-a-distance feature that you may or may not like.
 ```raku
 my @a;
 my $b := @a[3];
@@ -156,11 +159,13 @@ say %h;               # {}
 %h<a><b> = 42;
 say %h;               # {a => {b => 42}}
 ```
-So even though %h<a> is considered to be an `Associative` because of the `<b>`, it won't actually exist because of the `:exists` test.  Only after a value has been assigned, does `%h<a>` and `%h<a><b>` actually spring to life.
+So even though `%h<a`> is considered to be an `Associative` because of the `<b>`, the `:exists` test will **not** create a `Hash` in `%h<a>`.  Only *after* a value has been assigned does `%h<a>` and `%h<a><b>` actually spring to life.
 
 ## Proxy
 
-So where are the uppercase methods that this blog post is supposed to be about?  This rather lengthy introduction / diversion was to make you aware of some of the underlying mechanics of containers.  Because Raku supplies a full customizable class that allows you to create your own container: [`Proxy`](https://docs.raku.org/type/Proxy).
+So where are the uppercase methods that this blog post is supposed to be about?
+
+This rather lengthy introduction / diversion was to make you aware of some of the underlying mechanics of containers.  Because Raku supplies a full customizable class that allows you to create your own container: [`Proxy`](https://docs.raku.org/type/Proxy).  And understanding what containers are about is helpful when working with that class.
 
 Creation of such a container is quite easy: all you need to supply are a `method` for *fetching* the value, and a `method` for *storing* a value (very similar to the "pseudo-code" representation at the start of this blog post).  This is done with the `FETCH` and `STORE` named arguments.  Creation of a `Proxy` object is usually done inside a subroutine for convenience.  A contrived example:
 ```raku
@@ -186,6 +191,8 @@ The careful reader will have noticed that the `is rw` attribute needs to be spec
 Because the code in the methods supplied closes over the lexical variable `$value`, that variable stays alive until the `Proxy` project is destroyed.  So it offers an easy way to actually store the value for this `Proxy` object.
 
 Inside the methods supplied you are completely free to put whatever code in there that you want.  As an example how that could work in a module, the [`Hash::MutableKeys`](https://raku.land/zef:lizmat/Hash::MutableKeys) distribution was created.  Another case of BDD (Blog Driven Development)!
+
+> You may have observed that the `Proxy` object does not allow for a descriptor.  It was not considered to be needed, as you have all the flexibility you could possibly want.  If you want one in your `Proxy` objects, you can create one yourself.
 
 ## Conclusion
 
