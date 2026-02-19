@@ -136,7 +136,7 @@ Note that storing a value has now become a little more involved (`$!descriptor.p
 
 For instance, whenever an `AT-POS` is called on a non-existing element in an array, a special type of container descriptor is created that "knows" to which `Array` it belongs, and at which index it should stored.  The same is true for the container returned by `AT-KEY` (as seen in [part 10](https://dev.to/lizmat/associative-methods-2mcl)) which knows in which hash it should store, and what key should be used.
 
-It's this special behaviour that not only allows arrays and hashes to really just [DWIM](https://docs.raku.org/syntax/DWIM).
+It's this special behaviour that allows arrays and hashes to really just [DWIM](https://docs.raku.org/syntax/DWIM).
 
 ## Action at a distance
 
@@ -162,7 +162,7 @@ So even though %h<a> is considered to be an `Associative` because of the `<b>`, 
 
 So where are the uppercase methods that this blog post is supposed to be about?  This rather lengthy introduction / diversion was to make you aware of some of the underlying mechanics of containers.  Because Raku supplies a full customizable class that allows you to create your own container: [`Proxy`](https://docs.raku.org/type/Proxy).
 
-Creation of such a container is quite easy: all you need to supply are a `method` for fetching the value, and a `method` for storing a value (very similar to the "pseudo-code" representation at the start of this blog post).  This is done with the `FETCH` and `STORE` named arguments.  Creation of a `Proxy` object is usually done inside a subroutine for convenience.  A contrived example:
+Creation of such a container is quite easy: all you need to supply are a `method` for *fetching* the value, and a `method` for *storing* a value (very similar to the "pseudo-code" representation at the start of this blog post).  This is done with the `FETCH` and `STORE` named arguments.  Creation of a `Proxy` object is usually done inside a subroutine for convenience.  A contrived example:
 ```raku
 sub answer is rw {
     my $value = 42;
@@ -181,7 +181,7 @@ say $a;    # 42
 $a = 666;  # storing 666
 say $a;    # 666
 ```
-The careful reader will have noticed that the `is rw` attribute needs to be specified on the subroutine, otherwise the `Proxy` would be de-containerized on return.  And that the result of calling the `answer` subroutine was bound (`:=`) instead of assigned, because assignment would also cause de-containerization.
+The careful reader will have noticed that the `is rw` attribute needs to be specified on the subroutine, otherwise the `Proxy` would be de-containerized on return.  And that the result of calling the `answer` subroutine was bound (`:=`) instead of assigned, because assignment would also cause de-containerization and thus completely defeat the purpose of this exercise.
 
 Because the code in the methods supplied closes over the lexical variable `$value`, that variable stays alive until the `Proxy` project is destroyed.  So it offers an easy way to actually store the value for this `Proxy` object.
 
