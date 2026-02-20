@@ -134,9 +134,9 @@ class Scalar {
     }
 }
 ```
-Note that storing a value has now become a little more involved (`$!descriptor.process($value)` rather than just `$!value`).  So the descriptor object's `process` method takes the value, does what it needs to do with it, and then returns it so that it can be bound to the attribute.
+Note that storing a value has now become a little more complicated (`$!descriptor.process($value)` rather than just `$!value`).  So the descriptor object's `process` method takes the value, does what it needs to do with it, and then returns it so that it can be bound to the attribute.
 
-This descriptor object is typically responsible for the name, the default type, type checking and a default value of a container.  And any additional logic that is needed.
+This descriptor object is typically responsible for remembering the name of the variable, the default type, perform type checking and keep a default value of a container.  And any additional logic that is needed.
 
 > There are many different types of container descriptor classes in the Rakudo implementation, all starting with the `ContainerDescriptor::` name.  And all are considered to be implementation detail.
 
