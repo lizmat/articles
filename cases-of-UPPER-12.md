@@ -40,7 +40,7 @@ and showing the value of a variable (as in `say $a`), can be thought of as:
 ```raku
 say $a.FETCH;
 ```
-In reality it's of course slightly more complicated, because there are such things as type constraints that can exist on a variable (such as `my Int $a`).  And variables may have a default value (as in `my $a is default(42)`.
+In reality it's of course slightly more complicated, because there are such things as type constraints that can exist on a variable (such as `my Int $a`).  And variables may have a default value (as in `my $a is default(42)`).
 
 > This type of information is kept in a so-called "container descriptor", which is considered to be an [implementation detail](https://docs.raku.org/syntax/is%20implementation-detai) (as in: don't depend on its functionality directly, the interface to it might change at any time).
 
@@ -70,7 +70,7 @@ sub foo() { return-rw $a }
 foo() = 666;
 say $a;  # 666
 ```
-This feature is for instance used if you want to assign to an array element.  In [part 9](https://dev.to/lizmat/positional-methods-439i) of this series it was shown that the `AT-POS` method is what is being called postcircumfix `[ ]`.  In the core, both the postcircumfix `[ ]` operator as well as the underlying `AT-POS` method have this trait set for performance (as the `return-rw` statement has slightly more overhead).
+This feature is for instance used if you want to assign to an array element.  In [part 9](https://dev.to/lizmat/positional-methods-439i) of this series it was shown that the `AT-POS` method is what is being called by postcircumfix `[ ]`.  In the core, both the postcircumfix `[ ]` operator as well as the underlying `AT-POS` method have this trait set for performance (as the `return-rw` statement has slightly more overhead).
 
 ## Binding to containers
 
@@ -119,9 +119,9 @@ my @a;
 @a[3] = 42;
 say @a;  # [(Any) (Any) (Any) 42]
 ```
-So there's no container yet for such an element.  Yet it is possible to assign to it!  How does that work?
+So there's no container yet the element at index `3`.  Yet it is possible to assign to it!  How does that work?
 
-The secret is really in the "container descriptor".  So let's refine our representation of the `Scalar` class:
+The secret is really in the "container descriptor".  So let's refine our pseudocode representation of the `Scalar` class:
 ```raku
 class Scalar {
     has $!descriptor;
