@@ -140,7 +140,7 @@ This descriptor object is typically responsible for remembering the name of the 
 
 > There are many different types of container descriptor classes in the Rakudo implementation, all starting with the `ContainerDescriptor::` name.  And all are considered to be implementation detail.
 
-For instance, when an `AT-POS` method is called on a non-existing element in an array, a container with a special type of descriptor is created that "knows" to which `Array` it belongs, and at which index it should stored.  The same is true for the descriptor of the container returned by `AT-KEY` (as seen in [part 10](https://dev.to/lizmat/associative-methods-2mcl)) which knows in which `Hash` it should store when assigned to, and what key should be used.
+For instance, when an `AT-POS` method is called on a non-existing element in an array, a container with a special type of descriptor is created that "knows" to which `Array` it belongs, and at which index it should be stored.  The same is true for the descriptor of the container returned by `AT-KEY` (as seen in [part 10](https://dev.to/lizmat/associative-methods-2mcl)) which knows in which `Hash` it should store when assigned to, and what key should be used.
 
 It's this special behaviour that allows arrays and hashes to really just [DWIM](https://docs.raku.org/syntax/DWIM).
 
@@ -199,6 +199,6 @@ Inside the supplied methods you are completely free to put whatever code that yo
 
 This concludes the twelfth episode of cases of UPPER language elements in the Raku Programming Language, the fifth episode discussing interface methods.
 
-In this episode containers were described, as well as the special `Proxy` class with its `STORE` and `FETCH` named arguments.  This `Proxy` class provides a fully customizable container implementation.
+In this episode containers were described, as well as the special `Proxy` class with its named arguments `STORE` and `FETCH`.  This `Proxy` class provides a fully customizable container implementation.
 
 Stay tuned for the next episode!
