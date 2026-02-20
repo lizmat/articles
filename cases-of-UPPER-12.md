@@ -18,8 +18,8 @@ In a simplified representation (almost [pseudocode](https://en.wikipedia.org/wik
 ```raku
 class Scalar {
     has $!value;
-    method STORE($value) {
-        $!value := $value
+    method STORE($new-value) {
+        $!value := $new-value
     }
     method FETCH() {
         $!value
