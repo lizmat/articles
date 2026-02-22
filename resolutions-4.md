@@ -32,7 +32,7 @@ So it was decided to close the issue as "unresolvable".
 
 ### [New named parameters to `.classify`](https://github.com/Raku/problem-solving/issues/6)
 
-It was decided that the issue has gone a bit stale, and thus ask the OP whether this should stay open, especially since it was suggested that `.classify` / `.categorize` maybe should need an overhaul (at least internally).
+It was decided that the issue has gone a bit stale, and thus ask the OP (Original Poster) whether this should stay open, especially since it was suggested that `.classify` / `.categorize` maybe should need an overhaul (at least internally).
 
 ### [Need a substitute for Perl 5 `die` with newline for raising end-user errors?](https://github.com/Raku/problem-solving/issues/59)
 
