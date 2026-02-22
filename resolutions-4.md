@@ -2,15 +2,13 @@
 
 > This is a third follow-up on [Raku Resolutions](https://dev.to/lizmat/series/34948) series.
 
-The third meeting was held on 21 February 2026 at 19:00 UTC.  Apart from 3 Raku Steering Council members, only 1 other person attended.
+The third meeting was held on 21 February 2026 at 19:00 UTC.  Apart from 3 Raku Steering Council members, only 1 other person attended.  In the end, **7** issues were discussed within the allotted time (1 hour).
 
-In the end, **7** issues were discussed within the allotted time (1 hour).
-
-## [Separate Community Resource page](https://github.com/Raku/problem-solving/issues/286)
+### [Separate Community Resource page](https://github.com/Raku/problem-solving/issues/286)
 
 After some discussion, it became clear that this issue basically has gone stale in light of the new raku.org site.  *Richard Hainsworth* will create a new issue, after which this one can be closed.
 
-## [What makes unit be too late?](https://github.com/Raku/problem-solving/issues/501)
+### [What makes unit be too late?](https://github.com/Raku/problem-solving/issues/501)
 
 After some discussion it was agreed that from a language design point of view, it shouldn't really matter when the `unit` occurs in the code, as long as there's only one of them.  And that the rest of the source would be considered to be part of that scope.
 
@@ -18,25 +16,25 @@ It was agreed that the documentation will describe this future state with the ca
 
 The point of being able to specify an `EXPORT` sub *before* a `unit` would be technically correct, but not very useful in practice as an `EXPORT` sub usually needs to refer to objects/classes that have already been defined in the code.
 
-## [Errors indexing past the end of a List](https://github.com/Raku/problem-solving/issues/160)
+### [Errors indexing past the end of a List](https://github.com/Raku/problem-solving/issues/160)
 
 After some discussion it was decided that the current behaviour of returning `Nil` for `List` elements beyond the end is correct.  And that returning a `Failure` for negative index values is the most consistent behaviour, especiall in light of `Array` doing that as well.  So the issue could be closed.
 
-## [Some useful math/statistics functions are missing](https://github.com/Raku/problem-solving/issues/4)
+### [Some useful math/statistics functions are missing](https://github.com/Raku/problem-solving/issues/4)
 
 Consensus was that it would be nice to have all of these math / statistics methods, but that these should live in module land for the foreseeable future.  So the issue could be closed.
 
-## [There's a huge PR/issue deficit in the Rakudo repo](https://github.com/Raku/problem-solving/issues/5)
+### [There's a huge PR/issue deficit in the Rakudo repo](https://github.com/Raku/problem-solving/issues/5)
 
 It was recognized that there are indeed quite a few open issues in Rakudo (although much less than there have been in the past).  However, there will always be open issues.  And with the current size of the core team, the number of issues will not significantly reduce in the future.
 
 So it was decided to close the issue as "unresolvable".
 
-## [New named parameters to .classify](https://github.com/Raku/problem-solving/issues/6)
+### [New named parameters to .classify](https://github.com/Raku/problem-solving/issues/6)
 
 It was decided that the issue has gone a bit stale, and thus ask the OP whether this should stay open, especially since it was suggested that `.classify` / `.categorize` maybe should need an overhaul (at least internally).
 
-## [Need a substitute for Perl 5 die with newline for raising end-user errors?](https://github.com/Raku/problem-solving/issues/59)
+### [Need a substitute for Perl 5 die with newline for raising end-user errors?](https://github.com/Raku/problem-solving/issues/59)
 
 After explaining the esoteric rule in Perl 5 with regards to `die` with a message with and without a new line, it was agreed that it would be nice to have such a feature.  Especially since at least 2 of the attendees had been using a `note $message; exit 1` sequence to achieve just that.  Disadvantage to this is that such a sequence can **not** be caught by a `CATCH`.
 
