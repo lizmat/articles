@@ -73,7 +73,7 @@ say $a.VAR.dynamic;  # False
 ```
 The `of` method returns the constraint that needs to be fulfilled in order to be able to assign to the variable.  The `name` method returns the name of the variable.  The `default` method returns the default value (`Any` if none is specified).
 
-The `dynamic` method returns `True` or `False` whether the variable is visible for dynamic variable lookups.  This is usually only set for variables with the [`*` twigil](https://docs.raku.org/language/variables#The_*_twigil).
+The `dynamic` method returns `True` or `False` whether the variable is visible for dynamic variable lookups.  This usually only returns `True` for variables with the [`*` twigil](https://docs.raku.org/language/variables#The_*_twigil).
 
 ## WHO
 
@@ -88,11 +88,11 @@ Of course, you would know them more by their complete names such as `IO::ArgFile
 say IO.WHO<Handle>;  # (Handle)
 say IO::Handle;      # (Handle)
 ```
-And that goes even further: `package::` is just short for `package.WHO`::
+And that goes even further: `package::` is just short for `package.WHO`:
 ```raku
 say IO::.keys.sort;  # (ArgFiles CatHandle Handle Notification Path Pipe Socket Spec Special)
 ```
-A little closer to home: how would that look in a class that you define yourself and have an [`our`](https://docs.raku.org/syntax/our) scoped variable in there:
+A little closer to home: how would that look in a package that you define yourself and have an [`our`](https://docs.raku.org/syntax/our) scoped variable in there:
 ```raku
 package A {
     our $foo = 42;
@@ -101,10 +101,11 @@ say A.WHO<$foo>;  # 42
 say A::<$foo>;    # 42
 say $A::foo;      # 42
 ```
+> The careful reader will have noticed that [`package`](https://docs.raku.org/language/packages) was used in the example.  A very simple reason: `class`, `role`, `grammar` are all just packages with different `HOW`s.  And `WHO` doesn't care why kind of `package` it is.
 
 ## REPR
 
-The [`REPR`](https://docs.raku.org/language/traits#is_repr_and_native_representations%2E) method returns the *name* of the memory representation of the class of the invocant.  For most of the objects this is "P6opaque".  The [`NativeCall`](https://docs.raku.org/language/nativecall) module provides a number or alternate memory representations, such as `CStruct`, `CPPStruct`, `CPointer` and `Cunion`.  Native arrays also have a different representation (`VMArray`).
+The [`REPR`](https://docs.raku.org/language/traits#is_repr_and_native_representations%2E) method returns the *name* of the memory representation of the class of the invocant.  For most of the objects this is "P6opaque".  The [`NativeCall`](https://docs.raku.org/language/nativecall) module provides a number or alternate memory representations, such as [`CStruct`](https://docs.raku.org/language/nativecall#Structs), [`CPointer`](https://docs.raku.org/language/nativecall#Basic_use_of_pointers) and [`Cunion`](https://docs.raku.org/language/nativecall#CUnions).  Native arrays also have a different representation (`VMArray`).
 ```raku
 say 42.REPR;  # P6opaque
 my int @a;
