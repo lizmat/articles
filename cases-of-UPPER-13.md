@@ -19,25 +19,6 @@ say "foo".WHAT;  # (Str)
 say now.WHAT;    # (Instant)
 ```
 
-## VAR
-
-In the [previous blog post](https://dev.to/lizmat/store-proxy-fetch-a07) the `Scalar` object was described.  But the `Scalar` objects are nearly invisible.  How can one obtain a `Scalar` object from a given variable?  And find out its name from that?
-
-The "secret" to that is the [`VAR`](https://docs.raku.org/syntax/VAR) method.
-```raku
-my $a;
-say $a.VAR.^name;  # Scalar
-```
-Each `Scalar` object provides at least these [introspection methods](https://docs.raku.org/type/Scalar#Introspection): [`of`](https://docs.raku.org/type/Scalar#method_of), [`name`](https://docs.raku.org/type/Scalar#method_name), [`default`](https://docs.raku.org/type/Scalar#method_default) and [`dynamic`](https://docs.raku.org/type/Scalar#method_dynamic).
-```raku
-my Int $a is default(42) = 666;
-say $a;              # 666
-say $a.VAR.of;       # (Int)
-say $a.VAR.name;     # $a
-say $a.VAR.default;  # 42
-say $a.VAR.dynamic;  # False
-```
-
 ## HOW
 
 The [`HOW`](https://docs.raku.org/syntax/HOW) method returns the meta-object of the class of the given invocant.  The `HOW` (b)acronym stands for "**H**igher **O**rder **W**orkings".  It allows one to introspect the class of the invocant.
@@ -71,6 +52,28 @@ The [`WHERE`](https://docs.raku.org/routine/WHERE) method returns the memory add
 ```raku
 say 42.WHERE;  # 2912024602280
 ```
+
+## VAR
+
+In the [previous blog post](https://dev.to/lizmat/store-proxy-fetch-a07) the `Scalar` object was described.  But the `Scalar` objects are nearly invisible.  How can one obtain a `Scalar` object from a given variable?  And find out its name from that?
+
+The "secret" to that is the [`VAR`](https://docs.raku.org/syntax/VAR) method.
+```raku
+my $a;
+say $a.VAR.^name;  # Scalar
+```
+Each `Scalar` object provides at least these [introspection methods](https://docs.raku.org/type/Scalar#Introspection): [`of`](https://docs.raku.org/type/Scalar#method_of), [`name`](https://docs.raku.org/type/Scalar#method_name), [`default`](https://docs.raku.org/type/Scalar#method_default) and [`dynamic`](https://docs.raku.org/type/Scalar#method_dynamic).
+```raku
+my Int $a is default(42) = 666;
+say $a;              # 666
+say $a.VAR.of;       # (Int)
+say $a.VAR.name;     # $a
+say $a.VAR.default;  # 42
+say $a.VAR.dynamic;  # False
+```
+The `of` method returns the constraint that needs to be fulfilled in order to be able to assign to the variable.  The `name` method returns the name of the variable.  The `default` method returns the default value (`Any` if none is specified).
+
+The `dynamic` method returns `True` or `False` whether the variable is visible for dynamic variable lookups.  This is usually only set for variables with the [`*` twigil](https://docs.raku.org/language/variables#The_*_twigil).
 
 ## WHO
 
