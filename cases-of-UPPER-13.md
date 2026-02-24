@@ -77,7 +77,7 @@ The `dynamic` method returns `True` or `False` whether the variable is visible f
 
 ## WHO
 
-The [`WHO`](https://docs.raku.org/syntax/WHO) method (for "who lives here?) is actually a bit of a misnomer.  It should probably have been called `OUR` because it returns the [`Stash`](https://docs.raku.org/type/Stash) of the type object of the invocant.  And a stash is an object that does the `Associative` role, and as such can be accessed as if it were a `Hash`.  And the stash of a type object, is the same namespace as `our` inside that package.
+The [`WHO`](https://docs.raku.org/syntax/WHO) method (for "who lives here?) is actually a bit of a misnomer.  It should probably have been called `OUR` because it returns the [`Stash`](https://docs.raku.org/type/Stash) of the type object of the invocant.  And a stash is an object that does the `Associative` role, and as such can be accessed as if it were a `Hash`.  And the stash of a type object is the same namespace as `our` inside that package.
 
 So for instance if you would like to know all classes that live in the `IO` package:
 ```raku
@@ -124,7 +124,7 @@ say Foo.REPR;  # P6opaque
 
 ## DEFINITE
 
-The [`DEFINITE`](https://docs.raku.org/syntax/DEFINITE) method returns either `True` or `False` depending on whether the invocant has a concrete representation.  This is *almost always* the same as calling the [`defined`](https://docs.raku.org/routine/defined) method.  But in some cases it makes more sense in Raku the return opposite with the `defined` method.
+The [`DEFINITE`](https://docs.raku.org/syntax/DEFINITE) method returns either `True` or `False` depending on whether the invocant has a concrete representation.  This is *almost always* the same as calling the [`defined`](https://docs.raku.org/routine/defined) method.  But in some cases it makes more sense in Raku to return the opposite with the `defined` method.
 
 An example of this is the `Failure` class:
 ```raku
@@ -133,7 +133,7 @@ say Failure.new.defined;   # False
 ```
 In general the `defined` method should be used.  The `DEFINITE` method is intended to be used in very low-level (core) code.  It's not all uppercase for nothing!
 
-> The reason `Failure`.defined always returns `False` is to make it compatible with [`with`](https://docs.raku.org/syntax/with%20orwith%20without).
+> The reason `Failure.new.defined` always returns `False` is to make it compatible with [`with`](https://docs.raku.org/syntax/with%20orwith%20without).
 
 ## Macroish
 
