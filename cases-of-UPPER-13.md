@@ -4,7 +4,7 @@
 
 This part will discuss the various introspection methods that you can use on objects in the [Raku Programming Language](https://raku.org).  Note that in some documentation these methods are also referred to as [Metamethods](https://docs.raku.org/language/mop#Metamethods).
 
-## Turtles all the way down
+## Turtles All The Way Down
 
 In Raku everything is an object, or can be thought of as an object.  An object is an instantiation of a class (usually made by calling the `new` method on it).  A class is represented by a so-called ["type object"](https://docs.raku.org/language/objects#Type_objects).  Such a type object in turn is an instantation of a so-called [meta class](https://docs.raku.org/language/mop).  And these meta classes are themselves built out of more primitive representations.
 
