@@ -6,7 +6,7 @@ This part will discuss the various introspection methods that you can use on obj
 
 ## Turtles all the way down
 
-In Raku everything is an object, or can be thought of as an object.  An object is an instantiation of a class.  A class is represented by a so-called ["type object"](https://docs.raku.org/language/objects#Type_objects).  Such a type object in turn is an instantation of a so-called [meta class](https://docs.raku.org/language/mop).  And these meta classes are themselves built out of more primitive representations.
+In Raku everything is an object, or can be thought of as an object.  An object is an instantiation of a class (usually made by calling the `new` method on it).  A class is represented by a so-called ["type object"](https://docs.raku.org/language/objects#Type_objects).  Such a type object in turn is an instantation of a so-called [meta class](https://docs.raku.org/language/mop).  And these meta classes are themselves built out of more primitive representations.
 
 > Going this deep would most definitely be out of scope for these blog posts.  But yours truly does intend to go there at some point in the future.
 
@@ -27,9 +27,9 @@ say 42.HOW.name(42);        # Int
 say "foo".HOW.name("foo");  # Str
 say now.HOW.name(now);      # Instant
 ```
-Note that the invocant of the `HOW` method needs to be repeated in the introspection method's call as the first argument.  Why?  Well, this is really to be possibly compatible with future versions of Raku.
+Note that the invocant of the `HOW` method needs to be repeated in the introspection method's call as the first argument.  Why?  Well, this is really to be *possibly* compatible with *future* versions of Raku.
 
-Since one is usually only interested in the introspection aspect of `HOW`, a shortcut method invocation was created that allows one directly call the introspection method **without** needing to repeat oneself: [`.^`](https://docs.raku.org/language/operators#methodop_%2E^):
+Since one is usually only interested in the introspection aspect of `HOW`, a shortcut method invocation was created that allows one to directly call the introspection method **without** needing to repeat oneself: [`.^`](https://docs.raku.org/language/operators#methodop_%2E^):
 ```raku
 say 42.^name;     # Int
 say "foo".^name;  # Str
@@ -50,7 +50,7 @@ say 42.HOW.^name;  # Perl6::Metamodel::ClassHOW
 
 The [`WHERE`](https://docs.raku.org/routine/WHERE) method returns the memory address of the invocant.  It is of limited use in the Rakudo implementation as the memory location of an object is **not** guaranteed to be constant.  As such, it is intended for (core) debugging only.
 ```raku
-say 42.WHERE;  # 2912024602280
+say 42.WHERE;  # 2912024602280 (or some other number)
 ```
 
 ## VAR
@@ -88,7 +88,7 @@ Of course, you would know them more by their complete names such as `IO::ArgFile
 say IO.WHO<Handle>;  # (Handle)
 say IO::Handle;      # (Handle)
 ```
-And that goes even further: `package::` is just short for `package.WHO`:
+And that goes even further: `foo::` is just short for `foo.WHO`:
 ```raku
 say IO::.keys.sort;  # (ArgFiles CatHandle Handle Notification Path Pipe Socket Spec Special)
 ```
@@ -105,17 +105,22 @@ say $A::foo;      # 42
 
 ## REPR
 
-The [`REPR`](https://docs.raku.org/language/traits#is_repr_and_native_representations%2E) method returns the *name* of the memory representation of the class of the invocant.  For most of the objects this is "P6opaque".  The [`NativeCall`](https://docs.raku.org/language/nativecall) module provides a number or alternate memory representations, such as [`CStruct`](https://docs.raku.org/language/nativecall#Structs), [`CPointer`](https://docs.raku.org/language/nativecall#Basic_use_of_pointers) and [`Cunion`](https://docs.raku.org/language/nativecall#CUnions).  Native arrays also have a different representation (`VMArray`).
+The [`REPR`](https://docs.raku.org/language/traits#is_repr_and_native_representations%2E) method returns the *name* of the memory representation of the class of the invocant.  For most of the objects this is "P6opaque".
+
+> This is basically the representation used by `class` and its attribute specifications.
+
+The [`NativeCall`](https://docs.raku.org/language/nativecall) module provides a number or alternate memory representations, such as [`CStruct`](https://docs.raku.org/language/nativecall#Structs), [`CPointer`](https://docs.raku.org/language/nativecall#Basic_use_of_pointers) and [`Cunion`](https://docs.raku.org/language/nativecall#CUnions).  Native arrays also have a different representation (`VMArray`).
 ```raku
 say 42.REPR;  # P6opaque
 my int @a;
 say @a.REPR;  # VMArray
 ```
-When a class is defined, it gets the `P6opaque` representation by default:
+When a class is defined, it gets the `P6opaque` representation by default.
 ```
 class Foo { }
 say Foo.REPR;  # P6opaque
 ```
+> Unless one is doing very deep core-ish work, how an object is represented in memory should not be of concern to you.
 
 ## DEFINITE
 
@@ -127,6 +132,8 @@ say Failure.new.DEFINITE;  # True
 say Failure.new.defined;   # False
 ```
 In general the `defined` method should be used.  The `DEFINITE` method is intended to be used in very low-level (core) code.  It's not all uppercase for nothing!
+
+> The reason `Failure`.defined always returns `False` is to make it compatible with [`with`](https://docs.raku.org/syntax/with%20orwith%20without).
 
 ## Macroish
 
