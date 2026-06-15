@@ -16,7 +16,7 @@ The first hurdle was that the Articles Of Association were wrought in English.  
 
 ### Finding board members
 
-The second hurdle was finding board members.  I wanted to make sure that the initial Executive Board members would have a (long) experience with the Raku Programming Language, and where geographically / culturally and age as diverse as possible.  I was very glad to be able to find *Patrick Böker* (Germany, patrickb), *Bruce Gray* (USA, Util), *Richard Hainsworth* (UK, finanalyst) and *Tadeusz Sośnierz* (Poland, tadzik) willing to stick out their necks to become officially registered board members of the Raku Foundation.  They all have many years of supporting what is now the Raku Programming Language under their belt!
+The second hurdle was finding board members.  I wanted to make sure that the initial Executive Board members would have a (long) experience with the Raku Programming Language, and where geographically / culturally and age as diverse as possible.  Apart from yours truly obviously, I was very glad to be able to find *Patrick Böker* (Germany, patrickb), *Bruce Gray* (USA, Util), *Richard Hainsworth* (UK, finanalyst) and *Tadeusz Sośnierz* (Poland, tadzik) willing to stick out their necks to become officially registered board members of the Raku Foundation.  They all have many years of supporting what is now the Raku Programming Language under their belt!
 
 > Yes, I would have loved to see an even more diverse board.  This is definitely a goal the Raku Foundation will pursue!
 
@@ -24,7 +24,7 @@ The second hurdle was finding board members.  I wanted to make sure that the ini
 
 The third hurdle was finding a notary.  A notary willing to notarize the founding of a "stichting" (Dutch word for "foundation") of which 4 of the 5 prospective board members were **not** able to attend any official notarizing meeting in person.  Cheap online notaries only offered standard services: our Articles of Association were definitely **not** standard.
 
-Then it turns out that Dutch notaries are *very* busy and are effectively able to pick the kind of easy / profitable work they want.  Of the 8 notaries I contacted, only 6 actually replied within a day: and they both declined.  Chasing after the initial email contact by phone, I found [Noto Notarissen](https://noto-notarissen.nl/en/) in Maastricht willing to take on our request: first possible in person meeting was 3 weeks after that.
+Then it turns out that Dutch notaries are *very* busy and are effectively able to pick the kind of easy / profitable work they want.  Of the 8 notaries I contacted, only 2 actually replied within a day: and they both declined.  Chasing after the initial email contact by phone, I found [Noto Notarissen](https://noto-notarissen.nl/en/) in Maastricht willing to take on our request: first possible in person meeting was 3 weeks after that.
 
 ### Plan meeting Reality
 
@@ -34,7 +34,7 @@ In short: Dutch law (influenced by the Code Civil) is very strict on what the Ar
 
 Which basicaly meant that we were trying to put a round peg into a square hole.  So it was really like "Notary says no!".
 
-The notary was willing to provide a version of the Articles of Association that they would find acceptable, based on the Articles of Association that we provided.  This took another few weeks of back-and-forth in Dutch, which was followed up by discussions of the translation between the prospective board members in English.  In the end an agreement was reached, which you can now read as the official [Artcles of Association](https://raku.foundation/ArticlesOfAssociation) ([Statuten]](https://raku.foundation/Statuten) - Dutch version) - Dutch version).
+The notary was willing to provide a version of the Articles of Association that they would find acceptable, based on the Articles of Association that we provided.  This took another few weeks of back-and-forth in Dutch, which was followed up by discussions of the translation between the prospective board members in English.  In the end an agreement was reached, which you can now read as the official [Artcles of Association](https://raku.foundation/ArticlesOfAssociation) ([Statuten](https://raku.foundation/Statuten) - Dutch version).
 
 ### Getting Notarization
 
