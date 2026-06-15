@@ -16,13 +16,15 @@ The first hurdle was that the Articles Of Association were wrought in English.  
 
 ### Finding board members
 
-The second hurdle was finding board members.  I wanted to make sure that the initial Executive Board members would have a (long) experience with the Raku Programming Language, and where geographically / culturally as diverse as possible.  I was very glad to be able to find *Patrick Böker* (Germany, patrickb), *Bruce Gray* (USA, Util), *Richard Hainsworth* (UK, finanalyst) and *Tadeusz Sośnierz* (Poland, tadzik) willing to stick out their necks to become officially registered board members of the Raku Foundation.  They all have many years of supporting what is now the Raku Programming Language under their belt!
+The second hurdle was finding board members.  I wanted to make sure that the initial Executive Board members would have a (long) experience with the Raku Programming Language, and where geographically / culturally and age as diverse as possible.  I was very glad to be able to find *Patrick Böker* (Germany, patrickb), *Bruce Gray* (USA, Util), *Richard Hainsworth* (UK, finanalyst) and *Tadeusz Sośnierz* (Poland, tadzik) willing to stick out their necks to become officially registered board members of the Raku Foundation.  They all have many years of supporting what is now the Raku Programming Language under their belt!
+
+> Yes, I would have loved to see an even more diverse board.  This is definitely a goal the Raku Foundation will pursue!
 
 ### Finding a notary
 
 The third hurdle was finding a notary.  A notary willing to notarize the founding of a "stichting" (Dutch word for "foundation") of which 4 of the 5 prospective board members were **not** able to attend any official notarizing meeting in person.  Cheap online notaries only offered standard services: our Articles of Association were definitely **not** standard.
 
-Then it turns out that Dutch notaries are *very* busy and are effectively able to pick the kind of easy / profitable work they want.  Of the 8 notaries I contacted, only 6 actually replied within a day: and they both declined.  Chasing after the initial email contact by phone, I found NOTO Notarissen in Maastricht willing to take on our request: first possible in person meeting was 3 weeks after that.
+Then it turns out that Dutch notaries are *very* busy and are effectively able to pick the kind of easy / profitable work they want.  Of the 8 notaries I contacted, only 6 actually replied within a day: and they both declined.  Chasing after the initial email contact by phone, I found [Noto Notarissen](https://noto-notarissen.nl/en/) in Maastricht willing to take on our request: first possible in person meeting was 3 weeks after that.
 
 ### Plan meeting Reality
 
@@ -32,15 +34,15 @@ In short: Dutch law (influenced by the Code Civil) is very strict on what the Ar
 
 Which basicaly meant that we were trying to put a round peg into a square hole.  So it was really like "Notary says no!".
 
-The notary was willing to provide a version of the Articles of Association that they would find acceptable, based on the Articles of Association that we provided.  This took another few weeks of back-and-forth in Dutch, which was followed up by discussions of the translation between the prospective board members in English.  In the end an agreement was reached, which you can now read as the official [Artcles of Association](https://raku.foundation/ArticlesOfAssociation) ([Statuten (Dutch version)](https://raku.foundation/Statuten).
+The notary was willing to provide a version of the Articles of Association that they would find acceptable, based on the Articles of Association that we provided.  This took another few weeks of back-and-forth in Dutch, which was followed up by discussions of the translation between the prospective board members in English.  In the end an agreement was reached, which you can now read as the official [Artcles of Association](https://raku.foundation/ArticlesOfAssociation) ([Statuten]](https://raku.foundation/Statuten) - Dutch version) - Dutch version).
 
 ### Getting Notarization
 
-Normally if a notary notarizes a deed, all the people affected by the deed are available in person.  This was not really an option for us: it would be pretty expensive (both as an intrusion of personal life, as well as financially) to get all board members in one place at one time for a ceremony that would take half an hour max.
+Normally if a notary notarizes a deed, all the people affected by the deed are present in person.  This was not really an option for us: it would be pretty expensive (both as an intrusion of personal life, as well as financially) to get all board members in one place at one time for a ceremony that would take half an hour max.
 
 The alternative was that each prospective board member would need to find a local notary (acceptable by our notary) and have them create an affidavit of the willingness of the person to be a board member.  This would mean a financial burden on the prospective board members, and a big hassle.
 
-So the notary suggested to just start the foundation with yours truly as the only board member, and then register the other board members with the CoC as you normally would when board members are added (or removed).  This appeared as an acceptable alternative to the prospective board, as it would mean being able to actually start with the foundation sooner rather than later.
+So the notary suggested to just start the foundation with yours truly as the only board member, and then register the other board members with the Chamber of Commerce (CoC) as you normally would when board members are added (or removed).  This appeared as an acceptable alternative to the prospective board, as it would mean being able to actually start with the foundation sooner rather than later.
 
 On April 30th the ceremony happened, where the notary basically read the Articles of Association back to me (which I had been working on for quite some time already) making sure I knew what I was getting into.  And the CoC confirmed the notarization on May 1st.
 
@@ -52,7 +54,7 @@ Alas, opening a bank account with Rabobank for a foundation with a single board 
 
 ### Getting board members registered
 
-Since I already had procured all of the prospective board members personal info, and the Dutch Chamber of Commerce (CoC) has a pretty nice interactive website, it looked like it would be a piece of cake getting the board members registered.
+Since I already had procured all of the prospective board members personal info, and the CoC has a pretty nice interactive website, it looked like it would be a piece of cake getting the board members registered.
 
 Well, it would have been if the board members had been Dutch citizens and/or living in the Netherlands.
 
@@ -68,13 +70,13 @@ A scan of a signature was not acceptable.  This meant that board members had to 
 
 #### Official current proof of address
 
-The proof of address must be from on official source, in Dutch, English, French or German, and less than a month old.  A bank statement didn't cut it.  The Dutch CoC apparently assumes that the rest of the world is as well organized and registered as the Netherlands.  Which isn't the case.
+The proof of address must be from an official source, in Dutch, English, French or German, and less than a month old.  A bank statement didn't cut it.  The Dutch CoC apparently assumes that the rest of the world is as well organized and registered as the Netherlands.  Which isn't the case.
 
 Germany proved to be easiest.  The UK apparently doesn't have a governmental agency that keeps addresses: they do keep births and deaths, but not addresses.  Fortunately, an election had just been in Wales, so it turned out that the invitation to vote was acceptable as a recent proof of address.
 
 That means that *Patrick* and *Richard* are now officially registered.
 
-For *Bruce* obtaining an acceptable proof of address was also difficult, but hopefully that's been sorted now (still being processed by CoC).  For *Tadeusz* getting a non-Polish proof of address was also not simple.  But that paperwork is now underway to me.
+For *Bruce* obtaining an acceptable proof of address was also difficult, but hopefully that's been sorted now (still being processed by CoC).  For *Tadeusz* getting a non-Polish official proof of address was also not simple.  But that paperwork is now underway to me (because that paper also has to be wet-signed by me before it gets processed).
 
 ### The Rabobank had some notes
 
@@ -96,17 +98,19 @@ So it appears we have a chicken-and-egg situation.  Fortunately, the CBF has sen
 
 ### Setting up a website
 
-And then we needed a web-site.  *Steve Roe* (the maker of the new [raku.org](https://raku.org) website was willing to set up a framework for that.  The board has taken him up on this offer, and yours truly was able to build on that quite easily, for instance by adding the [2026 Policy Plan](https://raku.foundation/PolicyPlan2026).  And the most fun part: the whole website (from my point of view) is all just Raku code!
+And then we needed a web-site.  *Steve Roe* (the maker of the new [raku.org](https://raku.org) website) was willing to set up a framework for that.  The board has taken him up on this offer, and yours truly was able to build on that quite easily, for instance by adding the [2026 Policy Plan](https://raku.foundation/PolicyPlan2026).  And the most fun part: the whole website (from my point of view) is all just Raku code!
 
-And in the current geopolitical climate, it felt inappropriate to store information pertaining to the foundation on a non-European site.  Therefore we chose [Codeberg](https://codeberg.org/RakuFoundation) as the place for our publicly available information.
+And the Raku Infra Team++ was able to quickly set up the website!
+
+In the current geopolitical climate it felt inappropriate to store information pertaining to the foundation on a non-European site.  Therefore we chose [Codeberg](https://codeberg.org/RakuFoundation) as the place for our publicly available information.
 
 ## Conclusion
 
-We're live!
+We're live!  *Phew!*
 
 The coming weeks will see statements about interaction with current bodies (specifically [TPRF](https://perlfoundation.org) (The Perl And Raku Foundation), and the [RSC](https://github.com/Raku-Steering-Council/Papers) (Raku Steering Council).
 
-And we want to know about you!  Historically, what is now the Raku Community has been a very loosley knit world-wide group of people interested in the Raku Programming Language.  We want to get a better view of the size of that community, and the needs of Raku Community members.
+We want to know about you!  Historically, what is now the Raku Community has been a very loosley knit world-wide group of people interested in what now is the Raku Programming Language.  We want to get a better view of the size of that community, and the needs of Raku Community members.
 
 So please, make yourself known to us by entering your name and email address (and nick, if you will) on the [Welcome page](https://raku.foundation).  This data will be handled according to the GDPR (an official statement by the Foundation on that will be added soon).
 
